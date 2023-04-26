@@ -190,22 +190,22 @@ async function checkout() {
 
     res = await API.POST.checkout(senddata)
 
+    let pedido, resPSE;
     if(res.data && res.data[0]) {
         pedido = res.data[0]
         resPSE = res.data[1]
     }
-
-    if(!res.data.success) {
-        if(res.message) showOrderError(res.message, $("<div></div>"))
-    } else {
-
+    console.log(res, pedido, resPSE)
+    if(pedido && pedido.numeroPedido) {
+       
         resetCart()
         if(store.payment == "PSE") {
             return parent.location = resPSE.urlPayment
         } else {
-            alert("redirjo a pedidos")
-            //return parent.location = `${ABS_URL}/perfil/pedidos`
+            return parent.location = `pedido-success.html`
         }
+    } else {
+        if(res.message) showOrderError(res.message, $("<div></div>"))
     }
     command($button_order, false)
 
