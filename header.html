@@ -1,0 +1,49 @@
+<div id="header" class="max-width">
+    
+    <div style="width:230px">
+        <a href="index.html" >
+            <img src="assets/logo.png" alt="" style="width: 100%;"/>
+        </a>
+    </div>
+
+    <div class="autocomplete" class="f1">
+        <div class="search-cont">
+            <div class="f1"><input id="txt-search" class="txt-search" placeholder="busca aquí todo lo que necesites..." autocomplete="off" /></div>
+            <button class="btn-search"><i class="fa fa-search"></i></button>
+        </div>
+    </div>
+
+    <div class="main-menu-item dropdown" data-id="ubicacion" style="border-left: 1px solid #eee;" onclick="showModal(true, 'ubicacion')">
+        <i class="fas fa-map-marker-alt"></i>
+        <span id="lbl-ciudad" style="text-transform: capitalize;">ubicación...</span> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown-content">
+            <div class="separator"></div>
+            <div class="content" style="padding:0"></div>
+        </div>
+    </div>
+
+    <div class="main-menu-item dropdown" data-id="login" onclick="showModal(true, (store.user.logged ? 'user-modal' : 'signin'))">
+        <i class="fas fa-user"></i>
+        <span id="lbl-nombre">Iniciar Sesión</span> <i class="fas fa-chevron-down"></i>
+        <div class="dropdown-content">
+            <div class="separator"></div><div class="content" style="padding:0"></div>
+        </div>
+    </div>
+
+
+    <div class="main-menu-item relative" onclick="showCart(true)" data-id="cart" >
+        <i class="fas fa-shopping-cart"></i>
+        <span>Items</span>
+        <div id="cart-badge">0</div>
+    </div>
+
+</div>
+
+<div id="back-categories">
+    <div id="categories" class="max-width"></div>
+</div>
+
+<script>
+    $('#txt-search').on("keyup", e => {if(e.code == "Enter" || e.code == "NumpadEnter") {search(e.currentTarget.value)}})
+    $(".btn-search").on("click", e => search($('#txt-search').val()))
+</script>

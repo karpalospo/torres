@@ -1,0 +1,185 @@
+<div id="overlay" class="overlay"></div>
+<div id="overlay2" class="overlay" style="z-index:97"></div>
+
+<div id="float-cont">
+
+    <div id="signin" class="float-window" style="max-width: 450px; min-width: 310px;">
+        <div class="float-header">
+            <div class="title">INICIAR SESIÓN</div>
+            <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
+        </div>
+        <div class="float-content" style="padding: 0 20px;">
+            <h3>Correo Electrónico</h3>
+            <input class="input xl" id="frm-usuario" type="email" name="email" />
+            <h3>Contraseña</h3>
+            <input class="input xl" id="frm-password" type="password" onkeyup="if(event.code == 'Enter') login()" name="password" />
+            <div class="frm-error"></div>
+            <div class="tx-center"><button class="page-button-flat3" onclick="showModal(true, $('#olvide-paso1'))">OLVIDÉ MI CONTRASEÑA</button></div>
+            <p class="tx-center"><button id="btn-login" class="page-button" onclick="login()">INICIAR SESIÓN</button></p>
+            <div class="tx-center">
+                <p style="font-size: 0.8em;">¿Aún no tienes una cuenta?</p>
+                <button class="page-button-flat2" onclick="parent.location = 'registro.html'">CREAR CUENTA</button>
+            </div>
+            <br>
+        </div>
+    </div>
+
+    <div id="user-modal" class="float-window" style="max-width: 450px; min-width: 310px;">
+        <div class="float-header">
+            <div class="title">Mi Perfíl</div>
+            <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
+        </div>
+        <div class="float-content" style="padding: 0 20px;">
+            <ul>
+                <li><a href="#">Datos Personales</a></li>
+                <li><a href="#">Mis Pedidos</a></li>
+                <li><a href="#">Mis Puntos</a></li>
+                <li><a href="#">Mis Direcciones</a></li>
+            </ul>
+            <div class="tx-center">
+                <button class="page-button-flat2" onclick="pLog('logout')">CERRAR SESIÓN</button>
+            </div>
+            <br>
+        </div>
+    </div>
+
+
+    <div id="ubicacion" class="float-window">
+        <div class="float-header">
+            <div class="title"><i class="fas fa-map-marker-alt"></i> &nbsp; UBICACIÓN</div>
+        </div>
+        <div class="float-content" style="padding: 0 20px;">
+            <h3>¿Seleccione la ciudad para el envío?</h3>
+            <div class="selectdiv"><select id="ciudades-list"></select></div>
+            <br><br>
+        </div>
+        <div class="float-footer">
+            <div><button id="btn-ciudad" onclick="pLog('location', {id: $('#ciudades-list').val()})" class="page-button">ACEPTAR</button></div>
+        </div>
+    </div>
+
+    <div id="popup-message" class="float-window">
+        <div class="float-header">
+            <div class="title"></div>
+            <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
+        </div>
+        <div class="float-content"></div>
+        <div class="float-footer">
+            <div><button class="page-button" onclick="showModal(false)">ACEPTAR</button></div>
+        </div>
+    </div>
+
+    <div id="popup" style="padding: 2px;" class="float-window"></div>
+    
+    <div id="categorias-list" class="float-window">
+        <div class="float-header">
+            <div class="title">CATEGORÍAS</div>
+            <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
+        </div>
+        <div class="float-content accordion elastic"></div>
+    </div>
+
+
+    <div id="address" class="float-window">
+        <div class="float-header">
+            <div class="title">AGREGAR DIRECCIÓN</div>
+            <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
+        </div>
+        <div class="float-content" style="padding: 20px;">
+    
+            <form id="frm-direccion">
+                <div>
+                    <h3>Nombre de la dirección</h3>
+                    <input id="frm-observacion" name="name_alias" placeholder="Casa, Oficina, Novi@, etc" type="text" class="input xl" oninput="renderCurrentAddress()">
+                </div>
+                <div>
+                    <h3>Ciudad</h3>
+                    <div class="selectdiv">
+                        <select id="frm-ciudad" name="name_ciudad" placeholder="Seleccion Ciudad" class="select"></select>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+                <div>
+                    <h3>Vía Principal</h3>
+                    <div class="row">
+                        <div class="selectdiv f1">
+                            <select name="name_route" class="select" onchange="renderCurrentAddress()">
+                                <option value="Carrera" selected="selected">Carrera</option>
+                                <option value="Calle">Calle</option>
+                                <option value="Diagonal">Diagonal</option>
+                                <option value="Manzana">Manzana</option>
+                                <option value="Autopista">Autopista</option>
+                                <option value="Avenida">Avenida</option>
+                                <option value="Avenida Calle">Avenida Calle</option>
+                                <option value="Avenida Carrera">Avenida Carrera</option>
+                                <option value="Circular">Circular</option>
+                                <option value="Transversal">Transversal</option>
+                                <option value="Vía">Vía</option>
+                            </select>
+                            <div style="clear: both;"></div>
+                        </div>
+                        <h3> &nbsp; </h3>
+                        <input type="text" class="input" name="name_main_route" oninput="renderCurrentAddress()" style="max-width: 60px;"/>
+                    </div>
+                </div>
+        
+                <div class="row r-c">
+                    <div><h3> &nbsp; </h3><h3> # &nbsp;</h3></div>
+                    <div><h3> &nbsp; </h3><input type="text" class="input" name="name_second_route" oninput="renderCurrentAddress()" style="max-width: 60px;"/></div>
+                    <div><h3> &nbsp; </h3><h3> - </h3></div>
+                    <div><h3> &nbsp; </h3><input type="text" class="input" name="name_third_route" oninput="renderCurrentAddress()" style="max-width: 60px;"/></div>
+                    <h3> &nbsp; </h3>
+                    <div><h3> Apto 201 ó Casa 4... </h3><input type="text" class="input" name="name_third_route3" oninput="renderCurrentAddress()"/></div>
+                </div>
+        
+                <div>
+                    <h3>Barrio</h3>
+                    <input type="text" class="input xl" name="name_neighborhood" oninput="renderCurrentAddress()"/>
+                </div>
+            </form>
+            <br>
+            <div><h3>Esta es la dirección que usted va a agregar:</h3><b id="direccion-preview"></b></div>
+            
+        </div>
+        <div class="float-footer">
+            <div><button onclick="saveAddress()" class="page-button">GUARDAR</button></div>
+        </div>
+        
+    </div>
+
+
+
+</div>
+
+<div id="cart-cont">
+    <div id="cart">
+        <div class="row" style="padding: 10px;">
+            <div style="width:50px">
+                <i class="fas fa-shopping-cart" style="font-size: 1.4em;color: #222;padding-left: 10px;"></i>
+            </div>
+            <h2 style="color: #333;font-size: 1.4em;padding-left: 15px;">Carrito de Compras</h2>
+            <div style="width:40px">
+                <button class="page-button-flat" onclick="showCart(false)" style="
+                    padding: 6px 10px;
+                    color: white;
+                    border: none;
+                    border-radius: 35px;
+                    background: #222;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div id="cart-list" class="cart-list"></div>
+        <div class="cart-section" style="padding: 0;">
+            <div id="cart-error" class="frm-error" style="display:none"></div>
+        </div>
+        <div class="cart-section">
+            <div>Domicilio: <span id="lbl-domicilio"></span></div>
+            <div>Total Carrito: <span id="lbl-total"></span></div>
+        </div>
+        <div class="cart-section" style="justify-content: flex-start">
+            <button onclick="shopNow($(this))" class="page-button" style="background-color: #fa7800;">COMPRAR AHORA</button>
+        </div>
+        <div style="height: 10px;"></div>
+    </div>
+</div>
