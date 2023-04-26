@@ -188,17 +188,8 @@ async function checkout() {
         productos:productos
     }
 
-
-
-
-
-    console.log(senddata)
-    
     res = await API.POST.checkout(senddata)
 
-    console.log(res)
-
-    return 
     if(res.data && res.data[0]) {
         pedido = res.data[0]
         resPSE = res.data[1]
@@ -212,79 +203,13 @@ async function checkout() {
         if(store.payment == "PSE") {
             return parent.location = resPSE.urlPayment
         } else {
-            console.log("redirjo a pedidos")
+            alert("redirjo a pedidos")
             //return parent.location = `${ABS_URL}/perfil/pedidos`
         }
     }
     command($button_order, false)
 
 
-    //console.log(d)
-    let pedido = {numeroPedido: 0}
-    let ret = {},
-        n = d.k.nombres.split(" "),
-        total = parseInt(d.h) + parseInt(d.s)
-    ;
-
-    let beforeTime = moment('05:30:00', 'hh:mm:ss'),
-        afterTime = moment('17:30:00', 'hh:mm:ss'),
-        message = "El horario de entrega de pedidos para el día de hoy es de 7:30 am a 7:30 pm"
-        //afterTime = moment('18:30:00', 'hh:mm:ss'),
-        //message = "El horario de entrega de pedidos para el día de hoy es de 7:30 am a 8:30 pm"
-    ;
-
-    if(day == 0) {
-        beforeTime = moment('05:30:00', 'hh:mm:ss')
-        afterTime = moment('16:00:00', 'hh:mm:ss')
-        message = "El horario de entrega de pedidos para el día de hoy es de 7:30 am a 6:00 pm"
-    }
-    if(d.f == "08001" || d.f == "13001" || d.f == "20001" || d.f == "76001") {
-        beforeTime = moment('00:00:00', 'hh:mm:ss')
-        afterTime = moment('23:59:59', 'hh:mm:ss')
-        message = "El horario de entrega de pedidos para el día de hoy es de 12:00 am a 12:59 pm"
-    }
-
-
-
-    if (moment().isBetween(beforeTime, afterTime)) {
-
-    } else {
-
-        return {success: false, codeError: 10, message: "El horario de entrega de pedidos para el día de hoy es de 7:30 am a 8:30 pm"}
-
-    }
-
-
-
-
-    
-    const res2 = await register("set_order", {
-        user_id: d.k.nit,
-        status: d.a == "PSE" ? 10 : 1,
-        amount: total,
-        data: JSON.stringify(d),
-        result: res.error ? "ERROR" : "OK",
-        location: d.f,
-        pedido_id: pedido.numeroPedido,
-        result_data: JSON.stringify(pedido),
-        observation: res.message
-    })
-    //console.log(res2)
-
-    if(res.error) return {success: false, codeError: 1, message: "Hubo un error al grabar el pedido"}
-    else {
-
-        //if(!res.data) return {success: false, codeError: 2, message: "Hubo un error al grabar el pedido"}
-
-        if(d.l && d.l.NombreCupon) updateCupon(d.k.nit, d.l.NombreCupon)
-
-        ret.success = true
-        ret.order = pedido.numeroPedido
-        ret.phone = pedido.telefonoTraza
-        ret.city = pedido.DescripcionCiudad
-        ret.hash = "88AIJD9SDMNCNC89S903JS0"
-
-    }
   
 
     
