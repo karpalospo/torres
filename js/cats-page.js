@@ -123,10 +123,6 @@ function renderLeftCategorias($target, cat_id, sub_id) {
     initAccordeon($target, true)
     initAccordeon($target.find(".accordion2"), true)
 
-    if($target.find(".accordion2 .title.open").length)
-        $("#left-cont-float-items").scrollTo($target.find(".accordion2 .title.open").position().top - 50, 200)
-
-    
 }
 
 function renderMarcas($target, marcas) {

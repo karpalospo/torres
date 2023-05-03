@@ -157,7 +157,7 @@
             <div style="width:50px">
                 <i class="fas fa-shopping-cart" style="font-size: 1.4em;color: #222;padding-left: 10px;"></i>
             </div>
-            <h2 style="color: #333;font-size: 1.4em;padding-left: 15px;">Carrito de Compras</h2>
+            <div class="h4">Carrito de Compras</div>
             <div style="width:40px">
                 <button class="page-button-flat" onclick="showCart(false)" style="
                     padding: 6px 10px;
@@ -174,11 +174,8 @@
             <div id="cart-error" class="frm-error" style="display:none"></div>
         </div>
         <div class="cart-section">
-            <div>Domicilio: <span id="lbl-domicilio"></span></div>
-            <div>Total Carrito: <span id="lbl-total"></span></div>
-        </div>
-        <div class="cart-section" style="justify-content: flex-start">
             <button onclick="shopNow($(this))" class="page-button" style="background-color: #fa7800;">COMPRAR AHORA</button>
+            <div>A Pagar: <span id="lbl-total"></span></div>
         </div>
         <div style="height: 10px;"></div>
     </div>

@@ -52,7 +52,14 @@ async function search_product(id) {
     cargarFoto(currentProductDetail)
     $("#basic-info").html(renderProductItem(currentProductDetail, currentProductDetail.stock ? "detail" : "no-detail")) 
     $("#add-info").html(renderExtrainfo(currentProductDetail))
-    
+
+    // render crumb
+
+    // <div><a href="https://www.droguerialaeconomia.com" title="Inicio"><i class="fas fa-home"></i> &nbsp; Home</a></div>
+    // <div class="separator"><i class="fas fa-chevron-right"></i></div>
+    // <div><a href="https://www.droguerialaeconomia.com/categoria/gripa-tos" title="Gripa, tos">Gripa, tos</a></div>
+    // <div class="separator"><i class="fas fa-chevron-right"></i></div>
+    // <div><a href="https://www.droguerialaeconomia.com/categoria/gripa-tos/malestar-gripa" title="Malestar gripa">Malestar gripa</a></div>
 
     calculateCart()
 

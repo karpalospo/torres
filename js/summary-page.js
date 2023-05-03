@@ -4,160 +4,123 @@ store.page = "summary"
 let orders = {}
 
 function page_init() {
-
+    
+    renderCurrentOrders()
 }
 
 async function renderCurrentOrders() {
 
-    let ordersToRender = [], updateOrder = true, currentNumero
+    let ordersToRender = [], updateOrder = true, currentNumero;
+    let currentOrders = [], uniqueOrders = [];
 
-    if(store.user.currentOrders && store.user.nit) {
+    if(!pedidoID) return 
 
-        let currentOrders = [], uniqueOrders = [], id
+    uniqueOrders.push(pedidoID)
 
-        const res = await API.POST.lastOrders(store.user.nit)
-        
-        if(!res.error) {
+    await Promise.all(uniqueOrders.map(async (key) => {
 
-            res.data.forEach(item => {
-                id = parseInt(item.numerodomicilio)
-                if(!uniqueOrders.includes(id)) uniqueOrders.push(id)
-            })
+        let res2 = await API.POST.getPedido(key)
 
-            await Promise.all(uniqueOrders.map(async (key) => {
-
-                let res2 = await API.POST.getPedido(key)
-        
-                if(!res2.error && res2.data.length > 0) {
-                    currentOrders.push({id: res2.data[0].numero, status: res2.data[0].Estado, items:res2.data, payment: res2.data[0].tipoPago})
-                }
-            }));
-            ordersToRender = sortByKey(currentOrders.slice(0, 10), "id", "desc")
+        if(!res2.error && res2.data.length > 0) {
+            currentOrders.push({id: res2.data[0].numero, status: res2.data[0].Estado, items:res2.data, payment: res2.data[0].tipoPago})
         }
-
-        store.user.currentOrders.forEach(order => {
-            ordersToRender.unshift(order)
-        })
-        
-        ordersToRender.forEach(order => {
-            
-            if(!order.items || order.items.success == false) return
-
-            order.items.forEach(item => {
-                currentNumero = item.numero
-                if(!orders[item.numero]) orders[item.numero] = {
-                    numero: item.numero,
-                    direccion: item.direccion,
-                    fecha: item.fecha,
-                    telefono: item.telefonoTraza,
-                    formaPago: item.formaPago,
-                    estado: item.Estado,
-                    nombre: item.nombres,
-                    ciudad: item.descripcionCiudad,
-                    subtotal: item.total,
-                    descuento: item.ValorCupon + item.ValorBono,
-                    items: []
-                }
-                if(item.codigo == "999992") {
-                    orders[item.numero].domicilio = item.vlr_total
-                    orders[item.numero].subtotal -= item.vlr_total
-                } else {
-                    orders[item.numero].items.push(
-                        {
-                            id: item.codigo,
-                            cantidad: Math.ceil(item.cantidad / parseInt(item.idunidad)),
-                            nombre: item.descripcion,
-                            descuento: item.descuento,
-                            total: item.vlr_total,
-                            unitario: Math.ceil(item.vlr_unitario * item.cantidad)
-                        }
-                    )
-                }
-
-            })
-
-
-            renderSummary(orders[currentNumero])
-            
-            // reset values
-            store.couponOrder = {}
-            store.payment = store.address = store.bonus = undefined
-            store.cuponDiscount = store.bonusDiscount = 0
-            write_cache("coupon")
-
-            if(updateOrder) API.POST.setOrder(order.id, order.status == 1 ? 2 : 11)
+    }));
+    ordersToRender = sortByKey(currentOrders.slice(0, 10), "id", "desc")
     
+    
+    ordersToRender.forEach(order => {
+        
+        if(!order.items || order.items.success == false) return
+
+        order.items.forEach(item => {
+            currentNumero = item.numero
+            if(!orders[item.numero]) orders[item.numero] = {
+                numero: item.numero,
+                direccion: item.direccion,
+                fecha: item.fecha,
+                telefono: item.telefonoTraza,
+                formaPago: item.formaPago,
+                estado: item.Estado,
+                nombre: item.nombres,
+                ciudad: item.descripcionCiudad,
+                subtotal: item.total,
+                descuento: item.ValorCupon + item.ValorBono,
+                items: []
+            }
+            if(item.codigo == "999992") {
+                orders[item.numero].domicilio = item.vlr_total
+                orders[item.numero].subtotal -= item.vlr_total
+            } else {
+                orders[item.numero].items.push(
+                    {
+                        id: item.codigo,
+                        cantidad: Math.ceil(item.cantidad / parseInt(item.idunidad)),
+                        nombre: item.descripcion,
+                        descuento: item.descuento,
+                        total: item.vlr_total,
+                        unitario: Math.ceil(item.vlr_unitario * item.cantidad)
+                    }
+                )
+            }
+
         })
-    }
+
+
+        renderSummary(orders[currentNumero])
+        
+        // reset values
+        store.couponOrder = {}
+        store.payment = store.address = store.bonus = undefined
+        store.cuponDiscount = store.bonusDiscount = 0
+        write_cache("coupon")
+
+
+    })
+    
 }
 
 
 function renderSummary(d) {
 
     let fPagos = {
+        "" : "--",
         "11": "Efectivo",
         "73": "Datáfono",
         "53": "TCO",
         "23": "PSE"
     }
 
-    $("#confirmacion-cont").append(`
 
-${d.estado == "L" ? `<div class="resultado" style="background-color: rgb(128, 128, 128)">PEDIDO CON PAGO PENDIENTE</div>` : ``}
-${d.estado == "R" ? `<div class="resultado" style="background-color: rgb(190, 22, 22)">PAGO RECHAZADO</div>` : ``}
-${d.estado == "P" ? `<div class="resultado" style="background-color: rgb(22, 190, 22)">PEDIDO REGISTRADO CORRECTAMENTE</div>` : ``}
-${d.estado == "F" ? `<div class="resultado" style="background-color: rgb(22, 190, 22)">PEDIDO FACTURADO</div>` : ``}
-               
-<div class="cards-cont">
-<div class="card" style="line-height: 1.4em;">
-    <h3>DATOS DEL CLIENTE</h3>
-    <div class="label">Pedido N°</div>
-    <b class="rojo">${d.numero}</b>
-    <div class="label">Nombre</div>
-    <b>${d.nombre}</b>
-    <div class="label">Dirección</div>
-    <b>${d.direccion}</b>
-    <div class="label">Ciudad</div>
-    <b>${d.ciudad}</b>
-    <div class="label">Fecha y Hora</div>
-    <b>${new Date(d.fecha).toLocaleString('es-CO', {timeZone: 'Etc/GMT'})}</b>
-    <br>    
-</div>
+    //$("#calificacion-preguntas").data("pedido", d.numero)
 
-<div class="card" style="margin:0 15px">
-    <h3>ARTÍCULOS</h3>
-    <div class="cart-list">${renderItems(d.items)}</div>
-</div>
+    $("#items-list").html(renderItems(d.items))
 
-<div class="card">
-    <h3>RESUMEN FACTURA</h3>
+    $("#datos-cliente").html(/*html*/`
+<div style="padding:20px">
+
+    <h3 style="margin-top: 0; color: #222; text-align: center"><b>PEDIDO N° ${d.numero}</b></h3>
+
+    <div class="label">Fecha y Hora</div><b>${new Date(d.fecha).toLocaleString('es-CO', {timeZone: 'Etc/GMT'})}</b>
+    <div class="label">Nombre</div><b>${d.nombre}</b>
+    <div class="label">Dirección</div><b>${d.direccion}<br>${d.ciudad}</b>
+    <div class="dashed-line"></div>
     <table class="tables tx-right">
-        <tr><td>Subtotal</td><td>${f(d.subtotal + d.descuento)}</td></tr>
-        <tr><td>Cupones o Bonos</td><td style="color: #ff2f6c">${f(d.descuento * -1)}</td></tr>
-        <tr><td>Domicilio</td><td>${f(d.domicilio)}</td></tr>
-        <tr><td>Forma de Pago</td><td>${isNaN(d.formaPago) ? d.formaPago : fPagos[d.formaPago]}</td></tr>
-        <tr><td style="font-size:1.3em"><b>A PAGAR:</b></td><td style="font-size:1.3em"><b class="rojo">${f(d.subtotal + d.domicilio)}</b></td></tr>    
+        <tr><td>Subtotal</td><td><b>${f(d.subtotal + d.descuento)}</b></td></tr>
+        <tr><td>Cupones o Bonos</td><td style="color: #ff402c;">${f(d.descuento * -1)}</td></tr>
+        <tr><td>Domicilio</td><td><b>${f(d.domicilio)}</b></td></tr>
+        <tr><td>Forma de Pago</td><td><b>${isNaN(d.formaPago) ? d.formaPago : fPagos[d.formaPago]}</b></td></tr>
+        <tr><td style="font-size:1.3em">Total:</td><td style="font-size:1.3em"><b class="rojo">${f(d.subtotal + d.domicilio)}</b></td></tr>    
     </table>
-    <br><br>
-    <h3>MÁS INFORMACIÓN</h3>
+    <div class="dashed-line"></div>
+    <h3 style="margin-bottom: 0"><b>MÁS INFORMACIÓN</b></h3>
     <div id="masinfo">
-        <div class="label">Fijo</div>
-        <b>${d.telefono}</b>
-        <div class="label">Celular</div>
-        <b>315-7823477</b>
+        <div class="label">Fijo</div><b>${d.telefono}</b>
+        <div class="label">Celular</div><b>315-7823477</b>
     </div>
-</div>
-</div>
-<p style="text-align:center"><button class="page-button" onclick="rebuy('${d.numero}')">VOLVER A PEDIR</button></p>
-<br><br>`)
+    <br>
+    <p style="text-align:center"><button class="page-button" onclick="rebuy('${d.numero}')">REPETIR PEDIDO</button></p>
 
-    $("#calificacion-preguntas").data("pedido", d.numero)
-
-    animateCSS($(".resultado")[0], "flash")
-
-    // reset cart
-    if(d.estado != "R") resetCart()
-
+</div>`)
 
 }
 

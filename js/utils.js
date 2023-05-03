@@ -212,6 +212,10 @@ function setInputFilter(textbox, inputFilter, errMsg) {
 }
 
 
+function _(cond, vtrue, vfalse = "") {
+    if(cond) return vtrue
+    else return vfalse
+}
 
 function getPosition(string, subString, index) {
     return string.split(subString, index).join(subString).length;
@@ -241,4 +245,8 @@ function getParameterByName(name) {
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
     results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+function $$(str) {
+    return document.querySelectorAll(str)
 }

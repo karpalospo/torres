@@ -6,7 +6,7 @@ let filter = {categorias: [], subcategorias: [], marcas: [], precio: [], proveed
     currentHeader
 ;
 
-let orderStr = `
+let orderStr = /*html*/`
 <div class="row row-center">
 <div class="selectdiv" style="min-width: 170px;">
     <select id="sort" onchange="showProducts($resultado_list, store.collections['search'], null, {renderFilters: true, cache: true, sort:$(this).val()})">
@@ -148,7 +148,7 @@ function renderProducts($target, products, options = {}, ret) {
 
             if(ret.prod_rendered.length == 0) $("#no-resultado").show(0)
             else $("#no-resultado").hide(0)
-            $content.scrollTop(0)
+
             
         } else if(options.header) {
             currentHeader = options.header
@@ -211,7 +211,7 @@ function renderExtrainfo(item) {
 
 }
 
-function renderProductItem(item, type, lazy_img = false) {
+function renderProductItem(item, type) {
 
     let hasDiscount = false, 
         precioCondicion = false,
@@ -221,7 +221,7 @@ function renderProductItem(item, type, lazy_img = false) {
     switch(type) {
 
         case "loading":
-            return `
+            return /*html*/`
 <div class="product-item" style="pointer-events:none">
     <div class="item">
         <div class="image"></div>
@@ -239,21 +239,32 @@ function renderProductItem(item, type, lazy_img = false) {
                 hasDiscount = false
                 precioCondicion = true
             }
-            return `
 
+            return /*html*/`
 <div class="detalle-titulo">${item.nombre2}</div>
-${item.description ? `<div class="descripcion">${item.description}</div>` : ""}
+${_(item.description, `<div class="descripcion">${item.description}</div>`)}
 
 <div class="precio-cont">
     ${hasDiscount ? `<div class="descuento"><div class="label">${item.descuento}%</div></div>` : ""}
-    ${hasDiscount ? `<span class="antes">${f(item.antes)}</span>` : `<span class="antes"></span>`}
+    ${_(hasDiscount, `<span class="antes">${f(item.antes)}</span>`)}
     <span class="precio ${hasDiscount ? "rojo" : "" }">${f(item.precio)}</span>
+    ${_(precioCondicion, /*html*/`&nbsp; / <span class="pcondicion">${f(item.ahora)} <i class="fas fa-info-circle"></i></span>`)}
     <div style="display:inline-block">
-        ${cart ? `<div class="row row-center cantidad"><i class="fas ${cart._quanty == 1 ? "fa-trash-alt" : "fa-minus"}" onclick="productDetailClick(this)"></i><input type="text" value="${cart._quanty}" /><i class="fas fa-plus" onclick="productDetailClick(this)"></i></div>` : `<button class="add" onclick="productDetailClick(this)">AGREGAR</button>`}
+        ${cart ? /*html*/`
+        <div class="row row-center cantidad">
+            <i class="fas ${cart._quanty == 1 ? "fa-trash-alt" : "fa-minus"}" onclick="productDetailClick(this)"></i>
+            <input type="text" value="${cart._quanty}" />
+            <i class="fas fa-plus" onclick="productDetailClick(this)"></i>
+        </div>`
+        : /*html*/`<button class="add" onclick="productDetailClick(this)">AGREGAR</button>`}
     </div>
 </div>
-${precioCondicion ? `<span class="pcondicion">${f(item.ahora)} <i class="fas fa-info-circle"></i></span>` : ""}
-${precioCondicion ? `<div class="info-precio"><span class="rojo"><i class="fas fa-info-circle"></i> El precio <b>${f(item.ahora)}</b> aplica si el monto de la compra es superior a ${f(item.VlrMinimo)}</span></div>` : ""}
+
+${_(precioCondicion, /*html*/`
+    <div class="info-precio">
+        <span class="rojo"><i class="fas fa-info-circle"></i> El precio <b>${f(item.ahora)}</b> aplica si el monto de la compra es superior a ${f(item.VlrMinimo)}</span>
+    </div>
+`)}
 
 <div class="rating-cont">
     <div id="rating">
@@ -292,33 +303,36 @@ ${precioCondicion ? `<div class="info-precio"><span class="rojo"><i class="fas f
             hasDiscount = false
             precioCondicion = true
         }
-        return `
-    <div class="product-item" data-id="${item.id}">
+        return /*html*/`
+<div class="product-item" data-id="${item.id}">
     <div class="item">
-    ${hasDiscount ? `<div class="descuento"><div class="label">${item.descuento}% descuento</div></div>` : ""}
-    <div class="image"><img ${lazy_img ? `data-src=` : `src=`}"https://www.droguerialaeconomia.com/economia/site/img/${item.id}.png" alt="" /></div>
-    <div class="info">
-    <span class="titulo">${item.nombre}</span>
-    ${beneficio ? `<div class="promocion"><i class="fas fa-gift"></i>&nbsp; paga <b>3</b> lleva <b>4</b>!</div>` : ""}
-    <div style="padding:9px 0">
-    ${hasDiscount ? `<span class="antes">${f(item.antes)}</span>` : `<span class="antes2">&nbsp;</span>`}
-    <span class="precio ${hasDiscount || beneficio ? "rojo" : "" }">${f(item.precio)}</span>
-    ${precioCondicion ? `<span class="pcondicion">${f(item.ahora)} <i class="fas fa-info-circle"></i></span>` : ""}
+        ${_(hasDiscount, /*html*/`<div class="descuento"><div class="label">${item.descuento}% descuento</div></div>`)}
+        <div class="image">
+            <img src="https://www.droguerialaeconomia.com/economia/site/img/${item.id}.png" alt="" />
+        </div>
+        <div class="info">
+            <span class="titulo">${item.nombre}</span>
+            ${_(beneficio, /*html*/`<div class="promocion"><i class="fas fa-gift"></i>&nbsp; paga <b>3</b> lleva <b>4</b>!</div>`)}
+            <div style="padding:9px 0">
+            ${_(hasDiscount, /*html*/`<span class="antes">${f(item.antes)}</span>`, /*html*/`<span class="antes2">&nbsp;</span>`)}
+            <span class="precio ${_(hasDiscount || beneficio, "rojo")}">${f(item.precio)}</span>
+            ${_(precioCondicion, /*html*/`<span class="pcondicion">${f(item.ahora)} <i class="fas fa-info-circle"></i></span>`)}
+        </div>
+        <span class="contenido">${item.valor_contenido ? item.valor_contenido : "&nbsp;"}</span>
+
+        ${cart ? /*html*/`
+        <div class="row row-center cantidad" data-pid="${item.id}">
+            <i class="fas ${cart._quanty == 1 ? "fa-trash-alt" : "fa-minus"}"></i>
+            <input type="text" value="${cart._quanty}" onchange="pLog('cart', {id: ${item.id}, value: this.value})" />
+            <i class="fas fa-plus"></i>
+        </div>`
+        : 
+        /*html*/`<button class="add"><i class="fas fa-plus" style="pointer-events: none;"></i></button>`
+        }
+        </div>
     </div>
-    <span class="contenido">${item.valor_contenido ? item.valor_contenido : "&nbsp;"}</span>
-    ${cart ? 
-    `<div class="row row-center cantidad" data-pid="${item.id}">
-        <i class="fas ${cart._quanty == 1 ? "fa-trash-alt" : "fa-minus"}"></i>
-        <input type="text" value="${cart._quanty}" onchange="pLog('cart', {id: ${item.id}, value: this.value})" />
-        <i class="fas fa-plus"></i>
-    </div>`
-    : 
-    `<button class="add"><i class="fas fa-plus" style="pointer-events: none;"></i></button>`
-    }
-    
-    </div>
-    </div>
-    </div>`
+</div>`
+
     }
 }
 
@@ -376,12 +390,12 @@ function productClick($parent, $elem) {
 }
 
 function renderProductUpdate(id) {
-    
-    $(".products-list:not(#medida)").each(function() {
-        let $parent = $(this),
-            $elem = $parent.find("[data-id='" + id + "']")
-        ;
-        if($elem.length > 0) $elem[0].outerHTML = renderProductItem(store.products[id])
+
+
+    $$("[data-id='" + id + "']").forEach(item => {
+        if(item.classList.contains('product-item')) {
+            item.outerHTML = renderProductItem(store.products[id])
+        }
     })
 
     if(currentProductDetail) $("#basic-info").html(renderProductItem(currentProductDetail, "detail"))

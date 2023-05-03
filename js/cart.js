@@ -163,10 +163,7 @@ function renderCart() {
 
         $cart_list.append($(renderCartItem(item)))
 
-        if(item._new) {
-            $cart_list.scrollTo(0, 300)
-            delete item._new
-        }
+        if(item._new) {delete item._new}
     })
 
     $cart_icon_badge.html(store.order.items < 100 ? store.order.items : "99+")
@@ -209,7 +206,7 @@ function renderCart() {
     })
 
     // render values
-    $("#lbl-domicilio").text(f(store.order.shipping))
+    //$("#lbl-domicilio").text(f(store.order.shipping))
     $("#lbl-total").text(f(store.order.subtotal))
 
 }
@@ -225,74 +222,70 @@ function productCartClick($parent, $elem) {
 }
 
 function renderCartItem(item, type) {
-
+console.log(item)
     switch(type) {
         case "order":
-            return `
+            return /*html*/`
 <div>
-${item._hasDiscount ? `<div class="descuento">${item.descuento}%</div>` : ""}    
-<img src="https://www.droguerialaeconomia.com/economia/site/img/${item.id}.png" alt="" />
-<div class="f1">
-<div class="titulo">${item.nombre}</div>
-<div class="row row-center">
-    <div class="row row-center">
-        <div>${f(item.unitario)}</div>
-        <div> &nbsp; <i class="fas fa-times" style="opacity:0.6"></i> &nbsp;</div>
-        <div><b>${item.cantidad}</b></div>
-        <div class="precio ${item._hasDiscount ? "rojo" : ""}">${f(item.total)}</div>
+    ${_(item._hasDiscount, `<div class="descuento">${item.descuento}%</div>`)}    
+    <img src="https://www.droguerialaeconomia.com/economia/site/img/${item.id}.png" alt="" />
+    <div class="f1">
+        <div class="titulo">${item.nombre.toLowerCase()}</div>
+        <div><b>${item.cantidad}</b> ${item.cantidad == 1 ? "unidad" : "unidades"} x <b>${f(item.unitario)}</b></div>
+
     </div>
-</div>
-</div>
+    <div class="precio ${item._hasDiscount ? "rojo" : ""}">${f(item.total)}</div>
 </div>`       
 
         case "nocart":
-            return `
+            return /*html*/`
 <p class="no-products">
-<i class="fa fa-exclamation-circle"></i> No hay productos en tu carrito de compra.<br/> Agrega algunos para continuar.
+    <i class="fa fa-exclamation-circle"></i> No hay productos en tu carrito de compra.<br/> Agrega algunos para continuar.
 </p>`
 
         default:
-
-            return `
+            let d = item._disabled
+            return /*html*/`
 <div data-id="${item._id}">
-    ${item._hasDiscount ? `<div class="descuento">${item.descuento}%</div>` : ""}    
-    <img src="https://www.droguerialaeconomia.com/economia/site/img/${item.id}.png" alt="" />
+    ${item._hasDiscount && !d ? `<div class="descuento">${item.descuento}%</div>` : ""}
+
+    <img src="https://www.droguerialaeconomia.com/economia/site/img/${item.id}.png" alt="" class="${_(d, "grey_img")}" />
+
     <div class="f1">
+
         <div class="titulo">${item.nombre2}</div>
 
-        <div class="row r-c r-m" style="${item._disabled ? "opacity:0.5; pointer-events:none;" : ""}" >
+        <div class="row">
+            <div class="disponibles" ${d ? `style="background: #ec1616"` : ""} >${d ? "Producto Agotado" : `${item.stock} ${item.stock == 1 ? "Disponible" : "Disponibles"}`} </div>
+            ${d ? 
+            /*html*/`<button class="button-delete"><i class="fas fa-trash-alt" style="pointer-events: none;"></i> Remover</button>` :
+            /*html*/`
             <div>${f(item._renderPrice)}</div>
-            <div><i class="fas fa-times" style="opacity:0.6; margin:0 6px"></i></div>
-            <div style="text-align: center">
-                <div class="cantidad" data-pid="${item._id}">
-                    <i class="fas ${item._quanty == 1 ? "fa-trash-alt" : "fa-minus"}"></i>
-                    <input class="cantidad2" type="text" value="${item._quanty}" />
-                    <i class="fas fa-plus"></i>
-                </div>
+            <div class="cantidad" data-pid="${item._id}">
+                <i class="fas ${item._quanty == 1 ? "fa-trash-alt" : "fa-minus"}"></i>
+                <input class="cantidad2" type="text" value="${item._quanty}" />
+                <i class="fas fa-plus"></i>
             </div>
             <div class="precio ${item._hasDiscount || item._hasDiscountVlrMinimo ? "rojo" : ""}">${f(item._quanty * item._renderPrice)}</div>
+            `}
         </div>
 
-        ${item.stock && !item._disabled ? `<div class="disponibles">${item._disabled ? "" : `${item.stock} ${item.stock == 1 ? "Disponible" : "Disponibles"}`}</div>` : ``}
         
-        ${item._disabled ? `
-        <div class="info row row-center row-right">
-            <span class="rojo">Producto no disponible</span> 
-            <button class="button-delete"><i class="fas fa-trash-alt" style="pointer-events: none;"></i> Eliminar</button>
-        </div>` : ""}
 
-        ${item._newPrice ? `
+        ${_(item._newPrice, /*html*/`
         <div class="info">
             <span class="azul"><i class="fas fa-exclamation-circle"></i> El precio anterior era <b>${f(item._newPrice)}</b></span>
-        </div>` : ""}
+        </div>`)}
 
-        ${item._conditionalPrice ? `
+        ${_(item._conditionalPrice, /*html*/`
         <div class="info">
             <span class="rojo"><i class="fas fa-info-circle"></i> El precio <b>${f(item.ahora)}</b> aplica si el monto de la compra es superior a ${f(item.VlrMinimo)}</span>
-        </div>` : ""}
+        </div>`)}
 
-        ${item._cupon === false ? `<div class="no-aplica-cupon">No aplica para cupón de descuento</div>` : ""}
+        ${_(item._cupon === false, /*html*/`<div class="no-aplica-cupon">No aplica para cupón de descuento</div>`)}
+
     </div>
+
 </div>` 
     }
 }
@@ -303,7 +296,7 @@ function showCartError(message) {
 
 async function initCart(products) {
 
-    let fullProducts = await getProductsFullInfo(Arrayfy(products).filter(item => !item.isCombo)),
+    let fullProducts = await getProductsFullInfo(Arrayfy(products)),
        prod_found
     ;
 

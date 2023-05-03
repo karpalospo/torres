@@ -131,6 +131,10 @@ select {
     font-size: 1.1em;
 }
 
+.btn-search:hover {
+    background-color: #bd5d03;
+}
+
 .horizontal {
     white-space: nowrap;
     overflow-x: auto;
@@ -142,10 +146,6 @@ select {
     overflow-y: auto;
 }
 
-
-.btn-search:hover {
-    background-color: #2352ff;
-}
 
 #suscribe-cont {
     border: 1px solid #555;
@@ -204,11 +204,14 @@ select {
 }
 
 #cart-badge {
-    padding: 3px 7px;
     color: white;
-    background: #1b42cb;
-    margin-left: 6px;
-    border-radius: 10px;
+    background: #0049fa;
+    margin-left: 7px;
+    border-radius: 26px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
 }
 
 
@@ -618,12 +621,13 @@ select {
     text-transform: capitalize;
     color: #333;
     display: block;
-    height: 49px;
+    height: 33px;
     overflow: auto;
     font-family: 'Be Vietnam Pro', sans-serif;
     border-top: 1px solid #eee;
     padding: 5px 0 0 0;
     font-size: 0.80em;
+    font-weight: 600;
 }
 
 .product-item .precio {
@@ -649,7 +653,7 @@ select {
 }
 
 .product-item .pcondicion {
-    color: #ff2c6f;
+    color: #ff402c;
     margin-left: 7px;
     font-weight: bold;
     font-size: 1.1em;
@@ -670,24 +674,26 @@ select {
 .product-item .cantidad {
     width: 110px;
     margin: 0 auto;
-    margin-top: 9px;
+    margin-top: 8px;
+    height: 40px;
 }
 
 .product-item .cantidad i {
     display: inline-block;
-    background: linear-gradient(180deg, #0049fa 0%, #5889ff 50%, #001e68 100%);
+    background: linear-gradient(180deg, #f7f7f7 30%, #d5d5d5 100%);
     border-radius: 16px;
-    color: white;
+    color: black;
     width: 30px;
     height: 30px;
     line-height: 30px;
+    border: 1px solid #ccc;
 }
 
 .product-item .cantidad input {
     border: 1px solid #c6c6c6;
     background-color: #f2f2f2;
     font-size: 1.3em;
-    width: 30px;
+    width: 26px;
     text-align: center;
     border-radius: 5px;
 }
@@ -984,15 +990,13 @@ a {
 }
 
 .button-delete {
-	border-radius: 6px;
-	border: none;
-	padding: 5px;
-	margin-left: 8px;
-	font-size: 0.9em;
-	background-color: #ec1616;
-	color: white;
-	font-family: 'Roboto';
-	text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 5px 8px;
+    margin-left: 8px;
+    font-size: 0.9em;
+    color: #333;
+    font-family: 'Roboto';
 }
 
 .button-delete:hover, .button-wish:hover {
@@ -1149,10 +1153,7 @@ h3 {
     align-items: center;
 }
 
-.cards-cont {
-    display: grid;
-    grid-template-columns: 280px 1fr 280px;
-}
+
 
 .card {
     background-color: white;
@@ -1165,7 +1166,8 @@ h3 {
 
 .card .label {
     font-weight: 400;
-    margin-top: 15px;
+    margin-top: 7px;
+    color: #666;
 }
 
 .card .card-body {
@@ -1173,17 +1175,6 @@ h3 {
     max-height: 500px;
     overflow-y: auto;
     margin-top: 0;
-}
-
-.resultado {
-    padding: 10px 0;
-    text-align: center;
-    color: #fff;
-    font-size: 1.3em;
-    font-weight: 700;
-    margin: 20px auto;
-    max-width: 400px;
-    border-radius: 25px;
 }
 
 #calificacion .titulo {
@@ -1254,6 +1245,11 @@ h3 {
     min-width: 70px;
 }
 
+.grey_img {
+    filter: grayscale(80%);
+}
+
+
 #cart {
     box-sizing: border-box;
     width: 400px;
@@ -1271,8 +1267,11 @@ h3 {
     box-sizing: border-box;
     background: #f2f2f2;
     flex: 1;
-    font-size: 0.85em;
     border-top: 1px solid #ddd;
+}
+
+.cart-list {
+    font-size: 0.85em;
 }
 
 .cart-list > div {
@@ -1305,10 +1304,12 @@ h3 {
 }
 
 .cart-list .titulo {
-    color: #333;
+    color: #222;
     text-transform: capitalize;
     padding-bottom: 8px;
     margin-bottom: 4px;
+    font-weight: 600;
+    font-family: 'Be Vietnam Pro';
 }
 
 .cart-list .descuento {
@@ -1558,10 +1559,30 @@ h3 {
     opacity: 0.8;
 }
 
+.h4 {
+    color: #333;
+    font-size: 1.2em;
+    padding-left: 15px;
+    font-family: 'Be Vietnam Pro';
+}
+
 .h3 {
     color: #444;
     font-size: 1.2em;
     padding: 15px 2px;
+}
+
+
+.h2 {
+    color: #0049fa;
+    font-size: 1.76em;
+    display: inline-block;
+    cursor: default;
+    -moz-background-clip: text;
+    background-clip: text;
+    -moz-text-fill-color: transparent;
+    font-weight: 400;
+    font-family: 'Mulish', sans-serif;
 }
 
 .soft-gray {
@@ -1737,10 +1758,10 @@ h3 {
 }
 
 #product-detail .pcondicion {
-    color: #ff2c6e;
-    margin-left: 7px;
+    color: #ff402c;
+    margin-left: 9px;
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1.3em;
 }
 
 #product-detail .descuento {
@@ -2016,17 +2037,6 @@ h3 {
 }
 
 
-.h2 {
-    color: #0049fa;
-    font-size: 1.76em;
-    display: inline-block;
-    cursor: default;
-    -moz-background-clip: text;
-    background-clip: text;
-    -moz-text-fill-color: transparent;
-    font-weight: 400;
-    font-family: 'Mulish', sans-serif;
-}
 
 .vertodo {
     color: white;

@@ -26,7 +26,6 @@ function search_products(str) {
 
     (async function () {
 
-        $("#content").scrollTo(0 ,0)
         noSearchCodes = ""
 
         res = await pLog("search", search_str)

@@ -195,24 +195,15 @@ async function checkout() {
         pedido = res.data[0]
         resPSE = res.data[1]
     }
-    console.log(res, pedido, resPSE)
+
     if(pedido && pedido.numeroPedido) {
-       
         resetCart()
-        if(store.payment == "PSE") {
-            return parent.location = resPSE.urlPayment
-        } else {
-            return parent.location = `pedido-success.html`
-        }
-    } else {
-        if(res.message) showOrderError(res.message, $("<div></div>"))
-    }
+        if(store.payment == "PSE") return parent.location = resPSE.urlPayment
+        else return parent.location = `pedido-success.html?p=` + pedido.numeroPedido
+    } else if(res.message) showOrderError(res.message, $("<div></div>"))
+
     command($button_order, false)
 
-
-  
-
-    
 }
 
 
