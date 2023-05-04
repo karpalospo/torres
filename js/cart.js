@@ -256,14 +256,14 @@ console.log(item)
         <div class="titulo">${item.nombre2}</div>
 
         <div class="row">
-            <div class="disponibles" ${d ? `style="background: #ec1616"` : ""} >${d ? "Producto Agotado" : `${item.stock} ${item.stock == 1 ? "Disponible" : "Disponibles"}`} </div>
+            <div class="disponibles" ${d ? `style="background: #ec1616"` : ""} >${d ? "Producto Agotado" : `${item.stock} ${item.stock == 1 ? "Disponible " : "Disponibles"}`} </div>
             ${d ? 
             /*html*/`<button class="button-delete"><i class="fas fa-trash-alt" style="pointer-events: none;"></i> Remover</button>` :
             /*html*/`
-            <div>${f(item._renderPrice)}</div>
+            <!-- <div>${f(item._renderPrice)}</div> -->
             <div class="cantidad" data-pid="${item._id}">
                 <i class="fas ${item._quanty == 1 ? "fa-trash-alt" : "fa-minus"}"></i>
-                <input class="cantidad2" type="text" value="${item._quanty}" />
+                <input type="text" value="${item._quanty}" />
                 <i class="fas fa-plus"></i>
             </div>
             <div class="precio ${item._hasDiscount || item._hasDiscountVlrMinimo ? "rojo" : ""}">${f(item._quanty * item._renderPrice)}</div>
@@ -359,7 +359,8 @@ function shopNow($elem) {
     if(!store.user.logged) {
         store.goOrder = true;
         command($elem, false) 
-        showModal(true, $("#signin"))
+        showCart(false)
+        showModal(true, 'signin')
     } else {
         // if(await showProductoEstrella(store.popups.pestrella)) {
         //     command($elem, false) 

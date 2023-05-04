@@ -154,7 +154,7 @@ async function login() {
         command($elem, false)
         store.user = Object.assign(res.data, {logged: true})
         write_cache("user", store.user)
-        if(store.goOrder) parent.location = parent.location = `${ABS_URL}/pedido`;
+        if(store.goOrder) parent.location = `pedido.html`;
         else {
             if(typeof getUserAddresses == "function") getUserAddresses()
             renderUser()
@@ -697,7 +697,7 @@ function showModal(show, window, cb = () => {}) {
         $floatcont = $("#float-cont"),
         $window = $floatcont.find("#" + window)
     ;
-    
+    console.log($floatcont, window)
     if(show) {
         if($currentModalWindow) {
             return showModal(false, null, () => {

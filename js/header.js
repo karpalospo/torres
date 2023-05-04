@@ -57,6 +57,8 @@ async function renderCategorias(ciudad) {
     let $menuitems = $target.find("> div")
     $menuitems.off("mouseenter").on("mouseenter", e => showDropMenu($(e.currentTarget), true))
     $menuitems.off("mouseleave").on("mouseleave", e => showDropMenu($(e.currentTarget), false))
+
+    //showDropMenu($target.find("> div").eq(0), true)
 }
 
 async function renderCiudades() {
@@ -112,16 +114,19 @@ function showDropMenu($elem, visible) {
 
     function show(value) {
         if(value) {
-            $elem.append(`<div class="menu-float-cont"><div class="menu-float" style="transform: translateY(10px) scale(0.95); opacity: 0.5"></div>`)
+            $elem.append(/*html*/`<div class="menu-float-cont"><div class="menu-float" style="transform: translateY(10px) scale(0.95); opacity: 0.5"></div>`)
             menuShown = true;
         }
         $cont = $elem.find(".menu-float-cont")
         $window = $cont.find("> div")
         if(value) {
             s = ""
+            s2 = ""
             d = store.grupos[$elem.data("id")]
-            d.Categorias.forEach(item => s += `<div class="row" data-id="${item.IdCategoria}"><div class="f1">${item.Categoria}</div><i class="fas fa-chevron-right"></i></div>`)
-            $window.html(`<h2 style="font-size:1.2em; margin-bottom: 7px; padding-left: 8px">${d.Grupo}</h2>${s}</div>`)
+            d.Categorias.forEach(item => {
+                s += /*html*/`<div class="row" data-id="${item.IdCategoria}"><div class="f1">${item.Categoria}</div>${item.Subcategorias !== undefined ? `<i class="fas fa-chevron-right"></i>` : ``}</div>`
+            })
+            $window.html(`<h2 style="font-size:1.2em; margin-bottom: 7px; padding-left: 8px">${d.Grupo}</h2>${s + s2}</div>`)
             $cont.css({top: pos.top + $elem.height(), left: pos.left + ($elem.width() - $cont.width()) / 2})
         }
         anime({
@@ -142,6 +147,35 @@ function showDropMenu($elem, visible) {
             complete: function() {menuShown = false; if(!value) $cont.remove()}
         })
         showOverlay(value, {id: "overlay2", disabled: true})
+
+        $(".menu-float > div").off("mouseenter").on("mouseenter", e => showDropSubmenu($(e.currentTarget), true))
+        $(".menu-float > div").off("mouseleave").on("mouseleave", e => showDropSubmenu($(e.currentTarget), false))
     }
+
+
+
+}
+
+function showDropSubmenu($elem, visible) {
+
+    let s2 = "", id = $elem.data("id"), item, $parent = $elem.parent();
+
+    if(!id) return;
+
+    item = store.categorias[id]
+
+    if(item.subs !== undefined) {
+        Arrayfy(item.subs).forEach(itemsub => {
+            s2 += /*html*/`<div data-id="${itemsub.id}"><div>${itemsub.title}</div></div>`
+        })
+
+        if(visible) {
+            $parent.append(/*html*/`<div class="submenu-float" style="top: ${$elem.position().top}px; left: ${$elem.width() + 30}px">${s2}</div>`)
+        } else {
+            $parent.find(".submenu-float").remove()
+        }
+    }
+
+   
 
 }

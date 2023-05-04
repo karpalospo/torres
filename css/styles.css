@@ -797,9 +797,10 @@ select {
     padding: 10px 5px 5px 5px;
     border-radius: 5px;
     box-shadow: 0 0 20px 0 rgba(0 0 0 / 30%);
+    position: relative;
 }
 
-.menu-float > div {
+.menu-float > div:not(.submenu-float) {
     padding: 3px 8px;
     border-top: 1px solid #ddd;
 }
@@ -813,6 +814,21 @@ select {
     padding-left: 10px;
 
 }
+
+.submenu-float {
+    position: absolute;
+    top: 0;
+    left: 148px;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.submenu-float > div {
+    padding: 3px 8px;
+    border-top: 1px solid #ddd;
+}
+
 .banner_init{
     min-height: 300px;
     background-color: #ddd;
@@ -1284,14 +1300,13 @@ h3 {
 }
 
 .cart-list .disponibles {
-	font-weight: 400;
-	background-color: #48b0b0;
-	display: inline-block;
-	margin: 5px 0;
-	color: white;
-	padding: 2px 7px;
-	border-radius: 10px;
-	font-size: 0.7em;
+    background-color: #fa7800;
+    color: white;
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-size: 0.75em;
+    min-width: 70px;
+    text-align: center;
 }
 
 .cart-list img {
@@ -1304,10 +1319,10 @@ h3 {
 }
 
 .cart-list .titulo {
-    color: #222;
+    color: #444;
     text-transform: capitalize;
     padding-bottom: 8px;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
     font-weight: 600;
     font-family: 'Be Vietnam Pro';
 }
@@ -1340,8 +1355,6 @@ h3 {
 }
 
 .cart-list .cantidad {
-    background-color: #f2f2f2;
-    border: 1px solid #ccc;
     padding: 3px 8px;
     border-radius: 5px;
     margin: 0 8px;
@@ -1350,30 +1363,31 @@ h3 {
 
 .cart-list .cantidad  i {
     display: inline-block;
-    padding: 4px;
+    padding: 6px;
 }
 
 .cart-list .cantidad i:hover {
-    background-color: #ddd;
-    cursor:pointer;
-    color: #1B42CB;
-    border-radius: 12px;
+    background-color: #eee;
+    color: #fa7800;
+    border-radius: 4px;
 }
 
 .cart-list .cantidad input {
     width: 30px;
-    border:none;
+    border: 1px solid #ccc;
     text-align: center;
-    font-size: 1.1em;
-    background-color: transparent;
+    font-size: 1.2em;
+    background-color: #f2f2f2;
+    border-radius: 4px;
+    margin: 0 4px;
 }
 
 .cart-list .precio {
     min-width: 70px;
     text-align: right;
-    font-size: 1.2em;
+    font-size: 1.1em;
     font-weight: bold;
-    color: #333;
+    color: #222;
     margin: 0 5px;
 } 
 
@@ -1562,8 +1576,8 @@ h3 {
 .h4 {
     color: #333;
     font-size: 1.2em;
-    padding-left: 15px;
     font-family: 'Be Vietnam Pro';
+    font-weight: 800;
 }
 
 .h3 {
