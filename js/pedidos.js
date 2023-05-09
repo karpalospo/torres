@@ -1,52 +1,27 @@
 let redimir = false, p = {}, maxValue, minValue, range, format = wNumb({encoder: function( value ){return Math.ceil(value)}, thousand: '.', prefix: '$ '})
-const maxDomiGratis = 99990
+const maxDomiGratis = 1
 let productosTag = []
 
-function page_init() {
-    //if(!store.user.logged) parent.location = `${ABS_URL}`
-    if(store.coupon) $("#txt-cupon").val(store.coupon.nombrecupon)
-    getUserAddresses()
+async function page_init() {
+    
+    if(store.user.logged) {
+
+        if(store.coupon) $("#txt-cupon").val(store.coupon.nombrecupon)
+        getUserAddresses()
+
+        // popups
+        if(store.popups) showPagePopup(store.popups.order)
+
+    } else {
+        //parent.location = `index.html`
+    }
+
 
     initList($("#payment-list"), "payment", $("#paymentonline-list"), listCb)
     initList($("#paymentonline-list"), "payment", $("#payment-list"), listCb)
-
-    // popups
-    if(store.popups) showPagePopup(store.popups.order)
-    
-    let $scrollingDiv = $("#stickybox");
-    let currentTop = parseInt($scrollingDiv.position().top)
-
-    $(window).scroll(function(){
-        if ($(window).scrollTop() > 0) $scrollingDiv.css({position: 'fixed', top: currentTop + 'px'})
-        else $scrollingDiv.css({position: '', top:''})
-    });
-
+    stickyScroll($("#stickybox")) 
 
 } 
-
-
-// let lastKnownScrollPosition = 0;
-// let ticking = false;
-
-// function doSomething(scrollPos) {
-//    console.log(scrollPos)
-// }
-
-// document.addEventListener("scroll", (event) => {
-
-//     lastKnownScrollPosition = window.scrollY;
-
-//     if (!ticking) {
-//         window.requestAnimationFrame(() => {
-//             doSomething(lastKnownScrollPosition);
-//             ticking = false;
-//         });
-
-//         ticking = true;
-//     } 
-// });
-
-
 
 function listCb($elem) {
     
@@ -73,26 +48,29 @@ $input.on("change", () => resetCoupon())
 
 
 function summaryCart(_buscarBono = true) {
+    
     let puntos = 0
     
     if(range) puntos = format.from(range.get())
-    $("#sumario").html(`
-<tr><td>Subtotal</td><td style="font-weight:500">${f(store.order.subtotal)}</td></tr>
-${store.order.discount <= 0 ?
-`<tr><td>Descuentos</td><td style="font-weight:500">${f(0)}</td></tr>`
-:
-`<tr><td>Descuentos</td><td class="rojo" style="font-weight:500">${f(store.order.discount * -1)}</td></tr>`
-}
-${redimir && puntos > 0 ?
-`<tr><td>Puntos</td><td class="rojo" style="font-weight:500">${f(puntos * -1)}</td></tr>`
-:
-``
-}
-<tr><td>Domicilio</td><td style="font-weight:500">${store.order.subtotal > maxDomiGratis + store.order.discount ? `<span style="color:#ff2e2e">Gratis</span>` : f(store.order.shipping)}</td></tr>
-<tr><td><b>A Pagar</b></td><td><b style="color:#222">${f(store.order.subtotal + (store.order.subtotal > maxDomiGratis ? 0 : store.order.shipping) - store.order.discount - (redimir ? puntos : 0))}</b></td></tr>`)
-    $("#confirmar").show(0)
 
-   
+    $("#sumario").html(/*html*/`
+<tr>
+    <td>Subtotal</td><td style="font-weight:500">${f(store.order.subtotal)}</td>
+</tr>
+<tr>
+    <td>Descuentos</td>
+    ${store.order.discount <= 0 ? `<td style="font-weight:500">${f(0)}</td>` : `<td class="rojo" style="font-weight:500">${f(store.order.discount * -1)}</td>`}
+</tr>
+${redimir && puntos > 0 ? `<tr><td>Puntos</td><td class="rojo" style="font-weight:500">${f(puntos * -1)}</td></tr>` : ``}
+<tr>
+    <td>Domicilio</td>
+    <td style="font-weight:500">${store.order.subtotal > maxDomiGratis + store.order.discount ? `<span style="color:#ff2e2e">Gratis</span>` : f(store.order.shipping)}</td>
+</tr>
+<tr>
+    <td><b>A Pagar</b></td><td><b style="color:#222">${f(store.order.subtotal + (store.order.subtotal > maxDomiGratis ? 0 : store.order.shipping) - store.order.discount - (redimir ? puntos : 0))}</b></td>
+</tr>`)
+    
+    $("#confirmar").show(0)
 }
 
 function showOrderError(message, $flash_target, permanent = false) {

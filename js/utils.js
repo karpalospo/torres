@@ -250,3 +250,14 @@ function getParameterByName(name) {
 function $$(str) {
     return document.querySelectorAll(str)
 }
+
+
+function stickyScroll($scrollingDiv) {
+
+    let currentTop = parseInt($scrollingDiv.position().top)
+
+    $window.scroll(function(){
+        if ($window.scrollTop() > 0) $scrollingDiv.css({position: 'fixed', top: currentTop + 'px'})
+        else $scrollingDiv.css({position: '', top:''})
+    });
+}

@@ -1,6 +1,4 @@
-store.page = "home"
-
- async function page_init() {
+async function page_init() {
     
 
     // banners
@@ -12,14 +10,14 @@ store.page = "home"
     //if(store.popups) showPagePopup(store.popups.home)
     //showModal(true, $("#popupiro"), false, "fade")
 
-    let res = await API.POST.getOfertas(store.location, {convenio: store.user.convenio})
+    renderLoading($("#resultado-list"))
+
+    res = await API.POST.getOfertas(store.location, {convenio: store.user.convenio})
 
     if(!res.error) {
-        store.collections["[sales]"] = HomologarProductos(res.data)
+        showProducts($("#resultado-list"), HomologarProductos(res.data), {collection:'sales', rows: "auto", cols: 2, shuffle:true, sort: {field:"descuento", mode:"desc"}})
     }
 
-    renderLoading($("#resultado-list"))
-    showProducts($("#resultado-list"), HomologarProductos(res.data), "[sales]", {cache:true, rows: "auto", cols: 2, shuffle:true, sort: {field:"descuento", mode:"desc"}})
 
     // new Swiper($("#recomendados")[0], 
     //     {

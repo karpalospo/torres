@@ -24,7 +24,8 @@ let res,
     productBounces = {},
     $currentModalWindow,
     scrollTop,
-    currentProductDetail
+    currentProductDetail,
+    $window = $(window)
 ;
 
 // ========================================================================== //
@@ -119,7 +120,7 @@ async function enviarContrasena(elem) {
     if(!code) return
     if(password1 != password2) return alert("Las contraseñas no coinciden")
 
-    let result = await API.POST.cambiarContrasena(store.current_email, code, password1)
+    let result = await API.POST.restorePassword(store.current_email, code, password1)
 
     if(command($elem, true)) return
     if(!result.error && result.data.success) {
@@ -310,9 +311,8 @@ async function deleteAddress() {
 
 async function getUserAddresses() {
     
-    let res = await API.POST.getAddress(store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
-    console.log(res)
-    
+    let res = await API.POST.getAddress(store.user)
+   
     if(res.data && res.data.success == false) {
 
         showModalMessage("error-login", {
@@ -373,6 +373,7 @@ function HomologarProductos(products) {
 
     let ret = []
     forEach(products, item => {
+        if(!item.codigo) return
         ret.push({
             id: item.codigo,
             nombre: item.descripcion,
@@ -389,7 +390,9 @@ function HomologarProductos(products) {
             valor_contenido: item.valor_contenido,
             idoferta: item.idoferta,
             VlrMinimo: item.VlrMinimo,
-            proveedor: item.proveedor
+            proveedor: item.proveedor,
+            cat: item.subgrupo35,
+            sub: item.subgrupo36,
         })
     })
     return ret
@@ -419,7 +422,7 @@ async function getProductsFullInfo(products) {
             ))
 
             forEach(res.data, item => {
-                if(item.codigo != product.id || product.isCombo) return
+                if(item.codigo != product.id) return
                 Object.assign(product,
                 {
                     id: item.codigo,
@@ -453,61 +456,31 @@ async function getProductsFullInfo(products) {
 // ========================================================================== //
 // CUPONES
 
+
+function couponCondicion(coupon) {
+    if(!coupon || !coupon.itemsCondicion) return
+
+    let subs = {}, founded
+    coupon.aplica = [], coupon.noaplica = []
+    
+    forEach(store.categorias, cat => {
+        forEach(cat.subs, sub => subs[sub.id] = sub)
+    })
+
+    forEach(subs, sub => {
+        founded = false
+        coupon.itemsCondicion.forEach(item => {if(item.AplicadoA == sub.id) founded = true})
+        if(founded) coupon.aplica.push(sub)
+        else coupon.noaplica.push(sub)
+    })
+
+
+}
+
 function clearCoupon() {
     store.coupon = null;
     write_cache("coupon")
     renderCart();
-}
-
-function renderCupones($target) {
-
-    if(!$target) return
-    if(!store.user.logged) { 
-        return $target.html(
-`<p style="font-size:1.3em; text-align: center">
-<i class="big-font fas fa-exclamation-circle"></i><br>
-Para ver los cupones de descuento disponibles debes iniciar sesión
-</p><br/><br/>
-<p class="tx-center">
-    <button class="page-button" onclick="showModal(true, 'signin')">INICIAR SESIÓN</button>
-</div><br/><br/>
-<p class="tx-center">
-    <button class="page-button-flat2" onclick="parent.location = 'registro.html'">¡No tengo cuenta! Registrarme</button>
-</p>`)
-    }
-
-    if(store.coupons.length == 0) {
-        return $target.html(`<p style="font-size:1.3em; text-align: center"><i class="big-font fas fa-exclamation-circle"></i><br>En estos momentos no tenemos cupones disponibles para ti</p>`)
-    }
-
-    s = ""
-    forEach(store.coupons, item => {
-        s += `
-<div class="cupon">
-    <div>
-        <p class="title">${item.nombrecupon}</p>
-        <p class="value">${f(item.valorcupon)}</p>
-        <p>
-        &#10004; <b>${f(item.valorcupon)}</b> de descuento para compras mínimas de <b>${f(item.vlrminimo)}</b><br>
-        &#10004; Válido hasta <b>${new Date(item.hasta).toLocaleString('en-US')}</b><br>
-        &#10004; Utilización máxima <b>${item.maximaventacliente} ${item.maximaventacliente == 1 ? "vez" : "veces"}</b> por usuario el mismo día.<br>
-        ${
-        item.aplica.length > item.noaplica.length ?
-        `&#10004; <b>No Aplica</b> para las siguientes categorías: <span class="button-aplica-cats-${item.idcupon}" onclick="vercats('aplica-cats-${item.idcupon}')">Mostrar Categorias</span>
-        <div class="aplica-cats-${item.idcupon}" style="max-height:0; overflow: hidden">${stringfyCats(item.noaplica)}</div>`
-        :
-        `&#10004; Aplica para las siguientes categorías: <span class="button-aplica-cats-${item.idcupon}" onclick="vercats('aplica-cats-${item.idcupon}')">Mostrar Categorias</span>
-        <div class="aplica-cats-${item.idcupon}" style="max-height:0; overflow: hidden">${stringfyCats(item.aplica)}</div>`
-        }
-        </p>
-        <p class="tx-center"><button class="page-button" onclick="pLog('coupon', {id: '${item.idcupon}'})">UTILIZAR ESTE CUPÓN</button></p><br>
-        <i class="fas fa-cut"></i>
-    </div>
-</div>`
-    })
-   
-    $target.html(s)
-
 }
 
 function stringfyCats(cats) {

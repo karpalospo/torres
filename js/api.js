@@ -72,6 +72,10 @@ const API = {
             return await fetchAsync(`${URL.HOST}/ftorres/api/referencias/codigos/`, {body: {codigos, ciudad, convenio, pagina: page, items}})
         },
 
+        async getCategorias(location, subcategory, { page = 1, itemsPerPage = 1000, orderBy = "PJ", agreement = ""} = {}) {
+            return await fetchAsync(`${URL.HOST}/ftorres/api/referencias/catsubcat/${location}/${subcategory}/${page}/${itemsPerPage}/${orderBy}/${agreement}`)
+        },
+
 
         // purchase
         async checkout(data) {
@@ -98,26 +102,30 @@ const API = {
         },
 
         
-
         // password recovery
         async checkEmail(email) {
-            return await fetchAsync(`${URL.HOST}/economia/site/users/sendemailrestore`, {body: { email}});
+            return await fetchAsync(`${URL.HOST}/ftorres/api/users/sendemailrestore`, {body: { email}});
         },
 
         async recoveryPassword(email) {
-            return await fetchAsync(`${URL.HOST}/economia/site/users/restore/`, {body: {email}});
+            return await fetchAsync(`${URL.HOST}/ftorres/api/users/restore`, {body: {email}});
         },
 
         async restorePassword(email, code, password) {
-            return await fetchAsync(`${URL.HOST}/economia/site/users/restorepassv2`, {body: {email, code, password}});
+            return await fetchAsync(`${URL.HOST}/ftorres/api/users/restorepass`, {body: {email, code, password}});
         },
 
 
         // coupon
-        async getCupon(coupon, nit, nombres, email, token) {
-            return await fetchAsync(`${URL.HOST}/economia/api/cupon/${coupon}`, {body: {user: {nit, email, nombres, token}, marca: "TOR", canal: "WEB"}})
+        async getCupones(idusuario) {
+            return await fetchAsync(`${URL.HOST}/ftorres/api/ofertas/cuponesdisponibles`, {body: {idusuario, canal: "WEB"}})
         },
 
+        async getCupon(coupon, nit, nombres, email, token) {
+            return await fetchAsync(`${URL.HOST}/ftorres/api/cupon/${coupon}`, {body: {user: {nit, email, nombres, token}, canal: "WEB"}})
+        },
+
+     
         // async validateCoupon(typeOfCoupon, products) {
         //     return await fetchAsync(`${URL.HOST}/economia/api/validaCondiciones/`, {body: {Condicion: typeOfCoupon }) + '&' + ArrayFormUrlEncoded({ Productos: products }), headers: HEADER_JSON});
         // },
@@ -132,8 +140,8 @@ const API = {
             return await fetchAsync(`${URL.HOST}/ftorres/api/users/deleteaddress/`, {body: fields});
         },
 
-        async getAddress(nit, nombres, email, auth_token) {
-            return await fetchAsync(`${URL.HOST}/ftorres/api/users/getuseraddress/`, {body: {nit, email, nombres, auth_token, marca: "TOR"}});
+        async getAddress(user) {
+            return await fetchAsync(`${URL.HOST}/ftorres/api/users/getuseraddress/`, {body: {nit: user.nit, email: user.email, auth_token: user.auth_token, marca: "TOR"}});
         },
 
         async saveAddress(data) {
@@ -172,18 +180,3 @@ const API = {
 }
 
 
-const BONUS_API = 
-{
-    GET: {
-        async RetrieveBonuses (document) {
-            return await fetchAsync(`${URL.ETICOS_HOST}/ServicesEpos/wsepos/api/v2/ofertasxCedula/${document}`, {}, "GET")
-        },
-    },
-
-    POST: {
-        async PerformSecondBonusVerification (bonus, products)
-        {
-            return await fetchAsync(`${URL.ETICOS_HOST}/ServicesEpos/wsepos/api/v2/ValidaCondicionBono/`, {body: {Bono: bonus, Productos: products}});
-        },
-    }
-}

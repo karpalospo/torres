@@ -222,9 +222,9 @@ function productCartClick($parent, $elem) {
 }
 
 function renderCartItem(item, type) {
-console.log(item)
+
     switch(type) {
-        case "order":
+        case "order": 
             return /*html*/`
 <div>
     ${_(item._hasDiscount, `<div class="descuento">${item.descuento}%</div>`)}    
@@ -237,7 +237,7 @@ console.log(item)
     <div class="precio ${item._hasDiscount ? "rojo" : ""}">${f(item.total)}</div>
 </div>`       
 
-        case "nocart":
+        case "nocart": 
             return /*html*/`
 <p class="no-products">
     <i class="fa fa-exclamation-circle"></i> No hay productos en tu carrito de compra.<br/> Agrega algunos para continuar.
@@ -269,8 +269,6 @@ console.log(item)
             <div class="precio ${item._hasDiscount || item._hasDiscountVlrMinimo ? "rojo" : ""}">${f(item._quanty * item._renderPrice)}</div>
             `}
         </div>
-
-        
 
         ${_(item._newPrice, /*html*/`
         <div class="info">
@@ -341,6 +339,10 @@ function showCart(show) {
     let $cart_cont = $("#cart-cont");
     showOverlay(show, {cb: () => showCart(false)})
     $cart_cont.css({transform: `translateX(${show ? "0" : "400"}px)`})
+
+    $cart_cont.off("mouseenter").on("mouseenter", e => {
+        clearTimeout(carttime)
+    })
 }
 
 function shopNow($elem) {

@@ -7,38 +7,48 @@ let filter = {categorias: [], subcategorias: [], marcas: [], precio: [], proveed
 ;
 
 let orderStr = /*html*/`
-<div class="row row-center">
-<div class="selectdiv" style="min-width: 170px;">
-    <select id="sort" onchange="showProducts($resultado_list, store.collections['search'], null, {renderFilters: true, cache: true, sort:$(this).val()})">
+<div class="selectdiv">
+    <select id="sort" onchange="showProducts($resultado_list, 'currentCollection', {filter: true, sort:$(this).val()})">
         <option value="rel">Orden automático</option>
         <option value="men">Menor precio primero</option>
         <option value="may">Mayor precio primero</option>
         <option value="des">Mayor descuento primero</option>
     </select>
-</div>
 </div>`
 
-async function showProducts($target, products, collection, options = {}){
 
-    let ret = { marcas: {}, cats: {}, subs: {}, minPrice: Number.MAX_SAFE_INTEGER, maxPrice: 0, prod_rendered: [], fullProducts: [], filtered: false}
+function getProduct(id) {
+    let index, ret;
+    forEach(store.collections, collection => {
+        index = collection.findIndex(item => item.id == id)
+        if(index >= 0) ret = collection[index]
+    })
+    return ret
+}
 
-    if(options.cache === true) {
-        ret.fullProducts = products
-        forEach(ret.fullProducts, item => store.collections[collection].push((store.products[item.id] = item)))
-    } else {
-        ret.fullProducts = await getProductsFullInfo(products)
-        ret.fullProducts = ret.fullProducts.stock
+async function showProducts($target, products, options = {}){
 
-        if(!options.append) {
-            store.collections[collection] = []
-            $target.html("")
-        }
-        forEach(ret.fullProducts, item => store.collections[collection].push((store.products[item.id] = item)))
+    let ret = {
+        marcas: {}, 
+        cats: {}, 
+        subs: {}, 
+        minPrice: Number.MAX_SAFE_INTEGER, 
+        maxPrice: 0, 
+        rendered: [], 
+        filtered: false
     }
-    
-    if(options.limit) ret.fullProducts = ret.fullProducts.slice(0, options.limit)
 
-    if(options.renderFilters) {
+    
+    if(products == 'currentCollection') products = store.collections[store.currentCollection]
+
+    if(options.collection) {
+        store.collections[options.collection] = products
+        store.currentCollection = options.collection
+    }
+
+    if(options.limit) products = products.slice(0, options.limit)
+
+    if(options.filter) {
 
         ret.filtered = true,
         ret.filters = {}
@@ -51,7 +61,7 @@ async function showProducts($target, products, collection, options = {}){
             else filter[options.type].push(options.value)
         }
 
-        forEach(ret.fullProducts, item => {
+        forEach(products, item => {
 
             // filters
             if(filter.precio.length > 0 && (item.precio < filter.precio[0] || item.precio > filter.precio[1])) return;
@@ -66,32 +76,40 @@ async function showProducts($target, products, collection, options = {}){
             if(item.proveedor) set(ret, "proveedores", item.proveedor, "count")
             if(item.cat && item.sub) {set(ret, "cats", item.cat, "count"); set(ret, "subs", item.sub, "count")}
 
-            ret.prod_rendered.push(item)
+            ret.rendered.push(item)
         })
 
         // sort
         if(options.sort) store.sort = options.sort
         switch(store.sort) {
-            case "men": renderProducts($target, sortByKey(ret.prod_rendered, "precio", "asc"), options); break;
-            case "may": renderProducts($target, sortByKey(ret.prod_rendered, "precio", "desc"), options); break;
-            case "des": renderProducts($target, sortByKey(ret.prod_rendered, "descuento", "desc"), options); break;
+            case "men": renderProducts($target, sortByKey(ret.rendered, "precio", "asc"), options, ret); break;
+            case "may": renderProducts($target, sortByKey(ret.rendered, "precio", "desc"), options, ret); break;
+            case "des": renderProducts($target, sortByKey(ret.rendered, "descuento", "desc"), options, ret); break;
             default: {
-                if(options.banners_data) {
-                    //options.banners_data.forEach(item => console.log(item))
-                }
-                renderProducts($target, ret.prod_rendered.sortOnDesc("score2", "descuento"), options, ret)
+                renderProducts($target, ret.rendered.sortOnDesc("score2", "descuento"), options, ret)
             }
         }
+
+        console.log(options, ret.rendered)
     } else {
-        ret.prod_rendered = ret.fullProducts
-        if(options.sort) sortByKey(ret.prod_rendered, options.sort.field, options.sort.mode)
-        renderProducts($target, options.shuffle ? ret.prod_rendered.sort(function(){return 0.5 - Math.random()}) : ret.prod_rendered, options)
+        ret.rendered = products
+        if(options.sort) sortByKey(ret.rendered, options.sort.field, options.sort.mode)
+        renderProducts($target, options.shuffle ? ret.rendered.sort(() => (0.5 - Math.random())) : ret.rendered, options, ret)
     }
 
-    return {total_count: products.length, founded_count: ret.fullProducts.length, filtered_count: ret.prod_rendered.length, noProducts: ret.prod_rendered.length == 0, ...ret}
+    return {
+        total_count: products.length, 
+        founded_count: products.length,
+        filtered_count: ret.rendered.length, 
+        noProducts: ret.rendered.length == 0,
+        products,
+        ...ret
+    }
 }
 
 function renderProducts($target, products, options = {}, ret) {
+
+
 
     $target.find(".products-loading").remove()
 
@@ -127,8 +145,8 @@ function renderProducts($target, products, options = {}, ret) {
         if(options.headerFilter) {
 
             let s = "", labels = {subcategorias: "categoría", marcas: "marca", proveedores: "laboratorio"};
-
-            $target.append(`<div class="section${options.section}">${options.headerFilter ? `<div class="products-header">Mostrando <b>${ret.prod_rendered.length}</b> productos filtrados por</div>` : ""}<div id="filter-cont"></div><div class="products-page"></div></div>`)
+            console.log(ret)
+            $target.append(`<div class="section${options.section}">${options.headerFilter ? `<div class="products-header">Mostrando <b>${ret.rendered.length}</b> productos filtrados por</div>` : ""}<div id="filter-cont"></div><div class="products-page"></div></div>`)
             
 
             forEach(filter, (item, key) => {
@@ -146,7 +164,7 @@ function renderProducts($target, products, options = {}, ret) {
             if(s == "") $target.find(".products-header").html(currentHeader)
             $("#filter-cont").html(s + `<div style="clear:both"></div>`)
 
-            if(ret.prod_rendered.length == 0) $("#no-resultado").show(0)
+            if(ret.rendered.length == 0) $("#no-resultado").show(0)
             else $("#no-resultado").hide(0)
 
             
@@ -154,10 +172,10 @@ function renderProducts($target, products, options = {}, ret) {
             currentHeader = options.header
             $target.append(`<div class="section${options.section}">${options.header ? `<div class="products-header">${options.header}</div>` : ""}<div class="products-page"></div></div>`)
         } else if(options.headerLike) {
-            currentHeader = `Mostrando <b>${ret.prod_rendered.length}</b> resultados parecidos a <b>${options.headerLike}</b>`
+            currentHeader = `Mostrando <b>${ret.rendered.length}</b> resultados parecidos a <b>${options.headerLike}</b>`
             $target.append(`<div class="section${options.section}"><div class="products-header">${currentHeader}</div><div class="products-page"></div></div>`)
         } else if(options.headerExact) {
-            currentHeader = `Mostrando <b>${ret.prod_rendered.length}</b> resultados para <b>${options.headerExact}</b>`
+            currentHeader = `Mostrando <b>${ret.rendered.length}</b> resultados para <b>${options.headerExact}</b>`
             $target.append(`<div class="section${options.section}"><div class="products-header">${currentHeader}</div><div id="banner" style="margin-bottom:10px"></div><div class="products-page"></div></div>`)
         } else {
             $target.append(`<div class="section${options.section}">${currentHeader ? `<div class="products-header">${currentHeader}</div>` : ""}<div class="products-page"></div></div>`)
@@ -295,7 +313,7 @@ ${_(precioCondicion, /*html*/`
 
     default:
 
-        hasDiscount = item.descuento > 0 && (!store.noPromoCats.includes(item.cat) && !store.noPromoSubs.includes(item.sub) || store.proveedores.includes(item.nitproveedor))
+        hasDiscount = item.descuento > 0 && (!store.noPromoCats.includes(item.cat) && !store.noPromoSubs.includes(item.sub) || (store.proveedores && store.proveedores.includes(item.nitproveedor)) )
 
         beneficio = item.beneficio != undefined
 
@@ -353,10 +371,9 @@ function renderLoading($target) {
     function animate1() {
         anime({
             targets: '.products-loading > div',
-            opacity: 0.3,
-            duration: 250,
+            opacity: 0.5,
+            duration: 150,
             easing: 'linear',
-            scale: 0.97,
             delay: anime.stagger(100),
             complete: () => {if(continueAnim) animate2()}
         });
@@ -366,9 +383,8 @@ function renderLoading($target) {
         anime({
             targets: '.products-loading > div',
             opacity: 1,
-            duration: 250,
+            duration: 150,
             easing: 'linear',
-            scale: 1,
             delay: anime.stagger(100),
             complete: () => {if(continueAnim) animate1()}
         });
@@ -381,7 +397,7 @@ function productClick($parent, $elem) {
 
     let id = $parent.data("id");
 
-    if($elem.hasClass("add")) return pLog("cart", {id, product: store.products[id], value: 1});
+    if($elem.hasClass("add")) return pLog("cart", {id, product: getProduct(id), value: 1});
     if($elem.hasClass("fa-plus")) return pLog("cart", {id, sum: 1});
     if($elem.hasClass("fa-minus") || $elem.hasClass("fa-trash-alt")) return pLog("cart", {id, sum: -1});
     if($elem.hasClass("cantidad")) return
@@ -391,14 +407,12 @@ function productClick($parent, $elem) {
 
 function renderProductUpdate(id) {
 
-
     $$("[data-id='" + id + "']").forEach(item => {
         if(item.classList.contains('product-item')) {
-            item.outerHTML = renderProductItem(store.products[id])
+            item.outerHTML = renderProductItem(getProduct(id))
         }
     })
 
     if(currentProductDetail) $("#basic-info").html(renderProductItem(currentProductDetail, "detail"))
-  
-    
+   
 }

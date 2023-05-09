@@ -90,7 +90,6 @@ function renderSummary(d) {
         "23": "PSE"
     }
 
-
     //$("#calificacion-preguntas").data("pedido", d.numero)
 
     $("#items-list").html(renderItems(d.items))
@@ -145,9 +144,7 @@ async function rebuy(order_id) {
 
         await showProducts($("<div></div>"), fullinfo, "rebuy")
         orders[order_id].items.forEach(item => {
-            console.log(item)
-            if(!store.products[item.id]) return
-            setCart(item.id, item.cantidad, 0, store.products[item.id])
+            if(getProduct(item.id)) setCart(item.id, {value: 1})
         })
     }
 }

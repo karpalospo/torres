@@ -13,12 +13,18 @@
 
     <style>
 
-        .aplicar {
-            padding: 7px 8px;
-            background: #316baa;
+        .btn-aplicar {
+            padding: 0 8px;
+            background: #fa7800;
             color: white;
-            font-weight: 400;
+            font-weight: 600;
             text-align: center;
+            border: none;
+            height: 30px;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.8em;
+            font-family: 'Be Vietnam Pro';
+            letter-spacing: 1px;
         }
 
         .nota-entrega {
@@ -67,13 +73,12 @@
                 <div class="header-title">1. INGRESA TU CUPÓN DE DESCUENTO</div>
 
                 <div style="padding: 0 10px;">
-                    <br>
-                    <div class="row row-center">
-                        
-                        <input id="txt-cupon" type="text" style="text-transform: uppercase; width: auto;" class="input" placeholder="INGR3S4TUCUP0N" autocomplete="false" />
-                        <button class="page-button aplicar" onclick="redeemCoupon()">APLICAR</button>
-                        <div style="width:20px"></div>
-                        <button class="page-button-flat2 button-pink" style="padding: 8px 8px; flex: initial;" onclick="showModal(true, $('#cupones'))">Cupones de Descuento &nbsp;<i class="fas fa-chevron-down"></i></button>
+ 
+                    <div class="row">
+                        <input id="txt-cupon" type="text" style="text-transform: uppercase; border-radius: 0;" class="input" autocomplete="false" />
+                        <button class="btn-aplicar" onclick="redeemCoupon()">Aplicar</button>
+                        <div class="f1"></div>
+                        <button style="padding: 8px 8px; height: 30px; border: 1px solid #aaa; border-radius: 4px;" onclick="showModal(true, 'cupones')">Cupones de Descuento &nbsp;<i class="fas fa-chevron-down"></i></button>
                     </div>
                     <div id="lbl-coupon"></div>
 
@@ -89,22 +94,22 @@
                       <div id="payment-list" class="select-list">
                         <div data-value="PSE">
                             <div style="width: 25px;"><i class="fa fa-check"></i></div>
-                            <div class="image" style="background-image: url(https://imperacore.net/assets/logo-pse.png)"></div>
+                            <div class="image" style="background-image: url(assets/globalpay.png)"></div>
                             <span><b>PSE Tarjeta Debito y Crédito</b> (Online)</span>
                         </div>
                         <div data-value="Efectivo">
                             <div style="width: 25px;"><i class="fa fa-check"></i></div>
-                            <div class="image" style="background-image: url(https://imperacore.net/assets/money2.png)"></div>
+                            <div class="image" style="background-image: url(assets/money2.png)"></div>
                             <span><b>Efectivo</b> (Contraentrega)</span>
                         </div>
                         <div data-value="Datáfono">
                             <div style="width: 25px;"><i class="fa fa-check"></i></div>
-                            <div class="image" style="background-image: url(https://imperacore.net/assets/datafono2.png)"></div>
+                            <div class="image" style="background-image: url(assets/datafono2.png)"></div>
                             <span><b>Datáfono</b> (Contraentrega)</span>
                         </div>
                         <div data-value="TCO">
                             <div style="width: 25px;"><i class="fa fa-check"></i></div>
-                            <div class="image" style="background-image: url(https://imperacore.net/assets/tco2.png)" ></div>
+                            <div class="image" style="background-image: url(assets/tco2.png)" ></div>
                             <span><b>Tarjeta de Crédito Olímpica</b> (Contraentrega)</span>
                         </div>
                     </div>
@@ -161,6 +166,6 @@
 <script src="js/app.js?v=4.0"></script>
 <script src="js/cart.js?v=4.0"></script>
 <script src="js/products.js?v=4.0"></script>
-<script src="js/order-page.js?v=4.0"></script>
+<script src="js/pedidos.js"></script>
 <script src="js/header.js?v=4.0"></script>
 </body></html>

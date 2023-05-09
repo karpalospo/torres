@@ -2,19 +2,20 @@ async function page_init() {
 
     search_product(getParameterByName("c"))
 
-    await search_products2("carrusel", "[code]058167 058092 058057 058003 058091 058004 086038 086456 086521 086522", $("#prod-estrella").find(".swiper-wrapper"), {hcarrusel: true, shuffle:true, sort: {field:"descuento", mode:"desc"}})
+
+    //await search_products2("carrusel", "[code]058167 058092 058057 058003 058091 058004 086038 086456 086521 086522", $("#prod-estrella").find(".swiper-wrapper"), {hcarrusel: true, shuffle:true, sort: {field:"descuento", mode:"desc"}})
     
-    new Swiper($("#prod-estrella")[0], 
-    {
-        direction: 'horizontal',
-        slidesPerView: productBounces.rowCount,
-        slidesPerGroup: productBounces.rowCount,
-        loop: true,
-        autoplay: {delay: 6000},
-        preloadImages: false,
-        lazy: true,
-        navigation: {nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev'}
-    })
+    // new Swiper($("#prod-estrella")[0], 
+    // {
+    //     direction: 'horizontal',
+    //     slidesPerView: productBounces.rowCount,
+    //     slidesPerGroup: productBounces.rowCount,
+    //     loop: true,
+    //     autoplay: {delay: 6000},
+    //     preloadImages: false,
+    //     lazy: true,
+    //     navigation: {nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev'}
+    // })
 
     let $window = $(window)
 
@@ -45,21 +46,27 @@ async function search_products2(collection, str, $target, options) {
 
 async function search_product(id) {
     
+    res = await API.POST.getFromCodes([id], store.location, {convenio: store.user.convenio})
+    //res = await getProductsFullInfo([{id}])
 
-    res = await getProductsFullInfo([{id}])
-
-    currentProductDetail = res[res.stock.length > 0 ? "stock" : "soldout"][0]
+    currentProductDetail = HomologarProductos([res.data[0]])[0]
     cargarFoto(currentProductDetail)
     $("#basic-info").html(renderProductItem(currentProductDetail, currentProductDetail.stock ? "detail" : "no-detail")) 
     $("#add-info").html(renderExtrainfo(currentProductDetail))
 
     // render crumb
+    let cat = store.categorias[currentProductDetail.cat],
+        sub = store.categorias[currentProductDetail.cat].subs[currentProductDetail.sub]
+    ;
 
-    // <div><a href="https://www.droguerialaeconomia.com" title="Inicio"><i class="fas fa-home"></i> &nbsp; Home</a></div>
-    // <div class="separator"><i class="fas fa-chevron-right"></i></div>
-    // <div><a href="https://www.droguerialaeconomia.com/categoria/gripa-tos" title="Gripa, tos">Gripa, tos</a></div>
-    // <div class="separator"><i class="fas fa-chevron-right"></i></div>
-    // <div><a href="https://www.droguerialaeconomia.com/categoria/gripa-tos/malestar-gripa" title="Malestar gripa">Malestar gripa</a></div>
+    $("#crumbs").html(/*html*/`
+<div><a href="index.html" title="Inicio" ><i class="fas fa-home" style="font-size: 1.1em;"></i></a></div>
+<div class="separator"><i class="fas fa-chevron-right"></i></div>
+<div><a href="${ABS_URL}categorias.html?s=${cat.id}" title="${cat.title}" >${cat.title}</a></div>
+<div class="separator"><i class="fas fa-chevron-right"></i></div>
+<div><a href="${ABS_URL}categorias.html?s=${sub.id}" title="${sub.title}" >${sub.title}</a></div>
+`)
+
 
     calculateCart()
 

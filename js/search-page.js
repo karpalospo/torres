@@ -1,6 +1,3 @@
-store.page = "search"
-   
-
 let $resultado_list = $("#resultado-list"),
     search_str = "",
     result_search_str = "",
@@ -9,90 +6,67 @@ let $resultado_list = $("#resultado-list"),
 ;
 
 function page_init() {
+
+    let str = getParameterByName("b").trim().toLowerCase()
     resize()
     renderLoading($resultado_list)
-    $("#categorias-filter, #marcas-filter, #laboratorio-filter, #precio-filter").html(`<div class="tx-center"><img src="${ABS_URL_SERVER}/assets/loader.gif" style="width: 25px; opacity: 0.3;" /></div>`)
-    search_products(search_products(getParameterByName("b")))
+    $("#categorias-filter, #marcas-filter, #laboratorio-filter, #precio-filter").html(`<div class="tx-center"><img src="assets/loader.gif" style="width: 25px; opacity: 0.3;" /></div>`)
+    
+    
+    if(str != undefined && str != "" && str.length > 2) search_products(str)
 
 }
 
-function search_products(str) {
+async function search_products(search_str) {
 
-    if(str == undefined || str == "") return
+    res = await pLog("search", search_str)
+    result_search_str = res.data.search_label
 
-    search_str = str.trim().toLowerCase()
+    let result = res.error ? 0 : res.data.products.length,
+        banners = [],
+        p = {},
+        fullProducts = [],
+        sumSection = 0
+    ;
 
-    if(search_str.length < 2) return
-
-    (async function () {
-
-        noSearchCodes = ""
-
-        res = await pLog("search", search_str)
-        result_search_str = res.data.search_label
-
-        let result = res.error ? 0 : res.data.products.length,
-            banners = [],
-            h = res.data.h || [],
-            p = {},
-            sumSection = 0
-        ;
-
-        // productos
-        if(result > 0) {
-
-            p = await showProducts($resultado_list, res.data.products, 'search', {renderFilters: true, rows: "auto", cols: 100, sort: $("#sort").val(), headerExact: result_search_str, section: sumSection})
+    // productos
+    if(result > 0) {
 
 
-            if(p.noProducts) {
-                
-                NoResults(result_search_str)
+        fullProducts = await getProductsFullInfo(res.data.products)
+console.log(fullProducts.stock)
+        p = await showProducts($resultado_list, fullProducts.stock, {collection: 'search', filter: true, rows: "auto", cols: 100, sort: $("#sort").val(), headerExact: result_search_str, section: sumSection})
 
-            } else {
+        if(p.noProducts) {
+            
+            NoResults(result_search_str)
 
-                // banners
-                if(res.data.banners) {
-                    banners = res.data.banners.filter(banner => (banner.data && banner.data.banner_keywords && banner.data.banner_keywords.toLowerCase().split(" ").includes(search_str.toLowerCase())))
-                    if(renderBanners($("#banner"), banners) === false) $("#banner").hide(0)
-                }
-        
-                // popups
-                if(store.popups) showPagePopup(store.popups.search.filter(item => (item.data.popup_keywords.split(" ").includes(search_str))))
+        } else {
 
-                renderFiltros(p)
+            // banners
+            // if(res.data.banners) {
+            //     banners = res.data.banners.filter(banner => (banner.data && banner.data.banner_keywords && banner.data.banner_keywords.toLowerCase().split(" ").includes(search_str.toLowerCase())))
+            //     if(renderBanners($("#banner"), banners) === false) $("#banner").hide(0)
+            // }
+    
+            // popups
+            //if(store.popups) showPagePopup(store.popups.search.filter(item => (item.data.popup_keywords.split(" ").includes(search_str))))
 
-                return 
-
-                // mas productos
-                noSearchCodes = ""
-                p.fullProducts.forEach(item => noSearchCodes += item.id + " ")
-
-                // productos similares
-                if(h && h.b) {
-                    arr1 = [...h.b]
-                    if(h.c) arr1 = [...arr1, ...h.c]
-                    res = await pLog("search", {str: arr1.reduce((a, b) => a + " " + b), excludes: noSearchCodes, noLevenstein: true})
-                    await showProducts($resultado_list, res.data.products, 'search', {append: true, header: `Productos similares a <b>${result_search_str}</b>`, renderFilters: true, rows: "auto", cols: 100, section: ++sumSection})
-                }
-
-                // productos complementarios
-                if(h && h.d) {
-                    res = await pLog("search", {str: h.d.reduce((a, b) => a + " " + b), excludes: noSearchCodes, noLevenstein: true})
-                    await showProducts($resultado_list, res.data.products, 'search', {append: true, header: `Productos complementarios a <b>${result_search_str}</b>`, renderFilters: true, rows: "auto", cols: 100, section: ++sumSection})
-                }
-
-                
-            }
-
-        } else if(result == 0) {
-            if(res.data.like.length > 0) {
-                p = await showProducts($resultado_list, res.data.like, 'search', {renderFilters: true, rows: "auto", headerLike: result_search_str, cols: 100, sort: $("#sort").val()})
-                if(p.noProducts) NoResults(result_search_str)
-                else renderFiltros(p)
-            } else NoResults(result_search_str)
+            renderFiltros(p)
+            $("#sort-div").html(orderStr)
         }
-        
-    })()
+
+    } else if(result == 0) {
+        // if(res.data.like.length > 0) {
+        //     p = await showProducts($resultado_list, res.data.like, 'search', {renderFilters: true, rows: "auto", headerLike: result_search_str, cols: 100, sort: $("#sort").val()})
+        //     if(p.noProducts) NoResults(result_search_str)
+        //     else renderFiltros(p)
+        // } else NoResults(result_search_str)
+
+        NoResults(result_search_str)
+    }
+    
+  
 
 }
 
@@ -142,15 +116,16 @@ function renderProveedores($target, proveedores) {
     $target.html(`<div class="left-menu">${s}</div>`)
 }
 
-
 function renderPrecios($target, precios) {
 
     rangeValues = [precios.minPrice, precios.maxPrice]
     if(precios.maxPrice == precios.minPrice) precios.maxPrice++
-    $target.html(
-`<div class="row mini-price"><span>Min. ${f(precios.minPrice)}</span><span>Max. ${f(precios.maxPrice)}</span></div>
-<div style="height:10px"></div>
-<div id="range"></div><div style="height:20px"></div>`)
+    $target.html(/*html*/`
+<div class="row mini-price">
+    <span>Min. ${f(precios.minPrice)}</span>
+    <span>Max. ${f(precios.maxPrice)}</span>
+</div>
+<div id="range" style="margin-top:10px"></div>`)
 
     priceRange = noUiSlider.create($target.find("#range")[0], {
         start: [precios.minPrice, precios.maxPrice],
@@ -174,6 +149,7 @@ function renderPrecios($target, precios) {
 
 function renderFiltros(p) {
 
+    console.log(p)
     renderCategoriasLocal($("#categorias-filter"), p.cats, p.subs)
     renderMarcas($("#marcas-filter"), p.marcas)
     renderProveedores($("#laboratorio-filter"), p.proveedores)
@@ -195,12 +171,10 @@ function filterClick(value, key) {
     filterProduct(value, item, key)
 }
 
-
 async function filterProduct(value, elem, type) {
     $(elem).toggleClass("active")
-    await showProducts($resultado_list, store.collections['search'], null, {renderFilters: true, cache:true, type, value, append: false, headerFilter: true })
+    await showProducts($resultado_list, 'currentCollection', {filter: true, type, value, append: false, headerFilter: true })
 }
-
 
 function resetPrice() {
     priceRange.reset()

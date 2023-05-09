@@ -14,7 +14,7 @@
             <h3>Contraseña</h3>
             <input class="input xl" id="frm-password" type="password" onkeyup="if(event.code == 'Enter') login()" name="password" />
             <div class="frm-error"></div>
-            <div class="tx-center"><button class="page-button-flat3" onclick="showModal(true, $('#olvide-paso1'))">OLVIDÉ MI CONTRASEÑA</button></div>
+            <div class="tx-center"><button class="page-button-flat3" onclick="showModal(true, 'olvide-paso1')">OLVIDÉ MI CONTRASEÑA</button></div>
             <p class="tx-center"><button id="btn-login" class="page-button" onclick="login()">INICIAR SESIÓN</button></p>
             <div class="tx-center">
                 <p style="font-size: 0.8em;">¿Aún no tienes una cuenta?</p>
@@ -58,7 +58,7 @@
         </div>
     </div>
 
-    <div id="popup-message" class="float-window">
+    <div id="popup-message" class="float-window" style="max-width: 380px;">
         <div class="float-header">
             <div class="title"></div>
             <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
@@ -80,7 +80,7 @@
     </div>
 
 
-    <div id="address" class="float-window">
+    <div id="address" class="float-window" style="max-width: 450px; min-width: 310px;">
         <div class="float-header">
             <div class="title">AGREGAR DIRECCIÓN</div>
             <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
@@ -147,7 +147,76 @@
         
     </div>
 
+    <div id="olvide-paso1" class="float-window" style="max-width: 450px; min-width: 310px;">
+        <div class="float-header">
+            <div class="title">RECUPERAR CONTRASEÑA</div>
+            <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
+        </div>
+        <div class="float-content" style="padding: 0 20px;">
+            <p style="font-size: 1.1em; font-weight:400; padding: 10px 0">Enviaremos a su correo eléctronico registrado un código que le permitirá establecer una nueva contraseña</p>
+            <div>
+                <h3>Correo Electrónico</h3>
+                <input id="email-recuperar" type="text" class="input xl" placeholder="ejemplo@correo.com" name="email" />
+            </div>
+            <br><br>
+        </div>
+        <div class="float-footer">
+            <div><button class="page-button" onclick="enviarCodigo(this)">ENVIAR CÓDIGO</button></div>
+        </div>
+    </div>
+    
+    
+    <div id="olvide-paso2" class="float-window" style="max-width: 450px; min-width: 310px;">
+        <div class="float-header">
+            <div class="title">CAMBIAR CONTRASEÑA</div>
+            <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
+        </div>
+        <div class="float-content" style="padding: 0 20px;">
+            <p style="font-size: 1.1em; font-weight:400; padding: 10px 0">Revise en todas las carpetas de entrada de su correo el código que le acabamos de enviar</p>
+    
+            <h3>Código de verificación</h3>
+            <input id="codigo-recuperar" type="text" class="input" name="codigo" />
+            
+            <div class="separador"></div>
+        
+            <h3>Contraseña</h3>
+            <input id="password1-recuperar" type="password" class="input" name="password" />
+        
+            <div class="separador"></div>
+        
+            <h3>Repetir Contraseña</h3>
+            <input id="password2-recuperar" type="password" class="input" name="confirmPassword" />
+            
+            <br><br><br>
+        </div>
+        <div class="float-footer">
+            <div><button class="page-button" onclick="enviarContrasena(this)">CAMBIAR CONTRASEÑA</button></div>
+        </div>
+    </div>
+    
+    <div id="olvide-success" class="float-window" style="max-width: 450px; min-width: 310px;">
+        <div class="float-header">
+            <div class="title">RECUPERAR CONTRASEÑA</div>
+            <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
+        </div>
+        <div class="float-content" style="padding: 0 20px;">
+            <h4 style="font-size: 1.3em; text-align: center;">¡La contraseña fue restablecida con éxito!</h4>
+        </div>
+        <div class="float-footer">
+            <div><button class="page-button" onclick="showModal(false, $('#olvide-success'))">REGRESAR</button></div>
+        </div>
+    </div>
 
+
+    <div id="cupones" class="float-window" style="max-width: 450px; min-width: 310px;">
+        <div class="float-header">
+            <div class="title">CUPONES DE DESCUENTO</div>
+            <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
+        </div>
+        <div class="float-content elastic">
+            <div id="cupones-list"></div>
+        </div>
+    </div>
 
 </div>
 

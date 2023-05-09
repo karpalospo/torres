@@ -23,6 +23,7 @@ $("#header-cont").load("header.html", async function() {
 
         await renderCategorias(store.location)
         await renderCiudades()
+        await renderCupones()
 
         resize()
 
@@ -58,7 +59,7 @@ async function renderCategorias(ciudad) {
     $menuitems.off("mouseenter").on("mouseenter", e => showDropMenu($(e.currentTarget), true))
     $menuitems.off("mouseleave").on("mouseleave", e => showDropMenu($(e.currentTarget), false))
 
-    //showDropMenu($target.find("> div").eq(0), true)
+    //showDropMenu($target.find("> div").eq(5), true)
 }
 
 async function renderCiudades() {
@@ -83,7 +84,7 @@ function renderUser() {
     if(store.user.logged) {
         if(!store.user.nombres) return
         let nombre = store.user.nombres.split(" ")[0].toUpperCase()
-        $("#lbl-nombre").html(nombre)
+        $("#lbl-nombre").html(nombre.toLowerCase())
         $("[data-id='login']").find(".content").html(`
 <div class="menu-item" onclick="parent.location='${ABS_URL}/perfil'">Mi Perfíl</div>
 <div class="menu-item" onclick="parent.location='${ABS_URL}/perfil/pedidos'">Mis Pedidos</div>
@@ -100,20 +101,74 @@ function renderUser() {
 <div class="menu-item" onclick="parent.location = '${ABS_URL}/registro'">Registrarse</div>`)
 
         $("#menu-adicional").hide(0)
-        //$("#float-right").hide(0)
-        
     }
 }
 
+async function renderCupones() {
+
+
+    if(!store.user.logged) { 
+        return $target.html(/*html*/`
+<p style="font-size:1.3em; text-align: center">
+<i class="big-font fas fa-exclamation-circle"></i><br>
+Para ver los cupones de descuento disponibles debes iniciar sesión
+</p><br/><br/>
+<p class="tx-center">
+    <button class="page-button" onclick="showModal(true, 'signin')">INICIAR SESIÓN</button>
+</div><br/><br/>
+<p class="tx-center">
+    <button class="page-button-flat2" onclick="parent.location = 'registro.html'">¡No tengo cuenta! Registrarme</button>
+</p>`)
+    }
+
+    res = await API.POST.getCupones(store.user.nit)
+    if(!res.error) store.cupones = res.data
+    
+    if(store.cupones.length == 0) {
+        return $target.html(/*html*/`<p style="font-size:1.3em; text-align: center"><i class="big-font fas fa-exclamation-circle"></i><br>En estos momentos no tenemos cupones disponibles para ti</p>`)
+    }
+
+    s = ""
+    forEach(store.cupones, item => {
+        couponCondicion(item)
+        s += /*html*/`
+<div class="cupon">
+    <div>
+        <p class="title">${item.NombreCupon}</p>
+        <p class="value">${f(item.ValorCupon)}</p>
+        <p>
+        &#10004; <b>${f(item.valorcupon)}</b> de descuento para compras mínimas de <b>${f(item.VlrMinimo)}</b><br>
+        &#10004; Válido hasta <b>${new Date(item.Hasta).toLocaleString('en-US')}</b><br>
+        &#10004; Utilización máxima <b>${item.MaximaVentaCliente} ${item.MaximaVentaCliente == 1 ? "vez" : "veces"}</b> por usuario el mismo día.<br>
+        ${item.aplica.length > item.noaplica.length ?
+        /*html*/`&#10004; <b>No Aplica</b> para las siguientes categorías: <span class="button-aplica-cats-${item.IdCupon}" onclick="vercats('aplica-cats-${item.IdCupon}')">Mostrar Categorias</span>
+        <div class="aplica-cats-${item.IdCupon}" style="max-height:0; overflow: hidden">${stringfyCats(item.noaplica)}</div>`
+        :
+        /*html*/`&#10004; Aplica para las siguientes categorías: <span class="button-aplica-cats-${item.IdCupon}" onclick="vercats('aplica-cats-${item.IdCupon}')">Mostrar Categorias</span>
+        <div class="aplica-cats-${item.IdCupon}" style="max-height:0; overflow: hidden">${stringfyCats(item.aplica)}</div>`
+        }
+        </p>
+        <p class="tx-center"><button class="page-button" onclick="pLog('coupon', {id: '${item.IdCupon}'})">UTILIZAR ESTE CUPÓN</button></p><br>
+        <i class="fas fa-cut"></i>
+    </div>
+</div>`
+    })
+   
+    $("#cupones").html(s)
+
+}
+
+
 function showDropMenu($elem, visible) {
     
-    let $cont, $window, pos = $elem.position();
+    let $cont, $window, r, $items, pos = $elem.position();
 
     if(!visible) {clearTimeout(timeout); show(false);}
     else timeout = setTimeout(() => {if(!menuShown) show(true)}, 250);
 
     function show(value) {
         if(value) {
+            if($elem.find(".menu-float-cont").length > 0) return
             $elem.append(/*html*/`<div class="menu-float-cont"><div class="menu-float" style="transform: translateY(10px) scale(0.95); opacity: 0.5"></div>`)
             menuShown = true;
         }
@@ -121,14 +176,27 @@ function showDropMenu($elem, visible) {
         $window = $cont.find("> div")
         if(value) {
             s = ""
-            s2 = ""
             d = store.grupos[$elem.data("id")]
+            r = $elem.offset().left + 300 > $(window).width()
             d.Categorias.forEach(item => {
-                s += /*html*/`<div class="row" data-id="${item.IdCategoria}"><div class="f1">${item.Categoria}</div>${item.Subcategorias !== undefined ? `<i class="fas fa-chevron-right"></i>` : ``}</div>`
+                if(item.Subcategorias !== undefined){
+                    s += /*html*/`<div  data-cat="${item.IdCategoria}" class="row" ${_(r, `data-right="true"`)}>${_(r, `<i class="fas fa-chevron-left"></i>`)}<div class="f1">${item.Categoria}</div>${_(!r, `<i class="fas fa-chevron-right"></i>`)}</div>`
+                } else {
+                    s += /*html*/`<div  data-cat="${item.IdCategoria}" data-sub="${item.IdCategoria}"><div class="f1">${item.Categoria}</div></div>`
+                }
             })
-            $window.html(`<h2 style="font-size:1.2em; margin-bottom: 7px; padding-left: 8px">${d.Grupo}</h2>${s + s2}</div>`)
+
+            $window.html(`<h2 style="font-size:1.2em; margin-bottom: 7px; padding-left: 8px">${d.Grupo}</h2>${s}</div>`)
             $cont.css({top: pos.top + $elem.height(), left: pos.left + ($elem.width() - $cont.width()) / 2})
+            $items = $(".menu-float > div")
+
+            $items.off("mouseenter").on("mouseenter", e => showDropSubmenu($(e.currentTarget), true))
+            $items.off("mouseleave").on("mouseleave", e => showDropSubmenu($(e.currentTarget), false))
+            $items.off("click").on("click", e => {
+                if(e.currentTarget.dataset.sub) parent.location = `categorias.html?s=${e.currentTarget.dataset.sub}`
+            })
         }
+
         anime({
             targets: $window[0],
             duration: 400,
@@ -147,35 +215,60 @@ function showDropMenu($elem, visible) {
             complete: function() {menuShown = false; if(!value) $cont.remove()}
         })
         showOverlay(value, {id: "overlay2", disabled: true})
-
-        $(".menu-float > div").off("mouseenter").on("mouseenter", e => showDropSubmenu($(e.currentTarget), true))
-        $(".menu-float > div").off("mouseleave").on("mouseleave", e => showDropSubmenu($(e.currentTarget), false))
+        
     }
-
-
 
 }
 
 function showDropSubmenu($elem, visible) {
 
-    let s2 = "", id = $elem.data("id"), item, $parent = $elem.parent();
+
+    let s2 = "", id = $elem.data("cat"), item, left, $new, $submenu = $elem.find(".submenu-float-cont");
+
+    if(!visible) return $submenu.remove()
+
 
     if(!id) return;
 
     item = store.categorias[id]
 
-    if(item.subs !== undefined) {
-        Arrayfy(item.subs).forEach(itemsub => {
-            s2 += /*html*/`<div data-id="${itemsub.id}"><div>${itemsub.title}</div></div>`
-        })
+    
+    if(!item || item.subs == undefined) return
 
-        if(visible) {
-            $parent.append(/*html*/`<div class="submenu-float" style="top: ${$elem.position().top}px; left: ${$elem.width() + 30}px">${s2}</div>`)
-        } else {
-            $parent.find(".submenu-float").remove()
-        }
-    }
+    Arrayfy(item.subs).forEach(itemsub => {
+        s2 += /*html*/`<div data-cat="${itemsub.id}" data-sub="${itemsub.id}">${itemsub.title}</div>`
+    })
 
-   
+    if($submenu.length > 0) return
 
+    left = "left:" + ($elem.width() + 20) + "px"
+    if($elem.data("right") == true) left = "right: " + ($elem.width() + 20) + "px"
+    
+    $elem.append($new = $(/*html*/`
+    <div class="submenu-float-cont" style="opacity: 0; transform: translateY(10px) scale(0.95); top: ${$elem.position().top - 5}px; ${left}">
+        <div class="submenu-float">${s2}</div>
+    </div>`))
+
+    $new.find(".submenu-float").off("click").on("click", "> div", e => {
+        parent.location = `categorias.html?s=${$(e.currentTarget).data("sub")}`
+    })
+
+    anime({
+        targets: $new[0],
+        duration: 400,
+        opacity: {
+            value: 1,
+            easing: "linear"
+        },
+        translateY: {
+            value: 0,
+            easing: "easeOutExpo"
+        },
+        scale: {
+            value: 1,
+            easing: "easeOutExpo"
+        },
+        complete: function() {}
+    })
+    
 }

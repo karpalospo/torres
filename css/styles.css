@@ -178,6 +178,7 @@ select {
 }
 
 .main-menu-item {
+    text-transform: capitalize;
     display: flex;
     align-items: center;
     padding: 8px 20px;
@@ -767,15 +768,15 @@ select {
 .bg-blanco {
     background-color: white;
     max-width: 900px;
-    padding: 30px;
+    padding: 40px;
     margin: 20px auto;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     line-height: 1.5em;
     font-weight: 400;
-    font-size: 1.1em;
     overflow: hidden;
     box-sizing: border-box;
+    font-size: 0.9em;
 }
 
 .porta-medida {
@@ -800,33 +801,50 @@ select {
     position: relative;
 }
 
-.menu-float > div:not(.submenu-float) {
+.menu-float > div:not(.submenu-float-cont) {
     padding: 3px 8px;
     border-top: 1px solid #ddd;
 }
 
-.menu-float > div:hover {
+.menu-float > div:not(.submenu-float-cont):hover {
     color: #fa7800 !important;
 }
 
-.menu-float > div i {
+.menu-float > div i.fa-chevron-right {
     font-size: 0.8em;
     padding-left: 10px;
+}
 
+.menu-float > div i.fa-chevron-left {
+    font-size: 0.8em;
+    padding-right: 10px;
+}
+
+.submenu-float-cont {
+    position: absolute;
+    top: 0;
+    padding: 10px 10px 10px 10px;
 }
 
 .submenu-float {
-    position: absolute;
-    top: 0;
-    left: 148px;
     background: white;
-    padding: 10px;
+    padding: 3px 5px;
     border-radius: 5px;
+    width: max-content;
 }
 
 .submenu-float > div {
+    color: #333;
     padding: 3px 8px;
     border-top: 1px solid #ddd;
+}
+
+.submenu-float > div:first-child {
+    border:none;
+}
+
+.submenu-float > div:hover {
+    color: #fa7800 !important;
 }
 
 .banner_init{
@@ -888,14 +906,11 @@ select {
     text-align: right;
 }
 
-
-
 h1, h2 {
     color: #333;
     margin: 0;
+    font-size: 1.2em;
 }
-
-
 
 .full-row {
     justify-content: center;
@@ -1630,7 +1645,7 @@ h3 {
     text-overflow: ellipsis;
     padding: 7px 38px 7px 12px;
     margin: 4px 4px;
-    font-size: 0.9em;
+    font-size: 0.8em;
     text-transform: capitalize;
     color: #333;
     position: relative;
@@ -1671,12 +1686,11 @@ h3 {
 }
 
 #filtros h3 {
-    color: #111;
-    font-weight: 400;
+    color: #333;
+    font-weight: 600;
     margin-bottom: 10px;
     padding-left: 6px;
 }
-
 
 .image-zoom {
     overflow: hidden;
@@ -2752,8 +2766,6 @@ h3 {
     font-size: 0.8em;
 }
 
-
-
 .mensaje {
     color:#444;
     font-family: 'Cabin';
@@ -2791,9 +2803,7 @@ h3 {
 #crumbs a {
     color: inherit;
     text-decoration: none;
-
 }
-
 
 .info-top {
     padding: 11px;
