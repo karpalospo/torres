@@ -106,7 +106,7 @@ function renderUser() {
 
 async function renderCupones() {
 
-
+    let $target = $("#cupones")
     if(!store.user.logged) { 
         return $target.html(/*html*/`
 <p style="font-size:1.3em; text-align: center">
