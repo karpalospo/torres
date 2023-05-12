@@ -1890,10 +1890,11 @@ h3 {
 .cupon {
     padding: 13px;
     margin-bottom: 25px;
-    background-color: #004baa;
+    background-color: #94441f;
     border-radius: 10px;
     box-shadow: 2px 2px 13px 0 rgba(0,0,0,0.5);
     margin: 20px 15px;
+    font-size: 0.9em;
 }
 
 .cupon .title {
@@ -1952,7 +1953,7 @@ h3 {
 }
 
 .cupon button {
-    background-color: #e50077 !important;
+    background-color: #e59500 !important;
     padding: 9px 18px;
 }
 
@@ -2029,6 +2030,9 @@ h3 {
     color: white;
 }
 
+.bt-left:hover, .bt-right:hover {
+    opacity: 0.8;
+}
 .bt-left {
     border-radius: 15px 0 0 15px;
 }

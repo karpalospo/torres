@@ -11,6 +11,14 @@ Array.prototype.sortOnDesc = function() {
     })
 }
 
+function getFromArrayByProp(arr, value, idField = "id") {
+    let ret = {};
+    forEach(arr, item => {
+        if(item[idField] == value) ret = item
+    })
+    return ret
+}
+
 function Arrayfy(obj) {
     let arr = []
     forEach(obj, item => arr.push(item))
@@ -251,6 +259,9 @@ function $$(str) {
     return document.querySelectorAll(str)
 }
 
+function _$(str) {
+    return document.querySelector(str)
+}
 
 function stickyScroll($scrollingDiv) {
 

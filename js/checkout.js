@@ -188,6 +188,19 @@ async function checkout() {
 // ========================================================================== //
 // COUPON
 
+function resetCoupon(mustRenderCart = true) {
+    let $input = $('#txt-cupon'), $output = $("#lbl-coupon")
+    $input.removeClass("coupon-good")
+    $input.removeClass("coupon-bad")
+    $output.removeClass("coupon-good-lbl").html("")
+    $output.removeClass("coupon-bad-lbl").html("")
+    store.cuponDiscount = 0
+    if(mustRenderCart) {
+        renderCart()
+        if(typeof summaryCart == "function") summaryCart()
+    }
+}
+
 function FormatCoupon(coupon) {
     return {
         type: coupon.Condicion,
@@ -206,14 +219,6 @@ async function redeemCoupon() {
     let $output = $("#lbl-coupon"), coupon = $input.val().trim();
 
     if(!store.user.logged || coupon == "") return false;
-
-    res = await API.POST.setCupon(store.user.nit, coupon.toLowerCase())
-
-    if(!res.error && res.data.success === false) {
-        store.couponOrder.Limite = true
-        $input.removeClass("coupon-good").addClass("coupon-bad")
-        return $output.removeClass("coupon-good-lbl").addClass("coupon-bad-lbl").html(`<p><i class="fas fa-times"></i> Ya alcanzó el limite de usos de este cupón</p>`)
-    }
 
     res = await API.POST.getCupon(coupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
 

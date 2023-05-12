@@ -121,8 +121,8 @@ const API = {
             return await fetchAsync(`${URL.HOST}/ftorres/api/ofertas/cuponesdisponibles`, {body: {idusuario, canal: "WEB"}})
         },
 
-        async getCupon(coupon, nit, nombres, email, token) {
-            return await fetchAsync(`${URL.HOST}/ftorres/api/cupon/${coupon}`, {body: {user: {nit, email, nombres, token}, canal: "WEB"}})
+        async getCupon(cupon, nit, nombres, email, token) {
+            return await fetchAsync(`${URL.HOST}/ftorres/api/ofertas/cupon`, {body: {cupon, user: {nit, email, nombres, token}, canal: "WEB"}})
         },
 
      

@@ -1,14 +1,11 @@
-store.page = "summary"
-
-
 let orders = {}
 
 function page_init() {
     
-    renderCurrentOrders()
+    renderCurrentOrders(getParameterByName("p"))
 }
 
-async function renderCurrentOrders() {
+async function renderCurrentOrders(pedidoID) {
 
     let ordersToRender = [], updateOrder = true, currentNumero;
     let currentOrders = [], uniqueOrders = [];

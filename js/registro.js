@@ -79,7 +79,7 @@ async function signup(elem) {
     if (fields.password != fields.confirm_password) return showError("Las contraseñas no coinciden")
     
     let res = await API.POST.signup(fields);
-console.log(res)
+
     if (res.error === false) {
 
         if(res.data && res.data.success == false) {

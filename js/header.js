@@ -106,7 +106,7 @@ function renderUser() {
 
 async function renderCupones() {
 
-    let $target = $("#cupones")
+    let $target = $("#cupones-list")
     if(!store.user.logged) { 
         return $target.html(/*html*/`
 <p style="font-size:1.3em; text-align: center">
@@ -134,27 +134,27 @@ Para ver los cupones de descuento disponibles debes iniciar sesión
         s += /*html*/`
 <div class="cupon">
     <div>
-        <p class="title">${item.NombreCupon}</p>
-        <p class="value">${f(item.ValorCupon)}</p>
+        <p class="title">${item.nombreCupon}</p>
+        <p class="value">${f(item.valorCupon)}</p>
         <p>
-        &#10004; <b>${f(item.valorcupon)}</b> de descuento para compras mínimas de <b>${f(item.VlrMinimo)}</b><br>
-        &#10004; Válido hasta <b>${new Date(item.Hasta).toLocaleString('en-US')}</b><br>
-        &#10004; Utilización máxima <b>${item.MaximaVentaCliente} ${item.MaximaVentaCliente == 1 ? "vez" : "veces"}</b> por usuario el mismo día.<br>
+        &#10004; <b>${f(item.valorCupon)}</b> de descuento para compras mínimas de <b>${f(item.vlrMinimo)}</b><br>
+        &#10004; Válido hasta <b>${new Date(item.hasta).toLocaleString('en-US')}</b><br>
+        &#10004; Utilización máxima <b>${item.maximaVentaCliente} ${item.maximaVentaCliente == 1 ? "vez" : "veces"}</b> por usuario el mismo día.<br>
         ${item.aplica.length > item.noaplica.length ?
-        /*html*/`&#10004; <b>No Aplica</b> para las siguientes categorías: <span class="button-aplica-cats-${item.IdCupon}" onclick="vercats('aplica-cats-${item.IdCupon}')">Mostrar Categorias</span>
-        <div class="aplica-cats-${item.IdCupon}" style="max-height:0; overflow: hidden">${stringfyCats(item.noaplica)}</div>`
+        /*html*/`&#10004; <b>No Aplica</b> para las siguientes categorías: <span class="button-aplica-cats-${item.idCupon}" onclick="vercats('aplica-cats-${item.idCupon}')">Mostrar Categorias</span>
+        <div class="aplica-cats-${item.idCupon}" style="max-height:0; overflow: hidden">${stringfyCats(item.noaplica)}</div>`
         :
-        /*html*/`&#10004; Aplica para las siguientes categorías: <span class="button-aplica-cats-${item.IdCupon}" onclick="vercats('aplica-cats-${item.IdCupon}')">Mostrar Categorias</span>
-        <div class="aplica-cats-${item.IdCupon}" style="max-height:0; overflow: hidden">${stringfyCats(item.aplica)}</div>`
+        /*html*/`&#10004; Aplica para las siguientes categorías: <span class="button-aplica-cats-${item.idCupon}" onclick="vercats('aplica-cats-${item.idCupon}')">Mostrar Categorias</span>
+        <div class="aplica-cats-${item.idCupon}" style="max-height:0; overflow: hidden">${stringfyCats(item.aplica)}</div>`
         }
         </p>
-        <p class="tx-center"><button class="page-button" onclick="pLog('coupon', {id: '${item.IdCupon}'})">UTILIZAR ESTE CUPÓN</button></p><br>
+        <p class="tx-center"><button class="page-button" onclick="pLog('coupon', {id: '${item.idCupon}'})">UTILIZAR ESTE CUPÓN</button></p><br>
         <i class="fas fa-cut"></i>
     </div>
 </div>`
     })
    
-    $("#cupones").html(s)
+    $target.html(s)
 
 }
 

@@ -34,7 +34,7 @@ async function search_products(search_str) {
 
 
         fullProducts = await getProductsFullInfo(res.data.products)
-console.log(fullProducts.stock)
+
         p = await showProducts($resultado_list, fullProducts.stock, {collection: 'search', filter: true, rows: "auto", cols: 100, sort: $("#sort").val(), headerExact: result_search_str, section: sumSection})
 
         if(p.noProducts) {

@@ -26,7 +26,7 @@ function getProduct(id) {
     return ret
 }
 
-async function showProducts($target, products, options = {}){
+function showProducts($target, products, options = {}){
 
     let ret = {
         marcas: {}, 
@@ -38,7 +38,6 @@ async function showProducts($target, products, options = {}){
         filtered: false
     }
 
-    
     if(products == 'currentCollection') products = store.collections[store.currentCollection]
 
     if(options.collection) {
@@ -90,7 +89,6 @@ async function showProducts($target, products, options = {}){
             }
         }
 
-        console.log(options, ret.rendered)
     } else {
         ret.rendered = products
         if(options.sort) sortByKey(ret.rendered, options.sort.field, options.sort.mode)
@@ -109,6 +107,126 @@ async function showProducts($target, products, options = {}){
 
 function renderProducts($target, products, options = {}, ret) {
 
+    $target.find(".products-loading").remove()
+
+    if(!products) return
+    
+    let items_per_page = options.items_per_page || 200
+
+    options = Object.assign({
+        limit: false,
+        page: 0,
+        rows: false,
+        cols: false,
+        section: options.section || 1,
+        autoRenderPage: 1
+    }, options)
+    
+    if(options.limit) products = products.slice(0, options.limit)
+
+ 
+    if(options.rows != undefined && options.cols != undefined) {
+        if(options.rows == "auto") items_per_page = productBounces.rowCount * options.cols
+        else if(options.rows && options.cols) items_per_page = options.rows * options.cols
+    }
+
+    if(!options.append) {
+        $target.find(".section0, .section1, .section2, .section3, .section4, .section5, .section6, .section7").remove()
+    }
+
+    if(options.headerFilter) {
+
+        let s = "", labels = {subcategorias: "categoría", marcas: "marca", proveedores: "laboratorio"};
+        console.log(ret)
+        $target.append(`<div class="section${options.section}">${options.headerFilter ? `<div class="products-header">Mostrando <b>${ret.rendered.length}</b> productos filtrados por</div>` : ""}<div id="filter-cont"></div><div class="products-page"></div></div>`)
+        
+
+        forEach(filter, (item, key) => {
+            if(key == "precio") {
+                if(item.length > 0 && (rangeValues[0] != item[0] || rangeValues[1] != item[1])) s += `<div class="filter-item">de ${f(item[0])} a ${f(item[1])}<span>precio</span><div onclick="resetPrice()"></div></div>`
+            } else {
+                forEach(item, f => {
+                    label = f.toLowerCase()
+                    if(key == "subcategorias") label = store.categorias[label.substr(0, label.length -2)].subs[label].title
+                    s += `<div class="filter-item">${label}<span>${labels[key]}</span><div onclick="filterClick('${f}', '${key}')"></div></div>`
+                })
+            }
+        })
+
+        if(s == "") $target.find(".products-header").html(currentHeader)
+        $("#filter-cont").html(s + `<div style="clear:both"></div>`)
+
+        if(ret.rendered.length == 0) $("#no-resultado").show(0)
+        else $("#no-resultado").hide(0)
+
+        
+    } else if(options.header) {
+        currentHeader = options.header
+        $target.append(`<div class="section${options.section}">${options.header ? `<div class="products-header">${options.header}</div>` : ""}<div class="products-page"></div></div>`)
+    } else if(options.headerLike) {
+        currentHeader = `Mostrando <b>${ret.rendered.length}</b> resultados parecidos a <b>${options.headerLike}</b>`
+        $target.append(`<div class="section${options.section}"><div class="products-header">${currentHeader}</div><div class="products-page"></div></div>`)
+    } else if(options.headerExact) {
+        currentHeader = `Mostrando <b>${ret.rendered.length}</b> resultados para <b>${options.headerExact}</b>`
+        $target.append(`<div class="section${options.section}"><div class="products-header">${currentHeader}</div><div id="banner" style="margin-bottom:10px"></div><div class="products-page"></div></div>`)
+    } else {
+        $target.append(`<div class="section${options.section}">${currentHeader ? `<div class="products-header">${currentHeader}</div>` : ""}<div class="products-page"></div></div>`)
+    }
+    
+    renderPage($target.find(`.section${options.section}`), products, items_per_page)
+    
+}
+
+
+function showProductsHorizontal($target, products, options = {}){
+
+    let ret = {
+        marcas: {}, 
+        cats: {}, 
+        subs: {}, 
+        minPrice: Number.MAX_SAFE_INTEGER, 
+        maxPrice: 0, 
+        rendered: [], 
+        filtered: false
+    }
+
+    if(products == 'currentCollection') products = store.collections[store.currentCollection]
+
+    if(options.collection) {
+        store.collections[options.collection] = products
+        store.currentCollection = options.collection
+    }
+
+    if(options.limit) products = products.slice(0, options.limit)
+
+    $target.html(`<div class="swiper-wrapper"></div>`)
+    renderProductsHorizontal($target.find(".swiper-wrapper"), options.shuffle ? products.sort(() => (0.5 - Math.random())) : products, options, ret)
+
+    console.log(options)
+    new Swiper($target[0], 
+        {
+            direction: 'horizontal',
+            slidesPerView: productBounces.rowCount,
+            slidesPerGroup: productBounces.rowCount,
+            loop: true,
+            autoplay: {delay: 6000},
+            preloadImages: false,
+            lazy: true,
+            navigation: {nextEl: options.nextEl, prevEl: options.prevEl}
+        }
+    )
+
+    return {
+        total_count: products.length, 
+        founded_count: products.length,
+        filtered_count: ret.rendered.length, 
+        noProducts: ret.rendered.length == 0,
+        products,
+        ...ret
+    }
+}
+
+function renderProductsHorizontal($target, products, options = {}, ret) {
 
 
     $target.find(".products-loading").remove()
@@ -134,57 +252,8 @@ function renderProducts($target, products, options = {}, ret) {
         else if(options.rows && options.cols) items_per_page = options.rows * options.cols
     }
 
-    if(options.hcarrusel){
-        renderPage($target, products, items_per_page, true)
-    } else {
-
-        if(!options.append) {
-            $target.find(".section0, .section1, .section2, .section3, .section4, .section5, .section6, .section7").remove()
-        }
-
-        if(options.headerFilter) {
-
-            let s = "", labels = {subcategorias: "categoría", marcas: "marca", proveedores: "laboratorio"};
-            console.log(ret)
-            $target.append(`<div class="section${options.section}">${options.headerFilter ? `<div class="products-header">Mostrando <b>${ret.rendered.length}</b> productos filtrados por</div>` : ""}<div id="filter-cont"></div><div class="products-page"></div></div>`)
-            
-
-            forEach(filter, (item, key) => {
-                if(key == "precio") {
-                    if(item.length > 0 && (rangeValues[0] != item[0] || rangeValues[1] != item[1])) s += `<div class="filter-item">de ${f(item[0])} a ${f(item[1])}<span>precio</span><div onclick="resetPrice()"></div></div>`
-                } else {
-                    forEach(item, f => {
-                        label = f.toLowerCase()
-                        if(key == "subcategorias") label = store.categorias[label.substr(0, label.length -2)].subs[label].title
-                        s += `<div class="filter-item">${label}<span>${labels[key]}</span><div onclick="filterClick('${f}', '${key}')"></div></div>`
-                    })
-                }
-            })
+    renderPage($target, products, items_per_page, true)
    
-            if(s == "") $target.find(".products-header").html(currentHeader)
-            $("#filter-cont").html(s + `<div style="clear:both"></div>`)
-
-            if(ret.rendered.length == 0) $("#no-resultado").show(0)
-            else $("#no-resultado").hide(0)
-
-            
-        } else if(options.header) {
-            currentHeader = options.header
-            $target.append(`<div class="section${options.section}">${options.header ? `<div class="products-header">${options.header}</div>` : ""}<div class="products-page"></div></div>`)
-        } else if(options.headerLike) {
-            currentHeader = `Mostrando <b>${ret.rendered.length}</b> resultados parecidos a <b>${options.headerLike}</b>`
-            $target.append(`<div class="section${options.section}"><div class="products-header">${currentHeader}</div><div class="products-page"></div></div>`)
-        } else if(options.headerExact) {
-            currentHeader = `Mostrando <b>${ret.rendered.length}</b> resultados para <b>${options.headerExact}</b>`
-            $target.append(`<div class="section${options.section}"><div class="products-header">${currentHeader}</div><div id="banner" style="margin-bottom:10px"></div><div class="products-page"></div></div>`)
-        } else {
-            $target.append(`<div class="section${options.section}">${currentHeader ? `<div class="products-header">${currentHeader}</div>` : ""}<div class="products-page"></div></div>`)
-        }
-        
-        renderPage($target.find(`.section${options.section}`), products, items_per_page, false)
-    }
-   
-    
 }
 
 function renderPage($target, products, items_per_page, isCarrusel) {
@@ -203,6 +272,8 @@ function renderPage($target, products, items_per_page, isCarrusel) {
     })
 
 }
+
+
 
 function renderExtrainfo(item) {
 
@@ -401,7 +472,7 @@ function productClick($parent, $elem) {
     if($elem.hasClass("fa-plus")) return pLog("cart", {id, sum: 1});
     if($elem.hasClass("fa-minus") || $elem.hasClass("fa-trash-alt")) return pLog("cart", {id, sum: -1});
     if($elem.hasClass("cantidad")) return
-    pLog("viewProduct", {id, name: store.products[id].nombre})
+    pLog("viewProduct", {id, name: getProduct(id).nombre})
 
 }
 
@@ -412,7 +483,6 @@ function renderProductUpdate(id) {
             item.outerHTML = renderProductItem(getProduct(id))
         }
     })
-
     if(currentProductDetail) $("#basic-info").html(renderProductItem(currentProductDetail, "detail"))
    
 }

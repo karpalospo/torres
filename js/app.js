@@ -28,6 +28,8 @@ let res,
     $window = $(window)
 ;
 
+
+
 // ========================================================================== //
 // RENDER
 
@@ -87,7 +89,6 @@ function renderBanners($target, items, options = {
     
     return {data: banners_data};
 }
-
 
 // ========================================================================== //
 // Signin
@@ -469,7 +470,7 @@ function couponCondicion(coupon) {
 
     forEach(subs, sub => {
         founded = false
-        coupon.itemsCondicion.forEach(item => {if(item.AplicadoA == sub.id) founded = true})
+        coupon.itemsCondicion.forEach(item => {if(item.aplicadoa == sub.id) founded = true})
         if(founded) coupon.aplica.push(sub)
         else coupon.noaplica.push(sub)
     })
@@ -529,23 +530,20 @@ async function pLog(event, payload = {}) {
         case "coupon":
             showModal()
             resetCoupon()
-            store.coupon = store.coupon = store.coupons[payload.id]
-            $("#txt-cupon").val(store.coupon.nombrecupon)
+            store.coupon = getFromArrayByProp(store.cupones, payload.id, "idCupon")
+
+            $("#txt-cupon").val(store.coupon.nombreCupon)
             if(store.coupon.condicion != 0) {
                 store.coupon.condicionTexto = ""
-                let res = await API.GET.getCupon(store.coupon.nombrecupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
+                let res = await API.POST.getCupon(store.coupon.nombreCupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
                 if(!res.error) {
-                    store.coupon.condicionTexto = `Aplica para pedidos mínimos de <b>${f(store.coupon.vlrminimo)}</b>`
+                    store.coupon.condicionTexto = `Aplica para pedidos mínimos de <b>${f(store.coupon.vlrMinimo)}</b>`
                 }
-            } else store.coupon.condicionTexto = `Aplica para pedidos mínimos de <b>${f(store.coupon.vlrminimo)}</b>`
+            } else store.coupon.condicionTexto = `Aplica para pedidos mínimos de <b>${f(store.coupon.vlrMinimo)}</b>`
+
             write_cache("coupon", store.coupon)
             renderCart()
-            if(store.page == "order") {
-                redeemCoupon()
-            } else {
-                showCart(true)
-            }
-            
+   
             break;
 
           
