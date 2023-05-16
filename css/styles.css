@@ -35,6 +35,20 @@ select {
 .r-l {justify-content: flex-start;}
 .r-r {justify-content: flex-end;}
 
+
+.form input {
+    width: 100%;
+}
+.form .tr {
+    display: flex;
+}
+.form .tr > div:not(.sep) {
+    flex: 1
+}
+.form .sep {
+    width: 30px;
+}
+
 .column {
     display: flex;
     flex-direction: column;
@@ -768,7 +782,7 @@ select {
 .bg-blanco {
     background-color: white;
     max-width: 900px;
-    padding: 40px;
+    padding: 30px;
     margin: 20px auto;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     border-radius: 4px;

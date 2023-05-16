@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>Farmacia Torres | Mi Pefíl</title>
+	<link href="css/styles.css?v=4.0" rel="stylesheet">
+	<link href="css/plugins.css?v=4.0" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+	<link rel="shortcut icon" href="https://imperacore.net/torres/assets/icon_logo.png" />
+</head>
+<body>
+
+<div id="modals-cont"></div>
+<div id="header-cont"></div>
+		
+<div id="content" style="background-color: transparent;">
+
+	<div class="row bg-blanco" style="max-width: 800px;">
+
+		<div style="width: 180px; padding-right: 20px; align-self: flex-start;">
+			<ul>
+				<li><a href="#">Mi información</a></li>
+				<li><a href="#">Mis Puntos</a></li>
+				<li><a href="#">Mis Direcciones</a></li>
+			</ul>
+			<p class="tx-center"><button onclick="pLog('logout')" class="page-button" style="background: #fa7800">CERRAR SESIÓN</button></p>
+		</div>
+		<div class="form f1" style="border-left: 1px solid #eee; padding-left: 20px;">
+
+			<div class="h4">Información Básica</div>
+
+			<div class="tr">
+				<div style="flex: 0.4">
+					<h4>Cédula/NIT/Pasaporte</h4>
+					<input class="input" id="frm-user-cc" readonly style="background-color: #eee;" />
+				</div>
+				<div class="sep"></div>
+				<div>
+					<h4>Email</h4>
+					<input id="frm-user-email" class="input" readonly style="background-color: #eee;" />
+				</div>
+			</div>
+			<div class="tr">
+				<div>
+					<h4>Nombre</h4>
+					<input class="input" id="frm-user-nombres"/>
+				</div>
+				<div class="sep"></div>
+				<div>
+					<h4>Apellidos</h4>
+					<input class="input" id="frm-user-nombres"/>
+				</div>
+			</div>
+			
+	
+			<div class="tr">
+				<div> 
+					<h4>Celular</h4>
+					<input class="input" id="frm-user-celular" />
+				</div>
+				<div class="sep"></div>
+				<div>
+					<h4>Fecha de Nacimiento</h4>
+					<input id="frm-user-nacimiento" name="dateOfBirth" class="input" type="text" placeholder="AAAA-MM-DD">
+				</div>
+			</div>
+
+			<br>
+			<p class="tx-center"><button onclick="updateProfile(this)" class="page-button">GUARDAR</button></p>
+
+			<br>
+			<div class="h4">Cambio de Contraseña</div>
+			<div class="tr">
+				<div>
+					<h4>Contraseña</h4>
+					<input class="input" type="password" id="frm-user-password"/>
+				</div>
+				<div class="sep"></div>
+				<div>
+					<h4>Repetir Contraseña</h4>
+					<input class="input" type="password" id="frm-user-password2" />
+				</div>
+			</div>
+
+			<br>
+			<p class="tx-center"><button onclick="updatePassword(this)" class="page-button">CAMBIAR</button></p>
+			<br><br>
+		</div>
+	</div>
+     
+
+
+</div>
+
+<div id="footer-cont"></div>
+
+<script src="js/libraries.js?v=4.2"></script>
+<script src="js/utils.js?v=4.0"></script>
+<script src="js/api.js?v=4.2"></script>
+<script src="js/app.js?v=4.2"></script>
+<script src="js/cart.js?v=4.0"></script>
+<script src="js/products.js?v=4.2"></script>
+<script src="js/header.js?v=4.2"></script>
+
+</body></html>
