@@ -167,6 +167,7 @@ async function getUserAddresses($target) {
 
 function renderAddress(data, $target) {
     let s = ""
+    //$target.off("click")
     forEach(data, item => {
         console.log(item.ciudad)
         let pos = store.centrocostos.findIndex(elem => item.ciudad == elem.Ciudad)
@@ -183,6 +184,6 @@ function renderAddress(data, $target) {
 </div>`
     })
     $target.html(s)
-    $target.off("click").on("click", ".address-edit", e => {e.preventDefault(); editAddress($(e.currentTarget).parent().data("alias"))})
+    $target.on("click", ".address-edit", e => {e.preventDefault(); editAddress($(e.currentTarget).parent().data("alias"))})
     $target.on("click", ".address-del", e => {e.preventDefault(); deleteAddress($(e.currentTarget).parent().data("alias"))})
 }

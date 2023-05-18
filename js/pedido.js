@@ -5,64 +5,43 @@ let resAddress;
 
 async function page_init() {
     
-    if(store.user.logged) {
+    //if(!store.user.logged) return parent.location = `index.html`
 
-        if(store.coupon) $("#txt-cupon").val(store.coupon.nombrecupon)
+    if(store.coupon) $("#txt-cupon").val(store.coupon.nombrecupon)
 
-        if((resAddress = getUserAddresses($("#address-list"))) === false) {
-            showModalMessage("error-login", {
-                label:"INICIAR SESIÓN",
-                title: "Error de Sesión",
-                callback: () => {showModal(true, 'signin')},
-                closeCallback: () => {showModal(true, 'signin')
-            }})
-            //pLog("logout", {noRedirect: true})
-            if(typeof showOrderError == "function") showOrderError("Hay un problema de sesión que no permite continuar", $("<div></div>"), true)
-        } else {
-            if(typeof showOrderError == "function") showOrderError("", $("<div></div>")) // remover error
-
-            initList($("#address-list"), "address", null, async $elem => {
-                store.currentAddressAlias = $elem.data("alias")
-                write_cache("params", {address: $elem.data("alias")})
-            })
-        
-            if(store.currentAddressAlias != undefined) {
-                $target.find(" > div").each(function() {
-                    const $elem = $(this)
-                    if($elem.data("alias") == store.currentAddressAlias) {
-                        $elem.trigger("click")
-                    }
-                })
-            }
-
-            
-            initList($("#payment-list"), "payment", $("#paymentonline-list"), checkPse)
-            initList($("#paymentonline-list"), "payment", $("#payment-list"), checkPse)
-            store.address = undefined
-
-        }
-
-        // popups
-        if(store.popups) showPagePopup(store.popups.order)
+    if((resAddress = getUserAddresses($("#address-list"))) === false) {
+        showModalMessage("error-login", {
+            label:"INICIAR SESIÓN",
+            title: "Error de Sesión",
+            callback: () => {showModal(true, 'signin')},
+            closeCallback: () => {showModal(true, 'signin')
+        }})
+        //pLog("logout", {noRedirect: true})
+        if(typeof showOrderError == "function") showOrderError("Hay un problema de sesión que no permite continuar", $("<div></div>"), true)
 
     } else {
-        //parent.location = `index.html`
+
+        if(typeof showOrderError == "function") showOrderError("", $("<div></div>")) // remover error
+
+        initList($("#address-list"), "address")
+        initList($("#payment-list"), "payment", checkPse)
+
+        stickyScroll($("#stickybox"), $(".trackrail"), 20) 
+
+        store.address = undefined
+
     }
 
-
-    initList($("#payment-list"), "payment", $("#paymentonline-list"), listCb)
-    initList($("#paymentonline-list"), "payment", $("#payment-list"), listCb)
-    stickyScroll($("#stickybox"), $(".trackrail"), 20) 
+    // popups
+    if(store.popups) showPagePopup(store.popups.order)
 
 } 
 
 function checkPse($elem){
+
     if($elem.data("value") == "PSE") $("#button-order").text("PAGAR AHORA")
     else $("#button-order").text("CONFIRMAR PEDIDO")
-}
 
-function listCb($elem) {
-    
     let day = store.day;
 
     if(store.payment == "TCO" && day == 4) {
@@ -71,6 +50,7 @@ function listCb($elem) {
         $("#TCO-alert").hide(200)
     }
 }
+
 
 let $button_order = $("#button-order"),
     $lblTotal = $("#lbl-total"),

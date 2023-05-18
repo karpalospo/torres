@@ -466,7 +466,7 @@ function showModal(show, window, cb = () => {}) {
         $floatcont = $("#float-cont"),
         $window = $floatcont.find("#" + window)
     ;
-    console.log($floatcont, window)
+
     if(show) {
         if($currentModalWindow) {
             return showModal(false, null, () => {
@@ -602,19 +602,16 @@ $(window).on("resize", e => resize)
 // ========================================================================== //
 // COMPONENTS
 
-function initList($target, field, $clearList, cb) {
-
+function initList($target, field, cb) {
+    console.log($target, "aja")
     $target.on("click", "> div", e => {
+        console.log("ajo")
         let $elem = $(e.currentTarget)
+        
         $elem.siblings().removeClass("active")
-        clearList($clearList)
         store[field] = $elem.addClass("active").data("value")
         if(typeof cb == "function") cb($elem)
     })
-}
-
-function clearList($target) {
-    if($target && $target.length > 0) $target.find("> div").removeClass("active")
 }
 
 function initAccordeon($target, autoclose, cb) {
