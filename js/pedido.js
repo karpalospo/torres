@@ -1,252 +1,324 @@
-let orders = {}
+let redimir = false, p = {}, maxValue, minValue, range, format = wNumb({encoder: function( value ){return Math.ceil(value)}, thousand: '.', prefix: '$ '})
+const maxDomiGratis = 1
+let productosTag = []
+let resAddress;
 
-function page_init() {
+async function page_init() {
     
-    renderCurrentOrders(getParameterByName("p"))
-}
+    if(store.user.logged) {
 
-async function renderCurrentOrders(pedidoID) {
+        if(store.coupon) $("#txt-cupon").val(store.coupon.nombrecupon)
 
-    let ordersToRender = [], updateOrder = true, currentNumero;
-    let currentOrders = [], uniqueOrders = [];
+        if((resAddress = getUserAddresses($("#address-list"))) === false) {
+            showModalMessage("error-login", {
+                label:"INICIAR SESIÓN",
+                title: "Error de Sesión",
+                callback: () => {showModal(true, 'signin')},
+                closeCallback: () => {showModal(true, 'signin')
+            }})
+            //pLog("logout", {noRedirect: true})
+            if(typeof showOrderError == "function") showOrderError("Hay un problema de sesión que no permite continuar", $("<div></div>"), true)
+        } else {
+            if(typeof showOrderError == "function") showOrderError("", $("<div></div>")) // remover error
 
-    if(!pedidoID) return 
-
-    uniqueOrders.push(pedidoID)
-
-    await Promise.all(uniqueOrders.map(async (key) => {
-
-        let res2 = await API.POST.getPedido(key)
-
-        if(!res2.error && res2.data.length > 0) {
-            currentOrders.push({id: res2.data[0].numero, status: res2.data[0].Estado, items:res2.data, payment: res2.data[0].tipoPago})
-        }
-    }));
-    ordersToRender = sortByKey(currentOrders.slice(0, 10), "id", "desc")
-    
-    
-    ordersToRender.forEach(order => {
+            initList($("#address-list"), "address", null, async $elem => {
+                store.currentAddressAlias = $elem.data("alias")
+                write_cache("params", {address: $elem.data("alias")})
+            })
         
-        if(!order.items || order.items.success == false) return
-
-        order.items.forEach(item => {
-            currentNumero = item.numero
-            if(!orders[item.numero]) orders[item.numero] = {
-                numero: item.numero,
-                direccion: item.direccion,
-                fecha: item.fecha,
-                telefono: item.telefonoTraza,
-                formaPago: item.formaPago,
-                estado: item.Estado,
-                nombre: item.nombres,
-                ciudad: item.descripcionCiudad,
-                subtotal: item.total,
-                descuento: item.ValorCupon + item.ValorBono,
-                items: []
-            }
-            if(item.codigo == "999992") {
-                orders[item.numero].domicilio = item.vlr_total
-                orders[item.numero].subtotal -= item.vlr_total
-            } else {
-                orders[item.numero].items.push(
-                    {
-                        id: item.codigo,
-                        cantidad: Math.ceil(item.cantidad / parseInt(item.idunidad)),
-                        nombre: item.descripcion,
-                        descuento: item.descuento,
-                        total: item.vlr_total,
-                        unitario: Math.ceil(item.vlr_unitario * item.cantidad)
+            if(store.currentAddressAlias != undefined) {
+                $target.find(" > div").each(function() {
+                    const $elem = $(this)
+                    if($elem.data("alias") == store.currentAddressAlias) {
+                        $elem.trigger("click")
                     }
-                )
+                })
             }
 
-        })
+            
+            initList($("#payment-list"), "payment", $("#paymentonline-list"), checkPse)
+            initList($("#paymentonline-list"), "payment", $("#payment-list"), checkPse)
+            store.address = undefined
+
+        }
+
+        // popups
+        if(store.popups) showPagePopup(store.popups.order)
+
+    } else {
+        //parent.location = `index.html`
+    }
 
 
-        renderSummary(orders[currentNumero])
-        
-        // reset values
-        store.couponOrder = {}
-        store.payment = store.address = store.bonus = undefined
-        store.cuponDiscount = store.bonusDiscount = 0
-        write_cache("coupon")
+    initList($("#payment-list"), "payment", $("#paymentonline-list"), listCb)
+    initList($("#paymentonline-list"), "payment", $("#payment-list"), listCb)
+    stickyScroll($("#stickybox"), $(".trackrail"), 20) 
 
+} 
 
-    })
-    
+function checkPse($elem){
+    if($elem.data("value") == "PSE") $("#button-order").text("PAGAR AHORA")
+    else $("#button-order").text("CONFIRMAR PEDIDO")
 }
 
+function listCb($elem) {
+    
+    let day = store.day;
 
-function renderSummary(d) {
+    if(store.payment == "TCO" && day == 4) {
+        $("#TCO-alert").show(200)
+    } else {
+        $("#TCO-alert").hide(200)
+    }
+}
+
+let $button_order = $("#button-order"),
+    $lblTotal = $("#lbl-total"),
+    $order = $("#order2"),
+    $input = $("#txt-cupon")
+;
+
+$input.on("keyup", e => {
+    if(e.keyCode == 13) redeemCoupon()
+})
+$input.on("input", () => resetCoupon())
+$input.on("change", () => resetCoupon())
+
+
+function summaryCart(_buscarBono = true) {
+    
+    let puntos = 0
+    
+    if(range) puntos = format.from(range.get())
+
+    $("#sumario").html(/*html*/`
+<tr>
+    <td>Subtotal</td><td style="font-weight:500">${f(store.order.subtotal)}</td>
+</tr>
+<tr>
+    <td>Descuentos</td>
+    ${store.order.discount <= 0 ? `<td style="font-weight:500">${f(0)}</td>` : `<td class="rojo" style="font-weight:500">${f(store.order.discount * -1)}</td>`}
+</tr>
+${redimir && puntos > 0 ? `<tr><td>Puntos</td><td class="rojo" style="font-weight:500">${f(puntos * -1)}</td></tr>` : ``}
+<tr>
+    <td>Domicilio</td>
+    <td style="font-weight:500">${store.order.subtotal > maxDomiGratis + store.order.discount ? `<span style="color:#ff2e2e">Gratis</span>` : f(store.order.shipping)}</td>
+</tr>
+<tr>
+    <td><b>A Pagar</b></td><td><b style="color:#222">${f(store.order.subtotal + (store.order.subtotal > maxDomiGratis ? 0 : store.order.shipping) - store.order.discount - (redimir ? puntos : 0))}</b></td>
+</tr>`)
+    
+    $("#confirmar").show(0)
+}
+
+function showOrderError(message, $flash_target, permanent = false) {
+    showError($order.find(".frm-error"), message, permanent)
+    command($button_order, false)
+}
+
+async function checkout() {
+
+    if(command($button_order, true)) return
+    
+    // validaciones
+    if(!store.user.logged) return
+    let min = store.order.subtotal - store.order.discount
+    if(store.location == "11001" && min < 30000) return showOrderError("El pedido mínimo sin incluir domicilio es: $30.000 pesos")
+    if(store.location != "11001" && min < 15000) return showOrderError("El pedido mínimo sin incluir domicilio es: $15.000 pesos")
+    if($("#txt-cupon").val() != "" && store.couponOrder.Aplica == undefined) return showOrderError("Tiene un cupón sin aplicar. Presione el botón APLICAR", $("#txt-cupon"))
+    if(!store.payment) return showOrderError("Seleccione una forma de pago", $("#forma-pago"))
+    if(!store.address) return showOrderError("Seleccione una dirección de entrega", $("#address-list"))
 
     let fPagos = {
-        "" : "--",
-        "11": "Efectivo",
-        "73": "Datáfono",
-        "53": "TCO",
-        "23": "PSE"
+        "Efectivo": 11,
+        "Datáfono": 73,
+        "TCO": 53,
+        "PSE": 23
     }
 
-    //$("#calificacion-preguntas").data("pedido", d.numero)
+    let day = moment().day()
 
-    $("#items-list").html(renderItems(d.items))
+    let productos = [
+        {
+            codigo: "999992", 
+            descripcion: "domicilio", 
+            price: store.order.subtotal > maxDomiGratis + store.order.discount ? 0.01 : store.order.shipping,
+            stock:1,
+            idOferta:0,
+            cantidad: 1,
+            descuento:0,
+            idUnidad:1
+        }
+    ]
 
-    $("#datos-cliente").html(/*html*/`
-<div style="padding:20px">
-
-    <h3 style="margin-top: 0; color: #222; text-align: center"><b>PEDIDO N° ${d.numero}</b></h3>
-
-    <div class="label">Fecha y Hora</div><b>${new Date(d.fecha).toLocaleString('es-CO', {timeZone: 'Etc/GMT'})}</b>
-    <div class="label">Nombre</div><b>${d.nombre}</b>
-    <div class="label">Dirección</div><b>${d.direccion}<br>${d.ciudad}</b>
-    <div class="dashed-line"></div>
-    <table class="tables tx-right">
-        <tr><td>Subtotal</td><td><b>${f(d.subtotal + d.descuento)}</b></td></tr>
-        <tr><td>Cupones o Bonos</td><td style="color: #ff402c;">${f(d.descuento * -1)}</td></tr>
-        <tr><td>Domicilio</td><td><b>${f(d.domicilio)}</b></td></tr>
-        <tr><td>Forma de Pago</td><td><b>${isNaN(d.formaPago) ? d.formaPago : fPagos[d.formaPago]}</b></td></tr>
-        <tr><td style="font-size:1.3em">Total:</td><td style="font-size:1.3em"><b class="rojo">${f(d.subtotal + d.domicilio)}</b></td></tr>    
-    </table>
-    <div class="dashed-line"></div>
-    <h3 style="margin-bottom: 0"><b>MÁS INFORMACIÓN</b></h3>
-    <div id="masinfo">
-        <div class="label">Fijo</div><b>${d.telefono}</b>
-        <div class="label">Celular</div><b>315-7823477</b>
-    </div>
-    <br>
-    <p style="text-align:center"><button class="page-button" onclick="rebuy('${d.numero}')">REPETIR PEDIDO</button></p>
-
-</div>`)
-
-}
-
-
-function renderItems(items) {
-
-    let ret = ""
-    forEach(items, item => {
-        if(item.codigo == "999992") return
-        if(item.descuento > 0) item._hasDiscount = true
-        ret += renderCartItem(item, "order")
-    })
-    return ret
-}
-
-
-async function rebuy(order_id) {
-    if(orders[order_id]) {
-
-        let fullinfo = []
-        fullinfo = orders[order_id].items.map(item => ({id: item.id}))
-
-        await showProducts($("<div></div>"), fullinfo, "rebuy")
-        orders[order_id].items.forEach(item => {
-            if(getProduct(item.id)) setCart(item.id, {value: 1})
+    calculateCart().forEach(product => {
+        productos.push({
+            codigo: product.item.id,
+            descripcion: product.item.nombre,
+            price: product.price,
+            stock: product.item.stock,
+            idUnidad: product.item.IdUnidad,
+            cantidad: product.item._quanty,
+            descuento: product.item.descuento,
+            idOferta: product.item.idoferta != undefined ? product.item.idoferta : 0
         })
+
+        productosTag.push({
+            item_id: product.item.id,
+            item_name: product.item.nombre,
+            discount: product.item.descuento,
+            price: product.price,
+            currency: 'COP',
+            quantity: product.item._quanty
+        })
+    })
+
+    let bono = {aplica: false};
+    if(store.bonus) {
+        if(store.bonus.usar) {
+            bono.Aplica = true
+            bono.Id = store.bonus.bonus.Id
+            bono.VlrBono = store.bonus.bonus.VlrBono
+        }
+    }
+
+    let puntos = {aplica: false}
+    if(redimir) {
+        puntos = {ValorPuntos:format.from(range.get()), aplica: true}
+    }
+
+    const senddata = {
+        formaDePago: fPagos[store.payment], 
+        tipoPago:store.payment == "PSE" ? "OnLine" : "ContraEntrega", 
+        direccion:store.address, 
+        drogueria:store.location, 
+        vlrDomicilio:0, 
+        ciudad: store.location, 
+        nombreCiudad:store.city, 
+        subtotal:store.order.subtotal - store.order.discount, 
+        id_Servicio: "WebDesktop", 
+        nota: $("#nota-pedido").val() + ` -- Forma de pago: ${store.payment}`,
+        bono,
+        cliente: {nit: store.user.nit, nombres: store.user.nombres, email: store.user.email, auth_token: store.user.auth_token},
+        cupon: store.couponOrder && store.couponOrder.Aplica ? store.couponOrder : {aplica: false},
+        productos:productos
+    }
+
+    res = await API.POST.checkout(senddata)
+
+    let pedido, resPSE;
+    if(res.data && res.data[0]) {
+        pedido = res.data[0]
+        resPSE = res.data[1]
+    }
+
+    if(pedido && pedido.numeroPedido) {
+        resetCart()
+        if(store.payment == "PSE") return parent.location = resPSE.urlPayment
+        else return parent.location = `pedido-success.html?p=` + pedido.numeroPedido
+    } else if(res.message) showOrderError(res.message, $("<div></div>"))
+
+    command($button_order, false)
+
+}
+
+
+// ========================================================================== //
+// COUPON
+
+function resetCoupon(mustRenderCart = true) {
+    let $input = $('#txt-cupon'), $output = $("#lbl-coupon")
+    $input.removeClass("coupon-good")
+    $input.removeClass("coupon-bad")
+    $output.removeClass("coupon-good-lbl").html("")
+    $output.removeClass("coupon-bad-lbl").html("")
+    store.cuponDiscount = 0
+    if(mustRenderCart) {
+        renderCart()
+        if(typeof summaryCart == "function") summaryCart()
     }
 }
 
-let survey = {
-    "info": {},
-    "experiencia": {value: -1, feedback: "", title: "¿Cómo fue tu experiencia de compra?", left:"Mala", right: "Excelente", low: 3, placeholder: "¿En qué quieres que mejoremos?"},
-    "velocidad": {value: -1, title: "¿Cómo valoras la velocidad del sitio?", left:"Lento", right: "Rápido", low: 4},
-    "productos": {value: -1, feedback: "", title: "¿Encontraste los productos que buscabas?", left:"Ninguno", right: "Todos", low: 4, placeholder: "¿Cuáles productos no encontraste?"},
-    "recomendar": {value: -1, feedback: "", title: "¿Le recomendarías comprar en Droguería La Economía a un(a) amigo(a) o familiar?", left:"No", right: "Si", low: 3, placeholder: "¿En qué podemos mejorar?"}
+function FormatCoupon(coupon) {
+    return {
+        type: coupon.Condicion,
+        description: coupon.Descripcion,
+        startDate: coupon.Desde,
+        endDate: coupon.Hasta,
+        name: coupon.NombreCupon,
+        strType: coupon.TipoCupon,
+        value: coupon.ValorCupon,
+        minAmount: coupon.VlrMinimo,
+    } 
 }
 
-function showSurvey() {
-
-    $("#calificacion-preguntas").find("> div").each(function (){renderSurvey($(this), this.dataset.key)})
-
-    let $estrellas = $(".estrellas")
-
-    $estrellas.on("mouseenter", "i", function(e){
-        let $parent = $(e.currentTarget).parent(),
-            $elem = $parent.find("i"),
-            value = $elem.index($(this))
-        ;
-        $parent.css("opacity", "0.8")
-        fillStars($elem, value)
-    })
-
-    $estrellas.on("mouseleave", "i", function(e){
-        let $parent = $(e.currentTarget).parent()
-        $parent.css("opacity", "1")
-        fillStars($parent.find("i"), survey[$parent.data("key")].value)
-    })
-
-    $estrellas.on("click", "i", function(e){
-        let $parent = $(e.currentTarget).parent(),
-            $elem = $parent.find("i"),
-            value = $elem.index($(this))
-            item = survey[$parent.data("key")]
-        ;
-        animateCSS(this, "rubberBand", "faster")
-        if(value >= 0) item.value = value
-        if(value < item.low) $parent.parent().parent().find("textarea").show(100)
-        else $parent.parent().parent().find("textarea").hide(100)
-    })
-
-    showModal(true, $("#calificacion"))
-}
-
-function fillStars($target, value) {
-    $target.each(function(index){
-        if(index <= value) $(this).removeClass("far").addClass("fas")
-        else $(this).removeClass("fas").addClass("far")
-    })
-}
-
-function renderSurvey($target, key) {
-    let d = survey[key]
-    survey.info = {}
-    d.value = -1
-    $target.html(`
-<div class="pregunta">${d.title}</div>
-<div class="row row-middle row-center">
-    <div style="width:80px; text-align:right">${d.left}</div>
-    <div class="estrellas" data-key="${key}"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-    <div style="width:80px">${d.right}</div>
-</div>
-${d.feedback != undefined ? `
-<textarea style="display:none" rows="2" placeholder="${d.placeholder}"></textarea>
-` : ``}
-<br><br>
-    `)
-}
-
-function sendSurvey() {
-
-    let cancel = false,
-        data = {}
-    ;
-
-    $("#calificacion-preguntas").find("> div").each(function (){
-        
-        let d = survey[this.dataset.key],
-            $textarea = $(this).find("textarea")
-        ;
-
-        if(d.value < 0) {
-            cancel = true
-            animateCSS(this, "flash")
-        } else {
-            data[this.dataset.key] = {value: d.value + 1, feedback: $textarea.length > 0 ? $textarea.val().trim() : ""}
-        }
-    })
-
-    const fecha = new Date()
+async function redeemCoupon() {
     
+    let $output = $("#lbl-coupon"), coupon = $input.val().trim();
 
-    if(!cancel) {
-        if(store.user.logged) {
-            API.POST.setEncuesta(store.user.nit, $("#calificacion-preguntas").data("pedido") || 1, fecha.toISOString().split('T')[0], JSON.stringify(data))
-        }
-        
-        showModal(true, $("#calificacion-gracias"))
+    if(!store.user.logged || coupon == "") return false;
+
+    res = await API.POST.getCupon(coupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
+
+    if(res.error) return
+
+    let error_cupon = false; 
+
+    if(res.data.Success == false) {
+        $input.addClass("coupon-bad")
+        $output.addClass("coupon-bad-lbl").html(`<p><i class="fas fa-times"></i> ${res.data.Message}</p>`)
+        store.couponOrder.Aplica = false
+        error_cupon = true
+
     } else {
-        $("#calificacion-preguntas").parent().find("p.rojo").show(200).delay(1000).hide(200)
+
+        let couponResponse = FormatCoupon(res.data[0]);
+
+        store.couponOrder = res.data[0]
+        store.couponOrder.Aplica = false
+
+        if(couponResponse.type.toString() == "0" && store.order.subtotal < couponResponse.minAmount) {
+            
+            $output.addClass("coupon-bad-lbl").html(`<p><i class="fas fa-times"></i> El cupón ${couponResponse.name} solo es válido para compras mínimas de ${f(couponResponse.minAmount)}.`);
+            error_cupon = true
+
+        } else if(couponResponse.type.toString() !== "0"){
+
+            let productos = []
+      
+            calculateCart().forEach(product => {
+                productos.push({
+                    codigo: product.item.id,
+                    descripcion: product.item.nombre,
+                    price: product.price,
+                    stock: product.item.stock,
+                    IdUnidad: product.item.IdUnidad,
+                    cantidad: product.item._quanty,
+                    descuento: product.item.descuento,
+                    idoferta: product.item.idoferta != undefined ? product.item.idoferta : 0
+                })
+            })
+ 
+            const res2 = await API.POST.PerformValidateTypeOfCoupon(couponResponse.type, productos)
+
+            if(res2.error) {
+                $output.addClass("coupon-bad-lbl").html(`<p><i class="fas fa-times"></i> Este cupón no es válido para ser redimido. ${couponResponse.description}</p>`);
+                error_cupon = true
+            } else if (res2.data.ValorProductos < couponResponse.minAmount) {
+                $output.addClass("coupon-bad-lbl").html(`<p><i class="fas fa-times"></i> El cupón ${couponResponse.name} solo es válido para compras mínimas de ${f(couponResponse.minAmount)}. ${couponResponse.description}.</p>`);
+                error_cupon = true
+            }
+        }
+
+        if(!error_cupon){
+            confetti.toggle()
+            setTimeout(() => confetti.toggle(), 3000)
+            $input.addClass("coupon-good")
+            $output.addClass("coupon-good-lbl").html(`<p><i class="fas fa-check"></i> Cupón aplicado con éxito</p>`)
+            store.cuponDiscount = couponResponse.value
+            store.couponOrder.Aplica = true
+            renderCart()
+            summaryCart()
+        }
     }
 }
-
-

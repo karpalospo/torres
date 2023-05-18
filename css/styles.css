@@ -2016,9 +2016,12 @@ h3 {
 
 .boton-i {
     padding: 2px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 0 4px;
 }
 .boton-i:hover {
-    background-color: #ddd;
+    background-color: #f4f1e9;
 }
 
 .boton-i > i {
@@ -2170,14 +2173,13 @@ h3 {
 }
 
 .vselect-list {
-	padding: 1px;
-	margin-top: 10px;
-	max-height: 200px;
-	overflow-y: auto;
+    max-height: 200px;
+    overflow-y: auto;
 }
+
 .vselect-list > div {
     padding: 8px 10px;
-    font-size: 0.8em;
+    font-size: 0.9em;
     margin: 5px;
     border: 1px solid #ddd;
     display: flex;
@@ -2206,14 +2208,6 @@ h3 {
 .vselect-list > div.active > div:first-child i {
     opacity:1;
 }
-
-
-.address-city {
-	text-transform: Capitalize;
-	color: #ff2c6e;
-	font-weight: bold;
-}
-
 
 
 #order-cont {
@@ -3052,19 +3046,12 @@ h3 {
     margin-bottom: 10px;
 }
 
-.titulo2 {
-    font-family: 'Be Vietnam Pro', sans-serif;
-    font-size: 1.4em;
-    margin-bottom: 20px;
-    color: #333;
-    font-weight: 600;
-}
 
 
 .border-cont {
-    border:1px solid #ccc;
-    padding: 20px;
-    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
 }
 
 .puntos-disp {
@@ -3090,31 +3077,35 @@ h3 {
 
 .tab-menu {
     position: relative;
+    margin-bottom: 17px;
+    border-bottom: 2px solid #f2f2f2;
+    padding-bottom: 2px;
 }
 
 .tab-menu > div:not(.indicador) {
     font-weight: 500;
     padding-right: 20px;
-    cursor:default;
+    cursor: default;
+    font-family: 'Be Vietnam Pro';
+    font-size: 0.95em;
 }
 
 .tab-menu > div:not(.indicador):not(.active):hover {
     cursor: pointer;
-    color: #106ce1;
+    color: #fa7800;
 }
 
 .tab-menu > div.active {
-    color: #106ce1;
+    color: #fa7800;
 }
 
 .tab-menu .indicador {
-    height: 5px;
-    background-color: #106ce1;
+    height: 2px;
+    background-color: #fa7800;
     width: 0;
     position: absolute;
     top: 23px;
     left: 0px;
-    border-radius: 2px;
     transition: 0.4s ease-in-out;
 }
 
@@ -3136,17 +3127,17 @@ h3 {
     margin-left: 30px;
     border-spacing: 0;
     table-layout: fixed;
-    background: #0a438c;
+    background: #fa7800;
     text-align: center;
 }
 
 .tb-regalo td:nth-child(1) {
-    border-left: 1px solid #0a438c;
+    border-left: 1px solid #fa7800;
 }
 
 .tb-regalo td:nth-child(2) {
-    border-right: 1px solid #0a438c;
-    border-left: 1px solid #0a438c;
+    border-right: 1px solid #fa7800;
+    border-left: 1px solid #fa7800;
     font-weight: 500;
 }
 
@@ -3155,13 +3146,7 @@ h3 {
     background-color: white;
 }
 
-.cuadro-azul > div {
-    border: 1px solid #b6bad4;
-    padding: 20px;
-    border-radius: 10px;
-    background: #ecf5fb;
 
-}
 
 .col3 {
     display: grid;

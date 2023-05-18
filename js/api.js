@@ -88,7 +88,7 @@ const API = {
         },
 
         async getPuntos(nit, nombres, email, auth_token) {
-            return await fetchAsync(`${URL.HOST}/economia/site/users/getpuntosvs`, {body: {nit, email, nombres, auth_token}});
+            return await fetchAsync(`${URL.HOST}/ftorres/api/users/getpuntosvs`, {body: {nit, email, nombres, auth_token}});
         },
 
 
@@ -151,7 +151,7 @@ const API = {
 
         // profile
         async userProfile(nit, nombres, email, auth_token) {
-            return await fetchAsync(`${URL.HOST}/economia/site/users/userProfile`, {body: {nit,email,nombres,auth_token}});
+            return await fetchAsync(`${URL.HOST}/ftorres/api/users/userinfo`, {body: {nit,email,nombres,auth_token, password: "12345"}});
         },
 
         async editProfile(document, name, email, token, { password = '', newName, newDocument, dateOfBirth, phone, cellphone }) {
@@ -174,7 +174,7 @@ const API = {
                     telefono: phone,
                 }
             }
-            return await fetchAsync(`${URL.HOST}/economia/site/users/updateUserProfile`, {body: fields});
+            return await fetchAsync(`${URL.HOST}/ftorres/api/users/updateuserprofile`, {body: fields});
         },
     }
 }

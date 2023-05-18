@@ -85,22 +85,8 @@ function renderUser() {
         if(!store.user.nombres) return
         let nombre = store.user.nombres.split(" ")[0].toUpperCase()
         $("#lbl-nombre").html(nombre.toLowerCase())
-        $("[data-id='login']").find(".content").html(`
-<div class="menu-item" onclick="parent.location='${ABS_URL}/perfil'">Mi Perfíl</div>
-<div class="menu-item" onclick="parent.location='${ABS_URL}/perfil/pedidos'">Mis Pedidos</div>
-<div class="menu-item" onclick="parent.location='${ABS_URL}/favoritos'">Mis Favoritos</div>
-<div class="menu-item rojo" onclick="pLog('logout')">Cerrar Sesión</div>`)
-
-        $("#menu-adicional").show(0)
-        $("#float-right").show(0)
-        
     } else {
         $("#lbl-nombre").html("Ingresar")
-        $("[data-id='login']").find(".content").html(`
-<div class="menu-item" onclick="showModal(true, $('#signin'))">Iniciar Sesión</div>
-<div class="menu-item" onclick="parent.location = '${ABS_URL}/registro'">Registrarse</div>`)
-
-        $("#menu-adicional").hide(0)
     }
 }
 

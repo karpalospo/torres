@@ -263,12 +263,40 @@ function _$(str) {
     return document.querySelector(str)
 }
 
-function stickyScroll($scrollingDiv) {
+function stickyScroll($scrollingDiv, $railtrack, bottomOffset = 0) {
 
-    let currentTop = parseInt($scrollingDiv.position().top)
+    let currentTop = parseInt($scrollingDiv.position().top),
+        scrolled
+    ;
 
     $window.scroll(function(){
-        if ($window.scrollTop() > 0) $scrollingDiv.css({position: 'fixed', top: currentTop + 'px'})
-        else $scrollingDiv.css({position: '', top:''})
+        scrolled = $window.scrollTop()
+        console.log($scrollingDiv.height(), $railtrack.height())
+        if (scrolled > 0) {
+            $scrollingDiv.css({position: 'fixed', top: currentTop + 'px', bottom: ''})
+            if(scrolled + $scrollingDiv.height() + bottomOffset > $railtrack.height()) {
+                $scrollingDiv.css({position: 'absolute', top:'', bottom: bottomOffset})
+            }
+        } else {
+            $scrollingDiv.css({position: '', top:'', bottom: ''})
+        }
     });
+}
+
+function initTabMenu($menu, $cont, index = 0) {
+
+    $menu.on("click", "> div", function(e){
+        let $this = $(e.currentTarget),
+            $tabs = $menu.parent().find(".tabs"),
+            index = $menu.find("> div:not(.indicador)").removeClass("active").index($this),
+            $indicador = $menu.find(".indicador")
+        ;
+        $this.addClass("active")
+        $indicador.width($this.width() + 6).css("transform", `translateX(${$this.position().left - 3}px)`)
+        $tabs.not($tabs.eq(index)).removeClass("fade-in").addClass("fade-out").css("pointer-events", "none")
+        $tabs.eq(index).css({display: "block"}).removeClass("fade-out").addClass("fade-in").css("pointer-events", "")
+        $cont.height($tabs.eq(index).height())
+    });
+
+    setTimeout(e => $menu.find("> div").eq(index).trigger("click"), 100)
 }
