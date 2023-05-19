@@ -1894,6 +1894,31 @@ h3 {
     border: 1px solid #ffa54b;
 }
 
+.error-text, .good-text {
+    font-size: 0.8em;
+    padding: 10px 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.error-text > div:first-child, .good-text > div:first-child {
+    margin-right: 10px;
+}
+
+.error-text {
+    color: #dc2121;
+    background: #ffe9e9;
+    border: 1px solid #ffc9c9;
+}
+
+.good-text {
+    color: #399c29;
+    background: #e9ffea;
+    border: 1px solid #acf89a;
+}
+
 .cupon {
     margin-bottom: 25px;
     background-color: #fff94c;
@@ -1904,6 +1929,7 @@ h3 {
     display: flex;
     overflow: hidden;
     border: 1px solid #ddc35f;
+    cursor: pointer;
 }
 
 .cupon > div:first-child {

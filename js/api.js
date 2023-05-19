@@ -125,7 +125,9 @@ const API = {
             return await fetchAsync(`${URL.HOST}/ftorres/api/ofertas/cupon`, {body: {cupon, user: {nit, email, nombres, token}, canal: "WEB"}})
         },
 
-     
+        async validarCupon(Condicion, Productos) {
+            return await fetchAsync(`${URL.HOST}/economia/api/validaCondiciones/`, {body: {Condicion, Productos}});
+        },
         // async validateCoupon(typeOfCoupon, products) {
         //     return await fetchAsync(`${URL.HOST}/economia/api/validaCondiciones/`, {body: {Condicion: typeOfCoupon }) + '&' + ArrayFormUrlEncoded({ Productos: products }), headers: HEADER_JSON});
         // },

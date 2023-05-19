@@ -301,6 +301,7 @@ async function pLog(event, payload = {}) {
             store.coupon = getFromArrayByProp(store.cupones, payload.id, "idCupon")
 
             $("#txt-cupon").val(store.coupon.nombreCupon)
+            showResultMessage($("#lbl-coupon")) // clear
             if(store.coupon.condicion != 0) {
                 store.coupon.condicionTexto = ""
                 let res = await API.POST.getCupon(store.coupon.nombreCupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
@@ -601,6 +602,15 @@ function initAccordeon($target, autoclose, cb) {
         if(typeof cb == "function") cb($elem)
 
     })
+}
+
+function showResultMessage($target, value, text) {
+    $target.removeClass("good-text error-text").html("")
+    if(text) {
+        $target.addClass(`${value ? "good-text" : "error-text"}`).html(/*html*/`
+            <div><i class="fas fa-${value ? "check" : "times"}"></i></div>
+            <div class="text">${text}</div>`)
+    }
 }
 
 // ========================================================================== //

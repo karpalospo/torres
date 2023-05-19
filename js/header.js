@@ -118,7 +118,7 @@ Para ver los cupones de descuento disponibles debes iniciar sesión
     forEach(store.cupones, item => {
         couponCondicion(item)
         s += /*html*/`
-<div class="cupon">
+<div class="cupon" data-id="${item.idCupon}">
     <div>
         <div class="cupon-title">${item.nombreCupon}</div>
         <div class="value">${f(item.valorCupon)}</div>
@@ -141,6 +141,11 @@ Para ver los cupones de descuento disponibles debes iniciar sesión
     })
    
     $target.html(s)
+
+    $target.on("click", ".cupon", e => {
+        let $elem = $(e.currentTarget)
+        pLog('coupon', {id: $elem.data("id")})
+    });
 
 }
 

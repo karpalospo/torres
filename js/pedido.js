@@ -243,6 +243,7 @@ function FormatCoupon(coupon) {
 async function redeemCoupon() {
     
     let $output = $("#lbl-coupon"), coupon = $input.val().trim();
+    showResultMessage($output) // clear
 
     if(!store.user.logged || coupon == "") return false;
 
@@ -253,8 +254,7 @@ async function redeemCoupon() {
     let error_cupon = false; 
 
     if(res.data.Success == false) {
-        $input.addClass("coupon-bad")
-        $output.addClass("coupon-bad-lbl").html(`<p><i class="fas fa-times"></i> ${res.data.Message}</p>`)
+        showResultMessage($output, false, res.data.Message)
         store.couponOrder.Aplica = false
         error_cupon = true
 
@@ -267,7 +267,7 @@ async function redeemCoupon() {
 
         if(couponResponse.type.toString() == "0" && store.order.subtotal < couponResponse.minAmount) {
             
-            $output.addClass("coupon-bad-lbl").html(`<p><i class="fas fa-times"></i> El cupón ${couponResponse.name} solo es válido para compras mínimas de ${f(couponResponse.minAmount)}.`);
+            showResultMessage($output, false, `El cupón ${couponResponse.name} solo es válido para compras mínimas de ${f(couponResponse.minAmount)}.`)
             error_cupon = true
 
         } else if(couponResponse.type.toString() !== "0"){
@@ -287,22 +287,21 @@ async function redeemCoupon() {
                 })
             })
  
-            const res2 = await API.POST.PerformValidateTypeOfCoupon(couponResponse.type, productos)
+            const res2 = await API.POST.validarCupon(couponResponse.type, productos)
 
             if(res2.error) {
-                $output.addClass("coupon-bad-lbl").html(`<p><i class="fas fa-times"></i> Este cupón no es válido para ser redimido. ${couponResponse.description}</p>`);
+                showResultMessage($output, false, `Este cupón no es válido para ser redimido. ${couponResponse.description}`)
                 error_cupon = true
             } else if (res2.data.ValorProductos < couponResponse.minAmount) {
-                $output.addClass("coupon-bad-lbl").html(`<p><i class="fas fa-times"></i> El cupón ${couponResponse.name} solo es válido para compras mínimas de ${f(couponResponse.minAmount)}. ${couponResponse.description}.</p>`);
+                showResultMessage($output, false, `El cupón ${couponResponse.name} solo es válido para compras mínimas de ${f(couponResponse.minAmount)}. ${couponResponse.description}`)
                 error_cupon = true
             }
         }
 
         if(!error_cupon){
-            confetti.toggle()
-            setTimeout(() => confetti.toggle(), 3000)
-            $input.addClass("coupon-good")
-            $output.addClass("coupon-good-lbl").html(`<p><i class="fas fa-check"></i> Cupón aplicado con éxito</p>`)
+            //confetti.toggle()
+            //setTimeout(() => confetti.toggle(), 3000)
+            showResultMessage($output, true, `Cupón aplicado con éxito`)
             store.cuponDiscount = couponResponse.value
             store.couponOrder.Aplica = true
             renderCart()

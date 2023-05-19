@@ -155,7 +155,6 @@ function renderAddress(data, $target) {
     let s = ""
     //$target.off("click")
     forEach(data, item => {
-        console.log(item.ciudad)
         let pos = store.centrocostos.findIndex(elem => item.ciudad == elem.Ciudad)
         s += /*html*/`
 <div data-value="${item.direccion}" data-alias="${item.nombre_direccion}" data-ciudad="${item.ciudad}">
