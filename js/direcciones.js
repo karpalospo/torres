@@ -11,7 +11,7 @@ async function page_init() {
 }
 
 async function editAddress(alias) {
-    console.log(alias)
+
     store.currentAddressAlias = alias
     
     showModal(true, 'address')
@@ -30,7 +30,7 @@ async function editAddress(alias) {
         });
         store.currentAddressAlias = ""
 
-        $("#title-header").html("EDITAR DIRECCIÓN")
+        $("#address").find(".title").html("EDITAR DIRECCIÓN")
         $("#frm-ciudad").val(address.ciudad)
         $("#frm-observacion").val(address.nombre_direccion).css("opacity", 0.6).prop("readonly", true)
         $("#frm-observacion").val(address.nombre_direccion).css("opacity", 0.6).prop("readonly", true)
@@ -45,7 +45,7 @@ async function editAddress(alias) {
         $('[name="name_neighborhood"]').val(s[1])
 
     } else {
-        $("#title-header").html("AGREGAR DIRECCIÓN")
+        $("#address").find(".title").html("AGREGAR DIRECCIÓN")
         $("#frm-ciudad").val(store.location)
         $("#frm-observacion").val(address.nombre_direccion).css("opacity", 1).prop("readonly", false)
         $('[name="name_route"]').val("")
@@ -83,23 +83,17 @@ async function saveAddress() {
     if(!name_alias.value) return alert("Escriba un nombre de la dirección.")
 
     const direccion = buildAddress(name_route.value, name_neighborhood.value, name_main_route.value, name_second_route.value, name_third_route.value,name_third_route3.value)
-    
-    res = await API.POST.saveAddress({
-        userInfo: {
-            nit: store.user.nit,
-            email: store.user.email,
-            nombres: store.user.nombres,
-            auth_token: store.user.auth_token
-        }, 
-        myAddress: {
+    console.log(direccion)
+    res = await API.POST.saveAddress(
+        {
             ciudad: name_ciudad.value,
             nombre_direccion: name_alias.value,
             direccion
-        }
-    })
+        }, store.user.email, store.user.auth_token
+    )
 
     if (!res.error) {
-        getUserAddresses()
+        getUserAddresses($("#address-list"))
         showModal(false)
         name_neighborhood.value = ""
         name_main_route.value = ""
@@ -121,19 +115,14 @@ async function saveAddress() {
 
 async function deleteAddress(alias) {
 
-    return console.log(alias)
     //if(!store.user.logged) return parent.location = ABS_URL
 
-    let {name_route, name_main_route, name_second_route, name_third_route, name_neighborhood, name_alias} = $("#frm-direccion")[0]   
+    let {name_main_route, name_second_route, name_third_route, name_neighborhood, name_alias} = $("#frm-direccion")[0]   
 
-    res = await API.POST.deleteAddress(
-        name_alias.value,
-        store.user.email,
-        store.user.auth_token
-    )
+    res = await API.POST.deleteAddress(alias, store.user.email, store.user.auth_token)
 
     if (!res.error) {
-        getUserAddresses()
+        getUserAddresses($("#address-list"))
         showModal(false)
         name_neighborhood.value = ""
         name_main_route.value = ""
@@ -158,10 +147,7 @@ async function getUserAddresses($target) {
    
     if(res.data && res.data.success == false) return false
 
-
     renderAddress(store.user.addresses = res.data, $target)
-
-
    
 }
 

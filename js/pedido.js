@@ -219,6 +219,14 @@ function resetCoupon(mustRenderCart = true) {
     }
 }
 
+
+
+function clearCoupon() {
+    store.coupon = null;
+    write_cache("coupon")
+    renderCart();
+}
+
 function FormatCoupon(coupon) {
     return {
         type: coupon.Condicion,

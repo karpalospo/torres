@@ -132,22 +132,17 @@ const API = {
 
 
         // address
-        async deleteAddress(alias, email, auth_token) {
-            const fields = {
-                userInfo: {email, auth_token},
-                MyDireccion: {nombre_direccion: alias}
-            }
-            return await fetchAsync(`${URL.HOST}/ftorres/api/users/deleteaddress/`, {body: fields});
-        },
-
         async getAddress(user) {
             return await fetchAsync(`${URL.HOST}/ftorres/api/users/getuseraddress/`, {body: {nit: user.nit, email: user.email, auth_token: user.auth_token, marca: "TOR"}});
         },
 
-        async saveAddress(data) {
-            return await fetchAsync(`${URL.HOST}/ftorres/api/users/saveaddress/`, {body: data});
+        async saveAddress(myAddress, email, auth_token) {
+            return await fetchAsync(`${URL.HOST}/ftorres/api/users/saveaddress/`, {body: {myAddress, auth_token, email}});
         },
 
+        async deleteAddress(alias, email, auth_token) {
+            return await fetchAsync(`${URL.HOST}/ftorres/api/users/deleteaddress/`, {body: {myAddress:{nombre_direccion: alias}, auth_token, email}});
+        },
 
         // profile
         async userProfile(nit, nombres, email, auth_token) {

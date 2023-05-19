@@ -786,11 +786,8 @@ select {
     margin: 20px auto;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     border-radius: 4px;
-    line-height: 1.5em;
-    font-weight: 400;
     overflow: hidden;
     box-sizing: border-box;
-    font-size: 0.9em;
 }
 
 .porta-medida {
@@ -1873,10 +1870,6 @@ h3 {
     opacity: 0.8;
 }
 
-
-
-
-
 .link2 {
     font-weight: 500;
     color: #1B42CB;
@@ -1902,35 +1895,55 @@ h3 {
 }
 
 .cupon {
-    padding: 13px;
     margin-bottom: 25px;
-    background-color: #94441f;
-    border-radius: 10px;
-    box-shadow: 2px 2px 13px 0 rgba(0,0,0,0.5);
+    background-color: #fff94c;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.3);
     margin: 20px 15px;
     font-size: 0.9em;
+    display: flex;
+    overflow: hidden;
+    border: 1px solid #ddc35f;
 }
 
-.cupon .title {
-    text-shadow: 1px 1px 3px rgb(0 0 0 / 30%);
+.cupon > div:first-child {
+    background: #fa7800;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 6px;
+}
+
+.cupon > div:last-child {
+    border-left: 7px dotted #fa7800;
+    margin-left: -4px;
+}
+
+.cupon .cupon-title {
+    text-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
     font-size: 1.4em;
-    text-align: center;
-    margin: 0;
-    background-color: rgba(0,0,0,0.12);
-    padding: 8px;
+    background-color: rgb(255 255 255);
     border-radius: 5px;
-    color: #fff;
     letter-spacing: 2px;
+    padding: 10px;
+}
+
+.cupon .info {
+    margin: 8px;
+    padding: 8px;
+    border: 2px dashed #d6b41e;
+    border-radius: 5px;
 }
 
 .cupon .value {
     text-align: center;
     font-size: 2.2em;
-    margin-top: 10px;
+    margin-top: 19px;
     margin-bottom: 0;
-    color: #f1ff34;
+    color: #ffffff;
     font-weight: bold;
-    text-shadow: 1px 1px 10px rgb(0 0 0 / 40%);
+    text-shadow: 1px 1px 5px rgb(0 0 0 / 40%);
 }
 
 .cupon span {
@@ -1946,30 +1959,11 @@ h3 {
     cursor: pointer;
 }
 
-.cupon .fa-cut {
-    position: absolute;
-    bottom: -11px;
-    left: 23px;
-    font-size: 2.2em;
-    color: white;
-}
-
 .cupon > div {
-    color: rgba(255, 255, 255, 0.85);
-    font-weight: 400;
-    border: 2px dashed #fff;
-    padding: 10px;
-    border-radius: 9px;
-    position: relative;
-    padding-bottom: 0;
-    line-height: 1.6em;
-    font-size: 0.9em;
+    line-height: 1.4em;
+    font-size: 0.8em;
 }
 
-.cupon button {
-    background-color: #e59500 !important;
-    padding: 9px 18px;
-}
 
 .encuesta {
 	padding: 10px 15px;

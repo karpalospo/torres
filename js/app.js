@@ -1,7 +1,5 @@
-
 const ABS_URL = ""
 const ABS_URL_SERVER = "https://imperacore.net"
-
 
 let res,
     index,
@@ -27,8 +25,6 @@ let res,
     currentProductDetail,
     $window = $(window)
 ;
-
-
 
 // ========================================================================== //
 // RENDER
@@ -255,32 +251,6 @@ async function getProductsFullInfo(products) {
 // ========================================================================== //
 // CUPONES
 
-
-function couponCondicion(coupon) {
-    if(!coupon || !coupon.itemsCondicion) return
-
-    let subs = {}, founded
-    coupon.aplica = [], coupon.noaplica = []
-    
-    forEach(store.categorias, cat => {
-        forEach(cat.subs, sub => subs[sub.id] = sub)
-    })
-
-    forEach(subs, sub => {
-        founded = false
-        coupon.itemsCondicion.forEach(item => {if(item.aplicadoa == sub.id) founded = true})
-        if(founded) coupon.aplica.push(sub)
-        else coupon.noaplica.push(sub)
-    })
-
-
-}
-
-function clearCoupon() {
-    store.coupon = null;
-    write_cache("coupon")
-    renderCart();
-}
 
 function stringfyCats(cats) {
     let s = ""
