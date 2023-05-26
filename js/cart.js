@@ -173,7 +173,7 @@ function renderCart() {
     // cupon
     if(c && c.vlrminimo != undefined) {
         falta = c.vlrminimo - store.order.couponTotal
-        $cart_list.prepend(`
+        $cart_list.prepend(/*html*/`
 <div data-id="0">
 <img src="${ABS_URL_SERVER}/assets/cupon.png" alt="" />
 <div class="f1">
@@ -183,18 +183,18 @@ function renderCart() {
         <div><div class="link2" onclick="showModal(true, $('#cupones'))" >Ver Condiciones</div></div>
         <div style="text-align: center">
             <div class="cantidad">
-                <i onclick="clearCoupon()" class="fas fa-trash-alt"></i>
+                <i onclick="borrarCupon()" class="fas fa-trash-alt"></i>
             </div>
         </div>
         <div class="precio-cupon">-${f(c.valorcupon)}</div>
     </div>
     ${falta > 0 ?
-    `<div class="progressbar">
+    /*html*/`<div class="progressbar">
         <div style="width:${Math.round(store.order.couponTotal / c.vlrminimo * 100)}%"></div>
     </div>
     <div style="padding:7px; font-size:0.9em; text-align:right">Faltan <b>${f(falta)}</b> para aplicar</div>`
     : 
-    `<div><i class="fas fa-check" style="color:green"></i> Aplica para redimir</div>`
+    /*html*/`<div><i class="fas fa-check" style="color:green"></i> Aplica para redimir</div>`
     }
 </div>
 </div>`)

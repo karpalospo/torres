@@ -3,6 +3,13 @@ const maxDomiGratis = 1
 let productosTag = []
 let resAddress;
 
+let $button_order = $("#button-order"),
+    $lblCupon = $("#lbl-coupon"),
+    $lblTotal = $("#lbl-total"),
+    $order = $("#order2"),
+    $input = $("#txt-cupon")
+;
+
 async function page_init() {
     
     //if(!store.user.logged) return parent.location = `index.html`
@@ -16,12 +23,12 @@ async function page_init() {
             callback: () => {showModal(true, 'signin')},
             closeCallback: () => {showModal(true, 'signin')
         }})
-        //pLog("logout", {noRedirect: true})
-        if(typeof showOrderError == "function") showOrderError("Hay un problema de sesión que no permite continuar", $("<div></div>"), true)
+
+        if(typeof showOrderError == "function") showOrderError("Hay un problema de sesión que no permite continuar", true)
 
     } else {
 
-        if(typeof showOrderError == "function") showOrderError("", $("<div></div>")) // remover error
+        if(typeof showOrderError == "function") showOrderError("") 
 
         initList($("#address-list"), "address")
         initList($("#payment-list"), "payment", checkPse)
@@ -52,17 +59,13 @@ function checkPse($elem){
 }
 
 
-let $button_order = $("#button-order"),
-    $lblTotal = $("#lbl-total"),
-    $order = $("#order2"),
-    $input = $("#txt-cupon")
-;
+
 
 $input.on("keyup", e => {
-    if(e.keyCode == 13) redeemCoupon()
+    if(e.keyCode == 13) redimirCupon()
 })
-$input.on("input", () => resetCoupon())
-$input.on("change", () => resetCoupon())
+$input.on("input", () => borrarCupon())
+$input.on("change", () => borrarCupon())
 
 
 function summaryCart(_buscarBono = true) {
@@ -91,7 +94,7 @@ ${redimir && puntos > 0 ? `<tr><td>Puntos</td><td class="rojo" style="font-weigh
     $("#confirmar").show(0)
 }
 
-function showOrderError(message, $flash_target, permanent = false) {
+function showOrderError(message, permanent = false) {
     showError($order.find(".frm-error"), message, permanent)
     command($button_order, false)
 }
@@ -105,9 +108,9 @@ async function checkout() {
     let min = store.order.subtotal - store.order.discount
     if(store.location == "11001" && min < 30000) return showOrderError("El pedido mínimo sin incluir domicilio es: $30.000 pesos")
     if(store.location != "11001" && min < 15000) return showOrderError("El pedido mínimo sin incluir domicilio es: $15.000 pesos")
-    if($("#txt-cupon").val() != "" && store.couponOrder.Aplica == undefined) return showOrderError("Tiene un cupón sin aplicar. Presione el botón APLICAR", $("#txt-cupon"))
-    if(!store.payment) return showOrderError("Seleccione una forma de pago", $("#forma-pago"))
-    if(!store.address) return showOrderError("Seleccione una dirección de entrega", $("#address-list"))
+    if($("#txt-cupon").val() != "" && !store.order.cupon) return showOrderError("Tiene un cupón sin aplicar. Presione el botón APLICAR")
+    if(!store.payment) return showOrderError("Seleccione una forma de pago")
+    if(!store.address) return showOrderError("Seleccione una dirección de entrega")
 
     let fPagos = {
         "Efectivo": 11,
@@ -196,116 +199,10 @@ async function checkout() {
         resetCart()
         if(store.payment == "PSE") return parent.location = resPSE.urlPayment
         else return parent.location = `pedido-success.html?p=` + pedido.numeroPedido
-    } else if(res.message) showOrderError(res.message, $("<div></div>"))
+    } else if(res.message) showOrderError(res.message)
 
     command($button_order, false)
 
 }
 
 
-// ========================================================================== //
-// COUPON
-
-function resetCoupon(mustRenderCart = true) {
-    let $input = $('#txt-cupon'), $output = $("#lbl-coupon")
-    $input.removeClass("coupon-good")
-    $input.removeClass("coupon-bad")
-    $output.removeClass("coupon-good-lbl").html("")
-    $output.removeClass("coupon-bad-lbl").html("")
-    store.cuponDiscount = 0
-    if(mustRenderCart) {
-        renderCart()
-        if(typeof summaryCart == "function") summaryCart()
-    }
-}
-
-
-
-function clearCoupon() {
-    store.coupon = null;
-    write_cache("coupon")
-    renderCart();
-}
-
-function FormatCoupon(coupon) {
-    return {
-        type: coupon.Condicion,
-        description: coupon.Descripcion,
-        startDate: coupon.Desde,
-        endDate: coupon.Hasta,
-        name: coupon.NombreCupon,
-        strType: coupon.TipoCupon,
-        value: coupon.ValorCupon,
-        minAmount: coupon.VlrMinimo,
-    } 
-}
-
-async function redeemCoupon() {
-    
-    let $output = $("#lbl-coupon"), coupon = $input.val().trim();
-    showResultMessage($output) // clear
-
-    if(!store.user.logged || coupon == "") return false;
-
-    res = await API.POST.getCupon(coupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
-
-    if(res.error) return
-
-    let error_cupon = false; 
-
-    if(res.data.Success == false) {
-        showResultMessage($output, false, res.data.Message)
-        store.couponOrder.Aplica = false
-        error_cupon = true
-
-    } else {
-
-        let couponResponse = FormatCoupon(res.data[0]);
-
-        store.couponOrder = res.data[0]
-        store.couponOrder.Aplica = false
-
-        if(couponResponse.type.toString() == "0" && store.order.subtotal < couponResponse.minAmount) {
-            
-            showResultMessage($output, false, `El cupón ${couponResponse.name} solo es válido para compras mínimas de ${f(couponResponse.minAmount)}.`)
-            error_cupon = true
-
-        } else if(couponResponse.type.toString() !== "0"){
-
-            let productos = []
-      
-            calculateCart().forEach(product => {
-                productos.push({
-                    codigo: product.item.id,
-                    descripcion: product.item.nombre,
-                    price: product.price,
-                    stock: product.item.stock,
-                    IdUnidad: product.item.IdUnidad,
-                    cantidad: product.item._quanty,
-                    descuento: product.item.descuento,
-                    idoferta: product.item.idoferta != undefined ? product.item.idoferta : 0
-                })
-            })
- 
-            const res2 = await API.POST.validarCupon(couponResponse.type, productos)
-
-            if(res2.error) {
-                showResultMessage($output, false, `Este cupón no es válido para ser redimido. ${couponResponse.description}`)
-                error_cupon = true
-            } else if (res2.data.ValorProductos < couponResponse.minAmount) {
-                showResultMessage($output, false, `El cupón ${couponResponse.name} solo es válido para compras mínimas de ${f(couponResponse.minAmount)}. ${couponResponse.description}`)
-                error_cupon = true
-            }
-        }
-
-        if(!error_cupon){
-            //confetti.toggle()
-            //setTimeout(() => confetti.toggle(), 3000)
-            showResultMessage($output, true, `Cupón aplicado con éxito`)
-            store.cuponDiscount = couponResponse.value
-            store.couponOrder.Aplica = true
-            renderCart()
-            summaryCart()
-        }
-    }
-}

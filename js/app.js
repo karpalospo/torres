@@ -251,6 +251,77 @@ async function getProductsFullInfo(products) {
 // ========================================================================== //
 // CUPONES
 
+// ========================================================================== //
+// COUPON
+
+function borrarCupon(mustRenderCart = true) {
+    store.coupon = null;
+    store.cuponDiscount = 0
+    showResultMessage($lblCupon) // clear
+    write_cache("coupon")
+    if(mustRenderCart) {
+        renderCart()
+        if(typeof summaryCart == "function") summaryCart()
+    }
+}
+
+async function redimirCupon() {
+    
+    let cupon, nombreCupon = $input.val().trim(), successCupon;
+
+    showResultMessage($lblCupon) // clear
+
+    if(!store.user.logged || nombreCupon == "") return false;
+
+    if(res = await API.POST.getCupon(nombreCupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token).error) return
+
+    store.order.cupon = {Aplica: false}
+
+    if(res.data.Success == false) {
+        successCupon = showResultMessage($lblCupon, false, res.data.Message)
+
+    } else {
+
+        cupon = res.data[0];
+
+        if(cupon.Condicion.toString() == "0" && store.order.subtotal < cupon.VlrMinimo) {
+            successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.NombreCupon} solo es válido para compras mínimas de ${f(cupon.VlrMinimo)}.`)
+        } else if(cupon.Condicion.toString() !== "0"){
+
+            let productos = []
+            calculateCart().forEach(product => {
+                productos.push({
+                    codigo: product.item.id,
+                    descripcion: product.item.nombre,
+                    price: product.price,
+                    stock: product.item.stock,
+                    IdUnidad: product.item.IdUnidad,
+                    cantidad: product.item._quanty,
+                    descuento: product.item.descuento,
+                    idoferta: product.item.idoferta != undefined ? product.item.idoferta : 0
+                })
+            })
+ 
+            const res2 = await API.POST.validarCupon(cupon.Condicion, productos)
+
+            if(res2.error) {
+                successCupon = showResultMessage($lblCupon, false, `Este cupón no es válido para ser redimido. ${cupon.Descripcion}`)
+            } else if (res2.data.ValorProductos < cupon.VlrMinimo) {
+                successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.NombreCupon} solo es válido para compras mínimas de ${f(cupon.VlrMinimo)}. ${cupon.Descripcion}`)
+            }
+        }
+
+        if(successCupon){
+            //confetti.toggle()
+            //setTimeout(() => confetti.toggle(), 3000)
+            showResultMessage($lblCupon, true, `Cupón aplicado con éxito`)
+            store.cuponDiscount = cupon.ValorCupon
+            store.couponOrder.Aplica = true
+            renderCart()
+            summaryCart()
+        }
+    }
+}
 
 function stringfyCats(cats) {
     let s = ""
@@ -296,12 +367,10 @@ async function pLog(event, payload = {}) {
             break;
 
         case "coupon":
+            borrarCupon()
             showModal()
-            resetCoupon()
             store.coupon = getFromArrayByProp(store.cupones, payload.id, "idCupon")
-
             $("#txt-cupon").val(store.coupon.nombreCupon)
-            showResultMessage($("#lbl-coupon")) // clear
             if(store.coupon.condicion != 0) {
                 store.coupon.condicionTexto = ""
                 let res = await API.POST.getCupon(store.coupon.nombreCupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
@@ -611,6 +680,7 @@ function showResultMessage($target, value, text) {
             <div><i class="fas fa-${value ? "check" : "times"}"></i></div>
             <div class="text">${text}</div>`)
     }
+    return value
 }
 
 // ========================================================================== //
