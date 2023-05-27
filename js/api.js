@@ -128,10 +128,6 @@ const API = {
         async validarCupon(Condicion, Productos) {
             return await fetchAsync(`${URL.HOST}/economia/api/validaCondiciones/`, {body: {Condicion, Productos}});
         },
-        // async validateCoupon(typeOfCoupon, products) {
-        //     return await fetchAsync(`${URL.HOST}/economia/api/validaCondiciones/`, {body: {Condicion: typeOfCoupon }) + '&' + ArrayFormUrlEncoded({ Productos: products }), headers: HEADER_JSON});
-        // },
-
 
         // address
         async getAddress(user) {
@@ -148,30 +144,23 @@ const API = {
 
         // profile
         async userProfile(nit, nombres, email, auth_token) {
-            return await fetchAsync(`${URL.HOST}/ftorres/api/users/userinfo`, {body: {nit,email,nombres,auth_token, password: "12345"}});
+            return await fetchAsync(`${URL.HOST}/ftorres/api/users/userinfo`, {body: {nit, email, nombres, auth_token}});
         },
 
-        async editProfile(document, name, email, token, { password = '', newName, newDocument, dateOfBirth, phone, cellphone }) {
+        async editProfile(nit, nombres, email, auth_token, {password = '', _nombres, _nit, fecha_nacimiento, telefono, celular}) {
 
             const fields = {
-                userInfo: {
-                    nit: document,
-                    email,
-                    nombres: name,
-                    auth_token: token,
-                },
-                user: {
-                    email,
-                    password,
-                    confirm_password: password,
-                    nombres: newName,
-                    nit: newDocument,
-                    fecha_nacimiento: dateOfBirth,
-                    celular: cellphone,
-                    telefono: phone,
-                }
+                email,
+                password,
+                confirm_password: password,
+                nombres: _nombres,
+                nit: _nit,
+                fecha_nacimiento,
+                celular,
+                telefono
             }
-            return await fetchAsync(`${URL.HOST}/ftorres/api/users/updateuserprofile`, {body: fields});
+
+            return await fetchAsync(`${URL.HOST}/ftorres/api/users/updateuserprofile`, {body: {marca: "TOR", nit, email, nombres, auth_token, ...fields}});
         },
     }
 }
