@@ -862,7 +862,6 @@ select {
 
 .banner_init{
     min-height: 300px;
-    background-color: #ddd;
     width: 100%;
     font-size: 0;
 }

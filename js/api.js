@@ -32,12 +32,6 @@ const fetchAsync = async (url, { body = {}, headers = {} } = {}, method = "POST"
 
 const API = {
 
-    GET: {
-
-        
-
-    },
-
     POST: {
 
         // init

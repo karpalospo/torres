@@ -101,7 +101,7 @@ function renderUser() {
 
     $("#user-btn").off("mouseover").on("mouseover", function(e){
         let $elem = $(e.currentTarget);
-        showCtxMenu(store.user.logged ? document.querySelector("#menu-logged") : document.querySelector("#menu-unlogged"), $elem.offset().left - 30, $elem.offset().top + $elem.outerHeight() - 1)
+        showCtxMenu(store.user.logged ? document.querySelector("#menu-logged") : document.querySelector("#menu-unlogged"), $elem.offset().left, $elem.offset().top + $elem.outerHeight() - 1)
     })
 }
 
