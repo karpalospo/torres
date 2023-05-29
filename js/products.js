@@ -202,7 +202,6 @@ function showProductsHorizontal($target, products, options = {}){
     $target.html(`<div class="swiper-wrapper"></div>`)
     renderProductsHorizontal($target.find(".swiper-wrapper"), options.shuffle ? products.sort(() => (0.5 - Math.random())) : products, options, ret)
 
-    console.log(options)
     new Swiper($target[0], 
         {
             direction: 'horizontal',

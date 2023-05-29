@@ -6,7 +6,7 @@ $("#header-cont").load("header.html", async function() {
 
     // usuario
     store.user = load_cache("user")
-    renderUser(store.user)
+    renderUser()
 
     // location
     store.location = "08001"
@@ -32,6 +32,11 @@ $("#header-cont").load("header.html", async function() {
     });
 
     $("#footer-cont").load("footer.html");
+
+
+
+
+
 });
 
 async function renderCategorias(ciudad) {
@@ -77,6 +82,11 @@ async function renderCiudades() {
         $("#ciudades-list").html(s)
     }
 
+    $("#user-ubicacion").off("mouseover").on("mouseover", function(e){
+        let $elem = $(e.currentTarget);
+        showCtxMenu(document.querySelector("#menu-ubicacion"), $elem.offset().left + 30, $elem.offset().top + $elem.outerHeight() - 1)
+    })
+
 }
 
 function renderUser() {
@@ -88,6 +98,11 @@ function renderUser() {
     } else {
         $("#lbl-nombre").html("Ingresar")
     }
+
+    $("#user-btn").off("mouseover").on("mouseover", function(e){
+        let $elem = $(e.currentTarget);
+        showCtxMenu(store.user.logged ? document.querySelector("#menu-logged") : document.querySelector("#menu-unlogged"), $elem.offset().left - 30, $elem.offset().top + $elem.outerHeight() - 1)
+    })
 }
 
 async function renderCupones() {
@@ -108,7 +123,11 @@ Para ver los cupones de descuento disponibles debes iniciar sesión
     }
 
     res = await API.POST.getCupones(store.user.nit)
-    if(!res.error) store.cupones = res.data
+    if(!res.error && res.Success) {
+        store.cupones = res.data
+    } else {
+        store.cupones = []
+    }
     
     if(store.cupones.length == 0) {
         return $target.html(/*html*/`<p style="font-size:1.3em; text-align: center"><i class="big-font fas fa-exclamation-circle"></i><br>En estos momentos no tenemos cupones disponibles para ti</p>`)

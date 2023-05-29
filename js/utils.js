@@ -300,3 +300,18 @@ function initTabMenu($menu, $cont, index = 0) {
 
     setTimeout(e => $menu.find("> div").eq(index).trigger("click"), 100)
 }
+
+document.onclick = hideCtxMenu
+function showCtxMenu($ctxMenu, x, y) {
+    hideCtxMenu()
+    if(!($ctxMenu instanceof Object)) return
+    $ctxMenu.style.display = 'block'; 
+    $ctxMenu.style.left = x + "px"; 
+    $ctxMenu.style.top = y + "px";
+}
+
+function hideCtxMenu() { 
+    $(".context-menu").hide(0)
+}
+
+

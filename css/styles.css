@@ -370,6 +370,7 @@ select {
     justify-content: center;
     box-sizing: border-box;
     padding: 10px;
+    border-top: 1px solid #eeee;
 }
 
 .float-window .close {
@@ -754,6 +755,7 @@ select {
     padding: 3px 4px;
     margin-top: 8px;
     font-size: 0.85em;
+    font-family: 'Be Vietnam Pro';
 }
 
 .registerError {

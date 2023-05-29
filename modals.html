@@ -147,13 +147,13 @@
         
     </div>
 
-    <div id="olvide-paso1" class="float-window" style="max-width: 450px; min-width: 310px;">
+    <div id="olvide-paso1" class="float-window" style="max-width: 400px; min-width: 310px;">
         <div class="float-header">
             <div class="title">RECUPERAR CONTRASEÑA</div>
             <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
         </div>
         <div class="float-content" style="padding: 0 20px;">
-            <p style="font-size: 1.1em; font-weight:400; padding: 10px 0">Enviaremos a su correo eléctronico registrado un código que le permitirá establecer una nueva contraseña</p>
+            <p style=" padding: 10px 0">Enviaremos a su correo eléctronico registrado un código que le permitirá establecer una nueva contraseña</p>
             <div>
                 <h3>Correo Electrónico</h3>
                 <input id="email-recuperar" type="text" class="input xl" placeholder="ejemplo@correo.com" name="email" />
@@ -172,22 +172,23 @@
             <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
         </div>
         <div class="float-content" style="padding: 0 20px;">
-            <p style="font-size: 1.1em; font-weight:400; padding: 10px 0">Revise en todas las carpetas de entrada de su correo el código que le acabamos de enviar</p>
-    
-            <h3>Código de verificación</h3>
-            <input id="codigo-recuperar" type="text" class="input" name="codigo" />
+            <p style="padding: 10px 0">Revise en todas las carpetas de entrada de su correo el código que le acabamos de enviar</p>
+            <div class="tx-center">
+                <h3>Código de verificación</h3>
+                <input id="codigo-recuperar" type="text" class="input" name="codigo" />
+                
+                <div class="separador"></div>
             
-            <div class="separador"></div>
-        
-            <h3>Contraseña</h3>
-            <input id="password1-recuperar" type="password" class="input" name="password" />
-        
-            <div class="separador"></div>
-        
-            <h3>Repetir Contraseña</h3>
-            <input id="password2-recuperar" type="password" class="input" name="confirmPassword" />
+                <h3>Contraseña</h3>
+                <input id="password1-recuperar" type="password" class="input" name="password" />
             
-            <br><br><br>
+                <div class="separador"></div>
+            
+                <h3>Repetir Contraseña</h3>
+                <input id="password2-recuperar" type="password" class="input" name="confirmPassword" />
+            </div>
+            
+            <br>
         </div>
         <div class="float-footer">
             <div><button class="page-button" onclick="enviarContrasena(this)">CAMBIAR CONTRASEÑA</button></div>
@@ -199,11 +200,12 @@
             <div class="title">RECUPERAR CONTRASEÑA</div>
             <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
         </div>
-        <div class="float-content" style="padding: 0 20px;">
-            <h4 style="font-size: 1.3em; text-align: center;">¡La contraseña fue restablecida con éxito!</h4>
+        <div class="float-content" style="padding: 0 20px;  text-align: center;">
+            <i class="far fa-check-circle" style="font-size: 3em; color: #20c465; margin-top: 30px;"></i>
+            <h4 style="font-size: 1.1em; margin-bottom: 20px;">¡La contraseña fue restablecida con éxito!</h4>
         </div>
         <div class="float-footer">
-            <div><button class="page-button" onclick="showModal(false, $('#olvide-success'))">REGRESAR</button></div>
+            <div><button class="page-button" onclick="showModal(true, 'signin')">Aceptar</button></div>
         </div>
     </div>
 
@@ -243,3 +245,26 @@
     </div>
 </div>
 
+<div id="menu-logged" class="context-menu" style="display: none"> 
+    <ul class="menu"> 
+        <li><a href="perfil.html"><i class="fas fa-user-circle"></i> Mi Cuenta</a></li> 
+        <li><a href="pedidos.html"><i class="fas fa-file-invoice-dollar"></i> Mis Pedidos</a></li> 
+        <li><a href="puntos.html"><i class="fas fa-star-of-life"></i> Mis Puntos</a></li> 
+        <li><a href="direcciones.html"><i class="fas fa-map-marker-alt"></i> Mis Direcciones</a></li> 
+        <li onclick="pLog('logout')"><a href="#" style="color: red"><i class="fas fa-times-circle"></i> Cerrar Sesión</a></li> 
+    </ul> 
+</div>
+
+<div id="menu-unlogged" class="context-menu" style="display: none"> 
+    <ul class="menu"> 
+        <li><a href="#" onclick="showModal(true, 'signin'); hideCtxMenu()"><i class="fas fa-user"></i> Iniciar Sesión</a></li> 
+        <li><a href="registro.html"><i class="fas fa-user-plus"></i> Registrarme</a></li> 
+    </ul> 
+</div>
+
+<div id="menu-ubicacion" class="context-menu" style="display: none"> 
+    <ul class="menu"> 
+        <li><a href="#" onclick="pLog('location', {id: '08001'}); hideCtxMenu()">Barranquilla</a></li> 
+        <li><a href="#" onclick="pLog('location', {id: '13001'}); hideCtxMenu()">Cartagena</a></li> 
+    </ul> 
+</div>

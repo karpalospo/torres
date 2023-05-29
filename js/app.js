@@ -395,13 +395,13 @@ async function pLog(event, payload = {}) {
         case "search":
             let str, data
             if(typeof payload == "string") {
-                str = payload
+                str = payload.trim().toLowerCase()
                 data = {user: store.user}
             } else {
-                str = payload.str
+                str = payload.str.trim().toLowerCase()
                 data = payload
             }
-            res = await API.POST.search(str.trim().toLowerCase(), store.location, data)
+            res = await API.POST.search(str, store.location, data)
             return res
 
 

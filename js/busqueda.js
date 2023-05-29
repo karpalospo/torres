@@ -19,23 +19,23 @@ function page_init() {
 
 async function search_products(search_str) {
 
-    res = await pLog("search", search_str)
-    result_search_str = res.data.search_label
-
-    let result = res.error ? 0 : res.data.products.length,
-        banners = [],
-        p = {},
-        fullProducts = [],
-        sumSection = 0
+    let p = {},
+        fullProducts = []
     ;
 
-    // productos
-    if(result > 0) {
-
-
+    if(search_str == "[sales]") {
+        res = await API.POST.getOfertas(store.location)
+        result_search_str = "Mejores Ofertas"
+        fullProducts = {stock: HomologarProductos(res.data), noStock:[]}
+    } else {
+        res = await pLog("search", search_str)
+        result_search_str = res.data.search_label
         fullProducts = await getProductsFullInfo(res.data.products)
+    }
 
-        p = await showProducts($resultado_list, fullProducts.stock, {collection: 'search', filter: true, rows: "auto", cols: 100, sort: $("#sort").val(), headerExact: result_search_str, section: sumSection})
+    if(fullProducts.stock.length > 0) {
+
+        p = await showProducts($resultado_list, fullProducts.stock, {collection: 'search', filter: true, rows: "auto", cols: 100, sort: $("#sort").val(), headerExact: result_search_str, section: 0})
 
         if(p.noProducts) {
             
@@ -43,30 +43,14 @@ async function search_products(search_str) {
 
         } else {
 
-            // banners
-            // if(res.data.banners) {
-            //     banners = res.data.banners.filter(banner => (banner.data && banner.data.banner_keywords && banner.data.banner_keywords.toLowerCase().split(" ").includes(search_str.toLowerCase())))
-            //     if(renderBanners($("#banner"), banners) === false) $("#banner").hide(0)
-            // }
-    
-            // popups
-            //if(store.popups) showPagePopup(store.popups.search.filter(item => (item.data.popup_keywords.split(" ").includes(search_str))))
-
             renderFiltros(p)
             $("#sort-div").html(orderStr)
         }
 
-    } else if(result == 0) {
-        // if(res.data.like.length > 0) {
-        //     p = await showProducts($resultado_list, res.data.like, 'search', {renderFilters: true, rows: "auto", headerLike: result_search_str, cols: 100, sort: $("#sort").val()})
-        //     if(p.noProducts) NoResults(result_search_str)
-        //     else renderFiltros(p)
-        // } else NoResults(result_search_str)
+    } else {
 
         NoResults(result_search_str)
     }
-    
-  
 
 }
 

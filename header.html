@@ -13,21 +13,14 @@
         </div>
     </div>
 
-    <div class="main-menu-item dropdown" data-id="ubicacion" style="border-left: 1px solid #eee;" onclick="showModal(true, 'ubicacion')">
+    <div id="user-ubicacion" class="main-menu-item" style="border-left: 1px solid #eee;">
         <i class="fas fa-map-marker-alt"></i>
         <span id="lbl-ciudad" style="text-transform: capitalize;">ubicación...</span> <i class="fas fa-chevron-down"></i>
-        <div class="dropdown-content">
-            <div class="separator"></div>
-            <div class="content" style="padding:0"></div>
-        </div>
     </div>
 
-    <div class="main-menu-item dropdown" data-id="login" onclick="showModal(true, (store.user.logged ? 'user-modal' : 'signin'))">
+    <div id="user-btn" class="main-menu-item">
         <i class="fas fa-user"></i>
         <span id="lbl-nombre">Iniciar Sesión</span> <i class="fas fa-chevron-down"></i>
-        <div class="dropdown-content">
-            <div class="separator"></div><div class="content" style="padding:0"></div>
-        </div>
     </div>
 
 
