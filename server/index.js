@@ -14,9 +14,11 @@ app.use(function(req, res, next) {
   //res.header("Control-Svr", os.hostname());
   next();
 });
+
 app.use('/public', express.static(path.join(global.raiz, './public/')));
 app.use('/public/js', express.static(path.join(global.raiz, './js/')));
 app.use('/public/css', express.static(path.join(global.raiz, './css/')));
+app.use('/assets', express.static(path.join(global.raiz, './public/assets')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(global.raiz, './views', 'index.html'));
 })
@@ -27,3 +29,4 @@ app.use('/home', home);
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
+
