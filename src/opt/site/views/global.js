@@ -1,4 +1,4 @@
-const ABS_URL = `http://localhost:${process.env.PORT}`;
+const ABS_URL = `http://localhost:${process.env.PORT||3001}`;
 
 module.exports = {
 
