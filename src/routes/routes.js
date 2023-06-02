@@ -6,6 +6,11 @@ const searchView = require("../views/busqueda.js");
 const categoriasView = require("../views/categorias.js");
 const productoView = require("../views/producto.js");
 const empresaView = require("../views/empresa.js");
+const vidasanaView = require("../views/vidasana.js");
+const privacidadView = require("../views/privacidad.js");
+const politicasView = require("../views/politicas.js");
+const historiaView = require("../views/historia.js");
+const habeasView = require("../views/habeas.js");
 const pedidoView = require("../views/pedido.js");
 const pedidoSuccessView = require("../views/pedido-success.js");
 const registroView = require("../views/registro.js");
@@ -71,10 +76,28 @@ router.get('/puntos', function(req, res) {
 	res.status(200).send(s(puntosView()))
 });
 
-
-
 router.get('/empresa', function(req, res) {    
   res.status(200).send(s(empresaView()))
+});
+
+router.get('/vidasana', function(req, res) {    
+  res.status(200).send(s(vidasanaView()))
+});
+
+router.get('/privacidad', function(req, res) {    
+  res.status(200).send(s(privacidadView()))
+});
+
+router.get('/politicas', function(req, res) {    
+  res.status(200).send(s(politicasView()))
+});
+
+router.get('/historia', function(req, res) {    
+  res.status(200).send(s(historiaView()))
+});
+
+router.get('/habeas', function(req, res) {    
+	res.status(200).send(s(habeasView()))
 });
 
 module.exports = router;
