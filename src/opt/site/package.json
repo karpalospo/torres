@@ -4,7 +4,7 @@
    "description": "E-commerce Farmacia Torres",
    "main": "index.js",
    "scripts": {
-      "server": "node ./src/index",
+      "server": "node ./index",
       "test": "echo \"Error: no test specified\" && exit 1"
    },
    "author": "Jorge Ramos Martinez",
