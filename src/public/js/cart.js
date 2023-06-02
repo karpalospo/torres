@@ -367,7 +367,7 @@ function shopNow($elem) {
         // if(await showProductoEstrella(store.popups.pestrella)) {
         //     command($elem, false) 
         // } else parent.location = `${ABS_URL}/pedido`
-        parent.location = `pedido.html`
+        parent.location = `/pedido`
     }
 
 }

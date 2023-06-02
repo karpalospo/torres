@@ -18,31 +18,11 @@
             <p class="tx-center"><button id="btn-login" class="page-button" onclick="login()">INICIAR SESIÓN</button></p>
             <div class="tx-center">
                 <p style="font-size: 0.8em;">¿Aún no tienes una cuenta?</p>
-                <button class="page-button-flat2" onclick="parent.location = 'registro.html'">CREAR CUENTA</button>
+                <button class="page-button-flat2" onclick="parent.location = '/registro'">CREAR CUENTA</button>
             </div>
             <br>
         </div>
     </div>
-
-    <div id="user-modal" class="float-window" style="max-width: 450px; min-width: 310px;">
-        <div class="float-header">
-            <div class="title">Mi Perfíl</div>
-            <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
-        </div>
-        <div class="float-content" style="padding: 0 20px;">
-            <ul>
-                <li><a href="perfil.html">Datos Personales</a></li>
-                <li><a href="pedidos.html">Mis Pedidos</a></li>
-                <li><a href="puntos.html">Mis Puntos</a></li>
-                <li><a href="direcciones.html">Mis Direcciones</a></li>
-            </ul>
-            <div class="tx-center">
-                <button class="page-button-flat2" onclick="pLog('logout')">CERRAR SESIÓN</button>
-            </div>
-            <br>
-        </div>
-    </div>
-
 
     <div id="ubicacion" class="float-window">
         <div class="float-header">
@@ -247,10 +227,10 @@
 
 <div id="menu-logged" class="context-menu" style="display: none"> 
     <ul class="menu"> 
-        <li><a href="perfil.html"><i class="fas fa-user-circle"></i> Mi Cuenta</a></li> 
-        <li><a href="pedidos.html"><i class="fas fa-file-invoice-dollar"></i> Mis Pedidos</a></li> 
-        <li><a href="puntos.html"><i class="fas fa-star-of-life"></i> Mis Puntos</a></li> 
-        <li><a href="direcciones.html"><i class="fas fa-map-marker-alt"></i> Mis Direcciones</a></li> 
+        <li><a href="/perfil"><i class="fas fa-user-circle"></i> Mi Cuenta</a></li> 
+        <li><a href="/pedidos"><i class="fas fa-file-invoice-dollar"></i> Mis Pedidos</a></li> 
+        <li><a href="/puntos"><i class="fas fa-star-of-life"></i> Mis Puntos</a></li> 
+        <li><a href="/direcciones"><i class="fas fa-map-marker-alt"></i> Mis Direcciones</a></li> 
         <li onclick="pLog('logout')"><a href="#" style="color: red"><i class="fas fa-times-circle"></i> Cerrar Sesión</a></li> 
     </ul> 
 </div>
@@ -258,7 +238,7 @@
 <div id="menu-unlogged" class="context-menu" style="display: none"> 
     <ul class="menu"> 
         <li><a href="#" onclick="showModal(true, 'signin'); hideCtxMenu()"><i class="fas fa-user"></i> Iniciar Sesión</a></li> 
-        <li><a href="registro.html"><i class="fas fa-user-plus"></i> Registrarme</a></li> 
+        <li><a href="/registro"><i class="fas fa-user-plus"></i> Registrarme</a></li> 
     </ul> 
 </div>
 

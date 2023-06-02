@@ -7,11 +7,9 @@ let $resultado_list = $("#resultado-list"),
 
 function page_init() {
 
-    let sub = getParameterByName("s");
-    
     resize()
     renderLoading($resultado_list)
-    $("#categorias-filter, #marcas-filter, #laboratorio-filter, #precio-filter").html(`<div class="tx-center"><img src="assets/loader.gif" style="width: 25px; opacity: 0.3;" /></div>`)
+    $("#categorias-filter, #marcas-filter, #laboratorio-filter, #precio-filter").html(`<div class="tx-center"><img src="${ABS_URL}/assets/loader.gif" style="width: 25px; opacity: 0.3;" /></div>`)
     
     if(sub != undefined && sub != "") search_cats(sub)
 
@@ -45,11 +43,11 @@ async function search_cats(sub) {
         $("#sort-div").html(orderStr)
         $resultado_list.prepend(/*html*/`
         <div id="crumbs">
-            <div><a href="index.html" title="Inicio"><i class="fas fa-home" style="font-size: 1.1em;"></i></a></div>
+            <div><a href="/" title="Inicio"><i class="fas fa-home" style="font-size: 1.1em;"></i></a></div>
             <div class="separator"><i class="fas fa-chevron-right"></i></div>
-            <div><a href="categorias.html?s=${currentCat.id}" title="${currentCat.title}">${currentCat.title}</a></div>
+            <div><a href="categorias/${currentCat.id}" title="${currentCat.title}">${currentCat.title}</a></div>
             <div class="separator"><i class="fas fa-chevron-right"></i></div>
-            <div><a href="categorias.html?s=${currentSub.id}" title="${currentSub.title}">${currentSub.title}</a></div>
+            <div><a href="categorias/${currentSub.id}" title="${currentSub.title}">${currentSub.title}</a></div>
         </div> `)
 
     } else if(result == 0) {

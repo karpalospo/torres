@@ -7,10 +7,9 @@ let $resultado_list = $("#resultado-list"),
 
 function page_init() {
 
-    let str = getParameterByName("b").trim().toLowerCase()
     resize()
     renderLoading($resultado_list)
-    $("#categorias-filter, #marcas-filter, #laboratorio-filter, #precio-filter").html(`<div class="tx-center"><img src="assets/loader.gif" style="width: 25px; opacity: 0.3;" /></div>`)
+    $("#categorias-filter, #marcas-filter, #laboratorio-filter, #precio-filter").html(`<div class="tx-center"><img src="${ABS_URL}/assets/loader.gif" style="width: 25px; opacity: 0.3;" /></div>`)
     
     
     if(str != undefined && str != "" && str.length > 2) search_products(str)

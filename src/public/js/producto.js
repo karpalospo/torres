@@ -1,6 +1,6 @@
 async function page_init() {
 
-    search_product(getParameterByName("c"))
+    search_product(id)
 
 
     //await search_products2("carrusel", "[code]058167 058092 058057 058003 058091 058004 086038 086456 086521 086522", $("#prod-estrella").find(".swiper-wrapper"), {hcarrusel: true, shuffle:true, sort: {field:"descuento", mode:"desc"}})
@@ -60,11 +60,11 @@ async function search_product(id) {
     ;
 
     $("#crumbs").html(/*html*/`
-<div><a href="index.html" title="Inicio" ><i class="fas fa-home" style="font-size: 1.1em;"></i></a></div>
+<div><a href="/" title="Inicio" ><i class="fas fa-home" style="font-size: 1.1em;"></i></a></div>
 <div class="separator"><i class="fas fa-chevron-right"></i></div>
-<div><a href="${ABS_URL}categorias.html?s=${cat.id}" title="${cat.title}" >${cat.title}</a></div>
+<div><a href="${ABS_URL}categorias/${cat.id}" title="${cat.title}" >${cat.title}</a></div>
 <div class="separator"><i class="fas fa-chevron-right"></i></div>
-<div><a href="${ABS_URL}categorias.html?s=${sub.id}" title="${sub.title}" >${sub.title}</a></div>
+<div><a href="${ABS_URL}categorias/${sub.id}" title="${sub.title}" >${sub.title}</a></div>
 `)
 
 

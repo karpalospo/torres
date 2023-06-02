@@ -1,4 +1,4 @@
-const ABS_URL = ""
+const ABS_URL = "http://localhost:3001"
 const ABS_URL_SERVER = "https://imperacore.net"
 
 let res,
@@ -152,7 +152,7 @@ async function login() {
         command($elem, false)
         store.user = Object.assign(res.data, {logged: true})
         write_cache("user", store.user)
-        if(store.goOrder) parent.location = `pedido.html`;
+        if(store.goOrder) parent.location = `/pedido`;
         else {
             if(typeof getUserAddresses == "function") getUserAddresses()
             renderUser()
@@ -350,7 +350,7 @@ function vercats(id) {
 
 function search(str) {
     if(!str || str == "undefined" || str == "" || str.trim().length < 2) return
-    parent.location = `busqueda.html?b=${str.toLowerCase()}`
+    parent.location = `busqueda/${str.toLowerCase()}`
 }
 
 // ========================================================================== //
@@ -388,7 +388,7 @@ async function pLog(event, payload = {}) {
         case "logout":
             store.user = {}
             if(payload && payload.noRedirect) {}
-            else {parent.location = "index.html"}
+            else {parent.location = "/"}
             write_cache("user")
             break;
 
@@ -410,7 +410,7 @@ async function pLog(event, payload = {}) {
             break
 
         case "viewProduct":
-            parent.location = "producto.html?c=" + payload.id
+            parent.location = "/producto/" + payload.id
             break
 
 
@@ -643,7 +643,6 @@ $(window).on("resize", e => resize)
 // COMPONENTS
 
 function initList($target, field, cb) {
-    console.log($target, "aja")
     $target.on("click", "> div", e => {
         console.log("ajo")
         let $elem = $(e.currentTarget)

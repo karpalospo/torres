@@ -1,41 +1,37 @@
 let timeout,
+    timeout2,
     menuShown
 ;
 
-$("#header-cont").load("header.html", async function() {
+// listeners
+$('#txt-search').on("keyup", e => {if(e.code == "Enter" || e.code == "NumpadEnter") {search(e.currentTarget.value)}})
+$(".btn-search").on("click", e => search($('#txt-search').val()))
 
-    // usuario
-    store.user = load_cache("user")
-    renderUser()
+// usuario
+store.user = load_cache("user")
+renderUser()
 
-    // location
-    store.location = "08001"
-    if((res = load_cache("location")).id) store.location = res.id
+// location
+store.location = "08001"
+if((res = load_cache("location")).id) store.location = res.id
 
-    // carrito
-    initCart(load_cache("cart"))
+// carrito
+initCart(load_cache("cart"))
 
-    for(let i = 0; i <= 16; i++) {
-        $("#medida").append(`<div class="product-item"><div class="item"><div class="image"></div><div class="info"></div></div></div>`)
-    }
+for(let i = 0; i <= 16; i++) {
+    $("#medida").append(`<div class="product-item"><div class="item"><div class="image"></div><div class="info"></div></div></div>`)
+}
 
-    $("#modals-cont").load("modals.html", async function() {
+renderCategorias(store.location)
 
-        await renderCategorias(store.location)
-        await renderCiudades()
-        await renderCupones()
+$("#modals-cont").load(`${ABS_URL}/modals.html`, async function() {
 
-        resize()
+    await renderCiudades()
+    await renderCupones()
 
-        if(typeof page_init == "function") page_init()
+    resize()
 
-    });
-
-    $("#footer-cont").load("footer.html");
-
-
-
-
+    if(typeof page_init == "function") page_init()
 
 });
 
@@ -84,7 +80,11 @@ async function renderCiudades() {
 
     $("#user-ubicacion").off("mouseover").on("mouseover", function(e){
         let $elem = $(e.currentTarget);
-        showCtxMenu(document.querySelector("#menu-ubicacion"), $elem.offset().left + 30, $elem.offset().top + $elem.outerHeight() - 1)
+        timeout2 = setTimeout(() => showCtxMenu(document.querySelector("#menu-ubicacion"), $elem.offset().left + 30, $elem.offset().top + $elem.outerHeight() - 1), 200);
+    })
+
+    $("#user-ubicacion").off("mouseout").on("mouseout", function(e){
+        clearTimeout(timeout2)
     })
 
 }
@@ -101,8 +101,13 @@ function renderUser() {
 
     $("#user-btn").off("mouseover").on("mouseover", function(e){
         let $elem = $(e.currentTarget);
-        showCtxMenu(store.user.logged ? document.querySelector("#menu-logged") : document.querySelector("#menu-unlogged"), $elem.offset().left, $elem.offset().top + $elem.outerHeight() - 1)
+        timeout2 = setTimeout(() => showCtxMenu(store.user.logged ? document.querySelector("#menu-logged") : document.querySelector("#menu-unlogged"), $elem.offset().left, $elem.offset().top + $elem.outerHeight() - 1), 200);
     })
+
+    $("#user-btn").off("mouseout").on("mouseout", function(e){
+        clearTimeout(timeout2)
+    })
+
 }
 
 async function renderCupones() {
@@ -118,7 +123,7 @@ Para ver los cupones de descuento disponibles debes iniciar sesión
     <button class="page-button" onclick="showModal(true, 'signin')">INICIAR SESIÓN</button>
 </div><br/><br/>
 <p class="tx-center">
-    <button class="page-button-flat2" onclick="parent.location = 'registro.html'">¡No tengo cuenta! Registrarme</button>
+    <button class="page-button-flat2" onclick="parent.location = '/registro'">¡No tengo cuenta! Registrarme</button>
 </p>`)
     }
 
@@ -222,7 +227,7 @@ function showDropMenu($elem, visible) {
             $items.off("mouseenter").on("mouseenter", e => showDropSubmenu($(e.currentTarget), true))
             $items.off("mouseleave").on("mouseleave", e => showDropSubmenu($(e.currentTarget), false))
             $items.off("click").on("click", e => {
-                if(e.currentTarget.dataset.sub) parent.location = `categorias.html?s=${e.currentTarget.dataset.sub}`
+                if(e.currentTarget.dataset.sub) parent.location = `/categorias/${e.currentTarget.dataset.sub}`
             })
         }
 
@@ -279,7 +284,7 @@ function showDropSubmenu($elem, visible) {
     </div>`))
 
     $new.find(".submenu-float").off("click").on("click", "> div", e => {
-        parent.location = `categorias.html?s=${$(e.currentTarget).data("sub")}`
+        parent.location = `/categorias/${$(e.currentTarget).data("sub")}`
     })
 
     anime({
