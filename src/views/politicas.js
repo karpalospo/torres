@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-	<title>Farmacia Torres | Habeas Data</title>
-	<link href="css/styles.css?v=4.0" rel="stylesheet">
-	<link href="css/plugins.css?v=4.0" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-	<link rel="shortcut icon" href="https://imperacore.net/torres/assets/icon_logo.png" />
-</head>
-<body>
+const HTML = require("./global.js")
+const ABS_URL = HTML.ABS_URL;
 
-<div id="modals-cont"></div>
-<div id="header-cont"></div>
+module.exports = () => {
+return /*html*/`
+${HTML.head({title: "Políticas y Términos de Uso"})}
+${HTML.header}
 		
 <div id="content" style="background-color: transparent;">
 
@@ -22,14 +14,7 @@
 
 </div>
 
-<div id="footer-cont"></div>
-
-<script src="js/libraries.js?v=4.2"></script>
-<script src="js/utils.js?v=4.0"></script>
-<script src="js/api.js?v=4.2"></script>
-<script src="js/app.js?v=4.2"></script>
-<script src="js/cart.js?v=4.0"></script>
-<script src="js/products.js?v=4.2"></script>
-<script src="js/header.js?v=4.2"></script>
-
-</body></html>
+${HTML.footer}
+${HTML.scripts}
+<script src="${ABS_URL}/js/header.js"></script>
+</body></html>`}
