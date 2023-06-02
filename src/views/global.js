@@ -1,8 +1,8 @@
-const ABS_URL = "http://localhost:3001";
+const ABS_URL = `http://localhost:${process.env.PORT}`;
 
 module.exports = {
 
-	ABS_URL: ABS_URL,
+	ABS_URL,
 
 	head: (param) => {
 return /*html*/`
