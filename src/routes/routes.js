@@ -11,6 +11,7 @@ const pedidoSuccessView = require("../views/pedido-success.js");
 const registroView = require("../views/registro.js");
 const registroSucessView = require("../views/registro-success.js");
 const perfilView = require("../views/perfil.js");
+const puntosView = require("../views/puntos.js");
 const pedidosView = require("../views/pedidos.js");
 const direccionesView = require("../views/direcciones.js");
 

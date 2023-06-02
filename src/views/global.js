@@ -14,11 +14,29 @@ return /*html*/`
 	<title>Farmacia Torres | ${param.title}</title>
 	<link href="${ABS_URL}/css/styles.css" rel="stylesheet">
 	<link href="${ABS_URL}/css/plugins.css" rel="stylesheet">
+	${param.userCSS ? `<link href="${ABS_URL}/css/user.css" rel="stylesheet"></link>` : ""}
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
 	<link rel="shortcut icon" href="${ABS_URL}/assets/icon_logo.png" />
+	
 </head>
 <body>`},
 
+	userMenu: /*html*/`
+<div id="user-menu-cont">
+	<div id="bg-user-profile">
+		<div id="user-profile"></div>
+	</div>
+	<div id="username" class="h4 tx-center">Usuario</div>
+	<br>
+	<ul id="menu-ul">
+		<li><a href="/perfil"><i class="fas fa-user-circle"></i> Mi cuenta</a></li>
+		<li><a href="/pedidos"><i class="fas fa-file-invoice-dollar"></i> Mis Pedidos</a></li>
+		<li><a href="/puntos"><i class="fas fa-star-of-life"></i> Mis Puntos</a></li>
+		<li><a href="/direcciones"><i class="fas fa-map-marker-alt"></i> Mis Direcciones</a></li>
+	</ul>
+	<br>
+	<p class="tx-center"><button onclick="pLog('logout')" class="page-button" style="background: #fa1d00; font-size:0.8em"><i class="fas fa-times-circle"></i> CERRAR SESIÓN</button></p>
+</div>`,
 	scripts: /*html*/`
 <script src="${ABS_URL}/js/libraries.js"></script>
 <script src="${ABS_URL}/js/utils.js"></script>
