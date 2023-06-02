@@ -350,7 +350,7 @@ function vercats(id) {
 
 function search(str) {
     if(!str || str == "undefined" || str == "" || str.trim().length < 2) return
-    parent.location = `busqueda/${str.toLowerCase()}`
+    parent.location = `/busqueda/${str.toLowerCase()}`
 }
 
 // ========================================================================== //
