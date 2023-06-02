@@ -1,7 +1,7 @@
 const HTML = require("./global.js")
 const ABS_URL = HTML.ABS_URL;
 
-module.exports = () => {
+module.exports = (id) => {
 return /*html*/`
 ${HTML.head({title: "Confirmación de Pedido"})}
 ${HTML.header}
@@ -45,6 +45,7 @@ ${HTML.header}
 </div>
 ${HTML.footer}
 ${HTML.scripts}
+<script>let id = "${id}";</script>
 <script src="${ABS_URL}js/pedido-success.js"></script>
 <script src="${ABS_URL}/js/header.js"></script>
 </body></html>`}

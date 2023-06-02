@@ -2,6 +2,7 @@ const HTML = require("./global.js")
 const ABS_URL = HTML.ABS_URL;
 
 module.exports = (id) => {
+	
 return /*html*/`
 ${HTML.head({title: id})}
 ${HTML.header}

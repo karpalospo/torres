@@ -1,25 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-	<title>Farmacia Torres | Mis Pedidos</title>
-	<link href="css/styles.css" rel="stylesheet">
-	<link href="css/plugins.css" rel="stylesheet">
-	<link href="css/user.css" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-	<link rel="shortcut icon" href="https://imperacore.net/torres/assets/icon_logo.png" />
+const HTML = require("./global.js")
+const ABS_URL = HTML.ABS_URL;
 
-</head>
-<body>
+module.exports = () => {
+return /*html*/`
+${HTML.head({title: "Mis Pedidos"})}
+${HTML.header}
 
-<div id="modals-cont"></div>
-<div id="header-cont"></div>
-		
 <div id="content" style="background-color: transparent;">
-
 	<div class="row bg-blanco" style="max-width: 800px;">
-
 		<div id="user-menu-cont">
 			<div id="bg-user-profile">
 				<div id="user-profile"></div>
@@ -40,21 +28,11 @@
 			<div class="h4">Mis Pedidos</div>
 
 		</div>
-
-
-
 	</div>
-
 </div>
 
-<div id="footer-cont"></div>
-
-<script src="js/libraries.js"></script>
-<script src="js/utils.js"></script>
-<script src="js/api.js"></script>
-<script src="js/app.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/products.js"></script>
-<script src="js/pedidos.js"></script>
-<script src="js/header.js"></script>
-</body></html>
+${HTML.footer}
+${HTML.scripts}
+<script src="${ABS_URL}/js/pedidos.js"></script>
+<script src="${ABS_URL}/js/header.js"></script>
+</body></html>`}

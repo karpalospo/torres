@@ -1,4 +1,4 @@
-const ABS_URL = "http://localhost:3001"
+const ABS_URL = "http://localhost:3001";
 
 module.exports = {
 

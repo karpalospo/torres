@@ -1,13 +1,12 @@
 const HTML = require("./global.js")
 const ABS_URL = HTML.ABS_URL;
-
+ 
 module.exports = () => {
 return /*html*/`
 ${HTML.head({title: "Registro"})}
 ${HTML.header}
 
 <div id="content">
-
 	<div class="max-width" style="max-width: 550px; margin: 0 auto;">
 		<br>
 		<div class="h4">Crear nueva cuenta</div>
