@@ -1,4 +1,5 @@
-const ABS_URL = `http://localhost:${process.env.PORT||3001}`;
+// const ABS_URL = `http://localhost:${process.env.PORT||3001}`;
+const ABS_URL = ``;
 
 module.exports = {
 
@@ -12,15 +13,15 @@ return /*html*/`
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<title>Farmacia Torres | ${param.title}</title>
-	<!-- <link href="${ABS_URL}/css/styles.css" rel="stylesheet">
-	<link href="${ABS_URL}/css/plugins.css" rel="stylesheet"> -->
-	<link href="/css/styles.css" rel="stylesheet">
-	<link href="/css/plugins.css" rel="stylesheet">
-	<!-- ${param.userCSS ? `<link href="${ABS_URL}/css/user.css" rel="stylesheet"></link>` : ""} -->
-	${param.userCSS ? `<link href="/css/user.css" rel="stylesheet"></link>` : ""}
+	<link href="${ABS_URL}/css/styles.css" rel="stylesheet">
+	<link href="${ABS_URL}/css/plugins.css" rel="stylesheet">
+	${param.userCSS ? `<link href="${ABS_URL}/css/user.css" rel="stylesheet"></link>` : ""}
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-	<!-- <link rel="shortcut icon" href="${ABS_URL}/assets/icon_logo.png" /> -->
-	<link rel="shortcut icon" href="/assets/icon_logo.png" />
+	<link rel="shortcut icon" href="${ABS_URL}/assets/icon_logo.png" />
+	<!-- <link href="/css/styles.css" rel="stylesheet">
+	<link href="/css/plugins.css" rel="stylesheet"> -->
+	<!-- ${param.userCSS ? `<link href="/css/user.css" rel="stylesheet"></link>` : ""} -->
+	<!-- <link rel="shortcut icon" href="/assets/icon_logo.png" /> -->
 	
 </head>
 <body>`},
@@ -42,18 +43,12 @@ return /*html*/`
 	<p class="tx-center"><button onclick="pLog('logout')" class="page-button" style="background: #fa1d00; font-size:0.8em"><i class="fas fa-times-circle"></i> CERRAR SESIÓN</button></p>
 </div>`,
 	scripts: /*html*/`
-<script src="/js/libraries.js"></script>
-<script src="/js/utils.js"></script>
-<script src="/js/api.js"></script>
-<script src="/js/app.js"></script>
-<script src="/js/cart.js"></script>
-<script src="/js/products.js"></script>`,
-// <script src="${ABS_URL}/js/libraries.js"></script>
-// <script src="${ABS_URL}/js/utils.js"></script>
-// <script src="${ABS_URL}/js/api.js"></script>
-// <script src="${ABS_URL}/js/app.js"></script>
-// <script src="${ABS_URL}/js/cart.js"></script>
-// <script src="${ABS_URL}/js/products.js"></script>`,
+<script src="${ABS_URL}/js/libraries.js"></script>
+<script src="${ABS_URL}/js/utils.js"></script>
+<script src="${ABS_URL}/js/api.js"></script>
+<script src="${ABS_URL}/js/app.js"></script>
+<script src="${ABS_URL}/js/cart.js"></script>
+<script src="${ABS_URL}/js/products.js"></script>`,
 
 
 	footer: /*html*/`
