@@ -1,5 +1,5 @@
 let redimir = false, p = {}, maxValue, minValue, range, format = wNumb({encoder: function( value ){return Math.ceil(value)}, thousand: '.', prefix: '$ '})
-const maxDomiGratis = 1
+const maxDomiGratis = 9999999
 let productosTag = []
 let resAddress;
 
@@ -182,6 +182,8 @@ async function checkout() {
         id_Servicio: "WebDesktop", 
         nota: $("#nota-pedido").val() + ` -- Forma de pago: ${store.payment}`,
         bono,
+        email: store.user.email, 
+        auth_token: store.user.auth_token,
         cliente: {nit: store.user.nit, nombres: store.user.nombres, email: store.user.email, auth_token: store.user.auth_token},
         cupon: store.couponOrder && store.couponOrder.Aplica ? store.couponOrder : {aplica: false},
         productos:productos
