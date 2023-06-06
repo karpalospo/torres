@@ -182,7 +182,7 @@ async function checkout() {
         id_Servicio: "WebDesktop", 
         nota: $("#nota-pedido").val() + ` -- Forma de pago: ${store.payment}`,
         bono,
-        cupon: store.couponOrder && store.couponOrder.Aplica ? store.couponOrder : {aplica: false},
+        cupon: store.couponOrder && store.couponOrder.aplica ? store.couponOrder : {aplica: false},
         email: store.user.email, 
         auth_token: store.user.auth_token,
         cliente: {nit: store.user.nit, nombres: store.user.nombres, email: store.user.email, auth_token: store.user.auth_token},
