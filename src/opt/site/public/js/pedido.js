@@ -159,9 +159,9 @@ async function checkout() {
     let bono = {aplica: false};
     if(store.bonus) {
         if(store.bonus.usar) {
-            bono.Aplica = true
-            bono.Id = store.bonus.bonus.Id
-            bono.VlrBono = store.bonus.bonus.VlrBono
+            bono.aplica = true
+            bono.id = store.bonus.bonus.Id
+            bono.vlrBono = store.bonus.bonus.VlrBono
         }
     }
 
@@ -171,7 +171,7 @@ async function checkout() {
     }
 
     const senddata = {
-        formaDePago: fPagos[store.payment], 
+        formaPago: fPagos[store.payment], 
         tipoPago:store.payment == "PSE" ? "OnLine" : "ContraEntrega", 
         direccion:store.address, 
         drogueria:store.location, 
@@ -182,10 +182,11 @@ async function checkout() {
         id_Servicio: "WebDesktop", 
         nota: $("#nota-pedido").val() + ` -- Forma de pago: ${store.payment}`,
         bono,
+        cupon: store.couponOrder && store.couponOrder.Aplica ? store.couponOrder : {aplica: false},
         email: store.user.email, 
         auth_token: store.user.auth_token,
         cliente: {nit: store.user.nit, nombres: store.user.nombres, email: store.user.email, auth_token: store.user.auth_token},
-        cupon: store.couponOrder && store.couponOrder.Aplica ? store.couponOrder : {aplica: false},
+        
         productos:productos
     }
 
