@@ -316,7 +316,7 @@ async function redimirCupon() {
             //setTimeout(() => confetti.toggle(), 3000)
             showResultMessage($lblCupon, true, `Cupón aplicado con éxito`)
             store.cuponDiscount = cupon.ValorCupon
-            store.couponOrder.Aplica = true
+            store.couponOrder.aplica = true
             renderCart()
             summaryCart()
         }
