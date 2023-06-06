@@ -159,19 +159,19 @@ async function checkout() {
     let bono = {aplica: false};
     if(store.bonus) {
         if(store.bonus.usar) {
-            bono.Aplica = true
-            bono.Id = store.bonus.bonus.Id
-            bono.VlrBono = store.bonus.bonus.VlrBono
+            bono.aplica = true
+            bono.id = store.bonus.bonus.Id
+            bono.vlrBono = store.bonus.bonus.VlrBono
         }
     }
 
     let puntos = {aplica: false}
     if(redimir) {
-        puntos = {ValorPuntos:format.from(range.get()), aplica: true}
+        puntos = {valorPuntos:format.from(range.get()), aplica: true}
     }
 
     const senddata = {
-        formaDePago: fPagos[store.payment], 
+        formaPago: fPagos[store.payment], 
         tipoPago:store.payment == "PSE" ? "OnLine" : "ContraEntrega", 
         direccion:store.address, 
         drogueria:store.location, 
