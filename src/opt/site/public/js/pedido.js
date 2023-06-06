@@ -167,7 +167,7 @@ async function checkout() {
 
     let puntos = {aplica: false}
     if(redimir) {
-        puntos = {ValorPuntos:format.from(range.get()), aplica: true}
+        puntos = {valorPuntos:format.from(range.get()), aplica: true}
     }
 
     const senddata = {
