@@ -27,7 +27,7 @@ ${HTML.header}
 			<div></div>
 			<div class="tx-center"><span class="h2">las mejores ofertas</span></div>
 			<div class="row r-r">
-				<div class="vertodo"><a href="busqueda.html?b=[sales]">Mostrar todo</a></div>
+				<div class="vertodo"><a href="busqueda/[sales]">Mostrar todo</a></div>
 			</div>
 		</div>
 		<div class="line-deco"></div>
