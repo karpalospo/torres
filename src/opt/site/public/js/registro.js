@@ -29,7 +29,7 @@ async function signup(elem) {
         email: email.value,
         password: password.value,
         confirm_password: confirmPassword.value,
-        nombres: `${name.value} ${lastname.value}`,
+        nombres: `${name.value.toUpperCase()} ${lastname.value.toUpperCase()}`,
         nit: nit.value,
         celular: cellphone.value,
         telefono: "000000",
@@ -42,14 +42,14 @@ async function signup(elem) {
     if (terms_vida_sana.checked) {
         fields.vidaSana = {
             idPaciente: nit.value,
-            nombres: name.value + " " + lastname.value,
+            nombres: name.value + " " + lastname.value.toUpperCase(),
             fechaNacimiento: dateOfBirth.value,
             direccion:"",
             telefono:"",
             celular: cellphone.value,
             primernombre: name.value,
             segundonombre: "",
-            primerapellido: lastname.value,
+            primerapellido: lastname.value.toUpperCase(),
             segundoapellido: "",
             email: email.value,
             estado: "A",
@@ -90,7 +90,7 @@ async function signup(elem) {
         store.user.logged = true
         
         write_cache("user", store.user)
-        //parent.location = `${ABS_URL}/success`
+        parent.location = `${ABS_URL}/registro-exitoso`
 
     } else {
         alert(res.message)

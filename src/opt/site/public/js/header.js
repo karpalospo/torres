@@ -128,7 +128,8 @@ Para ver los cupones de descuento disponibles debes iniciar sesión
     }
 
     res = await API.POST.getCupones(store.user.nit)
-    if(!res.error && res.Success) {
+
+    if(!res.error && res.success != false) {
         store.cupones = res.data
     } else {
         store.cupones = []
