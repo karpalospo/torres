@@ -76,9 +76,8 @@ const API = {
             return await fetchAsync(`${URL.HOST}/ftorres/api/pedidos/setpedido`, {body: data});
         },
 
-        async getPedido(id) {
-            console.log(id)
-            return await fetchAsync(`${URL.HOST}/ftorres/api/pedidos/getbyid/${id}`)
+        async getPedido(id, nit, nombres, email, auth_token) {
+            return await fetchAsync(`${URL.HOST}/ftorres/api/pedidos/getbyid/${id}`, {body: {pedido_id: id, nit, email, nombres, auth_token}})
         },
 
         async getPuntos(nit, nombres, email, auth_token) {

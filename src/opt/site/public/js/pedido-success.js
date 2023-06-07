@@ -1,8 +1,8 @@
 let orders = {}
 
 function page_init() {
-    
-    renderCurrentOrders(getParameterByName("p"))
+    console.log("aja", id)
+    renderCurrentOrders(id)
 }
 
 async function renderCurrentOrders(pedidoID) {
@@ -16,7 +16,7 @@ async function renderCurrentOrders(pedidoID) {
 
     await Promise.all(uniqueOrders.map(async (key) => {
 
-        let res2 = await API.POST.getPedido(key)
+        let res2 = await API.POST.getPedido(key, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
 
         if(!res2.error && res2.data.length > 0) {
             currentOrders.push({id: res2.data[0].numero, status: res2.data[0].Estado, items:res2.data, payment: res2.data[0].tipoPago})
@@ -62,7 +62,6 @@ async function renderCurrentOrders(pedidoID) {
 
         })
 
-
         renderSummary(orders[currentNumero])
         
         // reset values
@@ -85,6 +84,11 @@ function renderSummary(d) {
         "73": "Datáfono",
         "53": "TCO",
         "23": "PSE"
+    }, estados = {
+        "P": {text: "PEDIDO ACEPTADO", color: "rgb(22, 190, 22)", icon: "fa-check-circle"},
+        "A": {text: "PEDIDO PARA FACTURAR", color: "rgb(22, 190, 22)", icon: "fa-check-circle"},
+        "F": {text: "PEDIDO FACTURADO", color: "rgb(22, 190, 22)", icon: "fa-check-circle"},
+        "R": {text: "PEDIDO ANULADO", color: "rgb(190, 22, 22)", icon: "fa-times-circle"},
     }
 
     //$("#calificacion-preguntas").data("pedido", d.numero)
@@ -93,9 +97,7 @@ function renderSummary(d) {
 
     $("#datos-cliente").html(/*html*/`
 <div style="padding:20px">
-
     <h3 style="margin-top: 0; color: #222; text-align: center"><b>PEDIDO N° ${d.numero}</b></h3>
-
     <div class="label">Fecha y Hora</div><b>${new Date(d.fecha).toLocaleString('es-CO', {timeZone: 'Etc/GMT'})}</b>
     <div class="label">Nombre</div><b>${d.nombre}</b>
     <div class="label">Dirección</div><b>${d.direccion}<br>${d.ciudad}</b>
@@ -116,6 +118,12 @@ function renderSummary(d) {
     <br>
     <p style="text-align:center"><button class="page-button" onclick="rebuy('${d.numero}')">REPETIR PEDIDO</button></p>
 
+</div>`)
+
+    $(".resultado").css("background-color", estados[d.estado].color).html(/*html*/`
+<div class="row r-c">
+    <i class="fas ${estados[d.estado].icon}" style="font-size: 2em; padding: 15px 0;"></i>
+    &nbsp;&nbsp; ${estados[d.estado].text}
 </div>`)
 
 }

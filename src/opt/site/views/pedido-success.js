@@ -28,10 +28,7 @@ ${HTML.header}
 <div id="content" style="background-color: #f2f2f2;">
 	<div style="max-width: 800px; margin: 0 auto;">
 
-		<div class="resultado" style="background-color: rgb(22, 190, 22)">
-			<div class="row r-c"><i class="fas fa-check-circle" style="font-size: 2em; padding: 15px 0;"></i>
-				&nbsp;&nbsp; PEDIDO REGISTRADO CORRECTAMENTE</div>
-		</div>
+		<div class="resultado"></div>
 		<div class="row r-t">
 
 			<div class="card f1">
