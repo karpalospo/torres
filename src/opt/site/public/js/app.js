@@ -267,17 +267,17 @@ function borrarCupon(mustRenderCart = true) {
 
 async function redimirCupon() {
     
-    let cupon, nombreCupon = $input.val().trim(), successCupon;
+    let cupon, nombreCupon = $input.val().trim(), successCupon = true;
 
     showResultMessage($lblCupon) // clear
 
     if(!store.user.logged || nombreCupon == "") return false;
 
-    if(res = await API.POST.getCupon(nombreCupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token).error) return
+    if((res = await API.POST.getCupon(nombreCupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)).error) return alert("Error de validación de cupón.")
 
-    store.order.cupon = {Aplica: false}
+    store.order.cupon = {aplica: false}
 
-    if(res.data.Success == false) {
+    if(res.error) {
         successCupon = showResultMessage($lblCupon, false, res.data.Message)
 
     } else {
@@ -285,7 +285,9 @@ async function redimirCupon() {
         cupon = res.data[0];
 
         if(cupon.Condicion.toString() == "0" && store.order.subtotal < cupon.VlrMinimo) {
+
             successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.NombreCupon} solo es válido para compras mínimas de ${f(cupon.VlrMinimo)}.`)
+
         } else if(cupon.Condicion.toString() !== "0"){
 
             let productos = []
@@ -311,15 +313,16 @@ async function redimirCupon() {
             }
         }
 
-        if(successCupon){
-            //confetti.toggle()
-            //setTimeout(() => confetti.toggle(), 3000)
-            showResultMessage($lblCupon, true, `Cupón aplicado con éxito`)
-            store.cuponDiscount = cupon.ValorCupon
-            store.couponOrder.aplica = true
-            renderCart()
-            summaryCart()
-        }
+    }
+console.log(successCupon)
+    if(successCupon){
+        //confetti.toggle()
+        //setTimeout(() => confetti.toggle(), 3000)
+        showResultMessage($lblCupon, true, `Cupón aplicado con éxito`)
+        store.cuponDiscount = cupon.ValorCupon
+        store.order.cupon.aplica = true
+        renderCart()
+        summaryCart()
     }
 }
 

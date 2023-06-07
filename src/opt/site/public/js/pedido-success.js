@@ -65,9 +65,8 @@ async function renderCurrentOrders(pedidoID) {
         renderSummary(orders[currentNumero])
         
         // reset values
-        store.couponOrder = {}
+        store.order.cupon = {aplica: false}
         store.payment = store.address = store.bonus = undefined
-        store.cuponDiscount = store.bonusDiscount = 0
         write_cache("coupon")
 
 

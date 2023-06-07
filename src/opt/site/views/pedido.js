@@ -69,7 +69,7 @@ ${HTML.header}
 					<div class="row">
 						<input id="txt-cupon" type="text" style="text-transform: uppercase; border-radius: 0;"
 							class="input" autocomplete="false" />
-						<button class="btn-aplicar" onclick="redeemCoupon()">Aplicar</button>
+						<button class="btn-aplicar" onclick="redimirCupon()">Aplicar</button>
 						<div class="f1"></div>
 						<button class="btn-cupones" onclick="showModal(true, 'cupones')">Cupones de Descuento &nbsp;<i
 								class="fas fa-chevron-down"></i></button>

@@ -280,7 +280,7 @@ function renderCartItem(item, type) {
             <span class="rojo"><i class="fas fa-info-circle"></i> El precio <b>${f(item.ahora)}</b> aplica si el monto de la compra es superior a ${f(item.VlrMinimo)}</span>
         </div>`)}
 
-        ${_(item._cupon === false, /*html*/`<div class="no-aplica-cupon">No aplica para cupón de descuento</div>`)}
+        ${_(item._cupon === true, /*html*/`<div class="no-aplica-cupon">No aplica para cupón de descuento</div>`)}
 
     </div>
 
