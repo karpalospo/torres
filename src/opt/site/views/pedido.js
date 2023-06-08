@@ -78,6 +78,12 @@ ${HTML.header}
 				</div>
 			</div>
 
+			<div id="bono-card" class="card" style="margin-top: 10px; padding: 10px; display: none">
+				<div class="header-title">BONO DE DESCUENTO</div>
+				<div id="bono" class="bono">
+				</div>
+			</div>
+
 			<div class="card" style="margin-top: 10px; padding: 10px;">
 				<div class="header-title">2. FORMA DE PAGO</div>
 

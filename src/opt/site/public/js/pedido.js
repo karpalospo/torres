@@ -32,13 +32,15 @@ async function page_init() {
 
     } else {
 
-        if(typeof showOrderError == "function") showOrderError("") 
+         if(typeof showOrderError == "function") showOrderError("") 
 
         initList($("#address-list"), "address")
         initList($("#payment-list"), "payment", checkPse)
 
         stickyScroll($("#stickybox"), $(".trackrail"), 20) 
         store.address = undefined
+
+
     }
 
     // popups
@@ -61,8 +63,6 @@ function checkPse($elem){
 }
 
 
-
-
 $input.on("keyup", e => {
     if(e.keyCode == 13) redimirCupon()
 })
@@ -70,7 +70,7 @@ $input.on("input", () => borrarCupon())
 $input.on("change", () => borrarCupon())
 
 
-function summaryCart(_buscarBono = true) {
+function summaryCart() {
     
     let puntos = 0
     
@@ -93,12 +93,107 @@ ${redimir && puntos > 0 ? `<tr><td>Puntos</td><td class="rojo" style="font-weigh
     <td><b>A Pagar</b></td><td><b style="color:#222">${f(store.order.subtotal - store.order.discount - (redimir ? puntos : 0))}</b></td>
 </tr>`)
     
+    buscarBono()
+    
     $("#confirmar").show(0)
 }
 
 function showOrderError(message, permanent = false) {
     showError($order.find(".frm-error"), message, permanent)
     command($button_order, false)
+}
+
+
+// ========================================================================== //
+// BONO
+
+async function buscarBono() {
+
+    store.bonusDiscount = 0
+
+    if(store.bono == undefined) {
+        if((res = await API.POST.getBono(store.user.nit)).error) return alert("Error al consultar el bono.")
+        if(res.data && res.data.length > 0) await validarBono(res.data[0])
+    } else {
+        store.bono.usar = false
+        store.bono.descuento = 0
+        await validarBono()
+    }
+}
+
+async function validarBono(bono) {
+
+    let tempBono = bono != undefined ? {
+        ...bono,
+        usar: false,
+        disabled: false,
+        descuento: 0,
+        aplica: false,
+    } : store.bono
+
+    if(tempBono && tempBono.Condicion == 0 && (tempBono.EsPorcentaje == "N" || tempBono.EsPorcentaje == 0) && (tempBono.VlrMinimoCompra <= store.order.subtotal))  {
+        tempBono.descuento = tempBono.VlrBono
+        tempBono.aplica = false
+    } else if(tempBono.VlrMinimoCompra <= store.order.subtotal) {
+        if(!(res = await API.POST.verificarBono(tempBono, calculateCart().map(prod => ({codigo: prod.item.id})))).error) ret.aplica = true
+    }
+    store.bono = tempBono
+    renderBono()
+}
+
+
+function renderBono() {
+    
+    if(!store.bono) return
+
+    let $target = $("#bono")
+  
+    if(store.bono != undefined) {
+       
+        $target.html(/*html*/`
+<div style="position: absolute; top:1px; left:12px;font-size: 1.3em;"><i class="fas fa-cut"></i></div>
+<div class="fx">
+${store.bono.descuento > 0 ?
+`<p>Tienes un bono de <b>${f(store.bono.descuento)}</b>
+en una compra igual o superior a <b>${f(store.bono.VlrMinimoCompra)}</b></p>
+<button onclick="aplicarBono(this)">${store.bono.usar ? "DESACTIVAR" : "ACTIVAR"}</button>`
+:
+`<p>Tiene un bono de <b>${f(store.bono.VlrBono)}</b> disponible pero no cumple las condiciones para aplicarlo. <p style="text-decoration: underline; margin-bottom: 0; cursor:pointer" onclick="showModal(true, 'bono-condiciones')">Ver Condiciones</p></p>`
+}
+</p></div>`)
+
+        $("#bono-card").show(0) 
+
+    } else {
+        $("#bono-card").hide(0)
+    }
+
+if(store.bono.descuento == 0) $target.addClass("inactivo")
+else $target.removeClass("inactivo")
+
+
+$("#bono-condiciones").find(".float-content").html(/*html*/`
+${store.bono.Condicion != 0 ?
+`<p><i class="fas fa-check"></i> ${store.bono.Descripcion}</p>`
+:
+`<p><i class="fas fa-check"></i> Aplica para todas las categorias.</p>`
+}
+<p>
+    <i class="fas fa-check"></i> Válido desde <b>${moment(store.bono.FchRdnDesde).format("MMMM DD YYYY, h:mm:ss a")}
+    </b> hasta <b>${moment(store.bono.FchRdnHasta).format("MMMM DD YYYY, h:mm:ss a")}</b>.
+</p>
+<p>
+    Descuento a aplicar: <b>${f(store.bono.VlrBono)}</b><br>
+    Mínimo monto de compra: <b>${f(store.bono.VlrMinimoCompra)}</b>
+</p>`)
+}
+
+function aplicarBono() {
+    store.bono.usar = !store.bono.usar
+    if(store.bono.usar) store.bonusDiscount = store.bono.descuento
+    else store.bonusDiscount = 0
+    renderCart()
+    if(typeof summaryCart == "function") summaryCart()
 }
 
 async function checkout() {
@@ -182,7 +277,7 @@ async function checkout() {
         drogueria:store.location,
         vlrDomicilio:0,
         ciudad: store.location, 
-        nombreCiudad:store.city, 
+        nombreCiudad:store.cc.Descripcion, 
         subtotal:store.order.subtotal - store.order.discount,
         id_Servicio: "WebDesktop", 
         nota: $("#nota-pedido").val() + ` -- Forma de pago: ${store.payment}`,

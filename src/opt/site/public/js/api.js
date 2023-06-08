@@ -155,6 +155,17 @@ const API = {
 
             return await fetchAsync(`${URL.HOST}/ftorres/api/users/updateuserprofile`, {body: {marca: "TOR", nit, email, nombres, auth_token, ...fields}});
         },
+
+        //bonos
+        async getBono (document) {
+            return await fetchAsync(`${URL.ETICOS_HOST}/ServicesEpos/wsepos/api/v2/ofertasxCedula/${document}`, {}, "GET")
+        },
+  
+
+        async verificarBono(Bono, Productos) {
+            return await fetchAsync(`${URL.ETICOS_HOST}/ServicesEpos/wsepos/api/v2/ValidaCondicionBono/`, {body: {Bono, Productos}});
+        },
+    
     }
 }
 

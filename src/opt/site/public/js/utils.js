@@ -271,7 +271,6 @@ function stickyScroll($scrollingDiv, $railtrack, bottomOffset = 0) {
 
     $window.scroll(function(){
         scrolled = $window.scrollTop()
-        console.log($scrollingDiv.height(), $railtrack.height())
         if (scrolled > 0) {
             $scrollingDiv.css({position: 'fixed', top: currentTop + 'px', bottom: ''})
             if(scrolled + $scrollingDiv.height() + bottomOffset > $railtrack.height()) {

@@ -871,19 +871,21 @@ select {
 }
 
 .bono {
-	padding: 8px;
-	margin: 20px auto;
-	border-radius: 7px;
-	background: linear-gradient(45deg, rgb(192, 44, 44) 47%, rgb(239, 69, 16) 100%);
-	color: white;
-	text-align: center;
-	position: relative;
-	font-weight: 400;
-	max-width: 250px;
+    padding: 8px;
+    margin: 20px auto;
+    border-radius: 4px;
+    background: linear-gradient(45deg, rgb(192, 44, 44) 47%, rgb(239, 69, 16) 100%);
+    color: white;
+    text-align: center;
+    position: relative;
+    font-weight: 400;
+    max-width: 350px;
+    font-size: 0.9em;
+    box-shadow: 1px 1px 15px 0 rgba(0,0,0,0.3);
 }
 
 .bono.inactivo {
-    background: #845959  !important;
+    background: #737373  !important;
 }
 
 .bono.inactivo button {
