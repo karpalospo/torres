@@ -70,9 +70,11 @@ $input.on("input", () => borrarCupon())
 $input.on("change", () => borrarCupon())
 
 
-function summaryCart() {
+function summaryCart(bono = true) {
     
     let puntos = 0
+
+    if(bono) buscarBono()
     
     if(range) puntos = format.from(range.get())
 
@@ -92,8 +94,6 @@ ${redimir && puntos > 0 ? `<tr><td>Puntos</td><td class="rojo" style="font-weigh
 <tr>
     <td><b>A Pagar</b></td><td><b style="color:#222">${f(store.order.subtotal - store.order.discount - (redimir ? puntos : 0))}</b></td>
 </tr>`)
-    
-    buscarBono()
     
     $("#confirmar").show(0)
 }
@@ -115,28 +115,23 @@ async function buscarBono() {
         if((res = await API.POST.getBono(store.user.nit)).error) return alert("Error al consultar el bono.")
         if(res.data && res.data.length > 0) await validarBono(res.data[0])
     } else {
-        store.bono.usar = false
-        store.bono.descuento = 0
         await validarBono()
     }
 }
 
 async function validarBono(bono) {
 
-    let tempBono = bono != undefined ? {
-        ...bono,
-        usar: false,
-        disabled: false,
-        descuento: 0,
-        aplica: false,
-    } : store.bono
+    let tempBono = bono != undefined ? bono : store.bono
+    tempBono.valido = false
 
     if(tempBono && tempBono.Condicion == 0 && (tempBono.EsPorcentaje == "N" || tempBono.EsPorcentaje == 0) && (tempBono.VlrMinimoCompra <= store.order.subtotal))  {
-        tempBono.descuento = tempBono.VlrBono
-        tempBono.aplica = false
+        tempBono.valido = true
+        console.log("SI")
     } else if(tempBono.VlrMinimoCompra <= store.order.subtotal) {
-        if(!(res = await API.POST.verificarBono(tempBono, calculateCart().map(prod => ({codigo: prod.item.id})))).error) ret.aplica = true
+        if(!(res = await API.POST.verificarBono(tempBono, calculateCart().map(prod => ({codigo: prod.item.id})))).error) tempBono.valido = true
+        console.log("PASO 2")
     }
+    
     store.bono = tempBono
     renderBono()
 }
@@ -144,19 +139,17 @@ async function validarBono(bono) {
 
 function renderBono() {
     
-    if(!store.bono) return
-
     let $target = $("#bono")
-  
+  console.log(store.bono.valido, "->", store.bonusDiscount)
     if(store.bono != undefined) {
-       
+
         $target.html(/*html*/`
 <div style="position: absolute; top:1px; left:12px;font-size: 1.3em;"><i class="fas fa-cut"></i></div>
 <div class="fx">
-${store.bono.descuento > 0 ?
-`<p>Tienes un bono de <b>${f(store.bono.descuento)}</b>
+${store.bono.valido ?
+`<p>Tienes un bono de <b>${f(store.bono.VlrBono)}</b>
 en una compra igual o superior a <b>${f(store.bono.VlrMinimoCompra)}</b></p>
-<button onclick="aplicarBono(this)">${store.bono.usar ? "DESACTIVAR" : "ACTIVAR"}</button>`
+<button onclick="aplicarBono()">${store.bonusDiscount > 0 ? "DESACTIVAR" : "ACTIVAR"}</button>`
 :
 `<p>Tiene un bono de <b>${f(store.bono.VlrBono)}</b> disponible pero no cumple las condiciones para aplicarlo. <p style="text-decoration: underline; margin-bottom: 0; cursor:pointer" onclick="showModal(true, 'bono-condiciones')">Ver Condiciones</p></p>`
 }
@@ -168,7 +161,8 @@ en una compra igual o superior a <b>${f(store.bono.VlrMinimoCompra)}</b></p>
         $("#bono-card").hide(0)
     }
 
-if(store.bono.descuento == 0) $target.addClass("inactivo")
+
+if(!store.bono.valido) $target.addClass("inactivo")
 else $target.removeClass("inactivo")
 
 
@@ -189,11 +183,11 @@ ${store.bono.Condicion != 0 ?
 }
 
 function aplicarBono() {
-    store.bono.usar = !store.bono.usar
-    if(store.bono.usar) store.bonusDiscount = store.bono.descuento
-    else store.bonusDiscount = 0
+    if(store.bonusDiscount > 0) store.bonusDiscount = 0;
+    else store.bonusDiscount = store.bono.VlrBono;
+    renderBono()
     renderCart()
-    if(typeof summaryCart == "function") summaryCart()
+    if(typeof summaryCart == "function") summaryCart(false)
 }
 
 async function checkout() {
@@ -253,17 +247,18 @@ async function checkout() {
         })
     })
 
-    if(store.bonus) {
-        if(store.bonus.usar) {
+    if(store.bono != undefined) {
+        console.log("ja")
+        if(store.bonusDiscount) {
             bono.aplica = true
-            bono.id = store.bonus.bonus.Id
-            bono.vlrBono = store.bonus.bonus.VlrBono
+            bono.id = store.bono.Id
+            bono.vlrBono = store.bono.VlrBono
         }
     }
 
     if(store.order.cupon) {
         cupon = store.order.cupon
-        bono.aplica = true
+        cupon.aplica = true
     }
 
     if(redimir) {
@@ -290,8 +285,6 @@ async function checkout() {
         productos
     }
 
-    command($button_order, false)
-    return console.log(senddata)
 
     res = await API.POST.checkout(senddata)
 
