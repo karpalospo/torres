@@ -278,17 +278,17 @@ async function redimirCupon() {
     store.order.cupon = {aplica: false}
 
     if(res.error) {
-        successCupon = showResultMessage($lblCupon, false, res.data.Message)
+        successCupon = showResultMessage($lblCupon, false, res.data.message)
 
     } else {
 
         cupon = res.data[0];
 
-        if(cupon.Condicion.toString() == "0" && store.order.subtotal < cupon.VlrMinimo) {
+        if(cupon.condicion.toString() == "0" && store.order.subtotal < cupon.VlrMinimo) {
 
-            successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.NombreCupon} solo es válido para compras mínimas de ${f(cupon.VlrMinimo)}.`)
+            successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.nombreCupon} solo es válido para compras mínimas de ${f(cupon.vlrMinimo)}.`)
 
-        } else if(cupon.Condicion.toString() !== "0"){
+        } else if(cupon.condicion.toString() !== "0"){
 
             let productos = []
             calculateCart().forEach(product => {
@@ -304,22 +304,25 @@ async function redimirCupon() {
                 })
             })
  
-            const res2 = await API.POST.validarCupon(cupon.Condicion, productos)
+            const res2 = await API.POST.validarCupon(cupon.condicion, productos)
 
             if(res2.error) {
-                successCupon = showResultMessage($lblCupon, false, `Este cupón no es válido para ser redimido. ${cupon.Descripcion}`)
+                successCupon = showResultMessage($lblCupon, false, `Este cupón no es válido para ser redimido. ${cupon.descripcion}`)
             } else if (res2.data.ValorProductos < cupon.VlrMinimo) {
-                successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.NombreCupon} solo es válido para compras mínimas de ${f(cupon.VlrMinimo)}. ${cupon.Descripcion}`)
+                successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.nombreCupon} solo es válido para compras mínimas de ${f(cupon.vlrMinimo)}. ${cupon.descripcion}`)
             }
         }
 
     }
-console.log(successCupon)
+    //console.log(successCupon)
     if(successCupon){
         //confetti.toggle()
         //setTimeout(() => confetti.toggle(), 3000)
         showResultMessage($lblCupon, true, `Cupón aplicado con éxito`)
-        store.cuponDiscount = cupon.ValorCupon
+        store.cuponDiscount = cupon.valorCupon
+        //JR
+        store.order.cupon=cupon;
+        //END JR
         store.order.cupon.aplica = true
         renderCart()
         summaryCart()
