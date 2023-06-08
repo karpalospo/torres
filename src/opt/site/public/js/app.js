@@ -647,9 +647,7 @@ $(window).on("resize", e => resize)
 
 function initList($target, field, cb) {
     $target.on("click", "> div", e => {
-        console.log("ajo")
         let $elem = $(e.currentTarget)
-        
         $elem.siblings().removeClass("active")
         store[field] = $elem.addClass("active").data("value")
         if(typeof cb == "function") cb($elem)

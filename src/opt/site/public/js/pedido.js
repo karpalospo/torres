@@ -1,7 +1,12 @@
-let redimir = false, p = {}, maxValue, minValue, range, format = wNumb({encoder: function( value ){return Math.ceil(value)}, thousand: '.', prefix: '$ '})
-const maxDomiGratis = 9999999
-let productosTag = []
-let resAddress;
+let redimir = false, 
+    p = {}, 
+    maxValue, 
+    minValue, 
+    range, 
+    format = wNumb({encoder: function( value ){return Math.ceil(value)}, thousand: '.', prefix: '$ '}),
+    productosTag = [],
+    resAddress
+;
 
 let $button_order = $("#button-order"),
     $lblCupon = $("#lbl-coupon"),
@@ -23,7 +28,6 @@ async function page_init() {
             callback: () => {showModal(true, 'signin')},
             closeCallback: () => {showModal(true, 'signin')
         }})
-
         if(typeof showOrderError == "function") showOrderError("Hay un problema de sesión que no permite continuar", true)
 
     } else {
@@ -34,9 +38,7 @@ async function page_init() {
         initList($("#payment-list"), "payment", checkPse)
 
         stickyScroll($("#stickybox"), $(".trackrail"), 20) 
-
         store.address = undefined
-
     }
 
     // popups
@@ -46,10 +48,10 @@ async function page_init() {
 
 function checkPse($elem){
 
+    let day = moment().day()
+
     if($elem.data("value") == "PSE") $("#button-order").text("PAGAR AHORA")
     else $("#button-order").text("CONFIRMAR PEDIDO")
-
-    let day = store.day;
 
     if(store.payment == "TCO" && day == 4) {
         $("#TCO-alert").show(200)
@@ -85,10 +87,10 @@ function summaryCart(_buscarBono = true) {
 ${redimir && puntos > 0 ? `<tr><td>Puntos</td><td class="rojo" style="font-weight:500">${f(puntos * -1)}</td></tr>` : ``}
 <tr>
     <td>Domicilio</td>
-    <td style="font-weight:500">${store.order.subtotal > maxDomiGratis + store.order.discount ? `<span style="color:#ff2e2e">Gratis</span>` : f(store.order.shipping)}</td>
+    <td style="font-weight:500">${f(store.order.shipping)}</td>
 </tr>
 <tr>
-    <td><b>A Pagar</b></td><td><b style="color:#222">${f(store.order.subtotal + (store.order.subtotal > maxDomiGratis ? 0 : store.order.shipping) - store.order.discount - (redimir ? puntos : 0))}</b></td>
+    <td><b>A Pagar</b></td><td><b style="color:#222">${f(store.order.subtotal - store.order.discount - (redimir ? puntos : 0))}</b></td>
 </tr>`)
     
     $("#confirmar").show(0)
@@ -112,27 +114,27 @@ async function checkout() {
     if(!store.payment) return showOrderError("Seleccione una forma de pago")
     if(!store.address) return showOrderError("Seleccione una dirección de entrega")
 
-    let fPagos = {
-        "Efectivo": 11,
-        "Datáfono": 73,
-        "TCO": 53,
-        "PSE": 23
-    }
-
-    let day = moment().day()
-
-    let productos = [
-        {
+    let bono = {aplica: false},
+        cupon = {aplica: false},
+        puntos = {aplica: false},
+        productos = [{
             codigo: "999992", 
             descripcion: "domicilio", 
-            price: store.order.subtotal > maxDomiGratis + store.order.discount ? 0.01 : store.order.shipping,
+            price: store.order.shipping,
             stock:1,
             idOferta:0,
             cantidad: 1,
             descuento:0,
             idUnidad:1
+        }],
+        fPagos = {
+            "Efectivo": 11,
+            "Datáfono": 73,
+            "TCO": 53,
+            "PSE": 23
         }
-    ]
+    ;
+
 
     calculateCart().forEach(product => {
         productos.push({
@@ -156,7 +158,6 @@ async function checkout() {
         })
     })
 
-    let bono = {aplica: false};
     if(store.bonus) {
         if(store.bonus.usar) {
             bono.aplica = true
@@ -165,30 +166,37 @@ async function checkout() {
         }
     }
 
-    let puntos = {aplica: false}
+    if(store.order.cupon) {
+        cupon = store.order.cupon
+        bono.aplica = true
+    }
+
     if(redimir) {
         puntos = {valorPuntos:format.from(range.get()), aplica: true}
     }
 
     const senddata = {
-        formaPago: fPagos[store.payment], 
-        tipoPago:store.payment == "PSE" ? "OnLine" : "ContraEntrega", 
-        direccion:store.address, 
-        drogueria:store.location, 
-        vlrDomicilio:0, 
+        formaPago: fPagos[store.payment],
+        tipoPago:store.payment == "PSE" ? "OnLine" : "ContraEntrega",
+        direccion:store.address,
+        drogueria:store.location,
+        vlrDomicilio:0,
         ciudad: store.location, 
         nombreCiudad:store.city, 
-        subtotal:store.order.subtotal - store.order.discount, 
+        subtotal:store.order.subtotal - store.order.discount,
         id_Servicio: "WebDesktop", 
         nota: $("#nota-pedido").val() + ` -- Forma de pago: ${store.payment}`,
         bono,
-        cupon: store.order.cupon && store.order.cupon.aplica ? store.order.cupon : {aplica: false},
-        email: store.user.email, 
+        cupon,
+        puntos,
+        email: store.user.email,
         auth_token: store.user.auth_token,
         cliente: {nit: store.user.nit, nombres: store.user.nombres, email: store.user.email, auth_token: store.user.auth_token},
-        
-        productos:productos
+        productos
     }
+
+    command($button_order, false)
+    return console.log(senddata)
 
     res = await API.POST.checkout(senddata)
 
