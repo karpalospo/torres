@@ -314,12 +314,15 @@ async function redimirCupon() {
         }
 
     }
-console.log(successCupon)
+    //console.log(successCupon)
     if(successCupon){
         //confetti.toggle()
         //setTimeout(() => confetti.toggle(), 3000)
         showResultMessage($lblCupon, true, `Cupón aplicado con éxito`)
         store.cuponDiscount = cupon.ValorCupon
+        //JR
+        store.order.cupon=cupon;
+        //END JR
         store.order.cupon.aplica = true
         renderCart()
         summaryCart()
