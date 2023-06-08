@@ -251,7 +251,7 @@ async function checkout() {
         console.log("ja")
         if(store.bonusDiscount) {
             bono.aplica = true
-            bono.id = store.bono.Id
+            bono.idBono = store.bono.Id
             bono.vlrBono = store.bono.VlrBono
         }
     }
