@@ -54,10 +54,42 @@ ${HTML.header}
 		border: 1px solid #aaa;
 		border-radius: 4px;
 	}
+
+	#order2 {
+		display: flex;
+		justify-content: flex-start;
+		max-width: 800px; 
+		margin: 0 auto;
+	}
+
+	#back-stickybox {
+		width: 250px;
+	}
+
+	#resumen {
+		display: none;
+	}
+
+	@media only screen and (max-width: 800px) {
+		#order2 {
+			display: block;
+		}
+
+		#back-stickybox {
+			display: none;
+		}
+
+		#resumen {
+			display: block;
+		}
+
+	}
 </style>
 
 <div id="content" style="background-color: #f2f2f2;">
-	<div id="order2" class="row r-t" style="max-width: 800px; margin: 0 auto;">
+
+	<div id="order2">
+		
 		<div class="trackrail" style="flex: 1; margin: 20px;">
 
 			<div class="card" style="padding: 10px;">
@@ -134,9 +166,19 @@ ${HTML.header}
 				<Textarea id="nota-pedido" class="nota-entrega" placeholder="Ejemplo: Dejar con el portero"></Textarea>
 			</div>
 
+			<div id="resumen" class="card" style="margin-top: 10px; padding: 10px;">
+				<div class="header-title">RESUMEN DE ORDEN</div>
+				<table id="sumario2" class="tables tx-right"></table>
+
+				<div class="frm-error" style="display:none"></div>
+				<div id="confirmar2" class="tx-center p15" style="display:none">
+					<button id="button-order2" onclick="checkout()" class="page-button">CONFIRMAR PEDIDO</button>
+				</div>
+			</div>
+
 		</div>
 
-		<div style="width: 250px;">
+		<div id="back-stickybox">
 			<div id="stickybox" class="card" style="padding: 10px; margin-top: 20px; width: 230px;">
 
 				<div class="header-title tx-center">RESUMEN DE ORDEN</div>

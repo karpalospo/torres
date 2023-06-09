@@ -8,7 +8,7 @@ let redimir = false,
     resAddress
 ;
 
-let $button_order = $("#button-order"),
+let $button_order = $("#button-order, #button-order2"),
     $lblCupon = $("#lbl-coupon"),
     $lblTotal = $("#lbl-total"),
     $order = $("#order2"),
@@ -78,7 +78,7 @@ function summaryCart(bono = true) {
     
     if(range) puntos = format.from(range.get())
 
-    $("#sumario").html(/*html*/`
+    $("#sumario, #sumario2").html(/*html*/`
 <tr>
     <td>Subtotal</td><td style="font-weight:500">${f(store.order.subtotal)}</td>
 </tr>
@@ -95,7 +95,7 @@ ${redimir && puntos > 0 ? `<tr><td>Puntos</td><td class="rojo" style="font-weigh
     <td><b>A Pagar</b></td><td><b style="color:#222">${f(store.order.subtotal - store.order.discount - (redimir ? puntos : 0))}</b></td>
 </tr>`)
     
-    $("#confirmar").show(0)
+    $("#confirmar, #confirmar2").show(0)
 }
 
 function showOrderError(message, permanent = false) {
@@ -148,7 +148,7 @@ function renderBono() {
 <div class="fx">
 ${store.bono.valido ?
 `<p>Tienes un bono de <b>${f(store.bono.VlrBono)}</b>
-en una compra igual o superior a <b>${f(store.bono.VlrMinimoCompra)}</b></p>
+para una compra igual o superior a <b>${f(store.bono.VlrMinimoCompra)}</b></p>
 <button onclick="aplicarBono()">${store.bonusDiscount > 0 ? "DESACTIVAR" : "ACTIVAR"}</button>`
 :
 `<p>Tiene un bono de <b>${f(store.bono.VlrBono)}</b> disponible pero no cumple las condiciones para aplicarlo. <p style="text-decoration: underline; margin-bottom: 0; cursor:pointer" onclick="showModal(true, 'bono-condiciones')">Ver Condiciones</p></p>`
@@ -248,7 +248,6 @@ async function checkout() {
     })
 
     if(store.bono != undefined) {
-        console.log("ja")
         if(store.bonusDiscount) {
             bono.aplica = true
             bono.idBono = store.bono.Id

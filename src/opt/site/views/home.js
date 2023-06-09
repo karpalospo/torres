@@ -14,9 +14,7 @@ ${HTML.header}
 
 	<div id="home-cont" class="max-width">
 
-		<div style="height:30px"></div>
-
-		<div id="banner" class="banner_init row">
+		<div id="banner">
 			<div style="width: 100%;"><img src="${ABS_URL}/assets/banner.jpg" atl="banner" style="width: 100%;" /></div>
 
 		</div>

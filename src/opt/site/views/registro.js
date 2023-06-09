@@ -6,6 +6,7 @@ return /*html*/`
 ${HTML.head({title: "Registro"})}
 ${HTML.header}
 
+
 <div id="content">
 	<div class="max-width" style="max-width: 550px; margin: 0 auto;">
 		<br>
@@ -70,12 +71,8 @@ ${HTML.header}
 
 			<br>
 
-			<div style="border: 1px solid #fa7800;
-			padding: 8px;
-			border-radius: 6px;
-			margin-top: 10px;
-			font-size: 0.8em;">
-				<div class="row row-center">
+			<div style="border: 1px solid #fa7800; padding: 8px; border-radius: 6px; margin-top: 10px; font-size: 0.8em;">
+				<div class="row r-c">
 					<input type="checkbox" id="terms" name="terms">
 					<label for="terms" style="padding-left: 10px;"> Acepto los términos y condiciones y deseo ser parte
 						del Club Vida Sana</label>

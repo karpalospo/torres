@@ -42,6 +42,7 @@ return /*html*/`
 	<br>
 	<p class="tx-center"><button onclick="pLog('logout')" class="page-button" style="background: #fa1d00; font-size:0.8em"><i class="fas fa-times-circle"></i> CERRAR SESIÓN</button></p>
 </div>`,
+
 	scripts: /*html*/`
 <script src="${ABS_URL}/js/libraries.js"></script>
 <script src="${ABS_URL}/js/utils.js"></script>
@@ -63,7 +64,7 @@ return /*html*/`
 		</div>
 		<div style="height: 20px;"></div> -->
 		<h3 class="tx-center">Mantente en contacto con nosotros</h3>
-		<div id="contacto" class="row r-c">
+		<div id="contacto">
 			<div><i class="far fa-envelope"></i> <a
 					href="mailto:servicioalcliente@farmaciatorres.com">servicioalcliente@farmaciatorres.com</a></div>
 			<div><a href="tel:+573157823477"><i class="fas fa-mobile-alt"></i> Llamar 315-782-3477</a></div>
@@ -116,15 +117,20 @@ return /*html*/`
 <div id="modals-cont"></div>
 <div id="header-cont">
 	<div id="header" class="max-width">
-		<div style="width:230px">
+		<div id="logo" style="width:230px">
 			<a href="/">
 				<img src="${ABS_URL}/assets/logo.png" alt="" style="width: 100%;" />
+			</a>
+		</div>
+		<div id="logo2" style="width:35px;">
+			<a href="/">
+				<img src="${ABS_URL}/assets/icon_logo.png" alt="" style="width: 100%;" />
 			</a>
 		</div>
 		<div class="autocomplete" class="f1">
 			<div class="search-cont">
 				<div class="f1"><input id="txt-search" class="txt-search"
-						placeholder="busca aquí todo lo que necesites..." autocomplete="off" /></div>
+						placeholder="Búsqueda..." autocomplete="off" /></div>
 				<button class="btn-search"><i class="fa fa-search"></i></button>
 			</div>
 		</div>
@@ -138,8 +144,7 @@ return /*html*/`
 			<span id="lbl-nombre">Iniciar Sesión</span> <i class="fas fa-chevron-down"></i>
 		</div>
 		<div class="main-menu-item relative" onclick="showCart(true)" data-id="cart">
-			<i class="fas fa-shopping-cart"></i>
-			<span>Items</span>
+			<i class="fas fa-shopping-cart" style="font-size:1.5em"></i>
 			<div id="cart-badge">0</div>
 		</div>
 	</div>
