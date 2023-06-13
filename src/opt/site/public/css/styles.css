@@ -151,14 +151,14 @@ select {
 }
 
 .btn-search {
-    width: 50px;
-    padding-right: 8px;
     border: none;
     color: white;
     height: 30px;
-    border-radius: 0 25px 25px 0;
+    border-radius: 0 21px 21px 0;
     background: #fa7800;
+    padding: 0 10px;
     font-size: 1.1em;
+    margin-right: -5px;
 }
 
 .btn-search:hover {
@@ -339,8 +339,10 @@ select {
     color: #999;
     font-size: 0.8em;
     margin-top: 20px;
-    padding: 11px;
+    padding-top: 11px;
     border-top: 1px solid #555;
+    padding-bottom: 40px;
+    text-align: center;
 }
 
 #modal-cont {
@@ -736,16 +738,16 @@ select {
 
 .product-item button {
     margin-top: 8px;
-    background: linear-gradient(180deg, #0049fa 0%, #5889ff 50%, #001e68 100%);
+    background: #0049fa;
     color: white;
     border: none;
     border-radius: 21px;
     box-shadow: 1px 1px 6px 0 rgb(0 0 0 / 30%);
-    text-shadow: 1px 1px 4px rgb(0 0 0 / 30%);
-    font-size: 1.5em;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
+    text-align: center;
+    font-size: 12px;
+    padding: 8px 14px;
+    letter-spacing: 1px;
+    font-weight: 700;
 }
 
 .product-item button:hover {
@@ -3263,9 +3265,6 @@ h3 {
         min-width: 220px
     }
 
-    .btn-search {
-        width: 32px;
-    }
 
     .search-cont {
         margin: 0 18px;

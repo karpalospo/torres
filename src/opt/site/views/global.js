@@ -102,8 +102,8 @@ return /*html*/`
 			</div>
 		</div>
 	</div>
-	<div id="copyright" class="row r-c">
-		<div>&copy;2023 Farmacia Torres. Todos los derechos reservados. <small>v1.0</small></div>
+	<div id="copyright">
+		&copy; 2023 Farmacia Torres. Todos los derechos reservados. v1.0
 	</div>
 </div>
 `,

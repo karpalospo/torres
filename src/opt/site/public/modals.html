@@ -216,13 +216,14 @@
 <div id="cart-cont">
     <div id="cart">
         <div class="row" style="padding: 10px;">
-            <div style="width:50px"></div>
-            <div class="h4">Carrito de Compras</div>
+            
             <div style="width:80px">
                 <button onclick="showCart(false)" style="padding: 6px 10px;color: white;border: none;border-radius: 25px;background: #222;">
-                    Cerrar &nbsp;<i class="fas fa-times"></i>
+                    <i class="fas fa-chevron-left"></i>
                 </button>
             </div>
+            <div class="h4">Carrito de Compras</div>
+            <div style="width:50px"></div>
         </div>
         <div id="cart-list" class="cart-list"></div>
         <div class="cart-section" style="padding: 0;">
@@ -232,7 +233,7 @@
             <button onclick="shopNow($(this))" class="page-button" style="background-color: #fa7800;">COMPRAR AHORA</button>
             <div>A Pagar: <span id="lbl-total"></span></div>
         </div>
-        <div style="height: 10px;"></div>
+        <div style="height: 30px;"></div>
     </div>
 </div>
 
