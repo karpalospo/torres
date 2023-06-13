@@ -23,7 +23,7 @@ ${HTML.header}
 
 		<div class="header-section">
 			<div></div>
-			<div class="tx-center"><span class="h2">las mejores ofertas</span></div>
+			<div class="tx-center"><span class="h2">Las mejores ofertas</span></div>
 			<div class="row r-r">
 				<div class="vertodo"><a href="busqueda/[sales]">Mostrar todo</a></div>
 			</div>
@@ -43,7 +43,7 @@ ${HTML.header}
 
 		<div class="header-section">
 			<div></div>
-			<div class="tx-center"><span class="h2">top recomendados</span></div>
+			<div class="tx-center"><span class="h2">Top recomendados</span></div>
 			<div class="row r-r" style="padding-right: 10px;">
 				<div id="recom-prev" class="bt-left"><i class="fas fa-chevron-left"></i></div>
 				<div id="recom-next" class="bt-right"><i class="fas fa-chevron-right"></i></div>
@@ -56,7 +56,7 @@ ${HTML.header}
 		<div style="height:70px"></div>
 		<div class="header-section">
 			<div></div>
-			<div class="tx-center"><span class="h2">productos con oferta</span></div>
+			<div class="tx-center"><span class="h2">Productos con oferta</span></div>
 			<div class="row r-r" style="padding-right: 10px;">
 				<div id="estre-prev" class="bt-left"><i class="fas fa-chevron-left"></i></div>
 				<div id="estre-next" class="bt-right"><i class="fas fa-chevron-right"></i></div>
