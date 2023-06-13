@@ -94,7 +94,7 @@ function productDetailClick(elem) {
 }
 
 async function cargarFoto(product) {
-
+console.log(product)
     $("#preview").attr("src", "")
 
     let $wrapper = $("#thumbnails").find(".wrapper"),
@@ -107,15 +107,15 @@ async function cargarFoto(product) {
     initGallery()
 
 
-    for(i = 1; i <= 10; i++) {
-        if(breakloop) continue
-        try {
-            res = await CheckImage(`https://www.droguerialaeconomia.com/economia/site/img/galeria/${product.id}-${i}.jpg`)
-            if(res[0] > 0) $wrapper.addImage(res[1], `${product.id}-${i}`);
-        } catch(e) {
-            breakloop = true
-        }
-    }
+    // for(i = 1; i <= 10; i++) {
+    //     if(breakloop) continue
+    //     try {
+    //         res = await CheckImage(`https://www.droguerialaeconomia.com/economia/site/img/galeria/${product.id}-${i}.jpg`)
+    //         if(res[0] > 0) $wrapper.addImage(res[1], `${product.id}-${i}`);
+    //     } catch(e) {
+    //         breakloop = true
+    //     }
+    // }
 
     if($wrapper.find(".thumbnail").length > 1) {
         $wrapper.show(0)

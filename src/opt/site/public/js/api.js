@@ -140,20 +140,9 @@ const API = {
             return await fetchAsync(`${URL.HOST}/ftorres/api/users/userinfo`, {body: {nit, email, nombres, auth_token}});
         },
 
-        async editProfile(nit, nombres, email, auth_token, {password = '', _nombres, _nit, fecha_nacimiento, telefono, celular}) {
+        async editProfile(nit, email, auth_token, nombres, password, confirm_password, fecha_nacimiento, telefono, celular) {
 
-            const fields = {
-                email,
-                password,
-                confirm_password: password,
-                nombres: _nombres,
-                nit: _nit,
-                fecha_nacimiento,
-                celular,
-                telefono
-            }
-
-            return await fetchAsync(`${URL.HOST}/ftorres/api/users/updateuserprofile`, {body: {marca: "TOR", nit, email, nombres, auth_token, ...fields}});
+            return await fetchAsync(`${URL.HOST}/ftorres/api/users/updateuserprofile`, {body: {marca: "TOR", nit, email, password, confirm_password, auth_token, nombres, fecha_nacimiento, telefono, celular}});
         },
 
         //bonos

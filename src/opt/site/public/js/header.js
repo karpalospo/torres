@@ -90,11 +90,14 @@ async function renderCiudades() {
 }
 
 function renderUser() {
-
+  
     if(store.user.logged) {
-        if(!store.user.nombres) return
-        let nombre = store.user.nombres.split(" ")[0].toUpperCase()
-        $("#lbl-nombre").html(nombre.toLowerCase())
+        if(store.user.nombres) {
+            let nombre = store.user.nombres.split(" ")[0].toUpperCase()
+            $("#lbl-nombre").html(nombre.toLowerCase())
+        } else {
+            //pLog('logout')
+        }
     } else {
         $("#lbl-nombre").html("Ingresar")
     }
@@ -129,7 +132,7 @@ Para ver los cupones de descuento disponibles debes iniciar sesión
 
     res = await API.POST.getCupones(store.user.nit)
 
-    if(!res.error && res.success != false) {
+    if(!res.error && Array.isArray(res.data)) {
         store.cupones = res.data
     } else {
         store.cupones = []

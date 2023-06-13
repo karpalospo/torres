@@ -18,11 +18,6 @@ return /*html*/`
 	${param.userCSS ? `<link href="${ABS_URL}/css/user.css" rel="stylesheet"></link>` : ""}
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
 	<link rel="shortcut icon" href="${ABS_URL}/assets/icon_logo.png" />
-	<!-- <link href="/css/styles.css" rel="stylesheet">
-	<link href="/css/plugins.css" rel="stylesheet"> -->
-	<!-- ${param.userCSS ? `<link href="/css/user.css" rel="stylesheet"></link>` : ""} -->
-	<!-- <link rel="shortcut icon" href="/assets/icon_logo.png" /> -->
-	
 </head>
 <body>`},
 
@@ -136,8 +131,8 @@ return /*html*/`
 		</div>
 		<div id="user-ubicacion" class="main-menu-item" style="border-left: 1px solid #eee;">
 			<i class="fas fa-map-marker-alt"></i>
-			<span id="lbl-ciudad" style="text-transform: capitalize;">ubicación...</span> <i
-				class="fas fa-chevron-down"></i>
+			<span id="lbl-ciudad" style="text-transform: capitalize;">ubicación...</span> 
+			<i class="fas fa-chevron-down"></i>
 		</div>
 		<div id="user-btn" class="main-menu-item">
 			<i class="fas fa-user"></i>

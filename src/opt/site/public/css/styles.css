@@ -237,15 +237,13 @@ select {
 #cart-badge {
     color: white;
     background: #0049fa;
-    margin-left: 3px;
     border-radius: 26px;
-    width: 25px;
-    height: 25px;
-    line-height: 25px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
     text-align: center;
+    font-weight: 400;
 }
-
-
 
 .cart {
     width: 50px;

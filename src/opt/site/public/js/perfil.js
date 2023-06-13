@@ -24,26 +24,24 @@ async function updateProfile(elem) {
 
     res = await API.POST.editProfile(
         store.user.nit, 
-        store.user.nombres, 
         store.user.email, 
         store.user.auth_token,
-        {
-            password: "",
-            newName: $("#frm-user-nombres").val(), 
-            newDocument: $("#frm-user-cc").val(), 
-            dateOfBirth: $("#frm-user-nacimiento").val(), 
-            phone: "", 
-            cellphone: $("#frm-user-celular").val()
-        } 
+        $("#frm-user-nombres").val() + " " + $("#frm-user-apellidos").val(),
+        "",
+        "", 
+        $("#frm-user-nacimiento").val(), 
+        "", 
+        $("#frm-user-celular").val()
+    
     )
 
-    if(!res.error) {
-        alert(res.message)
-        let d = res.data
-        store.user = Object.assign(store.user, {auth_token: d.auth_token, email: d.email, nit: d.nit, nombres: d.nombres})
-        write_cache("user", store.user)
-        renderUser()
-    }
+    // if(!res.error) {
+    //     alert(res.message)
+    //     let d = res.data
+    //     store.user = Object.assign(store.user, {auth_token: d.auth_token, email: d.email, nit: d.nit, nombres: d.nombres})
+    //     write_cache("user", store.user)
+    //     renderUser()
+    // }
 
     command($(elem), false)
 
