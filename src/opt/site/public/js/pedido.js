@@ -198,7 +198,7 @@ async function checkout() {
     if(!store.user.logged) return
     let min = store.order.subtotal - store.order.discount
     if(store.location == "11001" && min < 30000) return showOrderError("El pedido mínimo sin incluir domicilio es: $30.000 pesos")
-    if(store.location != "11001" && min < 15000) return showOrderError("El pedido mínimo sin incluir domicilio es: $15.000 pesos")
+    if(store.location != "11001" && min < 30000) return showOrderError("El pedido mínimo sin incluir domicilio es: $30.000 pesos")
     if($("#txt-cupon").val() != "" && !store.order.cupon) return showOrderError("Tiene un cupón sin aplicar. Presione el botón APLICAR")
     if(!store.payment) return showOrderError("Seleccione una forma de pago")
     if(!store.address) return showOrderError("Seleccione una dirección de entrega")
