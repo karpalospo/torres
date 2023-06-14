@@ -415,7 +415,7 @@ ${_(precioCondicion, /*html*/`
             <i class="fas fa-plus"></i>
         </div>`
         : 
-        /*html*/`<button class="add">AGREGAR</button>`
+        /*html*/`<button class="add">Agregar</button>`
         }
         </div>
     </div>
