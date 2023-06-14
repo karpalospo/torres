@@ -7,7 +7,7 @@ ${HTML.head({title: "Registro Exitoso"})}
 ${HTML.header}
 
 <div id="content">
-	<div class="tx-center">
+	<div class="tx-c">
 		<p>&nbsp;</p>
 		<img src="assets/logo.png" alt="logo" style="width:260px" />
 		<h3 style="color: #333; padding: 20px 0;">Felicitaciones, su registro fue exitoso</h3>

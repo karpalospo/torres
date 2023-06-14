@@ -154,7 +154,7 @@ ${HTML.header}
 
 				<div>
 					<div id="address-list" class="vselect-list"></div>
-					<div class="tx-center p15">
+					<div class="tx-c p15">
 						<button class="page-button-flat2 button-pink" onclick="editAddress('')"><i
 								class="fa fa-plus-circle"></i> &nbsp; Añadir una dirección</button>
 					</div>
@@ -168,10 +168,10 @@ ${HTML.header}
 
 			<div id="resumen" class="card" style="margin-top: 10px; padding: 10px;">
 				<div class="header-title">RESUMEN DE ORDEN</div>
-				<table id="sumario2" class="tables tx-right"></table>
+				<table id="sumario2" class="tables tx-r"></table>
 
 				<div class="frm-error" style="display:none"></div>
-				<div id="confirmar2" class="tx-center p15" style="display:none">
+				<div id="confirmar2" class="tx-c p15" style="display:none">
 					<button id="button-order2" onclick="checkout()" class="page-button">CONFIRMAR PEDIDO</button>
 				</div>
 			</div>
@@ -181,12 +181,12 @@ ${HTML.header}
 		<div id="back-stickybox">
 			<div id="stickybox" class="card" style="padding: 10px; margin-top: 20px; width: 230px;">
 
-				<div class="header-title tx-center">RESUMEN DE ORDEN</div>
+				<div class="header-title tx-c">RESUMEN DE ORDEN</div>
 				<br>
-				<table id="sumario" class="tables tx-right"></table>
+				<table id="sumario" class="tables tx-r"></table>
 
 				<div class="frm-error" style="display:none"></div>
-				<div id="confirmar" class="tx-center p15" style="display:none">
+				<div id="confirmar" class="tx-c p15" style="display:none">
 					<button id="button-order" onclick="checkout()" class="page-button">CONFIRMAR PEDIDO</button>
 				</div>
 

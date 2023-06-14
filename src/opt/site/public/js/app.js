@@ -427,6 +427,16 @@ async function pLog(event, payload = {}) {
 // ========================================================================== //
 // VISUAL
 
+function mostrarFiltros(show) {
+    if(show) {
+        $("#filtros").css("transform", "translateX(0)")
+        $("#filtro-spacer").css("width", 300)
+    } else {
+        $("#filtros").css("transform", "translateX(-100%)") 
+        $("#filtro-spacer").css("width", 0)
+    }
+}
+
 function disableScroll(disabled) {
 
     if(disabled) {
@@ -566,7 +576,7 @@ function showModalMessage(id, options = {}) {
 
         case "error-login":
             s = `
-<div class="tx-center" style="padding: 0 20px">
+<div class="tx-c" style="padding: 0 20px">
     <p>&nbsp;</p>
     <img src="assets/logo.png" alt="logo" style="width:260px"/>
     <h3 style="color: #333; padding: 20px 0;">

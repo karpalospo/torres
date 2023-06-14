@@ -50,7 +50,7 @@ ${HTML.header}
 			</div>
 
 			<br>
-			<p class="tx-center"><button onclick="updateProfile(this)" class="page-button">GUARDAR</button></p>
+			<p class="tx-c"><button onclick="updateProfile(this)" class="page-button">GUARDAR</button></p>
 
 			<br>
 			<div class="h4">Cambio de Contraseña</div>
@@ -67,7 +67,7 @@ ${HTML.header}
 			</div>
 
 			<br>
-			<p class="tx-center"><button onclick="updatePassword(this)" class="page-button">CAMBIAR</button></p>
+			<p class="tx-c"><button onclick="updatePassword(this)" class="page-button">CAMBIAR</button></p>
 			<br><br>
 		</div>
 	</div>

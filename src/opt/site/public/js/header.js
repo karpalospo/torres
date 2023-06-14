@@ -122,10 +122,10 @@ async function renderCupones() {
 <i class="big-font fas fa-exclamation-circle"></i><br>
 Para ver los cupones de descuento disponibles debes iniciar sesión
 </p><br/><br/>
-<p class="tx-center">
+<p class="tx-c">
     <button class="page-button" onclick="showModal(true, 'signin')">INICIAR SESIÓN</button>
 </div><br/><br/>
-<p class="tx-center">
+<p class="tx-c">
     <button class="page-button-flat2" onclick="parent.location = '/registro'">¡No tengo cuenta! Registrarme</button>
 </p>`)
     }

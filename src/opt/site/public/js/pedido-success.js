@@ -101,7 +101,7 @@ function renderSummary(d) {
     <div class="label">Nombre</div><b>${d.nombre}</b>
     <div class="label">Dirección</div><b>${d.direccion}<br>${d.ciudad}</b>
     <div class="dashed-line"></div>
-    <table class="tables tx-right">
+    <table class="tables tx-r">
         <tr><td>Subtotal</td><td><b>${f(d.subtotal + d.descuento)}</b></td></tr>
         <tr><td>Cupones o Bonos</td><td style="color: #ff402c;">${f(d.descuento * -1)}</td></tr>
         <tr><td>Domicilio</td><td><b>${f(d.domicilio)}</b></td></tr>

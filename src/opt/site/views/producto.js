@@ -98,7 +98,7 @@ ${HTML.header}
 
 		<div class="header-section">
 			<div></div>
-			<div class="tx-center"><span class="h2">productos relacionados</span></div>
+			<div class="tx-c"><span class="h2">productos relacionados</span></div>
 			<div class="row r-r" style="padding-right: 10px;">
 				<div class="bt-left"><i class="fas fa-chevron-left"></i></div>
 				<div class="bt-right"><i class="fas fa-chevron-right"></i></div>

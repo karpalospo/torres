@@ -22,20 +22,20 @@ async function page_init() {
 
     // acumulados
     acumulados.forEach(item => {
-        s += `<tr><td>${item.fecha.replace("T", " ")}</td><td class="title-case">${item.descripcion}</td><td class="tx-right"><b>${f(item.valor, "")}</b></td>`
+        s += `<tr><td>${item.fecha.replace("T", " ")}</td><td class="title-case">${item.descripcion}</td><td class="tx-r"><b>${f(item.valor, "")}</b></td>`
         sumacu += item.valor
     })
-    $("#movimientos-tbl").find("thead").html(`<tr><td style="width:120px">Fecha</td><td>Descripción</td><td style="width:90px" class="tx-right">Monto</td></tr>`)
+    $("#movimientos-tbl").find("thead").html(`<tr><td style="width:120px">Fecha</td><td>Descripción</td><td style="width:90px" class="tx-r">Monto</td></tr>`)
     $("#movimientos-tbl").find("tbody").html(s)
 
     // redenciones
     s = ""
     redenciones.forEach(item => {
         if(item.tipoMovimiento == "Devolucion en compra") return
-        s += `<tr><td>${item.fecha.replace("T", " ")}</td><td>${item.numero}</td><td>REDENCIÓN DE PUNTOS EN COMPRA</td><td class="tx-right"><b>${f(item.valor * -1, "")}</b></td>`
+        s += `<tr><td>${item.fecha.replace("T", " ")}</td><td>${item.numero}</td><td>REDENCIÓN DE PUNTOS EN COMPRA</td><td class="tx-r"><b>${f(item.valor * -1, "")}</b></td>`
         sumred += item.valor * -1
     })
-    $("#redenciones-tbl").find("thead").html(`<tr><td style="width:120px">Fecha</td><td>Número</td><td>Descripción</td><td style="width:90px" class="tx-right">Monto</td></tr>`)
+    $("#redenciones-tbl").find("thead").html(`<tr><td style="width:120px">Fecha</td><td>Número</td><td>Descripción</td><td style="width:90px" class="tx-r">Monto</td></tr>`)
     $("#redenciones-tbl").find("tbody").html(s)
 
     $("#ahorro-lbl").html(f(sumred))

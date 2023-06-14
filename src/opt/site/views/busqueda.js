@@ -8,9 +8,14 @@ ${HTML.header}
 
 <div id="content">
 
-	<div class="row r-t">
+	<div id="back-filtros">
 
-		<div id="filtros" style="width: 290px; padding: 10px 18px 0 15px; box-sizing: border-box;">
+		<div id="filtros">
+			<div id="filtroboton" class="row r-r">
+				<button onclick="mostrarFiltros(false)" class="circulo-negro">
+					<i class="fas fa-times"></i>
+				</button>
+			</div>
 			<h3>Ordernar por</h3>
 			<div id="sort-div"></div>
 
@@ -36,11 +41,15 @@ ${HTML.header}
 			<br>
 
 		</div>
-
-		<div id="resultado-list"
-			style="width: calc(100% - 310px); margin-bottom:50px; margin-right: 15px; padding-top: 10px;">
-			<div class="porta-medida">
-				<div id="medida" class="products-list"></div>
+		<div id="filtro-spacer"></div>
+		<div style="flex: 1; margin-bottom:50px; margin:0 15px; padding-top: 10px;">
+			<div id="verfiltros">
+				<button onclick="mostrarFiltros(true)">Mostrar Filtros</button>
+			</div>
+			<div id="resultado-list">	
+				<div class="porta-medida">
+						<div id="medida" class="products-list"></div>
+				</div>
 			</div>
 		</div>
 

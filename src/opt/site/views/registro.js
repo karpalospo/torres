@@ -79,7 +79,7 @@ ${HTML.header}
 				</div>
 			</div>
 
-			<p class="tx-center">
+			<p class="tx-c">
 				<a href="empresa-politicas.html" class="link" target="_blank"><i class="fas fa-external-link-alt"></i>
 					Ver página de políticas y términos de uso</a>
 				<br>
@@ -93,7 +93,7 @@ ${HTML.header}
 
 		<div id="login-error2" class="registerError"></div>
 		<br>
-		<div class="tx-center">
+		<div class="tx-c">
 			<button class="page-button" onclick="signup(this)"
 				style="max-width: 150px; margin: 0 auto;">REGISTRARME</button>
 			<br><br><br>

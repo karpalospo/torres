@@ -86,7 +86,7 @@ ${HTML.header}
 						<table style="min-width: 220px;">
 							<tr>
 								<td>Total puntos conseguidos</td>
-								<td class="tx-right">&nbsp; <b><span id="conseguidos-lbl"></span></b></td>
+								<td class="tx-r">&nbsp; <b><span id="conseguidos-lbl"></span></b></td>
 							</tr>
 							<tr>
 								<td>
@@ -96,7 +96,7 @@ ${HTML.header}
 							</tr>
 							<tr>
 								<td>Total puntos canjeados</td>
-								<td class="tx-right">&nbsp; <b><span id="canjeados-lbl"></span></b></td>
+								<td class="tx-r">&nbsp; <b><span id="canjeados-lbl"></span></b></td>
 							</tr>
 						</table>
 					</div>
@@ -106,9 +106,9 @@ ${HTML.header}
 				<div class="tabs" style="display: none;">
 
 					<div class="border-cont" style="padding-top: 0;">
-						<p class="tx-center"><img src="https://imperacore.net/assets/logo_vida.jpg" alt=""
+						<p class="tx-c"><img src="https://imperacore.net/assets/logo_vida.jpg" alt=""
 								style="width: 250px;" /></p>
-						<span class="tx-center"
+						<span class="tx-c"
 							style="display:block; color:#fa7800; font-size: 1.4em; margin-top: -8px;">Bienestar para
 							<b>TODOS</b></span>
 

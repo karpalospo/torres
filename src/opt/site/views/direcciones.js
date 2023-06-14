@@ -14,7 +14,7 @@ ${HTML.header}
 			<div class="h4">Mis Direcciones</div>
 			<br>
 			<div id="address-list" class="vselect-list"></div>
-			<div class="tx-center p15">
+			<div class="tx-c p15">
 				<button class="page-button-flat2 button-pink" onclick="editAddress('')"><i
 						class="fa fa-plus-circle"></i> &nbsp; Añadir una dirección</button>
 			</div>

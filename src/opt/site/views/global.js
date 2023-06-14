@@ -26,7 +26,7 @@ return /*html*/`
 	<div id="bg-user-profile">
 		<div id="user-profile"></div>
 	</div>
-	<div id="username" class="h4 tx-center">Usuario</div>
+	<div id="username" class="h4 tx-c">Usuario</div>
 	<br>
 	<ul id="menu-ul">
 		<li><a href="/perfil"><i class="fas fa-user-circle"></i> Mi cuenta</a></li>
@@ -35,7 +35,7 @@ return /*html*/`
 		<li><a href="/direcciones"><i class="fas fa-map-marker-alt"></i> Mis Direcciones</a></li>
 	</ul>
 	<br>
-	<p class="tx-center"><button onclick="pLog('logout')" class="page-button" style="background: #fa1d00; font-size:0.8em"><i class="fas fa-times-circle"></i> CERRAR SESIÓN</button></p>
+	<p class="tx-c"><button onclick="pLog('logout')" class="page-button" style="background: #fa1d00; font-size:0.8em"><i class="fas fa-times-circle"></i> CERRAR SESIÓN</button></p>
 </div>`,
 
 	scripts: /*html*/`
@@ -58,7 +58,7 @@ return /*html*/`
 			<button>Suscribir</button>
 		</div>
 		<div style="height: 20px;"></div> -->
-		<h3 class="tx-center">Mantente en contacto con nosotros</h3>
+		<h3 class="tx-c">Mantente en contacto con nosotros</h3>
 		<div id="contacto">
 			<div><i class="far fa-envelope"></i> <a
 					href="mailto:servicioalcliente@farmaciatorres.com">servicioalcliente@farmaciatorres.com</a></div>
@@ -66,7 +66,7 @@ return /*html*/`
 			<div><a href="#"><i class="fas fa-comment"></i> Radicar PQRS</a></div>
 		</div>
 		<div style="height: 20px;"></div>
-		<h3 class="tx-center">Síguenos en nuestras redes sociales</h3>
+		<h3 class="tx-c">Síguenos en nuestras redes sociales</h3>
 		<div class="row r-c social-icon">
 			<a target="_blank" rel="noopener noreferrer" href="#"><img src="${ABS_URL}/assets/face.png" alt="face"></a>
 			<a target="_blank" rel="noopener noreferrer" href="#"><img src="${ABS_URL}/assets/twitter.png"
@@ -106,10 +106,17 @@ return /*html*/`
 		&copy; 2023 Farmacia Torres. Todos los derechos reservados. v1.0
 	</div>
 </div>
+
 `,
 
 	header: /*html*/`
 <div id="modals-cont"></div>
+<div id="buttomBar">
+	<div><i class="fas fa-th-large"></i>Categorias</div>
+	<div><i class="fas fa-user"></i>Acceso</div>
+	<div><i class="fas fa-map-marker-alt"></i>Ubicación</div>
+	<div><i class="fas fa-history"></i>Pedidos</div>
+</div>
 <div id="header-cont">
 	<div id="header" class="max-width">
 		<div id="logo" style="width:230px">
@@ -117,7 +124,7 @@ return /*html*/`
 				<img src="${ABS_URL}/assets/logo.png" alt="" style="width: 100%;" />
 			</a>
 		</div>
-		<div id="logo2" style="width:35px;">
+		<div id="logo2" style="width:30px;">
 			<a href="/">
 				<img src="${ABS_URL}/assets/icon_logo.png" alt="" style="width: 100%;" />
 			</a>
@@ -148,6 +155,9 @@ return /*html*/`
 		<div id="categories" class="max-width"></div>
 	</div>
 </div>
-`
+`,
+
+
+
 
 }

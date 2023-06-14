@@ -9,7 +9,7 @@ function page_init() {
 
     resize()
     renderLoading($resultado_list)
-    $("#categorias-filter, #marcas-filter, #laboratorio-filter, #precio-filter").html(`<div class="tx-center"><img src="${ABS_URL}/assets/loader.gif" style="width: 25px; opacity: 0.3;" /></div>`)
+    $("#categorias-filter, #marcas-filter, #laboratorio-filter, #precio-filter").html(`<div class="tx-c"><img src="${ABS_URL}/assets/loader.gif" style="width: 25px; opacity: 0.3;" /></div>`)
     
     if(sub != undefined && sub != "") search_cats(sub)
 
