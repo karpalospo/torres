@@ -344,7 +344,7 @@ ${_(item.description, `<div class="descripcion">${item.description}</div>`)}
             <input type="text" value="${cart._quanty}" />
             <i class="fas fa-plus" onclick="productDetailClick(this)"></i>
         </div>`
-        : /*html*/`<button class="add" onclick="productDetailClick(this)">AGREGAR</button>`}
+        : /*html*/`<button class="add" onclick="productDetailClick(this)">Agregar</button>`}
     </div>
 </div>
 
@@ -415,7 +415,7 @@ ${_(precioCondicion, /*html*/`
             <i class="fas fa-plus"></i>
         </div>`
         : 
-        /*html*/`<button class="add">AGREGAR</button>`
+        /*html*/`<button class="add">Agregar</button>`
         }
         </div>
     </div>
