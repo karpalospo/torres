@@ -121,7 +121,7 @@ return /*html*/`
 	<div id="header" class="max-width">
 		<div id="logo" style="width:230px">
 			<a href="/">
-				<img src="${ABS_URL}/assets/logo.png" alt="" style="width: 100%;" />
+				<img src="${ABS_URL}/assets/logo2.png" alt="" style="width: 100%;" />
 			</a>
 		</div>
 		<div id="logo2" style="width:30px;">
@@ -136,7 +136,7 @@ return /*html*/`
 				<button class="btn-search"><i class="fa fa-search"></i></button>
 			</div>
 		</div>
-		<div id="user-ubicacion" class="main-menu-item" style="border-left: 1px solid #eee;">
+		<div id="user-ubicacion" class="main-menu-item" style="border-left: 1px solid rgba(255,255,255,0.3)">
 			<i class="fas fa-map-marker-alt"></i>
 			<span id="lbl-ciudad" style="text-transform: capitalize;">ubicación...</span> 
 			<i class="fas fa-chevron-down"></i>
@@ -146,7 +146,7 @@ return /*html*/`
 			<span id="lbl-nombre">Acceso</span> <i class="fas fa-chevron-down"></i>
 		</div>
 		<div class="main-menu-item relative" onclick="showCart(true)" data-id="cart">
-			<i class="fas fa-shopping-cart" style="font-size:1.5em"></i>
+			<i class="fas fa-shopping-cart" style="font-size: 1.3em"></i>
 			<div id="cart-badge">0</div>
 		</div>
 	</div>

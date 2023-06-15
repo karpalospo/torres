@@ -73,6 +73,7 @@ select {
     align-items: center;
     justify-content: space-between;
     font-size: 0.9em;
+    background-color: #0049fa;
 }
 
 
@@ -98,7 +99,7 @@ select {
 #categories > div {
     color: white;
     margin: 0 10px;
-    font-size: 0.9em;
+    font-size: 0.85em;
     cursor: default;
     height: 35px;
     line-height: 35px;
@@ -107,6 +108,8 @@ select {
     white-space: nowrap;
     min-width: 70px;
     text-overflow: ellipsis;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 #categories > div:hover {
@@ -211,8 +214,8 @@ select {
     display: flex;
     align-items: center;
     padding: 8px 20px;
-    border-right: 1px solid #eee;
-    color: #fa7800;
+    border-right: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
     font-weight: 500;
 }
 
@@ -225,7 +228,7 @@ select {
     font-size: 0.8em;
     margin-left: 6px;
     margin-top: 3px;
-    color: #444;
+    color: #fff;
 }
 
 .main-menu-item:hover {
@@ -235,7 +238,7 @@ select {
 
 #cart-badge {
     color: white;
-    background: #0049fa;
+    background: #fa7800;
     border-radius: 26px;
     width: 20px;
     height: 20px;
@@ -3246,6 +3249,7 @@ h3 {
 
     .main-menu-item {
         padding: 15px 5px;
+        border-right: none;
     }
     
     #logo2 {
