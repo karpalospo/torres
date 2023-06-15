@@ -71,7 +71,7 @@ async function renderCiudades() {
             if(item.Ciudad == store.location) {
                 store.cc = item
                 store.order = {shipping: item.valor_domicilio}
-                $("#lbl-ciudad").html(item.Descripcion.toLowerCase())
+                $("#lbl-ciudad, #lbl-ciudad2").html(item.Descripcion.toLowerCase())
                 s += `<option selected value="${item.Ciudad}">${item.Descripcion}</option>`
             } else s += `<option value="${item.Ciudad}">${item.Descripcion}</option>`
         })
@@ -85,6 +85,10 @@ async function renderCiudades() {
 
     $("#user-ubicacion").off("mouseout").on("mouseout", function(e){
         clearTimeout(timeout2)
+    })
+
+    $("#user-ubicacion2").off("click").on("click", function(e){
+        showModal(true, 'ubicacion')
     })
 
 }
@@ -111,7 +115,8 @@ function renderUser() {
         clearTimeout(timeout2)
     })
     $("#user-btn2").off("click").on("click", function(e){
-        showModal(true, 'signin')
+        if(store.user.logged && store.user.nombres) parent.location = "perfil"
+        else showModal(true, 'signin')
     })
 
 }

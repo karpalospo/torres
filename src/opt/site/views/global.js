@@ -114,8 +114,8 @@ return /*html*/`
 <div id="buttomBar">
 	<div><i class="fas fa-th-large"></i>Categorias</div>
 	<div id="user-btn2"><i class="fas fa-user"></i><span id="lbl-nombre">Acceso</span></div>
-	<div><i class="fas fa-map-marker-alt"></i>Ubicación</div>
-	<div><i class="fas fa-history"></i>Pedidos</div>
+	<div id="user-ubicacion2"><i class="fas fa-map-marker-alt"></i><span id="lbl-ciudad2">Ubicación</span></div>
+	<div onclick="parent.location='pedidos'"><i class="fas fa-history"></i>Pedidos</div>
 </div>
 <div id="header-cont">
 	<div id="header" class="max-width">
