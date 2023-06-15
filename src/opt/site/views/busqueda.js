@@ -6,19 +6,20 @@ return /*html*/`
 ${HTML.head({title: "Búsqueda | " + str})}
 ${HTML.header}
 
-<div id="content">
+<div id="content" style="background-color:#f6f6f6">
 
 	<div id="back-filtros">
 
 		<div id="filtros">
-			<div id="filtroboton" class="row r-r">
+			<div class="row r-r">
+				<div class="f1 tx-c" style="font-family: 'Be Vietnam Pro'">Panel de Filtros</div>
 				<button onclick="mostrarFiltros(false)" class="circulo-negro">
 					<i class="fas fa-times"></i>
 				</button>
 			</div>
 			<h3>Ordernar por</h3>
 			<div id="sort-div"></div>
-
+			<br>
 			<h3>Filtrar por Categoría</h3>
 			<div class="card">
 				<div id="categorias-filter" class="accordion3"></div>
@@ -41,19 +42,18 @@ ${HTML.header}
 			<br>
 
 		</div>
-		<div id="filtro-spacer"></div>
-		<div style="flex: 1; margin-bottom:50px; margin:0 15px; padding-top: 10px;">
-			<div id="verfiltros">
-				<button onclick="mostrarFiltros(true)">Mostrar Filtros</button>
-			</div>
+		<div id="filtro-spacer" class="width300"></div>
+		<div class="resultados-cont">
 			<div id="resultado-list">	
 				<div class="porta-medida">
-						<div id="medida" class="products-list"></div>
+					<div id="medida" class="products-list"></div>
 				</div>
 			</div>
 		</div>
 
 	</div>
+
+	<div style="height: 50px"></div>
 </div>
 
 ${HTML.footer}

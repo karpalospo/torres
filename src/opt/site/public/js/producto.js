@@ -17,26 +17,7 @@ async function page_init() {
     //     navigation: {nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev'}
     // })
 
-    let $window = $(window)
 
-    var $scrollingDiv = $("#porta-foto");
-    let currentTopGlobal = parseInt($scrollingDiv.offset().top)
-    let ceilTop = currentTopGlobal
-    let currentH = $scrollingDiv.height()
-    let compareH = $scrollingDiv.parent().height()
-
-    $scrollingDiv.width($scrollingDiv.parent().width())
-
-    $window.scroll(function(){     
-
-        if ($window.scrollTop() + ceilTop > currentTopGlobal) {
-            if($window.scrollTop() + currentH < compareH) {
-                $scrollingDiv.css({position: 'fixed', top:`${ceilTop}px`, bottom: ''})
-            } else {
-                $scrollingDiv.css({position: 'absolute', top:'', bottom: 0})
-            }
-        } else $scrollingDiv.css({position: '', top:'', bottom: ''})
-    });
 }
 
 async function search_products2(collection, str, $target, options) {

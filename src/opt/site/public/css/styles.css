@@ -6,9 +6,8 @@
 
 :root {
     --header-height: 95px;
-    --header-height-mobile: 65px;
+    --header-height-mobile: 60px;
 }
-
 
 body, html {
     padding: 0;
@@ -558,7 +557,7 @@ select {
 .products-list {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     grid-row-gap: 1px;
     grid-column-gap: 1px;
     background: #eee;
@@ -610,7 +609,6 @@ select {
     padding: 0 10px;
     position: absolute;
     height: 22px;
-    z-index: 10;
     background: #fa7800;
     border-radius: 30px;
 }
@@ -1639,6 +1637,16 @@ h3 {
     opacity: 0.8;
 }
 
+.h2 {
+    color: #0049fa;
+    font-size: 1.76em;
+    display: inline-block;
+    cursor: default;
+    background-clip: text;
+    font-weight: 600;
+    font-family: 'Mulish', sans-serif;
+}
+
 .h4 {
     color: #333;
     font-size: 1.2em;
@@ -1652,30 +1660,14 @@ h3 {
     padding: 15px 2px;
 }
 
-
-.h2 {
-    color: #0049fa;
-    font-size: 1.76em;
-    display: inline-block;
-    cursor: default;
-    background-clip: text;
-    font-weight: 600;
-    font-family: 'Mulish', sans-serif;
-}
-
-.soft-gray {
-	margin-top: 8px;
-	color: #777;
-	text-align: center;
-}
-
-
-.results-cont {
-    padding: 0 8px 0 10px;
-    color: #333;
-    border-radius: 6px;
-    font-weight: 400;
-    font-size: 1.1em;
+.resultados-cont {
+    flex: 1;
+    padding: 15px;
+    box-shadow: -2px 0 10px 0 rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 10;
+    min-height: 800px;
+    background-color: white;
 }
 
 #filter-cont {
@@ -1683,9 +1675,9 @@ h3 {
 }
 
 .filter-item {
-    background-color: #fffcf0;
+    background-color: #fffbf4;
     text-align: center;
-    border-radius: 8px;
+    border-radius: 4px;
     border: 1px solid #ccc;
     min-width: 80px;
     max-width: 147px;
@@ -1700,14 +1692,18 @@ h3 {
     position: relative;
     float: left;
     box-shadow: 2px 2px 10px 0 rgba(0,0,0,0.2);
+    line-height: 0.9em;
+    font-weight: bold;
 }
 
 .filter-item > span {
     display: block;
     font-size: 0.95em;
-    color: #555;
+    color: #343333;
     padding-top: 4px;
-    font-weight: 400;
+    font-weight: 300;
+    font-style: italic;
+    text-transform: lowercase;
 }
 
 .filter-item > div {
@@ -1773,134 +1769,6 @@ h3 {
     border-right: 1px solid #ddd;
     color: #222;
     font-size: 0.85em;
-}
-
-#product-detail {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-}
-
-#product-detail .info {
-    padding: 0 10px 0 40px;
-}
-
-#product-detail .info-precio {
-    margin-top: 15px;
-    padding:10px;
-    border:1px solid rgb(235, 70, 70);
-    background-color: #fdf1f1;
-    border-radius:6px;
-
-}
-
-#product-detail .precio-cont {
-    margin: 30px 0;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-#product-detail .detalle-titulo {
-    font-size: 1.6em;
-    text-transform: capitalize;
-    color: #333;
-    font-weight: 600;
-    font-family: 'Be Vietnam Pro', sans-serif;
-    margin-bottom: 10px;
-}
-
-#product-detail .descripcion {
-    font-weight: 400;
-    color: #3a556a;
-}
-
-#product-detail .precio {
-    font-size: 1.4em;
-    font-weight: bold;
-    color: #333;
-}
-
-
-#product-detail .antes {
-    margin: 0 8px;
-    color: #555;
-    font-size: 1.0em;
-    text-decoration: line-through;
-}
-
-#product-detail .pcondicion {
-    color: #ff402c;
-    margin-left: 9px;
-    font-weight: bold;
-    font-size: 1.3em;
-}
-
-#product-detail .descuento {
-    position: relative;
-    width: 35px;
-    border-radius: 37px;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    line-height: 35px;
-    height: 35px;
-    background: #fa7800;
-}
-
-#product-detail .descuento .label {
-    position: absolute;
-    text-align: center;
-    width: 35px;
-    top: 0;
-    font-weight: bold;
-    font-size: 0.8em;
-}
-
-#product-detail .cantidad {
-    width: 120px;
-    margin-left: 20px;
-}
-
-#product-detail .cantidad  i {
-    display: inline-block;
-    background: linear-gradient(180deg, rgb(46, 140, 255) 0%, #0a61d0 100%);
-    border-radius: 14px;
-    color: white;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-}
-
-#product-detail .cantidad i:hover {
-    cursor: default;
-}
-
-#product-detail .cantidad input {
-    border: 1px solid #c6c6c6;
-    background-color: #fff;
-    font-size: 1.5em;
-    width: 30px;
-    text-align: center;
-    border-radius: 5px;
-}
-
-#product-detail button {
-    background: linear-gradient(180deg, rgb(255 160 71) 0%, #d66700 100%);
-    font-family: "Roboto";
-    color: white;
-    padding: 9px 40px;
-    border: none;
-    border-radius: 7px;
-    box-shadow: 0 0 8px 0 rgba(0 0 0 / 30%);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-    position: relative;
-    margin-left: 20px;
-}
-
-#product-detail button:hover {
-    opacity: 0.8;
 }
 
 .link2 {
@@ -2305,6 +2173,13 @@ h3 {
     margin-bottom: 10px;
 }
 
+.width0 {
+    width: 0;
+}
+
+.width300 {
+    width: 300px;
+}
 
 .progressbar {
     width: 100%;
@@ -2850,11 +2725,13 @@ h3 {
 }
 
 #crumbs {
+    width: 100%;
     margin: 15px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     font-size: 0.9em;
+    overflow-x: auto;
 }
 
 #crumbs > div:not(.separator) {
@@ -2862,6 +2739,7 @@ h3 {
     border-radius: 25px;
     color: #fa7800;
     border: 1px solid #f5c292;
+    white-space: nowrap;
 }
 
 #crumbs > div.separator {
@@ -2931,17 +2809,15 @@ h3 {
     width: 100%;
     padding: 10px 18px 0 15px;
     box-sizing: border-box;
-    background: white;
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     z-index: 10;
-    overflow: auto;
     max-width: 300px;
-    transform: translateX(0);
     transition: 0.4s ease;
-    box-shadow: 1px 1px 20px 0 rgb(0 0 0 / 20%);
+    /* border-radius: 0 20px 20px 0; */
+    overflow: auto;
 }
 
 #filtros h3 {
@@ -2952,8 +2828,32 @@ h3 {
 }
 
 #filtro-spacer {
-    width: 300px;
-    transition: 0.4s ease;
+   transition: 0.4s ease;
+}
+
+.addFiltro {
+    border: 1px dashed #ccc;
+    padding: 7px 12px 7px 12px;
+    border-radius: 4px;
+    color: #666;
+    background: #f6f6f6;
+    margin: 4px;
+    float: left;
+    box-shadow: 2px 2px 10px 0 rgba(0,0,0,0.2);
+    height: 42px;
+}
+
+.addFiltro:hover {
+    cursor:pointer;
+    opacity: 0.8;
+}
+
+.hidePanel {
+    transform: translateX(-100%) !important;
+}
+
+.showPanel {
+    transform: translateX(0) !important;
 }
 
 .collapsible {
@@ -3226,8 +3126,6 @@ h3 {
     background-color: white;
 }
 
-
-
 .col3 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -3245,6 +3143,9 @@ h3 {
 	animation-timing-function: ease-in;
 	animation-duration: 0.8s;
 }
+
+
+
 
 @keyframes fadeInOpacity {
 	0% {
@@ -3294,6 +3195,7 @@ h3 {
     }
 
 
+
 }
 
 @media only screen and (max-width: 800px) {
@@ -3302,20 +3204,21 @@ h3 {
         margin-bottom: 50px;
     }
 
+    .resultados-cont {
+        z-index: 0;
+    }
+
     #back-filtros {
         grid-template-columns: 15px 1fr;
     }
 
     #filtros {
         transform: translateX(-100%);
+        background-color: white;
     }
 
-    #filtro-spacer {
+    .width300 {
         width: 0;
-    }
-
-    #filtroboton {
-        display: none;
     }
 
     #buttomBar {
@@ -3377,4 +3280,23 @@ h3 {
         opacity: 1;
         cursor: pointer;
     }
+
+    .showPanel {
+        box-shadow: 0 2px 20px 0 rgba(0 0 0 / 30%) !important;
+    }
+
+    .bg-blanco {
+        margin: 0;
+    }
+
+    #crumbs > div:not(.separator) {
+        padding: 5px;
+        border: none;
+    }
+
+    #crumbs {
+        margin: 10px 5px;
+        font-size: 0.8em;
+    }
+
 }

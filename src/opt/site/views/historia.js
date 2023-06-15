@@ -17,7 +17,7 @@ ${HTML.header}
 		</div>
 	
 		<br><br>
-		<div class="row">
+		<div class="row r-t">
 			<div>
 			<h2 class="text-center">MISIÓN</h2><p>Estamos dedicados a proteger la salud a través de la comercialización de productos farmacéuticos, productos para el cuidado del bebé, cosméticos y de higiene personal con cubrimiento nacional ofreciendo calidad, seguridad y economía para toda la comunidad con un equipo humano comprometido en el mejoramiento continuo para el bienestar de los usuarios, empleados y accionistas.</p>
 			</div>

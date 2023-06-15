@@ -94,12 +94,12 @@ function renderUser() {
     if(store.user.logged) {
         if(store.user.nombres) {
             let nombre = store.user.nombres.split(" ")[0].toUpperCase()
-            $("#lbl-nombre").html(nombre.toLowerCase())
+            $("#lbl-nombre, #lbl-nombre2").html(nombre.toLowerCase())
         } else {
-            //pLog('logout')
+            pLog('logout')
         }
     } else {
-        $("#lbl-nombre").html("Ingresar")
+        $("#lbl-nombre, #lbl-nombre2").html("Acceso")
     }
 
     $("#user-btn").off("mouseover").on("mouseover", function(e){
@@ -109,6 +109,9 @@ function renderUser() {
 
     $("#user-btn").off("mouseout").on("mouseout", function(e){
         clearTimeout(timeout2)
+    })
+    $("#user-btn2").off("click").on("click", function(e){
+        showModal(true, 'signin')
     })
 
 }

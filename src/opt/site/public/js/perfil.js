@@ -35,13 +35,13 @@ async function updateProfile(elem) {
     
     )
 
-    // if(!res.error) {
-    //     alert(res.message)
-    //     let d = res.data
-    //     store.user = Object.assign(store.user, {auth_token: d.auth_token, email: d.email, nit: d.nit, nombres: d.nombres})
-    //     write_cache("user", store.user)
-    //     renderUser()
-    // }
+    if(!res.error) {
+        alert(res.message)
+        let d = res.data
+        store.user = Object.assign(store.user, {auth_token: d.auth_token, email: d.email, nit: d.nit, nombres: d.nombres})
+        write_cache("user", store.user)
+        renderUser()
+    }
 
     command($(elem), false)
 

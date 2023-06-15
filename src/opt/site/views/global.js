@@ -113,7 +113,7 @@ return /*html*/`
 <div id="modals-cont"></div>
 <div id="buttomBar">
 	<div><i class="fas fa-th-large"></i>Categorias</div>
-	<div><i class="fas fa-user"></i>Acceso</div>
+	<div id="user-btn2"><i class="fas fa-user"></i><span id="lbl-nombre">Acceso</span></div>
 	<div><i class="fas fa-map-marker-alt"></i>Ubicación</div>
 	<div><i class="fas fa-history"></i>Pedidos</div>
 </div>
@@ -143,7 +143,7 @@ return /*html*/`
 		</div>
 		<div id="user-btn" class="main-menu-item">
 			<i class="fas fa-user"></i>
-			<span id="lbl-nombre">Iniciar Sesión</span> <i class="fas fa-chevron-down"></i>
+			<span id="lbl-nombre">Acceso</span> <i class="fas fa-chevron-down"></i>
 		</div>
 		<div class="main-menu-item relative" onclick="showCart(true)" data-id="cart">
 			<i class="fas fa-shopping-cart" style="font-size:1.5em"></i>

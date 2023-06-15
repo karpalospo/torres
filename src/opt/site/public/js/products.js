@@ -137,16 +137,18 @@ function renderProducts($target, products, options = {}, ret) {
     if(options.headerFilter) {
 
         let s = "", labels = {subcategorias: "categoría", marcas: "marca", proveedores: "laboratorio"};
-        console.log(ret)
-        $target.append(`<div class="section${options.section}">${options.headerFilter ? `<div class="products-header">Mostrando <b>${ret.rendered.length}</b> productos filtrados por</div>` : ""}<div id="filter-cont"></div><div class="products-page"></div></div>`)
+ 
+        $target.append(/*html*/`<div class="section${options.section}">${options.headerFilter ? `<div class="products-header">Mostrando <b>${ret.rendered.length}</b> productos filtrados por</div>` : ""}
+            <div id="filter-cont"></div>
+            <div class="products-page"></div>
+        </div>`)
         
-
         forEach(filter, (item, key) => {
             if(key == "precio") {
                 if(item.length > 0 && (rangeValues[0] != item[0] || rangeValues[1] != item[1])) s += `<div class="filter-item">de ${f(item[0])} a ${f(item[1])}<span>precio</span><div onclick="resetPrice()"></div></div>`
             } else {
                 forEach(item, f => {
-                    label = f.toLowerCase()
+                    let label = f.toLowerCase()
                     if(key == "subcategorias") label = store.categorias[label.substr(0, label.length -2)].subs[label].title
                     s += `<div class="filter-item">${label}<span>${labels[key]}</span><div onclick="filterClick('${f}', '${key}')"></div></div>`
                 })
@@ -154,24 +156,34 @@ function renderProducts($target, products, options = {}, ret) {
         })
 
         if(s == "") $target.find(".products-header").html(currentHeader)
-        $("#filter-cont").html(s + `<div style="clear:both"></div>`)
+        $("#filter-cont").html(`<button class="addFiltro" onclick="mostrarFiltros(true)"><i class="fas fa-filter"></i> Agrega un filtro</button>` + s + `<div style="clear:both"></div>`)
 
         if(ret.rendered.length == 0) $("#no-resultado").show(0)
         else $("#no-resultado").hide(0)
 
         
-    } else if(options.header) {
-        currentHeader = options.header
-        $target.append(`<div class="section${options.section}">${options.header ? `<div class="products-header">${options.header}</div>` : ""}<div class="products-page"></div></div>`)
-    } else if(options.headerLike) {
-        currentHeader = `Mostrando <b>${ret.rendered.length}</b> resultados parecidos a <b>${options.headerLike}</b>`
-        $target.append(`<div class="section${options.section}"><div class="products-header">${currentHeader}</div><div class="products-page"></div></div>`)
-    } else if(options.headerExact) {
-        currentHeader = `Mostrando <b>${ret.rendered.length}</b> resultados para <b>${options.headerExact}</b>`
-        $target.append(`<div class="section${options.section}"><div class="products-header">${currentHeader}</div><div id="banner" style="margin-bottom:10px"></div><div class="products-page"></div></div>`)
     } else {
-        $target.append(`<div class="section${options.section}">${currentHeader ? `<div class="products-header">${currentHeader}</div>` : ""}<div class="products-page"></div></div>`)
+        if(options.header) {
+            currentHeader = options.header
+        } else if(options.headerLike) {
+            currentHeader = `Mostrando <b>${ret.rendered.length}</b> resultados parecidos a <b>${options.headerLike}</b>`
+        } else if(options.headerExact) {
+            currentHeader = `Mostrando <b>${ret.rendered.length}</b> resultados para <b>${options.headerExact}</b>`
+        }
+
+        $target.append(/*html*/`<div class="section${options.section}">
+            ${currentHeader ? `<div class="products-header">${currentHeader}</div>` : ""}
+            <div><button class="addFiltro" onclick="mostrarFiltros(true)"><i class="fas fa-filter"></i> Agrega un filtro</button><div style="clear:both"></div></div>
+            <div id="banner" style="margin-bottom:10px"></div>
+            <div class="products-page"></div>
+        </div>`)
+        
     }
+
+    $(".addFiltro").hide(0)
+
+    if($(window).width() < 800 && options.filter) $(".addFiltro").show(0)
+
     
     renderPage($target.find(`.section${options.section}`), products, items_per_page)
     
@@ -344,7 +356,7 @@ ${_(item.description, `<div class="descripcion">${item.description}</div>`)}
             <input type="text" value="${cart._quanty}" />
             <i class="fas fa-plus" onclick="productDetailClick(this)"></i>
         </div>`
-        : /*html*/`<button class="add" onclick="productDetailClick(this)">Agregar</button>`}
+        : /*html*/`<button class="add" onclick="productDetailClick(this)">AGREGAR</button>`}
     </div>
 </div>
 
@@ -354,7 +366,7 @@ ${_(precioCondicion, /*html*/`
     </div>
 `)}
 
-<div class="rating-cont">
+<!-- <div class="rating-cont">
     <div id="rating">
         <span class="fa fa-star checked"></span>
         <span class="fa fa-star checked"></span>
@@ -367,7 +379,9 @@ ${_(precioCondicion, /*html*/`
         <span style="color: #317ce7; padding: 0 12px;">27 opiniones</span>
         <div id="opinar-btn">Escribir Opinión</div>
     </div>
-</div>`
+</div> -->
+
+`
         
 
         case "no-detail":
@@ -415,7 +429,7 @@ ${_(precioCondicion, /*html*/`
             <i class="fas fa-plus"></i>
         </div>`
         : 
-        /*html*/`<button class="add">Agregar</button>`
+        /*html*/`<button class="add">AGREGAR</button>`
         }
         </div>
     </div>

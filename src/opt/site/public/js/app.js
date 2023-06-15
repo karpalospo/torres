@@ -429,11 +429,13 @@ async function pLog(event, payload = {}) {
 
 function mostrarFiltros(show) {
     if(show) {
-        $("#filtros").css("transform", "translateX(0)")
-        $("#filtro-spacer").css("width", 300)
+        $("#filtros").removeClass("hidePanel").addClass("showPanel")
+        $("#filtro-spacer").removeClass("width0").addClass("width300")
+        $(".addFiltro").hide(0)
     } else {
-        $("#filtros").css("transform", "translateX(-100%)") 
-        $("#filtro-spacer").css("width", 0)
+        $("#filtros").removeClass("showPanel").addClass("hidePanel")
+        $("#filtro-spacer").removeClass("width300").addClass("width0")
+        $(".addFiltro").show(0)
     }
 }
 
