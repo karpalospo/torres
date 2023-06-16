@@ -6,7 +6,7 @@
 
 :root {
     --header-height: 95px;
-    --header-height-mobile: 60px;
+    --header-height-mobile: 95px;
 }
 
 body, html {
@@ -64,7 +64,7 @@ select {
     box-shadow: 0 1px 4px 0 rgba(0,0,0,0.2);
     z-index: 98;
     width: 100%;
-    background: white;
+    background-color: #0049fa;
 }
 
 #header {
@@ -73,7 +73,6 @@ select {
     align-items: center;
     justify-content: space-between;
     font-size: 0.9em;
-    background-color: #0049fa;
 }
 
 
@@ -81,6 +80,9 @@ select {
     display: none;
 }
 
+#logo3 {
+    display: none;
+}
 
 #back-categories {
     height: 35px;
@@ -254,14 +256,14 @@ select {
 
 
 #footer-cont {
-    background: #222;
-    color:#ddd;
+    background: #fff;
+    color: #222;
 }
 
 #footer-deco {
     color: white;
     background: #fa7800;
-    height: 5px;
+    height: 3px;
 }
 
 
@@ -322,7 +324,7 @@ select {
 
 #links .title {
     font-size: 1.1em;
-    color: #ffffff;
+    color: #222;
     padding-left: 5px;
 }
 
@@ -342,7 +344,7 @@ select {
     font-size: 0.8em;
     margin-top: 20px;
     padding-top: 11px;
-    border-top: 1px solid #555;
+    border-top: 1px solid #fa7800;
     padding-bottom: 40px;
     text-align: center;
 }
@@ -1645,7 +1647,6 @@ h3 {
     font-size: 1.76em;
     display: inline-block;
     cursor: default;
-    background-clip: text;
     font-weight: 600;
     font-family: 'Mulish', sans-serif;
 }
@@ -1921,14 +1922,12 @@ h3 {
 }
 
 .rojo {
-    color: #ff402c !important;
+    color: #0049fa  !important;
 }
 .azul {
     color: #3252e0 !important;
 }
-.gris {
-    color: #666 !important;
-}
+
 
 .p-info {
     opacity: 0.8;
@@ -2780,26 +2779,27 @@ h3 {
     left: 0;
     bottom: 0;
     z-index: 97;
-    background-color: white;
+    background-color: #0049fa;
     box-shadow: 0 0 10px 0 rgba(0 0 0 / 30%);
     display: none;
     justify-content: space-evenly;
     align-items: center;
+    color: white;
 }
 
 #buttomBar > div {
     margin: 0 10px;
     text-align: center;
     padding: 10px;
-    font-size: 0.8em;
-    color: #000000;
+    font-size: 0.7em;
+    font-weight: 300;
+    font-family: 'Be Vietnam Pro';
 }
 
 #buttomBar > div i {
     font-size: 1.3em;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
     display: block;
-    color: #363636;
 }
 
 #back-filtros {
@@ -3252,7 +3252,7 @@ h3 {
         border-right: none;
     }
     
-    #logo2 {
+    #logo3 {
         display: block;
     }
 
@@ -3274,10 +3274,6 @@ h3 {
 
     #cart-list {
         font-size: 0.8em;
-    }
-
-    .page-button {
-        font-size: 0.7em;
     }
 
     .bt-left:hover, .bt-right:hover {

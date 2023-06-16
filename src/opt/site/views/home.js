@@ -21,7 +21,9 @@ ${HTML.header}
 		<div class="header-section">
 			<div></div>
 			<div class="tx-c"><span class="h2">Las mejores ofertas</span></div>
-			<div class="vertodo"><a href="busqueda/[sales]">Mostrar todo</a></div>
+			<div class="row r-r" style="padding-right: 10px;">
+				<div class="vertodo"><a href="busqueda/[sales]">Mostrar todo</a></div>
+			</div>
 		</div>
 
 		<div class="tags" style="display:none">

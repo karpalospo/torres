@@ -112,22 +112,21 @@ return /*html*/`
 	header: /*html*/`
 <div id="modals-cont"></div>
 <div id="buttomBar">
-	<div><i class="fas fa-th-large"></i>Categorias</div>
+	<div><i class="fas fa-th-large"></i>categorias</div>
 	<div id="user-btn2"><i class="fas fa-user"></i><span id="lbl-nombre">Acceso</span></div>
 	<div id="user-ubicacion2"><i class="fas fa-map-marker-alt"></i><span id="lbl-ciudad2">Ubicación</span></div>
-	<div onclick="parent.location='pedidos'"><i class="fas fa-history"></i>Pedidos</div>
+	<div onclick="parent.location='pedidos'"><i class="fas fa-history"></i>pedidos</div>
 </div>
 <div id="header-cont">
+	<div id="logo3" style="width:230px; margin: 10px auto 0 auto">
+		<a href="/"><img src="${ABS_URL}/assets/logo2.png" alt="" style="width: 100%;" /></a>
+	</div>
 	<div id="header" class="max-width">
 		<div id="logo" style="width:230px">
-			<a href="/">
-				<img src="${ABS_URL}/assets/logo2.png" alt="" style="width: 100%;" />
-			</a>
+			<a href="/"><img src="${ABS_URL}/assets/logo2.png" alt="" style="width: 100%;" /></a>
 		</div>
-		<div id="logo2" style="width:30px;">
-			<a href="/">
-				<img src="${ABS_URL}/assets/icon_logo.png" alt="" style="width: 100%;" />
-			</a>
+		<div id="logo2" style="width:30px; display: none">
+			<a href="/"><img src="${ABS_URL}/assets/icon_logo2.png" alt="" style="width: 100%;" /></a>
 		</div>
 		<div class="autocomplete" class="f1">
 			<div class="search-cont">
