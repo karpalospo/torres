@@ -49,7 +49,7 @@ return /*html*/`
 
 	footer: /*html*/`
 <div id="footer-cont">
-	<div id="footer-deco"></div>
+	<div id="footer-deco">Mantente en contacto con nosotros</div>
 	<div class="max-width">
 		<div style="height: 20px;"></div>
 		<!-- <div id="subscribe" class="row r-c">
@@ -58,23 +58,18 @@ return /*html*/`
 			<button>Suscribir</button>
 		</div>
 		<div style="height: 20px;"></div> -->
-		<h3 class="tx-c">Mantente en contacto con nosotros</h3>
 		<div id="contacto">
 			<div><i class="far fa-envelope"></i> <a
 					href="mailto:servicioalcliente@farmaciatorres.com">servicioalcliente@farmaciatorres.com</a></div>
 			<div><a href="tel:+573157823477"><i class="fas fa-mobile-alt"></i> Llamar 315-782-3477</a></div>
 			<div><a href="#"><i class="fas fa-comment"></i> Radicar PQRS</a></div>
 		</div>
-		<div style="height: 20px;"></div>
 		<h3 class="tx-c">Síguenos en nuestras redes sociales</h3>
 		<div class="row r-c social-icon">
 			<a target="_blank" rel="noopener noreferrer" href="#"><img src="${ABS_URL}/assets/face.png" alt="face"></a>
-			<a target="_blank" rel="noopener noreferrer" href="#"><img src="${ABS_URL}/assets/twitter.png"
-					alt="twitter"></a>
-			<a target="_blank" rel="noopener noreferrer" href="#"><img src="${ABS_URL}/assets/insta.png"
-					alt="instagram"></a>
-			<a target="_blank" rel="noopener noreferrer" href="#"><img src="${ABS_URL}/assets/you.png"
-					alt="youtube"></a></li>
+			<!-- <a target="_blank" rel="noopener noreferrer" href="#"><img src="${ABS_URL}/assets/twitter.png" alt="twitter"></a> -->
+			<a target="_blank" rel="noopener noreferrer" href="#"><img src="${ABS_URL}/assets/insta.png" alt="instagram"></a>
+			<a target="_blank" rel="noopener noreferrer" href="#"><img src="${ABS_URL}/assets/you.png" alt="youtube"></a></li>
 		</div>
 		<div id="links">
 			<div>

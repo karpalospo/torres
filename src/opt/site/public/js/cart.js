@@ -272,7 +272,7 @@ function renderCartItem(item, type) {
 
         ${_(item._newPrice, /*html*/`
         <div class="info">
-            <span class="azul"><i class="fas fa-exclamation-circle"></i> El precio anterior era <b>${f(item._newPrice)}</b></span>
+            <span class="precio-antes"><i class="fas fa-exclamation-circle"></i> El precio anterior era <b>${f(item._newPrice)}</b></span>
         </div>`)}
 
         ${_(item._conditionalPrice, /*html*/`
