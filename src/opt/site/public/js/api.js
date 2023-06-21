@@ -66,8 +66,8 @@ const API = {
             return await fetchAsync(`${URL.HOST}/ftorres/api/referencias/codigos/`, {body: {codigos, ciudad, convenio, pagina: page, items}})
         },
 
-        async getCategorias(location, subcategory, { page = 1, itemsPerPage = 1000, orderBy = "PJ", agreement = ""} = {}) {
-            return await fetchAsync(`${URL.HOST}/ftorres/api/referencias/catsubcat/${location}/${subcategory}/${page}/${itemsPerPage}/${orderBy}/${agreement}`)
+        async getCategorias(location, subcategory, { page = 1, itemsPerPage = 1000, orderBy = "PJ",convenio="", agreement = ""} = {}) {
+            return await fetchAsync(`${URL.HOST}/ftorres/api/referencias/catsubcat/${location}/${subcategory}/${page}/${itemsPerPage}/${convenio}/${agreement}`)
         },
 
 
