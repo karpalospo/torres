@@ -23,6 +23,10 @@ async function search_cats(sub) {
         p = {},
         currentCat = store.categorias[sub.substring(0, sub.length - (sub.length > 5 ? 2 : 0))],
         currentSub = currentCat.subs[sub]
+        
+        if(!currentSub) currentSub = currentCat
+
+        console.log(currentCat, currentSub)
     ;
 
     // productos
