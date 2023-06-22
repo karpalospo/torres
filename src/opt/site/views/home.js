@@ -48,7 +48,7 @@ ${HTML.header}
 			</div>
 		</div>
 
-		<div id="recomendados" class="swiper" style="background: #f2f2f2;"></div>
+		<div id="recomendados" class="swiper"></div>
 
 		<div style="height:70px"></div>
 		<div class="header-section">
