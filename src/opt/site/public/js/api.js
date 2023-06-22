@@ -67,7 +67,7 @@ const API = {
         },
 
         async getCategorias(location, subcategory, { page = 1, itemsPerPage = 1000, orderBy = "PJ",convenio="", agreement = ""} = {}) {
-            return await fetchAsync(`${URL.HOST}/ftorres/api/referencias/catsubcat/${location}/${subcategory}/${page}/${itemsPerPage}/${convenio}/${agreement}`)
+            return await fetchAsync(`${URL.HOST}/ftorres/api/referencias/catsubcat/${location}/${subcategory}/${page}/${itemsPerPage}/${convenio}`)
         },
 
 
