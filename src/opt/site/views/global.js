@@ -110,7 +110,7 @@ return /*html*/`
 	<div><i class="fas fa-th-large"></i>categorias</div>
 	<div id="user-btn2"><i class="fas fa-user"></i><span id="lbl-nombre">Acceso</span></div>
 	<div id="user-ubicacion2"><i class="fas fa-map-marker-alt"></i><span id="lbl-ciudad2">Ubicación</span></div>
-	<div onclick="parent.location='pedidos'"><i class="fas fa-history"></i>pedidos</div>
+	<div onclick="parent.location='${ABS_URL}pedido'"><i class="fas fa-history"></i>pedidos</div>
 </div>
 <div id="header-cont">
 	<div id="logo3" style="width:230px; margin: 10px auto 0 auto">

@@ -115,7 +115,7 @@ function renderUser() {
         clearTimeout(timeout2)
     })
     $("#user-btn2").off("click").on("click", function(e){
-        if(store.user.logged && store.user.nombres) parent.location = "perfil"
+        if(store.user.logged && store.user.nombres) parent.location = `${ABS_URL}/perfil`
         else showModal(true, 'signin')
     })
 
@@ -239,7 +239,7 @@ function showDropMenu($elem, visible) {
             $items.off("mouseenter").on("mouseenter", e => showDropSubmenu($(e.currentTarget), true))
             $items.off("mouseleave").on("mouseleave", e => showDropSubmenu($(e.currentTarget), false))
             $items.off("click").on("click", e => {
-                if(e.currentTarget.dataset.sub) parent.location = `/categorias/${e.currentTarget.dataset.sub}`
+                if(e.currentTarget.dataset.sub) parent.location = `${ABS_URL}/categorias/${e.currentTarget.dataset.sub}`
             })
         }
 

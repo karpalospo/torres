@@ -152,7 +152,7 @@ async function login() {
         command($elem, false)
         store.user = Object.assign(res.data, {logged: true})
         write_cache("user", store.user)
-        if(store.goOrder) parent.location = `/pedido`;
+        if(store.goOrder) parent.location = `${ABS_URL}/pedido`;
         else {
             if(typeof getUserAddresses == "function") getUserAddresses()
             renderUser()
@@ -356,7 +356,7 @@ function vercats(id) {
 
 function search(str) {
     if(!str || str == "undefined" || str == "" || str.trim().length < 2) return
-    parent.location = `/busqueda/${str.toLowerCase()}`
+    parent.location = `${ABS_URL}/busqueda/${str.toLowerCase()}`
 }
 
 // ========================================================================== //
@@ -394,7 +394,7 @@ async function pLog(event, payload = {}) {
         case "logout":
             store.user = {}
             if(payload && payload.noRedirect) {}
-            else {parent.location = "/"}
+            else {parent.location = "`${ABS_URL}`"}
             write_cache("user")
             break;
 
@@ -416,7 +416,7 @@ async function pLog(event, payload = {}) {
             break
 
         case "viewProduct":
-            parent.location = "/producto/" + payload.id
+            parent.location = `${ABS_URL}/producto/${payload.id}`
             break
 
 

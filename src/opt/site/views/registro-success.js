@@ -12,7 +12,7 @@ ${HTML.header}
 		<img src="assets/logo.png" alt="logo" style="width:260px" />
 		<h3 style="color: #333; padding: 20px 0;">Felicitaciones, su registro fue exitoso</h3>
 		<br></br>
-		<button class="page-button" onclick="parent.location='/'">Ir al Inicio</button>
+		<button class="page-button" onclick="parent.location='${ABS_URL}'">Ir al Inicio</button>
 		<br>
 	</div>
 </div>

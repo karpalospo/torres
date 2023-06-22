@@ -21,7 +21,7 @@ async function search_cats(sub) {
 
     let result = res.error ? 0 : res.data.length,
         p = {},
-        currentCat = store.categorias[sub.substring(0, sub.length - 2)],
+        currentCat = store.categorias[sub.substring(0, sub.length - (sub.length > 5 ? 2 : 0))],
         currentSub = currentCat.subs[sub]
     ;
 
@@ -45,9 +45,9 @@ async function search_cats(sub) {
         <div id="crumbs">
             <div><a href="/" title="Inicio"><i class="fas fa-home" style="font-size: 1.1em;"></i></a></div>
             <div class="separator"><i class="fas fa-chevron-right"></i></div>
-            <div><a href="categorias/${currentCat.id}" title="${currentCat.title}">${currentCat.title}</a></div>
+            <div><a href="${ABS_URL}/categorias/${currentCat.id}" title="${currentCat.title}">${currentCat.title}</a></div>
             <div class="separator"><i class="fas fa-chevron-right"></i></div>
-            <div><a href="categorias/${currentSub.id}" title="${currentSub.title}">${currentSub.title}</a></div>
+            <div><a href="${ABS_URL}/categorias/${currentSub.id}" title="${currentSub.title}">${currentSub.title}</a></div>
         </div> `)
 
     } else if(result == 0) {
