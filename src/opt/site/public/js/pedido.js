@@ -92,7 +92,7 @@ ${redimir && puntos > 0 ? `<tr><td>Puntos</td><td class="rojo" style="font-weigh
     <td style="font-weight:500">${f(store.order.shipping)}</td>
 </tr>
 <tr>
-    <td><b>A Pagar</b></td><td><b style="color:#222">${f(store.order.subtotal - store.order.discount - (redimir ? puntos : 0))}</b></td>
+    <td><b>A Pagar</b></td><td><b style="color:#222">${f(store.order.subtotal - store.order.discount - (redimir ? puntos : 0) + store.order.shipping)}</b></td>
 </tr>`)
     
     $("#confirmar, #confirmar2").show(0)
@@ -272,7 +272,7 @@ async function checkout() {
         vlrDomicilio:0,
         ciudad: store.location, 
         nombreCiudad:store.cc.Descripcion, 
-        subtotal:store.order.subtotal - store.order.discount,
+        subtotal:store.order.subtotal - store.order.discount + store.order.shipping,
         id_Servicio: "WebDesktop", 
         nota: $("#nota-pedido").val() + ` -- Forma de pago: ${store.payment}`,
         bono,
