@@ -3,7 +3,7 @@ async function page_init() {
     //if(!store.user.logged) parent.location = "index.html"
     let d;
 
-    res = await API.POST.userProfile(store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
+    res = await API.userProfile(store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
     if(!res.error) {
         d = res.data
         $("#frm-user-email").val(d.email)
@@ -22,7 +22,7 @@ async function updateProfile(elem) {
 
     if(command($(elem), true)) return
 
-    res = await API.POST.editProfile(
+    res = await API.editProfile(
         store.user.nit, 
         store.user.email, 
         store.user.auth_token,
@@ -65,7 +65,7 @@ async function updatePassword(elem) {
         }
     }
 
-    res = await API.POST.editProfile(
+    res = await API.editProfile(
         store.user.nit, 
         store.user.nombres, 
         store.user.email, 

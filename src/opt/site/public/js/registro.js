@@ -78,7 +78,7 @@ async function signup(elem) {
     if (ValidateInputFormEmpty(fields)) return showError("Debe llenar todos los campos")
     if (fields.password != fields.confirm_password) return showError("Las contraseñas no coinciden")
     
-    let res = await API.POST.signup(fields);
+    let res = await API.signup(fields);
 
     if (res.error === false) {
 

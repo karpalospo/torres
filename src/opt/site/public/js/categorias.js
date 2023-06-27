@@ -17,7 +17,7 @@ function page_init() {
 
 async function search_cats(sub) {
 
-    res = await API.POST.getCategorias(store.location, sub)
+    res = await API.getSubcategorias(store.location, sub)
 
     let result = res.error ? 0 : res.data.length,
         p = {},

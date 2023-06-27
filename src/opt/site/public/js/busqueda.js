@@ -23,7 +23,7 @@ async function search_products(search_str) {
     ;
 
     if(search_str == "[sales]") {
-        res = await API.POST.getOfertas(store.location)
+        res = await API.getOfertas(store.location)
         result_search_str = "Mejores Ofertas"
         fullProducts = {stock: HomologarProductos(res.data), noStock:[]}
     } else {

@@ -1,7 +1,7 @@
 async function page_init() {
 
     
-    res = await API.POST.PerformRetrieveProfileInformation(store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
+    res = await API.PerformRetrieveProfileInformation(store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
     if(!res.error) {
         $("#frm-user-email").val(store.user.email)
         $("#frm-user-nombres").val(store.user.nombres)
@@ -29,7 +29,7 @@ async function updateProfile(elem) {
     }
 
 
-    res = await API.POST.PerformEditProfile(store.user.nit, store.user.nombres, store.user.email, store.user.auth_token, newData)
+    res = await API.PerformEditProfile(store.user.nit, store.user.nombres, store.user.email, store.user.auth_token, newData)
 
     if(!res.error) {
         alert(res.message)
@@ -61,7 +61,7 @@ async function updatePassword(elem) {
         }
     }
 
-    res = await API.POST.PerformEditProfile(store.user.nit, store.user.nombres, store.user.email, store.user.auth_token, newData)
+    res = await API.PerformEditProfile(store.user.nit, store.user.nombres, store.user.email, store.user.auth_token, newData)
 
     if(!res.error) {
         alert(res.message)

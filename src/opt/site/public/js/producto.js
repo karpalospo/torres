@@ -27,7 +27,7 @@ async function search_products2(collection, str, $target, options) {
 
 async function search_product(id) {
     
-    res = await API.POST.getFromCodes([id], store.location, {convenio: store.user.convenio})
+    res = await API.getFromCodes([id], store.location, {convenio: store.user.convenio})
     //res = await getProductsFullInfo([{id}])
 
     currentProductDetail = HomologarProductos([res.data[0]])[0]

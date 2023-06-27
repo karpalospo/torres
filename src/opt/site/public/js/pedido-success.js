@@ -16,7 +16,7 @@ async function renderCurrentOrders(pedidoID) {
 
     await Promise.all(uniqueOrders.map(async (key) => {
 
-        let res2 = await API.POST.getPedido(key, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
+        let res2 = await API.getPedido(key, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
 
         if(!res2.error && res2.data.length > 0) {
             currentOrders.push({id: res2.data[0].numero, status: res2.data[0].Estado, items:res2.data, payment: res2.data[0].tipoPago})
@@ -247,7 +247,7 @@ function sendSurvey() {
 
     if(!cancel) {
         if(store.user.logged) {
-            API.POST.setEncuesta(store.user.nit, $("#calificacion-preguntas").data("pedido") || 1, fecha.toISOString().split('T')[0], JSON.stringify(data))
+            API.setEncuesta(store.user.nit, $("#calificacion-preguntas").data("pedido") || 1, fecha.toISOString().split('T')[0], JSON.stringify(data))
         }
         
         showModal(true, $("#calificacion-gracias"))

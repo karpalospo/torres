@@ -8,7 +8,7 @@ async function page_init() {
     let puntos, acumulados, redenciones, sumacu = 0, sumred = 0, s = "";
     //console.log(store.user)
 
-    if((res = await API.POST.getPuntos(store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)).success == false) {
+    if((res = await API.getPuntos(store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)).success == false) {
         alert("Esta página ya no está disponible para usted")
         parent.location = `${ABS_URL}`
         return

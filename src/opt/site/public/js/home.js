@@ -12,7 +12,7 @@ async function page_init() {
 
     renderLoading($("#resultado-list"))
 
-    res = await API.POST.getOfertas(store.location, {convenio: store.user.convenio})
+    res = await API.getOfertas(store.location, {convenio: store.user.convenio})
     
     if(!res.error) {
         productList = HomologarProductos(res.data)

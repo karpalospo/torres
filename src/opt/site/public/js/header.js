@@ -39,7 +39,7 @@ async function renderCategorias(ciudad) {
 
     let s = "", $target = $("#categories");
 
-    if(!(res = await API.POST.getCategories(ciudad)).error) {
+    if(!(res = await API.getAllCategorias(ciudad)).error) {
         if(!Array.isArray(res.data) || res.data.length == 0) return
         res.data.splice(3, 0, {IdGrupo: '99', Grupo: 'Cuidado del Bebé', Categorias: []})
         res.data.forEach(item => {
@@ -66,7 +66,7 @@ async function renderCategorias(ciudad) {
 async function renderCiudades() {
     let s = ""
 
-    if(!(res = await API.POST.getCiudades()).error) {
+    if(!(res = await API.getCiudades()).error) {
         forEach(sortByKey((store.centrocostos = res.data), "Descripcion"), item => {
             if(item.Ciudad == store.location) {
                 store.cc = item
@@ -138,7 +138,7 @@ Para ver los cupones de descuento disponibles debes iniciar sesión
 </p>`)
     }
 
-    res = await API.POST.getCupones(store.user.nit)
+    res = await API.getCupones(store.user.nit)
 
     if(!res.error && Array.isArray(res.data)) {
         store.cupones = res.data

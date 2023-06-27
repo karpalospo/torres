@@ -84,7 +84,7 @@ async function saveAddress() {
 
     const direccion = buildAddress(name_route.value, name_neighborhood.value, name_main_route.value, name_second_route.value, name_third_route.value,name_third_route3.value)
     console.log(direccion)
-    res = await API.POST.saveAddress(
+    res = await API.saveAddress(
         {
             ciudad: name_ciudad.value,
             nombre_direccion: name_alias.value,
@@ -119,7 +119,7 @@ async function deleteAddress(alias) {
 
     let {name_main_route, name_second_route, name_third_route, name_neighborhood, name_alias} = $("#frm-direccion")[0]   
 
-    res = await API.POST.deleteAddress(alias, store.user.email, store.user.auth_token)
+    res = await API.deleteAddress(alias, store.user.email, store.user.auth_token)
 
     if (!res.error) {
         getUserAddresses($("#address-list"))
@@ -143,7 +143,7 @@ async function deleteAddress(alias) {
 
 async function getUserAddresses($target) {
     
-    let res = await API.POST.getAddress(store.user)
+    let res = await API.getAddress(store.user)
    
     if(res.data && res.data.success == false) return false
 

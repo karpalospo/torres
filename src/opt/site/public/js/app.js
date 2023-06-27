@@ -94,7 +94,7 @@ async function enviarCodigo(elem) {
     if(!email || email.trim() == "") return
     if(command($elem, true)) return
 
-    res = await API.POST.checkEmail(email.trim())
+    res = await API.checkEmail(email.trim())
 
     if(!res.error && res.data.success) {
         store.current_email = email
@@ -117,7 +117,7 @@ async function enviarContrasena(elem) {
     if(!code) return
     if(password1 != password2) return alert("Las contraseñas no coinciden")
 
-    let result = await API.POST.restorePassword(store.current_email, code, password1)
+    let result = await API.restorePassword(store.current_email, code, password1)
 
     if(command($elem, true)) return
     if(!result.error && result.data.success) {
@@ -141,7 +141,7 @@ async function login() {
         
     if(command($elem, true)) return
 
-    res = await API.POST.login(user, pass)
+    res = await API.login(user, pass)
 
     if(res.error || res.data.success == false) {
         showError($("#signin").find(".frm-error"), res.message)
@@ -199,7 +199,7 @@ async function getProductsFullInfo(products) {
 
     if(products.length == 0) return {stock, soldout};
 
-    res = await API.POST.getFromCodes(products.map(item => item.id), store.location, {convenio: store.user.convenio})
+    res = await API.getFromCodes(products.map(item => item.id), store.location, {convenio: store.user.convenio})
 
     if(!res.error) {
         
@@ -273,7 +273,7 @@ async function redimirCupon() {
 
     if(!store.user.logged || nombreCupon == "") return false;
 
-    if((res = await API.POST.getCupon(nombreCupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)).error) return alert("Error de validación de cupón.")
+    if((res = await API.getCupon(nombreCupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)).error) return alert("Error de validación de cupón.")
 
     store.order.cupon = {aplica: false}
 
@@ -304,7 +304,7 @@ async function redimirCupon() {
                 })
             })
  
-            const res2 = await API.POST.validarCupon(cupon.condicion, productos)
+            const res2 = await API.validarCupon(cupon.condicion, productos)
 
             if(res2.error) {
                 successCupon = showResultMessage($lblCupon, false, `Este cupón no es válido para ser redimido. ${cupon.descripcion}`)
@@ -379,7 +379,7 @@ async function pLog(event, payload = {}) {
             $("#txt-cupon").val(store.coupon.nombreCupon)
             if(store.coupon.condicion != 0) {
                 store.coupon.condicionTexto = ""
-                let res = await API.POST.getCupon(store.coupon.nombreCupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
+                let res = await API.getCupon(store.coupon.nombreCupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
                 if(!res.error) {
                     store.coupon.condicionTexto = `Aplica para pedidos mínimos de <b>${f(store.coupon.vlrMinimo)}</b>`
                 }
@@ -407,7 +407,7 @@ async function pLog(event, payload = {}) {
                 str = payload.str.trim().toLowerCase()
                 data = payload
             }
-            res = await API.POST.search(str, store.location, data)
+            res = await API.search(str, store.location, data)
             return res
 
 

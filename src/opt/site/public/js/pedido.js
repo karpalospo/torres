@@ -112,7 +112,7 @@ async function buscarBono() {
     store.bonusDiscount = 0
 
     if(store.bono == undefined) {
-        if((res = await API.POST.getBono(store.user.nit)).error) return alert("Error al consultar el bono.")
+        if((res = await API.getBono(store.user.nit)).error) return alert("Error al consultar el bono.")
         if(res.data && res.data.length > 0) await validarBono(res.data[0])
     } else {
         await validarBono()
@@ -128,7 +128,7 @@ async function validarBono(bono) {
         tempBono.valido = true
         console.log("SI")
     } else if(tempBono.VlrMinimoCompra <= store.order.subtotal) {
-        if(!(res = await API.POST.verificarBono(tempBono, calculateCart().map(prod => ({codigo: prod.item.id})))).error) tempBono.valido = true
+        if(!(res = await API.verificarBono(tempBono, calculateCart().map(prod => ({codigo: prod.item.id})))).error) tempBono.valido = true
         console.log("PASO 2")
     }
     
@@ -285,7 +285,7 @@ async function checkout() {
     }
 
 
-    res = await API.POST.checkout(senddata)
+    res = await API.checkout(senddata)
 
     let pedido, resPSE;
     if(res.data && res.data[0]) {
