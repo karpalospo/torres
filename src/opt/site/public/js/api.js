@@ -152,7 +152,7 @@ const API = {
 
     //rutas economicas
     async allProducts() {
-        return await fetchAsync(`${URL.HOST}/economia/api/referencias/all`)
+        return await fetchAsync(`${URL.HOST}/api/referencias/all`)
     },
 
 }

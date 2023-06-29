@@ -394,7 +394,7 @@ async function pLog(event, payload = {}) {
         case "logout":
             store.user = {}
             if(payload && payload.noRedirect) {}
-            else {parent.location = "`${ABS_URL}`"}
+            else {parent.location = ABS_URL}
             write_cache("user")
             break;
 
