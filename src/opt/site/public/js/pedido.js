@@ -298,7 +298,7 @@ async function checkout() {
         
         resetCart()
         if(store.payment == "PSE") return parent.location = resPSE.urlPayment
-        else return parent.location = `${ABS_URL}pedido-success/${pedido.numeroPedido}`
+        else return parent.location = `${ABS_URL}/pedido-success/${pedido.numeroPedido}`
 
     } else if(res.message) showOrderError(res.message)
 
