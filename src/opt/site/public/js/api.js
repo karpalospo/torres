@@ -49,7 +49,7 @@ const API = {
     
     // products
     async getOfertas(ciudad, {items = 1000, convenio = ""} = {}) {
-        return await fetchAsync(`${URL.HOST}/api/ofertas/`, {body: { marca: "TOR", ciudad, convenio, items}})
+        return await fetchAsync(`${URL.HOST}/api/ofertas/`, {body: {marca: "TOR", ciudad, convenio, items}})
     },
 
 

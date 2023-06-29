@@ -122,7 +122,7 @@ ${HTML.header}
 				<div id="forma-pago">
 
 					<div id="payment-list" class="select-list">
-						<div data-value="PSE">
+						 <div data-value="PSE">
                             <div style="width: 25px;"><i class="fa fa-check"></i></div>
                             <div class="image" style="background-image: url(assets/globalpay.png)"></div>
                             <span><b>PSE Tarjeta Debito y Crédito</b> (Online)</span>
