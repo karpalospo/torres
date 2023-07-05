@@ -214,9 +214,9 @@ ${HTML.header}
 
 <div id="content">
 
-	<!-- <div class="porta-medida max-width" style="position:absolute; z-index:-1; pointer-events: none;">
+	<div class="porta-medida max-width" style="position:absolute; z-index:-1; pointer-events: none;">
 		<div id="medida" class="products-list"></div>
-	</div> -->
+	</div>
 
 	<div id="detalles-cont" class="max-width">
 
@@ -246,15 +246,12 @@ ${HTML.header}
 
 		<div class="header-section">
 			<div></div>
-			<div class="tx-c"><span class="h2">Relacionados</span></div>
-			<div class="row r-r" style="padding-right: 10px;">
-				<div class="bt-left"><i class="fas fa-chevron-left"></i></div>
-				<div class="bt-right"><i class="fas fa-chevron-right"></i></div>
-			</div>
+			<div class="tx-c"><span class="h2">Productos Relacionados</span></div>
+			<div></div>
 		</div>
 
-		<div id="prod-estrella" class="swiper">
-			<div class="swiper-wrapper"></div>
+		<div id="prod-relacionados">
+	
 		</div>
 
 		<div style="height:80px"></div>

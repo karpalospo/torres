@@ -25,8 +25,6 @@ async function search_cats(sub) {
         currentSub = currentCat.subs[sub]
         
         if(!currentSub) currentSub = currentCat
-
-        console.log(currentCat, currentSub)
     ;
 
     // productos

@@ -1,22 +1,12 @@
 async function page_init() {
 
-    search_product(id)
+    await search_product(id)
 
+    console.log(store.categorias[currentProductDetail.cat])
 
-    //await search_products2("carrusel", "[code]058167 058092 058057 058003 058091 058004 086038 086456 086521 086522", $("#prod-estrella").find(".swiper-wrapper"), {hcarrusel: true, shuffle:true, sort: {field:"descuento", mode:"desc"}})
-    
-    // new Swiper($("#prod-estrella")[0], 
-    // {
-    //     direction: 'horizontal',
-    //     slidesPerView: productBounces.rowCount,
-    //     slidesPerGroup: productBounces.rowCount,
-    //     loop: true,
-    //     autoplay: {delay: 6000},
-    //     preloadImages: false,
-    //     lazy: true,
-    //     navigation: {nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev'}
-    // })
-
+    res = await API.getSubcategorias(store.location, store.categorias[currentProductDetail.cat].subs[currentProductDetail.sub].id)
+    console.log(HomologarProductos(res.data))
+    p = await showProducts($("#prod-relacionados"), HomologarProductos(res.data), {collection: 'relacionados', rows: "auto", cols: 100, limit:30, section: 0})
 
 }
 
@@ -28,6 +18,8 @@ async function search_products2(collection, str, $target, options) {
 async function search_product(id) {
     
     res = await API.getFromCodes([id], store.location, {convenio: store.user.convenio})
+
+
     //res = await getProductsFullInfo([{id}])
 
     currentProductDetail = HomologarProductos([res.data[0]])[0]

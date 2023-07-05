@@ -66,10 +66,9 @@ return /*html*/`
 		</div>
 		<h3 class="tx-c">Síguenos en nuestras redes sociales</h3>
 		<div class="row r-c social-icon">
-			<a target="_blank" rel="noopener noreferrer" href="#"><img src="${ABS_URL}/assets/face.png" alt="face"></a>
-			<!-- <a target="_blank" rel="noopener noreferrer" href="#"><img src="${ABS_URL}/assets/twitter.png" alt="twitter"></a> -->
-			<a target="_blank" rel="noopener noreferrer" href="#"><img src="${ABS_URL}/assets/insta.png" alt="instagram"></a>
-			<a target="_blank" rel="noopener noreferrer" href="#"><img src="${ABS_URL}/assets/you.png" alt="youtube"></a></li>
+			<a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/farmacia.torres.3"><img src="${ABS_URL}/assets/face.png" alt="face"></a>
+			<a target="_blank" rel="noopener noreferrer" href="https://instagram.com/farmaciatorres"><img src="${ABS_URL}/assets/insta.png" alt="instagram"></a>
+			<a target="_blank" rel="noopener noreferrer" href="https://wa.link/l318bk"><img src="${ABS_URL}/assets/whatsapp.png" alt="whatsapp" style="transform: scale(1.2)"></a></li>
 		</div>
 		<div id="links">
 			<div>
