@@ -2,25 +2,11 @@ async function page_init() {
 
     await search_product(id)
 
-    console.log(store.categorias[currentProductDetail.cat])
-
-    res = await API.getSubcategorias(store.location, store.categorias[currentProductDetail.cat].subs[currentProductDetail.sub].id)
-    console.log(HomologarProductos(res.data))
-    p = await showProducts($("#prod-relacionados"), HomologarProductos(res.data), {collection: 'relacionados', rows: "auto", cols: 100, limit:30, section: 0})
-
-}
-
-async function search_products2(collection, str, $target, options) {
-    res = await pLog("search", str)
-    if(!res.error) showProducts($target, res.data.products, collection, options)
 }
 
 async function search_product(id) {
     
     res = await API.getFromCodes([id], store.location, {convenio: store.user.convenio})
-
-
-    //res = await getProductsFullInfo([{id}])
 
     currentProductDetail = HomologarProductos([res.data[0]])[0]
     cargarFoto(currentProductDetail)
@@ -40,17 +26,13 @@ async function search_product(id) {
 <div><a href="${ABS_URL}/categorias/${sub.id}" title="${sub.title}" >${sub.title}</a></div>
 `)
 
-
     calculateCart()
 
     if(!currentProductDetail.sub) return
 
-    res = await pLog("search", "[cats]" + currentProductDetail.cat + "/" + currentProductDetail.sub)
-    if(!res.error) {
-        showProducts($('#relacionados-list'), res.data.products, "relacionados", {itemsPerRows: "auto", rows: 2, horizontal:true, shuffle: true})
-        $("#relacionados-cont").show(0)
-    }
-    
+    res = await API.getSubcategorias(store.location, store.categorias[currentProductDetail.cat].subs[currentProductDetail.sub].id)
+    p = await showProducts($("#prod-relacionados"), HomologarProductos(res.data), {collection: 'relacionados', rows: "auto", cols: 100, limit:30, section: 0})
+   
 }
 
 
