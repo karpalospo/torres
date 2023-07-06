@@ -35,7 +35,7 @@ async function search_product(id) {
     $("#crumbs").html(/*html*/`
 <div><a href="${ABS_URL}" title="Inicio" ><i class="fas fa-home" style="font-size: 1.1em;"></i></a></div>
 <div class="separator"><i class="fas fa-chevron-right"></i></div>
-<div><a href="${ABS_URL}/categorias/${cat.id}" title="${cat.title}" >${cat.title} hola</a></div>
+<div><a href="${ABS_URL}/categorias/${cat.id}" title="${cat.title}" >${cat.title}</a></div>
 <div class="separator"><i class="fas fa-chevron-right"></i></div>
 <div><a href="${ABS_URL}/categorias/${sub.id}" title="${sub.title}" >${sub.title}</a></div>
 `)
