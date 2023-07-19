@@ -408,7 +408,7 @@ ${_(precioCondicion, /*html*/`
         return /*html*/`
 <div class="product-item" data-id="${item.id}">
     <div class="item">
-        ${_(hasDiscount, /*html*/`<div class="descuento"><div class="label">${item.descuento}% descuento</div></div>`)}
+        ${_(hasDiscount, /*html*/`<div class="descuento"><div class="label">${item.descuento}%</div></div>`)}
         <div class="image">
             <img src="https://www.droguerialaeconomia.com/economia/site/img/${item.id}.png" alt="" />
         </div>
