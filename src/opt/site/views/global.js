@@ -49,8 +49,10 @@ return /*html*/`
 
 	footer: /*html*/`
 <div id="footer-cont">
-	<div id="footer-deco">Mantente en contacto con nosotros</div>
+	<div id="footer-deco"></div>
 	<div class="max-width">
+		<br>
+		<h2 class="tx-c">Mantente en contacto con nosotros</h2>
 		<div style="height: 20px;"></div>
 		<!-- <div id="subscribe" class="row r-c">
 			<div class="row"><span style="font-size: 0.9em; font-weight: 300;">Suscríbete al newsletter</span></div>

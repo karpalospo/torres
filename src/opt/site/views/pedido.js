@@ -155,8 +155,7 @@ ${HTML.header}
 				<div>
 					<div id="address-list" class="vselect-list"></div>
 					<div class="tx-c p15">
-						<button class="page-button-flat2 button-pink" onclick="editAddress('')"><i
-								class="fa fa-plus-circle"></i> &nbsp; Añadir una dirección</button>
+						<button id="btn-add-direcciones" class="page-button" onclick="editAddress('')"><i class="fa fa-plus-circle"></i> &nbsp; Añadir una dirección</button>
 					</div>
 				</div>
 			</div>

@@ -154,9 +154,10 @@ async function login() {
         write_cache("user", store.user)
         if(store.goOrder) parent.location = `${ABS_URL}/pedido`;
         else {
-            if(typeof getUserAddresses == "function") getUserAddresses()
-            renderUser()
-            renderCupones()
+            location.reload()
+            // if(typeof getUserAddresses == "function") getUserAddresses()
+            // renderUser()
+            // renderCupones()
         }
     }
 }
@@ -249,10 +250,7 @@ async function getProductsFullInfo(products) {
 
 
 // ========================================================================== //
-// CUPONES
-
-// ========================================================================== //
-// COUPON
+// CUPON
 
 function borrarCupon(mustRenderCart = true) {
     store.coupon = null;
@@ -286,7 +284,7 @@ async function redimirCupon() {
 
         if(cupon.condicion.toString() == "0" && store.order.subtotal < cupon.VlrMinimo) {
 
-            successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.nombreCupon} solo es válido para compras mínimas de ${f(cupon.vlrMinimo)}.`)
+            successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.NombreCupon} solo es válido para compras mínimas de ${f(cupon.VlrMinimo)}.`)
 
         } else if(cupon.condicion.toString() !== "0"){
 
@@ -300,7 +298,7 @@ async function redimirCupon() {
                     IdUnidad: product.item.IdUnidad,
                     cantidad: product.item._quanty,
                     descuento: product.item.descuento,
-                    idoferta: product.item.idoferta != undefined ? product.item.idoferta : 0
+                    idOferta: product.item.idoferta != undefined ? product.item.idoferta : 0
                 })
             })
  
@@ -309,47 +307,42 @@ async function redimirCupon() {
             if(res2.error) {
                 successCupon = showResultMessage($lblCupon, false, `Este cupón no es válido para ser redimido. ${cupon.descripcion}`)
             } else if (res2.data.ValorProductos < cupon.VlrMinimo) {
-                successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.nombreCupon} solo es válido para compras mínimas de ${f(cupon.vlrMinimo)}. ${cupon.descripcion}`)
+                successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.NombreCupon} solo es válido para compras mínimas de ${f(cupon.VlrMinimo)}. ${cupon.descripcion}`)
             }
         }
 
     }
-    //console.log(successCupon)
+
     if(successCupon){
         //confetti.toggle()
         //setTimeout(() => confetti.toggle(), 3000)
         showResultMessage($lblCupon, true, `Cupón aplicado con éxito`)
-        store.cuponDiscount = cupon.valorCupon
-        //JR
-        store.order.cupon=cupon;
-        //END JR
+        store.cuponDiscount = cupon.valorCupon || 0.001
+        store.order.cupon = cupon;
         store.order.cupon.aplica = true
         renderCart()
         summaryCart()
     }
 }
 
+
 function stringfyCats(cats) {
     let s = ""
-    cats.forEach(item => {
-        s += "&#9679; " + item.title + " "
-    })
+    cats.forEach(item => {s += "&#9679; " + item.title + " "})
     return s
 }
 
-function vercats(id) {
-    let $button = $(".button-" + id)
+function vercats(target, $elem) {
 
-    if($button.text() == "Mostrar Categorias") {
-        $("." + id).css("max-height", "fit-content")
-        $button.text("Ocultar Categorias")
+    if($elem.html() == "Mostrar Categorias") {
+        $(target).css("max-height", "fit-content")
+        $elem.html("Ocultar Categorias")
     } else {
-        $("." + id).css("max-height", "0")
-        $button.text("Mostrar Categorias")
+        $(target).css("max-height", "0")
+        $elem.html("Mostrar Categorias")
     }
     
 }
-
 
 // ========================================================================== //
 // SEARCH
@@ -375,15 +368,15 @@ async function pLog(event, payload = {}) {
         case "coupon":
             borrarCupon()
             showModal()
-            store.coupon = getFromArrayByProp(store.cupones, payload.id, "idCupon")
-            $("#txt-cupon").val(store.coupon.nombreCupon)
+            store.coupon = getFromArrayByProp(store.cupones, payload.id, "IdCupon")
+            $("#txt-cupon").val(store.coupon.NombreCupon)
             if(store.coupon.condicion != 0) {
                 store.coupon.condicionTexto = ""
-                let res = await API.getCupon(store.coupon.nombreCupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
+                let res = await API.getCupon(store.coupon.NombreCupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
                 if(!res.error) {
-                    store.coupon.condicionTexto = `Aplica para pedidos mínimos de <b>${f(store.coupon.vlrMinimo)}</b>`
+                    store.coupon.condicionTexto = `Aplica para pedidos mínimos de <b>${f(store.coupon.VlrMinimo)}</b>`
                 }
-            } else store.coupon.condicionTexto = `Aplica para pedidos mínimos de <b>${f(store.coupon.vlrMinimo)}</b>`
+            } else store.coupon.condicionTexto = `Aplica para pedidos mínimos de <b>${f(store.coupon.VlrMinimo)}</b>`
 
             write_cache("coupon", store.coupon)
             renderCart()
@@ -393,9 +386,9 @@ async function pLog(event, payload = {}) {
           
         case "logout":
             store.user = {}
+            write_cache("user")
             if(payload && payload.noRedirect) {}
             else {parent.location = ABS_URL}
-            write_cache("user")
             break;
 
         case "search":

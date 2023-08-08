@@ -37,7 +37,6 @@ const API = {
     },
 
 
-
     async getCiudades() {
         return await fetchAsync(`${URL.HOST}/api/ciudades`, {body: {"marca": "TOR"}})
     },
@@ -112,7 +111,7 @@ const API = {
     },
 
     async validarCupon(Condicion, Productos) {
-        return await fetchAsync(`${URL.HOST}/api/validaCondiciones/`, {body: {marca: "TOR", Condicion, Productos}});
+        return await fetchAsync(`${URL.HOST}/api/ofertas/validaCondiciones`, {body: {marca: "TOR", Condicion, Productos}});
     },
 
 

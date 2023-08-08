@@ -145,15 +145,26 @@ async function getUserAddresses($target) {
     
     let res = await API.getAddress(store.user)
    
-    if(res.data && res.data.success == false) return false
-
-    renderAddress(store.user.addresses = res.data, $target)
+    if(res.data && res.data.success == false) {
+        if(res.data.message.indexOf("Token") > -1) {
+        $target.html(`
+<span class="error-msg">No se pudo obtener sus direcciones. Deberá iniciar sesión nuevamente.</span>
+<button class="page-button-flat" style="margin: 10px auto; display:block" onclick="showModal(true, 'signin')">Iniciar Sesión Nuevamente</button>
+        `)
+        $("#btn-add-direcciones").hide(0)
+        pLog("logout", {noRedirect: true})
+        }
+    } else {
+        renderAddress(store.user.addresses = res.data, $target)
+    }
+  
    
 }
 
 function renderAddress(data, $target) {
     let s = ""
     //$target.off("click")
+    console.log(data)
     forEach(data, item => {
         let pos = store.centrocostos.findIndex(elem => item.ciudad == elem.Ciudad)
         s += /*html*/`
