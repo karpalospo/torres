@@ -14,8 +14,8 @@ ${HTML.header}
 
 	<div id="home-cont" class="max-width">
 
-		<div id="banner"  style="width: 100%; border-radius: 20px; overflow: hidden; font-size: 0; margin: 10px 0 25px 0">
-			<img src="${ABS_URL}/assets/banner.jpg" atl="banner" style="width: 100%;" />
+		<div id="banner" style="width: 100%; border-radius: 10px; overflow: hidden; font-size: 0; margin: 10px 0 25px 0; min-height: 300px">
+
 		</div>
 
 		<div class="header-section">

@@ -2984,21 +2984,16 @@ h3 {
 
 .swiper-button-prev {
     left: 0 !important;
-    background: #222;
     border-radius: 21px;
     width: 32px !important;
     height: 32px !important;
-    color: white !important;
-  
 }
 
 .swiper-button-next {
     right: 0 !important;
-    background: #222;
     border-radius: 21px;
     width: 32px !important;
     height: 32px !important;
-    color: white !important;
 }
 
 .swiper-button-next:after, .swiper-button-prev:after {

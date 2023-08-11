@@ -1,14 +1,14 @@
+
+$currentPage = "home"
+
 async function page_init() {
     
     let productList = [];
     // banners
-    /* renderBanners($("#banner"), store.banners.superior)
-    renderBanners($("#banner_inferior"), store.banners.inferior)
-    renderBanners($("#destacados"), store.banners.destacados, {itemsPerRows: "auto", pagination: false, navigation: false}) */
+    renderBanners($("#banner"), store.banners.superior)
 
     // popups
-    //if(store.popups) showPagePopup(store.popups.home)
-    //showModal(true, $("#popupiro"), false, "fade")
+    if(store.popups) showPagePopup(store.popups.home)
 
     renderLoading($("#resultado-list"))
 

@@ -29,6 +29,15 @@ $("#modals-cont").load(`${ABS_URL}/modals.html`, async function() {
     await renderCiudades()
     resize()
 
+    res = await API.getInit({
+        user:{nit:store.user.nit},
+        location: store.location,
+        page: $currentPage
+    })
+
+    if(res.data.banners) store.banners = res.data.banners
+    if(res.data.popups) store.popups = res.data.popups
+
     if(typeof page_init == "function") page_init()
 
 });

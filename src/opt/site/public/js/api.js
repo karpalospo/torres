@@ -36,6 +36,10 @@ const API = {
         return await fetchAsync(`${URL.server2}/search`, {body: {search, location, opt}});
     },
 
+    async getInit(data) {
+        console.log(data)
+        return await fetchAsync(`${URL.server2}/inittorres`, {body: data});
+    },
 
     async getCiudades() {
         return await fetchAsync(`${URL.HOST}/api/ciudades`, {body: {"marca": "TOR"}})

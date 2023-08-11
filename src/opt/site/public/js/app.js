@@ -23,7 +23,8 @@ let res,
     $currentModalWindow,
     scrollTop,
     currentProductDetail,
-    $window = $(window)
+    $window = $(window),
+    $currentPage
 ;
 
 // ========================================================================== //
@@ -462,18 +463,14 @@ function showOverlay(show, opt = {}) {
 
 function showPopup(image, options = {imageClick: ''}) {
     
-    let $popup = $("#popup"),
-        h = $content.height() - 160
-    ;
+    let $popup = $("#popup");
 
-    //$popup.css("max-width", `${w}px`)
-    $popup.html(`
-${options.closeButton ? 
-`<div class="close absolute" onclick="showModal(false)"><i class="fa fa-times"></i></div>` : ``}
-<div style="background-color:#f2f2f2; cursor.pointer; font-size:0; min-height:100px" onclick="${options.imageClick}"><img src="${image}" alt="" style="width: 100%;"/></div>
+    $popup.html(/*html*/`
+${options.closeButton ? `<div class="close absolute" onclick="showModal(false)"><i class="fa fa-times"></i></div>` : ``}
+<div style="background-color:#f2f2f2; cursor.pointer; font-size:0; min-height:100px" onclick="${options.imageClick}"><img src="${image}" alt="" style="width: 100%; max-height: 80vh"/></div>
 <div class="row full-row">
 ${options.dismiss ? 
-`<button id="popup-dismiss" class="button-popup" style="background-color:#ff2c2c" onclick="${options.dismiss}">${options.dismissLabel}</button>
+/*html*/`<button id="popup-dismiss" class="button-popup" style="background-color:#ff2c2c" onclick="${options.dismiss}">${options.dismissLabel}</button>
 <div style="width:8px"></div>
 ` : ``}
 ${options.callToAction ? `<button class="button-popup" onclick="${options.callToAction}">${options.callToActionLabel}</button>` : ``}
