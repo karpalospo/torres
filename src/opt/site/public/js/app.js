@@ -401,6 +401,7 @@ async function pLog(event, payload = {}) {
                 str = payload.str.trim().toLowerCase()
                 data = payload
             }
+            data.marca = "TOR"
             res = await API.search(str, store.location, data)
             return res
 
