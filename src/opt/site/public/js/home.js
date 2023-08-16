@@ -5,7 +5,7 @@ async function page_init() {
     
     let productList = [];
     // banners
-    renderBanners($("#banner"), store.banners.superior)
+    renderBanners($("#banner"), store.banners.superior, {device})
 
     // popups
     if(store.popups) showPagePopup(store.popups.home)

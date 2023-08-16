@@ -25,7 +25,7 @@ function s(str) {
 }
 
 router.get('/', function(req, res) {    
-    res.status(200).send(s(homeView()))
+    res.status(200).send(s(homeView(req.device.type.toUpperCase())))
 });
 
 router.get('/busqueda/:str', function(req, res) {    

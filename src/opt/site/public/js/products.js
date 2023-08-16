@@ -479,6 +479,7 @@ function renderLoading($target) {
 
 function productClick($parent, $elem) {
 
+    console.log($parent, $elem)
     let id = $parent.data("id");
 
     if($elem.hasClass("add")) return pLog("cart", {id, product: getProduct(id), value: 1});

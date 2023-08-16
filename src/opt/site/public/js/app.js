@@ -30,13 +30,17 @@ let res,
 // ========================================================================== //
 // RENDER
 
-function renderBanners($target, items, options = {
-    centeredSlides: false,
-    pagination: {el: ".swiper-pagination", dynamicBullets: true},
-    navigation: {nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev'}
-}) {
+function renderBanners($target, items, options = {}) {
 
     let d, img, s = "", banners_data = [];
+
+    options = {
+        device:"DESKTOP",
+        centeredSlides: false,
+        pagination: {el: ".swiper-pagination", dynamicBullets: true},
+        navigation: {nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev'},
+        ...options
+    }
 
     if(!items || items.length == 0) return false
 
@@ -50,7 +54,7 @@ function renderBanners($target, items, options = {
 
     forEach(items, item => {
 
-        if(!(img = store.isMobile ? item.mobile : item.web)) return
+        if(!(img = options.device != "DESKTOP" ? item.mobile : item.web)) return
 
         banners_data.push(d = item.data)
         s += `<div class="swiper-slide" ${options.itemStyle}>`
@@ -62,13 +66,14 @@ function renderBanners($target, items, options = {
         s += `</div>`
     })
 
-    $target.removeClass("banner_init").css({position: "relative"}).html(`
+    $target.css({position: "relative"}).html(/*html*/`
 <div class="swiper slider">
     <div class="swiper-wrapper">${s}</div>
     <div class="swiper-pagination"></div>
     ${options.navigation ? `<div class="swiper-button-next"></div><div class="swiper-button-prev"></div>`:""}
 </div>`)
 
+    console.log(options)
     new Swiper($target.find(".swiper")[0],  
         {
             centeredSlides: options.centeredSlides,
