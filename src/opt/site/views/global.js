@@ -61,7 +61,7 @@ return /*html*/`
 		<div id="contacto">
 			<div><i class="far fa-envelope"></i> <a
 					href="mailto:servicioalcliente@farmaciatorres.com">servicioalcliente@farmaciatorres.com</a></div>
-			<div><a href="tel:+573157823477"><i class="fas fa-mobile-alt"></i> Llamar 321-519-6404</a></div>
+			<div><a href="tel:+573215196404"><i class="fas fa-mobile-alt"></i> Llamar 321-519-6404</a></div>
 			<div><a href="#"><i class="fas fa-comment"></i> Radicar PQRS</a></div>
 		</div>
 		<h3 class="tx-c">Síguenos en nuestras redes sociales</h3>
