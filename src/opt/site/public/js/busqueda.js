@@ -1,3 +1,6 @@
+
+$currentPage = "busqueda"
+
 let $resultado_list = $("#resultado-list"),
     search_str = "",
     result_search_str = "",
@@ -44,6 +47,16 @@ async function search_products(search_str) {
 
             renderFiltros(p)
             $("#sort-div").html(orderStr)
+
+            // banners
+            if(res.data.banners) {
+                banners = res.data.banners.filter(item => ((item.data.banner_cat && item.data.banner_cat.split(" ").includes(res.data.cat_id)) || (item.data.banner_sub && item.data.banner_sub.split(" ").includes(res.data.sub_id))))
+                if(renderBanners($("#banner"), banners) === false) $("#banner").hide(0)
+            }
+    
+            // popups
+            if(store.popups) showPagePopup(store.popups.cats.filter(item => (res.data.cat_id == item.data.popup_cat_id) || (res.data.sub_id == item.data.popup_subcat_id)))
+
         }
 
     } else {

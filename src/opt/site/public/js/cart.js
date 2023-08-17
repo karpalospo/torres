@@ -154,7 +154,6 @@ function renderCart() {
         c = store.coupon
     ;
 
-
     calculateCart()
 
     $cart_list.html("")
@@ -171,13 +170,13 @@ function renderCart() {
     if(store.order.items == 0) $cart_list.html(renderCartItem(null, "nocart"))
 
     // cupon
-    if(c && c.vlrminimo != undefined) {
-        falta = c.vlrminimo - store.order.couponTotal
+    if(c && c.VlrMinimo != undefined) {
+        falta = c.VlrMinimo - store.order.couponTotal
         $cart_list.prepend(/*html*/`
 <div data-id="0">
 <img src="${ABS_URL_SERVER}/assets/cupon.png" alt="" />
 <div class="f1">
-    <div class="titulo" style="color:#ff2c6e">${c.nombrecupon}</div>
+    <div class="titulo" style="color:#ff2c6e">${c.NombreCupon}</div>
     <div>${store.coupon.condicionTexto}</div>
     <div class="row" style="padding:10px 0;">
         <div><div class="link2" onclick="showModal(true, $('#cupones'))" >Ver Condiciones</div></div>
@@ -186,11 +185,11 @@ function renderCart() {
                 <i onclick="borrarCupon()" class="fas fa-trash-alt"></i>
             </div>
         </div>
-        <div class="precio-cupon">-${f(c.valorcupon)}</div>
+        <div class="precio-cupon">-${f(c.ValorCupon)}</div>
     </div>
     ${falta > 0 ?
     /*html*/`<div class="progressbar">
-        <div style="width:${Math.round(store.order.couponTotal / c.vlrminimo * 100)}%"></div>
+        <div style="width:${Math.round(store.order.couponTotal / c.VlrMinimo * 100)}%"></div>
     </div>
     <div style="padding:7px; font-size:0.9em; text-align:right">Faltan <b>${f(falta)}</b> para aplicar</div>`
     : 

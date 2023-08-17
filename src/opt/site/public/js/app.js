@@ -23,19 +23,24 @@ let res,
     $currentModalWindow,
     scrollTop,
     currentProductDetail,
-    $window = $(window)
+    $window = $(window),
+    $currentPage
 ;
 
 // ========================================================================== //
 // RENDER
 
-function renderBanners($target, items, options = {
-    centeredSlides: false,
-    pagination: {el: ".swiper-pagination", dynamicBullets: true},
-    navigation: {nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev'}
-}) {
+function renderBanners($target, items, options = {}) {
 
     let d, img, s = "", banners_data = [];
+
+    options = {
+        device:"DESKTOP",
+        centeredSlides: false,
+        pagination: {el: ".swiper-pagination", dynamicBullets: true},
+        navigation: {nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev'},
+        ...options
+    }
 
     if(!items || items.length == 0) return false
 
@@ -49,7 +54,7 @@ function renderBanners($target, items, options = {
 
     forEach(items, item => {
 
-        if(!(img = store.isMobile ? item.mobile : item.web)) return
+        if(!(img = options.device != "DESKTOP" ? item.mobile : item.web)) return
 
         banners_data.push(d = item.data)
         s += `<div class="swiper-slide" ${options.itemStyle}>`
@@ -61,13 +66,14 @@ function renderBanners($target, items, options = {
         s += `</div>`
     })
 
-    $target.removeClass("banner_init").css({position: "relative"}).html(`
+    $target.css({position: "relative"}).html(/*html*/`
 <div class="swiper slider">
     <div class="swiper-wrapper">${s}</div>
     <div class="swiper-pagination"></div>
     ${options.navigation ? `<div class="swiper-button-next"></div><div class="swiper-button-prev"></div>`:""}
 </div>`)
 
+    console.log(options)
     new Swiper($target.find(".swiper")[0],  
         {
             centeredSlides: options.centeredSlides,
@@ -154,9 +160,10 @@ async function login() {
         write_cache("user", store.user)
         if(store.goOrder) parent.location = `${ABS_URL}/pedido`;
         else {
-            if(typeof getUserAddresses == "function") getUserAddresses()
-            renderUser()
-            renderCupones()
+            location.reload()
+            // if(typeof getUserAddresses == "function") getUserAddresses()
+            // renderUser()
+            // renderCupones()
         }
     }
 }
@@ -249,10 +256,7 @@ async function getProductsFullInfo(products) {
 
 
 // ========================================================================== //
-// CUPONES
-
-// ========================================================================== //
-// COUPON
+// CUPON
 
 function borrarCupon(mustRenderCart = true) {
     store.coupon = null;
@@ -286,7 +290,7 @@ async function redimirCupon() {
 
         if(cupon.condicion.toString() == "0" && store.order.subtotal < cupon.VlrMinimo) {
 
-            successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.nombreCupon} solo es válido para compras mínimas de ${f(cupon.vlrMinimo)}.`)
+            successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.NombreCupon} solo es válido para compras mínimas de ${f(cupon.VlrMinimo)}.`)
 
         } else if(cupon.condicion.toString() !== "0"){
 
@@ -300,7 +304,7 @@ async function redimirCupon() {
                     IdUnidad: product.item.IdUnidad,
                     cantidad: product.item._quanty,
                     descuento: product.item.descuento,
-                    idoferta: product.item.idoferta != undefined ? product.item.idoferta : 0
+                    idOferta: product.item.idoferta != undefined ? product.item.idoferta : 0
                 })
             })
  
@@ -309,47 +313,42 @@ async function redimirCupon() {
             if(res2.error) {
                 successCupon = showResultMessage($lblCupon, false, `Este cupón no es válido para ser redimido. ${cupon.descripcion}`)
             } else if (res2.data.ValorProductos < cupon.VlrMinimo) {
-                successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.nombreCupon} solo es válido para compras mínimas de ${f(cupon.vlrMinimo)}. ${cupon.descripcion}`)
+                successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.NombreCupon} solo es válido para compras mínimas de ${f(cupon.VlrMinimo)}. ${cupon.descripcion}`)
             }
         }
 
     }
-    //console.log(successCupon)
+
     if(successCupon){
         //confetti.toggle()
         //setTimeout(() => confetti.toggle(), 3000)
         showResultMessage($lblCupon, true, `Cupón aplicado con éxito`)
-        store.cuponDiscount = cupon.valorCupon
-        //JR
-        store.order.cupon=cupon;
-        //END JR
+        store.cuponDiscount = cupon.valorCupon || 0.001
+        store.order.cupon = cupon;
         store.order.cupon.aplica = true
         renderCart()
         summaryCart()
     }
 }
 
+
 function stringfyCats(cats) {
     let s = ""
-    cats.forEach(item => {
-        s += "&#9679; " + item.title + " "
-    })
+    cats.forEach(item => {s += "&#9679; " + item.title + " "})
     return s
 }
 
-function vercats(id) {
-    let $button = $(".button-" + id)
+function vercats(target, $elem) {
 
-    if($button.text() == "Mostrar Categorias") {
-        $("." + id).css("max-height", "fit-content")
-        $button.text("Ocultar Categorias")
+    if($elem.html() == "Mostrar Categorias") {
+        $(target).css("max-height", "fit-content")
+        $elem.html("Ocultar Categorias")
     } else {
-        $("." + id).css("max-height", "0")
-        $button.text("Mostrar Categorias")
+        $(target).css("max-height", "0")
+        $elem.html("Mostrar Categorias")
     }
     
 }
-
 
 // ========================================================================== //
 // SEARCH
@@ -375,15 +374,15 @@ async function pLog(event, payload = {}) {
         case "coupon":
             borrarCupon()
             showModal()
-            store.coupon = getFromArrayByProp(store.cupones, payload.id, "idCupon")
-            $("#txt-cupon").val(store.coupon.nombreCupon)
+            store.coupon = getFromArrayByProp(store.cupones, payload.id, "IdCupon")
+            $("#txt-cupon").val(store.coupon.NombreCupon)
             if(store.coupon.condicion != 0) {
                 store.coupon.condicionTexto = ""
-                let res = await API.getCupon(store.coupon.nombreCupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
+                let res = await API.getCupon(store.coupon.NombreCupon, store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
                 if(!res.error) {
-                    store.coupon.condicionTexto = `Aplica para pedidos mínimos de <b>${f(store.coupon.vlrMinimo)}</b>`
+                    store.coupon.condicionTexto = `Aplica para pedidos mínimos de <b>${f(store.coupon.VlrMinimo)}</b>`
                 }
-            } else store.coupon.condicionTexto = `Aplica para pedidos mínimos de <b>${f(store.coupon.vlrMinimo)}</b>`
+            } else store.coupon.condicionTexto = `Aplica para pedidos mínimos de <b>${f(store.coupon.VlrMinimo)}</b>`
 
             write_cache("coupon", store.coupon)
             renderCart()
@@ -393,9 +392,9 @@ async function pLog(event, payload = {}) {
           
         case "logout":
             store.user = {}
+            write_cache("user")
             if(payload && payload.noRedirect) {}
             else {parent.location = ABS_URL}
-            write_cache("user")
             break;
 
         case "search":
@@ -407,6 +406,7 @@ async function pLog(event, payload = {}) {
                 str = payload.str.trim().toLowerCase()
                 data = payload
             }
+            data.marca = "TOR"
             res = await API.search(str, store.location, data)
             return res
 
@@ -469,18 +469,14 @@ function showOverlay(show, opt = {}) {
 
 function showPopup(image, options = {imageClick: ''}) {
     
-    let $popup = $("#popup"),
-        h = $content.height() - 160
-    ;
+    let $popup = $("#popup");
 
-    //$popup.css("max-width", `${w}px`)
-    $popup.html(`
-${options.closeButton ? 
-`<div class="close absolute" onclick="showModal(false)"><i class="fa fa-times"></i></div>` : ``}
-<div style="background-color:#f2f2f2; cursor.pointer; font-size:0; min-height:100px" onclick="${options.imageClick}"><img src="${image}" alt="" style="width: 100%;"/></div>
+    $popup.html(/*html*/`
+${options.closeButton ? `<div class="close absolute" onclick="showModal(false)"><i class="fa fa-times"></i></div>` : ``}
+<div style="background-color:#f2f2f2; cursor.pointer; font-size:0; min-height:100px" onclick="${options.imageClick}"><img src="${image}" alt="" style="width: 100%; max-height: 80vh"/></div>
 <div class="row full-row">
 ${options.dismiss ? 
-`<button id="popup-dismiss" class="button-popup" style="background-color:#ff2c2c" onclick="${options.dismiss}">${options.dismissLabel}</button>
+/*html*/`<button id="popup-dismiss" class="button-popup" style="background-color:#ff2c2c" onclick="${options.dismiss}">${options.dismissLabel}</button>
 <div style="width:8px"></div>
 ` : ``}
 ${options.callToAction ? `<button class="button-popup" onclick="${options.callToAction}">${options.callToActionLabel}</button>` : ``}

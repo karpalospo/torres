@@ -264,7 +264,7 @@ select {
     color: white;
     background: #fa7800;
     text-align: center;
-    padding: 8px;
+    height: 4px;
 }
 
 
@@ -282,7 +282,7 @@ select {
 }
 
 #contacto > div {
-    border: 1px solid #555;
+    border: 1px solid #bcbcbc;
     border-radius: 10px;
     margin: 0 6px;
     font-size: 0.8em;
@@ -319,7 +319,6 @@ select {
     text-align: left;
     padding: 4px 2px;
     cursor: default;
-    font-weight: 300;
     margin: 2px 0;
 }
 
@@ -341,12 +340,12 @@ select {
 
 #copyright {
     font-weight: 400;
-    color: #999;
+    color: #222;
     font-size: 0.8em;
     margin-top: 20px;
     padding-top: 11px;
-    border-top: 1px solid #fa7800;
-    padding-bottom: 25px;
+    border-top: 1px solid #d9d9d9;
+    padding-bottom: 15px;
     text-align: center;
 }
 
@@ -793,11 +792,6 @@ select {
     text-align: center;
 }
 
-.button-pink {
-    background-color: #fa7800 !important;
-    color: white !important;
-}
-
 .verde {
     color: green
 }
@@ -885,10 +879,13 @@ select {
     color: #fa7800 !important;
 }
 
-.banner_init{
-    min-height: 300px;
-    width: 100%;
-    font-size: 0;
+.banners{
+    width: 100%; 
+    border-radius: 10px; 
+    overflow: hidden; 
+    font-size: 0; 
+    margin: 10px 0 25px 0;
+    min-height: 380px;
 }
 
 #banner-e .slider {
@@ -1330,6 +1327,29 @@ h3 {
     min-width: 70px;
 }
 
+.error-msg {
+    color: red;
+    border-radius: 3px;
+    display: block;
+    background: #fff1f1;
+    padding: 8px;
+    border: 1px solid #ffc3c3;
+    margin: 10px;
+    font-size: 0.9em;
+}
+
+.btn-usar {
+    margin-top: 20px;
+    width: 90%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #db4c4c;
+    color: white;
+    background: linear-gradient(180deg, rgba(224,175,96,1) 0%, rgba(250,98,33,1) 75%);
+    font-weight: bold;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+}
+
 .grey_img {
     filter: grayscale(80%);
 }
@@ -1536,7 +1556,7 @@ h3 {
 }
 
 .page-button {
-    background-color: #1B42CB;
+    background-color: #fa7800;
     color: #fff;
     font-weight: 600;
     padding: 10px 20px;
@@ -1554,9 +1574,9 @@ h3 {
 .page-button-flat {
     flex: 1;
     background-color: transparent;
-    border: 1px solid #1B42CB;
+    border: 1px solid #fa7800;
     font-family: "Roboto";
-    color: #1B42CB;
+    color: #fa7800;
     font-weight: 500;
     padding: 12px 10px;
     border-radius: 4px;
@@ -2967,21 +2987,16 @@ h3 {
 
 .swiper-button-prev {
     left: 0 !important;
-    background: #222;
     border-radius: 21px;
     width: 32px !important;
     height: 32px !important;
-    color: white !important;
-  
 }
 
 .swiper-button-next {
     right: 0 !important;
-    background: #222;
     border-radius: 21px;
     width: 32px !important;
     height: 32px !important;
-    color: white !important;
 }
 
 .swiper-button-next:after, .swiper-button-prev:after {
@@ -3210,6 +3225,10 @@ h3 {
         margin-bottom: 50px;
     }
 
+    .banners {
+        min-height: 100px;
+    }
+    
     .resultados-cont {
         z-index: 0;
     }

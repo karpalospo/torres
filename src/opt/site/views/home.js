@@ -1,7 +1,7 @@
 const HTML = require("./global.js")
 const ABS_URL = HTML.ABS_URL;
 
-module.exports = () => {
+module.exports = (device) => {
 return /*html*/`
 ${HTML.head({title: "Home"})}
 ${HTML.header}
@@ -14,9 +14,7 @@ ${HTML.header}
 
 	<div id="home-cont" class="max-width">
 
-		<div id="banner"  style="width: 100%; border-radius: 20px; overflow: hidden; font-size: 0; margin: 10px 0 25px 0">
-			<img src="${ABS_URL}/assets/banner.jpg" atl="banner" style="width: 100%;" />
-		</div>
+		<div id="banner" class="banners"></div>
 
 		<div class="header-section">
 			<div></div>
@@ -71,6 +69,7 @@ ${HTML.header}
 
 ${HTML.footer}
 ${HTML.scripts}
+<script>let device = '${device}'</script>
 <script src="${ABS_URL}/js/home.js"></script>
 <script src="${ABS_URL}/js/header.js"></script>
 </body></html>`}

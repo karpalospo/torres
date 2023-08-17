@@ -27,9 +27,16 @@ renderCategorias(store.location)
 $("#modals-cont").load(`${ABS_URL}/modals.html`, async function() {
 
     await renderCiudades()
-    await renderCupones()
-
     resize()
+
+    res = await API.getInit({
+        user:{nit:store.user.nit},
+        location: store.location,
+        page: $currentPage
+    })
+
+    if(res.data.banners) store.banners = res.data.banners
+    if(res.data.popups) store.popups = res.data.popups
 
     if(typeof page_init == "function") page_init()
 
@@ -61,6 +68,8 @@ async function renderCategorias(ciudad) {
     $menuitems.off("mouseleave").on("mouseleave", e => showDropMenu($(e.currentTarget), false))
 
     //showDropMenu($target.find("> div").eq(5), true)
+
+    await renderCupones()
 }
 
 async function renderCiudades() {
@@ -153,55 +162,75 @@ Para ver los cupones de descuento disponibles debes iniciar sesión
     s = ""
     forEach(store.cupones, item => {
         couponCondicion(item)
+
         s += /*html*/`
-<div class="cupon" data-id="${item.idCupon}">
+<div class="cupon">
     <div>
-        <div class="cupon-title">${item.nombreCupon}</div>
-        <div class="value">${f(item.valorCupon)}</div>
+        <div class="cupon-title">${item.NombreCupon}</div>
+        <div class="value">${f(item.ValorCupon)}</div>
+        <button data-id="${item.IdCupon}" class="btn-usar">USAR</button>
     </div>
     <div>
         <div class="info">
-            &#10004; <b>${f(item.valorCupon)}</b> de descuento para compras mínimas de <b>${f(item.vlrMinimo)}</b><br>
-            &#10004; Válido hasta <b>${new Date(item.hasta).toLocaleString('en-US')}</b><br>
-            &#10004; Utilización máxima <b>${item.maximaVentaCliente} ${item.maximaVentaCliente == 1 ? "vez" : "veces"}</b> por usuario el mismo día.<br>
+            &#10004; <b>${f(item.ValorCupon)}</b> de descuento para compras mínimas de <b>${f(item.VlrMinimo)}</b><br>
+            &#10004; Válido hasta <b>${new Date(item.Hasta).toLocaleString('en-US')}</b><br>
+            &#10004; Utilización máxima <b>${item.MaximaVentaCliente} ${item.MaximaVentaCliente == 1 ? "vez" : "veces"}</b> por usuario el mismo día.<br>
             ${item.aplica.length > item.noaplica.length ?
-            /*html*/`&#10004; <b>No Aplica</b> para las siguientes categorías: <span class="button-aplica-cats-${item.idCupon}" onclick="vercats('aplica-cats-${item.idCupon}')">Mostrar Categorias</span>
-            <div class="aplica-cats-${item.idCupon}" style="max-height:0; overflow: hidden">${stringfyCats(item.noaplica)}</div>`
+            /*html*/`&#10004; <b>No Aplica</b> para las siguientes categorías: <span data-id="${item.IdCupon}" onclick="mostrarCats(event)">Mostrar Categorias</span>
+            <div class="aplica-cats-${item.IdCupon}" style="max-height:0; overflow: hidden">${stringfyCats(item.noaplica)}</div>`
             :
-            /*html*/`&#10004; Aplica para las siguientes categorías: <span class="button-aplica-cats-${item.idCupon}" onclick="vercats('aplica-cats-${item.idCupon}')">Mostrar Categorias</span>
-            <div class="aplica-cats-${item.idCupon}" style="max-height:0; overflow: hidden">${stringfyCats(item.aplica)}</div>`
+            /*html*/`&#10004; Aplica para las siguientes categorías: <span data-id="${item.IdCupon}" onclick="mostrarCats(event)">Mostrar Categorias</span>
+            <div class="aplica-cats-${item.IdCupon}" style="max-height:0; overflow: hidden">${stringfyCats(item.aplica)}</div>`
             }
         </div>
     </div>
 </div>`
+
     })
    
     $target.html(s)
 
-    $target.on("click", ".cupon", e => {
+    $target.on("click", ".btn-usar", e => {
         let $elem = $(e.currentTarget)
         pLog('coupon', {id: $elem.data("id")})
     });
 
 }
 
+
+function mostrarCats(e) {
+    
+    e.preventDefault();
+    let $elem = $(e.currentTarget)
+    vercats(`.aplica-cats-${$elem.data("id")}`, $elem)
+}
+
 function couponCondicion(coupon) {
+
     if(!coupon || !coupon.itemsCondicion) return
 
     let subs = {}, founded
     coupon.aplica = [], coupon.noaplica = []
     
     forEach(store.categorias, cat => {
-        forEach(cat.subs, sub => subs[sub.id] = sub)
+        forEach(cat.subs, sub => subs[sub.id] = {...sub, cat})
     })
 
     forEach(subs, sub => {
+
         founded = false
-        coupon.itemsCondicion.forEach(item => {if(item.aplicadoa == sub.id) founded = true})
+        
+        coupon.itemsCondicion.forEach(item => {
+            if(item.tipo == "CT") {
+                if(item.AplicadoA == sub.cat.id) founded = true
+            } else if(item.tipo == "SC") {
+                if(item.AplicadoA == sub.id) founded = true
+            }
+        })
+
         if(founded) coupon.aplica.push(sub)
         else coupon.noaplica.push(sub)
     })
-
 
 }
 

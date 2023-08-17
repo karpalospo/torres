@@ -17,9 +17,9 @@ let $button_order = $("#button-order, #button-order2"),
 
 async function page_init() {
     
-    //if(!store.user.logged) return parent.location = `index.html`
+    if(!store.user.logged) $("#button-order").hide()
 
-    if(store.coupon) $("#txt-cupon").val(store.coupon.nombrecupon)
+    if(store.coupon) $("#txt-cupon").val(store.coupon.NombreCupon)
 
     if((resAddress = getUserAddresses($("#address-list"))) === false) {
         showModalMessage("error-login", {
@@ -109,6 +109,8 @@ function showOrderError(message, permanent = false) {
 
 async function buscarBono() {
 
+    if(!store.user.nit) return
+
     store.bonusDiscount = 0
 
     if(store.bono == undefined) {
@@ -162,11 +164,11 @@ para una compra igual o superior a <b>${f(store.bono.VlrMinimoCompra)}</b></p>
     }
 
 
-if(!store.bono.valido) $target.addClass("inactivo")
-else $target.removeClass("inactivo")
+    if(!store.bono.valido) $target.addClass("inactivo")
+    else $target.removeClass("inactivo")
 
 
-$("#bono-condiciones").find(".float-content").html(/*html*/`
+    $("#bono-condiciones").find(".float-content").html(/*html*/`
 ${store.bono.Condicion != 0 ?
 `<p><i class="fas fa-check"></i> ${store.bono.Descripcion}</p>`
 :
@@ -189,6 +191,10 @@ function aplicarBono() {
     renderCart()
     if(typeof summaryCart == "function") summaryCart(false)
 }
+
+
+// ========================================================================== //
+// CHECKOUT
 
 async function checkout() {
 
