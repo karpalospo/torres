@@ -70,7 +70,7 @@ return /*html*/`
 		<div style="height: 20px;"></div> -->
 		<div id="contacto">
 			<div><i class="far fa-envelope"></i> <a
-					href="mailto:servicioalcliente@farmaciatorres.com">servicioalcliente@farmaciatorres.com</a></div>
+					href="mailto:atencionalcliente@farmaciatorres.com">atencionalcliente@farmaciatorres.com</a></div>
 			<div><a href="tel:+573215196404"><i class="fas fa-mobile-alt"></i> Llamar 321-519-6404</a></div>
 			<div><a href="#"><i class="fas fa-comment"></i> Radicar PQRS</a></div>
 		</div>
