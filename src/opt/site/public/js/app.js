@@ -60,7 +60,7 @@ function renderBanners($target, items, options = {}) {
         s += `<div class="swiper-slide" ${options.itemStyle}>`
         if(d.keywords) s += `<div><a href="${ABS_URL}/busqueda/${d.keywords}"><img src="${img}" alt="" ${options.itemImgStyle}/></a></div>`
         else if(d.link) s += `<div><a href="${d.link}" target="_blank"><img src="${img}" alt="" ${options.itemImgStyle}/></a></div>`
-        else if(d.link_self) s += `<div><a href="${d.link}" target="_self"><img src="${img}" alt="" ${options.itemImgStyle}/></a></div>`
+        else if(d.link_self) s += `<div><a href="${ABS_URL}/${d.link_self}" target="_self"><img src="${img}" alt="" ${options.itemImgStyle}/></a></div>`
         else if(d.codes) s += `<div><a href="${ABS_URL}/busqueda/[banner]${item.id}"><img src="${img}" alt="" ${options.itemImgStyle}/></a></div>`
         else s += `<div><img src="${img}" alt="" ${options.itemImgStyle}/></div>`
         s += `</div>`
