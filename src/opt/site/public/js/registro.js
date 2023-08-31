@@ -23,7 +23,7 @@ async function signup(elem) {
     let $elem = $(elem)
     if(command($elem, true)) return
 
-    let { email, name, nit, dateOfBirth, cellphone, password, confirmPassword, terms, terms_vida_sana, gender, lastname } = $("#frm-registro")[0];
+    let { email, name, nit, dateOfBirth, cellphone, password, confirmPassword, terms_vida_sana, gender, lastname } = $("#frm-registro")[0];
 
     let fields = {
         email: email.value,
@@ -34,7 +34,7 @@ async function signup(elem) {
         celular: cellphone.value,
         telefono: "000000",
         fecha_nacimiento: dateOfBirth.value,
-        acepta_condiciones: terms.checked,
+        acepta_condiciones: terms_vida_sana.checked,
         gender: gender.value,
         device: store.isMobile ? "webmobile" : "webdesktop",
     }
@@ -72,12 +72,15 @@ async function signup(elem) {
 
     
     // validaciones
+
     if (!FormValidations.IsValidEmail(fields.email)) return showError("El email no es válido")
     if (FormValidations.ContainsLetters(fields.celular) || !FormValidations.IsValidPhoneNumber(fields.celular)) return showError("El número de celular no es válido")
     if (FormValidations.ContainsLetters(fields.nit) || FormValidations.ContainsSpecialChars(fields.nit)) return showError("El número de documento no es válido")
     if (ValidateInputFormEmpty(fields)) return showError("Debe llenar todos los campos")
     if (fields.password != fields.confirm_password) return showError("Las contraseñas no coinciden")
-    
+    if(!terms_vida_sana.checked) return showError("Debe aceptar terminos y condiciones")   
+
+
     let res = await API.signup(fields);
 
     if (res.error === false) {

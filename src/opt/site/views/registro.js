@@ -73,20 +73,18 @@ ${HTML.header}
 
 			<div style="border: 1px solid #fa7800; padding: 8px; border-radius: 6px; margin-top: 10px; font-size: 0.8em;">
 				<div class="row r-c">
-					<input type="checkbox" id="terms" name="terms">
-					<label for="terms" style="padding-left: 10px;"> Acepto los términos y condiciones y deseo ser parte del Club Vida Sana</label>
+					<input type="checkbox" id="terms_vida_sana" name="terms_vida_sana">
+					<label for="terms_vida_sana" style="padding-left: 10px;"> Acepto los términos y condiciones y deseo ser parte del Club Vida Sana</label>
 				</div>
 			</div>
 
 			<p class="tx-c">
-				<a href="empresa-politicas.html" class="link" target="_blank"><i class="fas fa-external-link-alt"></i>
+				<a href="politicas" class="link" target="_blank"><i class="fas fa-external-link-alt"></i>
 					Ver página de políticas y términos de uso</a>
 				<br>
-				<a href="empresa-vidasana.html" class="link" target="_blank"><i class="fas fa-external-link-alt"></i>
+				<a href="vidasana" class="link" target="_blank"><i class="fas fa-external-link-alt"></i>
 					Conocer más acerca del Club Vida Sana</a>
 			</p>
-
-			<input type="checkbox" id="terms_vida_sana" name="terms_vida_sana" checked="checked" style="display: none;">
 
 		</form>
 
