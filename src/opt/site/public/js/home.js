@@ -21,7 +21,7 @@ async function page_init() {
     const x = setInterval(countdown, 1000);
     countdown();
 
-    showModal(true, "popup-aniv")
+    //showModal(true, "popup-aniv")
 
     
     let productList = [];
