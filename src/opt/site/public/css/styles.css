@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
 
 :root {
     --header-height: 95px;
@@ -3166,6 +3167,40 @@ h3 {
 }
 
 
+#timer {
+    font-size: 2em;
+    font-weight: 100;
+    color: white;
+    background: #FC7822;
+    display: flex;
+    border-radius: 10px;
+    position: absolute;
+    z-index: 10;
+    width: 200px;
+    height: 62px;
+    bottom: 19%;
+    left: 50%;
+    margin-left: -100px;
+    font-family: 'Poppins', sans-serif;
+    justify-content: space-between;
+    padding: 0 10px 0 0;
+}
+
+#timer div {
+    display: inline-block;
+    width: 50px;
+    text-align: center;
+    padding: 3px;
+}
+
+
+#timer div span {
+    color: white;
+    display: block;
+    font-size: 0.35em;
+    font-weight: 300;
+    margin-top: -10px;
+}
 
 
 @keyframes fadeInOpacity {

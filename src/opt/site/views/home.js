@@ -69,7 +69,7 @@ ${HTML.header}
 
 ${HTML.footer}
 ${HTML.scripts}
-<script>let device = '${device}'</script>
+<script>let device = '${device}';</script>
 <script src="${ABS_URL}/js/home.js"></script>
 <script src="${ABS_URL}/js/header.js"></script>
 </body></html>`}

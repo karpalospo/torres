@@ -37,7 +37,6 @@ const API = {
     },
 
     async getInit(data) {
-        console.log(data)
         return await fetchAsync(`${URL.server2}/inittorres`, {body: data});
     },
 

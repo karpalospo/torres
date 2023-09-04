@@ -47,6 +47,26 @@
         </div>
     </div>
 
+    <div id="popup-aniv" class="float-window">
+        <div class="float-content" onclick="showModal(false)">
+            <div class="close" style="position: absolute; right:10px; top:10px" onclick="showModal(false)"><i class="fa fa-times"></i></div>
+            <div style="font-size: 0;"><img src="assets/aniv-pop.png" alt="" /></div>
+            <div id="timer" style="opacity: 1;"></div>
+        </div>
+    </div>
+
+    <div id="popup-message" class="float-window" style="max-width: 380px;">
+        <div class="float-header">
+            <div class="title"></div>
+            <div class="close" onclick="showModal(false)"><i class="fa fa-times"></i></div>
+        </div>
+        <div class="float-content"></div>
+        <div class="float-footer">
+            <div><button class="page-button" onclick="showModal(false)">ACEPTAR</button></div>
+        </div>
+    </div>
+
+
     <div id="popup" style="padding: 2px;" class="float-window"></div>
     
     <div id="categorias-list" class="float-window">
