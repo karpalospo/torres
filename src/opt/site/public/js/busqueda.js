@@ -37,7 +37,7 @@ async function search_products(search_str) {
 
     if(fullProducts.stock.length > 0) {
 
-        p = await showProducts($resultado_list, fullProducts.stock, {collection: 'search', filter: true, rows: "auto", cols: 100, sort: $("#sort").val(), headerExact: result_search_str, section: 0})
+        p = showProducts($resultado_list, fullProducts.stock, {collection: 'search', filter: true, rows: "auto", cols: 100, sort: $("#sort").val(), headerExact: result_search_str, section: 0})
 
         if(p.noProducts) {
             
@@ -55,7 +55,7 @@ async function search_products(search_str) {
             }
     
             // popups
-            if(store.popups) showPagePopup(store.popups.cats.filter(item => (res.data.cat_id == item.data.popup_cat_id) || (res.data.sub_id == item.data.popup_subcat_id)))
+            if(store.popups && store.popups.cats) showPagePopup(store.popups.cats.filter(item => (res.data.cat_id == item.data.popup_cat_id) || (res.data.sub_id == item.data.popup_subcat_id)))
 
         }
 

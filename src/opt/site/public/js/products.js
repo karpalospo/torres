@@ -303,6 +303,7 @@ function renderExtrainfo(item) {
             if(item.indexOf(":") > -1) s += `<div><div class="title">${item.replace(":", "")}</div><div>${lineas[index + 1] || ""}</div></div>`
         })
     }
+    if(item.patrocina && item.patrocina == "S") $(".detail-patro").html(`<img src="${ABS_URL}/assets/patro.png" alt="" style="width:100%" />`)
 
     return `
 <div class="table-ficha">${s}</div>
@@ -396,13 +397,13 @@ ${_(precioCondicion, /*html*/`
     default:
 
         hasDiscount = item.descuento > 0 && (!store.noPromoCats.includes(item.cat) && !store.noPromoSubs.includes(item.sub) || (store.proveedores && store.proveedores.includes(item.nitproveedor)) )
-
         beneficio = item.beneficio != undefined
 
         if(item.VlrMinimo > 0) {
             hasDiscount = false
             precioCondicion = true
         }
+
         return /*html*/`
 <div class="product-item" data-id="${item.id}">
     <div class="item">
@@ -410,9 +411,10 @@ ${_(precioCondicion, /*html*/`
         <div class="image">
             <img src="https://www.droguerialaeconomia.com/economia/site/img/${item.id}.png" alt="" />
         </div>
+        ${_(item.patrocina && item.patrocina == "S", /*html*/`<div class="patrocina">Marca Patrocinadora</div>`)}
         <div class="info">
             <span class="titulo">${item.nombre}</span>
-            ${_(beneficio, /*html*/`<div class="promocion"><i class="fas fa-gift"></i>&nbsp; paga <b>3</b> lleva <b>4</b>!</div>`)}
+            ${_(beneficio || false, /*html*/`<div class="promocion"><i class="fas fa-gift"></i>&nbsp; paga <b>3</b> lleva <b>4</b>!</div>`)}
             <div style="padding:9px 0">
             ${_(hasDiscount, /*html*/`<span class="antes">${f(item.antes)}</span>`, /*html*/`<span class="antes2">&nbsp;</span>`)}
             <span class="precio ${_(hasDiscount || beneficio, "rojo")}">${f(item.precio)}</span>

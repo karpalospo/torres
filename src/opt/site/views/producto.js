@@ -220,6 +220,14 @@ ${HTML.header}
     	color: #101828;
 	}
 
+	.detail-patro {
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		z-index: 10;
+		width: 120px;
+	}
+
 
 	@media only screen and (max-width: 800px) {
 		
@@ -264,6 +272,7 @@ ${HTML.header}
 		<div style="background: white; border-radius: 8px; padding: ${device == "DESKTOP" ? "32px;" : "20px"}">
 			<div id="product-detail">
 				<div style="position: relative;">
+					<div class="detail-patro"></div>
 					<div id="porta-foto">
 						<div class="image-zoom">
 							<div id="slide" style="transform: scale(1); transform-origin: 0% 0%; cursor: default;"><img id="preview" src="" style="transform: translate(0%, 0%);"></div>

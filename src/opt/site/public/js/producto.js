@@ -31,7 +31,7 @@ async function search_product(id) {
     if(!currentProductDetail.sub) return
 
     res = await API.getSubcategorias(store.location, store.categorias[currentProductDetail.cat].subs[currentProductDetail.sub].id)
-    p = await showProducts($("#prod-relacionados"), HomologarProductos(res.data), {collection: 'relacionados', rows: "auto", cols: 100, limit:30, section: 0})
+    p = showProducts($("#prod-relacionados"), HomologarProductos(res.data), {collection: 'relacionados', rows: "auto", cols: 100, limit:30, section: 0})
    
 }
 
