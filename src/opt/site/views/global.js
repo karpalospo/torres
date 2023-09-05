@@ -126,6 +126,7 @@ return /*html*/`
 		<a href="/"><img src="${ABS_URL}/assets/logo2.png" alt="" style="width: 100%;" /></a>
 	</div>
 	<div id="header" class="max-width">
+		<img src="${ABS_URL}/assets/logo-ani.png" alt="" style="width:70px; margin-right:15px" />
 		<div id="logo" style="width:230px">
 			<a href="/"><img src="${ABS_URL}/assets/logo2.png" alt="" style="width: 100%;" /></a>
 		</div>

@@ -41,7 +41,7 @@ router.get('/categorias/:cat/:sub', function(req, res) {
 });
 
 router.get('/producto/:id', function(req, res) {    
-	res.status(200).send(s(productoView(req.params.id)))
+	res.status(200).send(s(productoView(req.params.id, req.device.type.toUpperCase())))
 });
 
 router.get('/pedido', function(req, res) {    

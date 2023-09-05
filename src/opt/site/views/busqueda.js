@@ -6,13 +6,13 @@ return /*html*/`
 ${HTML.head({title: "Búsqueda | " + str})}
 ${HTML.header}
 
-<div id="content" style="background-color:#f6f6f6">
+<div id="content">
 
 	<div id="back-filtros">
 
 		<div id="filtros">
 			<div class="row r-r">
-				<div class="f1 tx-c" style="font-family: 'Be Vietnam Pro'">Panel de Filtros</div>
+				<div class="f1 tx-c">Panel de Filtros</div>
 				<button onclick="mostrarFiltros(false)" class="circulo-negro">
 					<i class="fas fa-times"></i>
 				</button>

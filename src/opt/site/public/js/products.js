@@ -288,11 +288,10 @@ function renderPage($target, products, items_per_page, isCarrusel) {
 
 function renderExtrainfo(item) {
 
-    let lineas = [], s = `<tr><td class="title">Código</td><td>${item.id}</td></tr>`
+    let lineas = [], s = `<div><div class="title">Código</div><div>${item.id}</div></div>`
 
-    if(item.valor_contenido) s += `<tr><td class="title">Valor por Unidad</td><td>${item.valor_contenido}</td></tr>`
-    if(item.stock > 0) s += `<tr><td class="title">Disponibles</td><td>${item.stock == 1 ? item.stock + " Unidad" : item.stock + " Unidades"}</td></tr>`
-    if(item.proveedor) s += `<tr><td class="title">Proveedor</td><td>${item.proveedor}</td></tr>`
+    if(item.valor_contenido) s += `<div><div class="title">Valor por Unidad</div><div>${item.valor_contenido}</div></div>`
+    if(item.proveedor) s += `<div><div class="title">Proveedor</div><div>${item.proveedor}</div></div>`
 
     if(item.datasheet) {
         lineas = item.datasheet.split("\n")
@@ -301,13 +300,13 @@ function renderExtrainfo(item) {
             if(item.toLowerCase().indexOf("ancho") > -1) return
             if(item.toLowerCase().indexOf("país") > -1) return
             if(item.toLowerCase().indexOf("paquete") > -1) return
-            if(item.indexOf(":") > -1) s += `<tr><td class="title">${item.replace(":", "")}</td><td>${lineas[index + 1] || ""}</td></tr>`
+            if(item.indexOf(":") > -1) s += `<div><div class="title">${item.replace(":", "")}</div><div>${lineas[index + 1] || ""}</div></div>`
         })
     }
 
     return `
-<div>${item.aditional ? `<h2 style="color:#333; font-size: 1.2em">Información Adicional</h2><div class="info-add">${item.aditional}</div><br><br>` : ""}</div>
-<table class="table-ficha">${s}</table>`
+<div class="table-ficha">${s}</div>
+<div>${item.aditional ? `<div class="titulo-mediano">Información Adicional</div><div class="descripcion max50">${item.aditional}</div>` : ""}</div>`
 
 }
 
@@ -334,32 +333,31 @@ function renderProductItem(item, type) {
 </div>`
 
         case "detail":
-            hasDiscount = item.descuento > 0 && !store.noPromoCats.includes(item.cat) && !store.noPromoSubs.includes(item.sub)
-            if(item.VlrMinimo > 0) {
-                hasDiscount = false
-                precioCondicion = true
-            }
+            hasDiscount = item.descuento > 0;
+            isMedicamento = store.noPromoCats.includes(item.cat) || store.noPromoSubs.includes(item.sub);
+            if(item.VlrMinimo > 0) {hasDiscount = false; precioCondicion = true}
 
             return /*html*/`
-<div class="detalle-titulo">${item.nombre2}</div>
+<div class="titulo">${item.nombre2}</div>
 ${_(item.description, `<div class="descripcion">${item.description}</div>`)}
 
-<div class="precio-cont">
-    ${hasDiscount ? `<div class="descuento"><div class="label">${item.descuento}%</div></div>` : ""}
-    ${_(hasDiscount, `<span class="antes">${f(item.antes)}</span>`)}
-    <span class="precio ${hasDiscount ? "rojo" : "" }">${f(item.precio)}</span>
-    ${_(precioCondicion, /*html*/`&nbsp; / <span class="pcondicion">${f(item.ahora)} <i class="fas fa-info-circle"></i></span>`)}
-    <div style="display:inline-block">
-        ${cart ? /*html*/`
-        <div class="row row-center cantidad">
-            <i class="fas ${cart._quanty == 1 ? "fa-trash-alt" : "fa-minus"}" onclick="productDetailClick(this)"></i>
-            <input type="text" value="${cart._quanty}" />
-            <i class="fas fa-plus" onclick="productDetailClick(this)"></i>
-        </div>`
-        : /*html*/`<button class="add" onclick="productDetailClick(this)">AGREGAR</button>`}
+${_(hasDiscount, `<div class="antes">${f(item.antes)}</div>`)}
+<div class="precio ${hasDiscount ? "rojo" : "" }">${f(item.precio)}</div>
+${_(precioCondicion, /*html*/`&nbsp; / <div class="pcondicion">${f(item.ahora)} <i class="fas fa-info-circle"></i></div>`)}
+${hasDiscount ? `<div class="descuento">Ahorra ${item.descuento}%</div>` : ""}
+<div></div>
+${cart ? /*html*/`
+<div class="row r-l">
+    <div class="row cantidad">
+        <i class="fas ${cart._quanty == 1 ? "fa-trash-alt" : "fa-minus"}" onclick="productDetailClick(this)"></i>
+        <input type="text" value="${cart._quanty}" />
+        <i class="fas fa-plus" onclick="productDetailClick(this)"></i>
     </div>
+    <div style="flex:1; font-weight: 300; padding-left: 15px">(${item.stock == 1 ? `1 disponible` : `${item.stock} disponibles`})</div>
 </div>
-
+`
+: /*html*/`<button class="add" onclick="productDetailClick(this)">AGREGAR</button>`}
+    
 ${_(precioCondicion, /*html*/`
     <div class="info-precio">
         <span class="rojo"><i class="fas fa-info-circle"></i> El precio <b>${f(item.ahora)}</b> aplica si el monto de la compra es superior a ${f(item.VlrMinimo)}</span>
@@ -429,7 +427,7 @@ ${_(precioCondicion, /*html*/`
             <i class="fas fa-plus"></i>
         </div>`
         : 
-        /*html*/`<button class="add">AGREGAR</button>`
+        /*html*/`<button class="add">Agregar</button>`
         }
         </div>
     </div>

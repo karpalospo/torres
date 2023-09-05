@@ -56,7 +56,7 @@ async function renderCategorias(ciudad) {
                 if(cat.Subcategorias) cat.Subcategorias.forEach(sub => store.categorias[cat.IdCategoria].subs[sub.IdSubcategoria] = {id: sub.IdSubcategoria, title: sub.Subcategoria})
             })
             
-            s += `<div data-id="${item.IdGrupo}">${item.Grupo}</div>`
+            s += `<div data-id="${item.IdGrupo}">${item.Grupo} <i class="fas fa-chevron-down"></i></div>`
         })
         store.grupos["99"].Categorias = store.grupos["02"].Categorias[0].Subcategorias.map(item => ({IdCategoria: item.IdSubcategoria, Categoria: item.Subcategoria}))
     }
