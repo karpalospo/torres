@@ -14,8 +14,8 @@ ${HTML.header}
 
 	<div id="home-cont" class="max-width">
 		<div style="height:10px"></div>
-		<a href="busqueda/[sales]">
-            <video width="100%" autoplay muted loop>
+		<a href="busqueda/[aniversario]">
+            <video width="100%" autoplay loop muted playsinline>
 				${device == "DESKTOP" ? `<source src="${ABS_URL}/assets/ani-banner.mp4" type="video/mp4">` : `<source src="${ABS_URL}/assets/ani-banner-mobile.mp4" type="video/mp4">`}
                 Your browser does not support the video tag.
             </video>

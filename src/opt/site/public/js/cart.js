@@ -2,8 +2,6 @@ let carttime;
 
 function setCart(id, payload) {
 
-    //console.log(id, payload, store.cart[id])
-
     let item, show = false;
 
     payload.value = parseInt(payload.value)
@@ -25,7 +23,6 @@ function setCart(id, payload) {
             _id: id,
             _date: new Date().getTime(), 
             _quanty: Math.min(payload.product.stock, payload.value), 
-            _new: true
         }
     }
        
@@ -98,26 +95,9 @@ function calculateCart() {
 
         itemsTotal = 0
         if(item._flag != 0) {
-            if(item.isCombo && item.productos) {
-                item.productos.forEach(combo_item => {
-                    const product_item = {
-                        idoferta: item.id,
-                        id: combo_item.codigo,
-                        nombre: combo_item.descripcion,
-                        stock: combo_item.stock,
-                        IdUnidad: 1,
-                        descuento: item.descuento,
-                        _quanty: combo_item.minCompra * item._quanty,
-                        precio: Math.ceil(combo_item.valor_unitario * (1 - (item.descuento ? item.descuento : 0) / 100))
-                    }
-                    itemsTotal += product_item._quanty * product_item.precio
-                    products.push({item: product_item, price: product_item.precio})
-                })
-                
-            } else products.push({item, price: item._renderPrice})
-
+            products.push({item, price: item._renderPrice})
+            if(item._quanty < 0) item._quanty = 0
             itemsTotal = item._quanty * item._renderPrice
-            
         }
         subtotal += itemsTotal
 
@@ -141,8 +121,9 @@ function calculateCart() {
         }
     })
 
-    store.order = {...store.order, couponTotal, subtotal, items, discount}
+    
 
+    store.order = {...store.order, couponTotal, subtotal, items, discount}
     return products
 }
 
@@ -159,20 +140,18 @@ function renderCart() {
     $cart_list.html("")
 
     forEach(cart_array.sortOnDesc("_date"), async item => {
-
         $cart_list.append($(renderCartItem(item)))
-
-        if(item._new) {delete item._new}
     })
 
-    $cart_icon_badge.html(store.order.items < 100 ? store.order.items : "99+")
+    $cart_icon_badge.html(cart_array.length < 100 ? cart_array.length : "99+")
 
-    if(store.order.items == 0) $cart_list.html(renderCartItem(null, "nocart"))
-
-    // cupon
-    if(c && c.VlrMinimo != undefined) {
-        falta = c.VlrMinimo - store.order.couponTotal
-        $cart_list.prepend(/*html*/`
+    if(cart_array.length == 0) {
+        $cart_list.html(renderCartItem(null, "nocart"))
+    } else {
+        // cupon
+        if(c && c.VlrMinimo != undefined) {
+            falta = c.VlrMinimo - store.order.couponTotal
+            $cart_list.prepend(/*html*/`
 <div data-id="0">
 <img src="${ABS_URL_SERVER}/assets/cupon.png" alt="" />
 <div class="f1">
@@ -197,7 +176,10 @@ function renderCart() {
     }
 </div>
 </div>`)
+        }
     }
+
+
 
     $cart_list.off("click").on("click", "> div", function(e) {
         e.preventDefault();

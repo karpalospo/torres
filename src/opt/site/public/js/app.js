@@ -475,18 +475,22 @@ function showPopup(image, options = {imageClick: ''}) {
 
     $popup.html(/*html*/`
 ${options.closeButton ? `<div class="close absolute" onclick="showModal(false)"><i class="fa fa-times"></i></div>` : ``}
-<div style="background-color:#f2f2f2; cursor.pointer; font-size:0; min-height:100px" onclick="${options.imageClick}"><img src="${image}" alt="" style="width: 100%; max-height: 80vh"/></div>
+<div style="background-color:#f2f2f2; cursor:pointer; font-size:0; min-height:100px; transition: all ease 0.4s;" onclick="${options.imageClick}"><img id="pop-img" src="${image}" alt="" style="width: 100%; opacity: 0; max-height: 80vh"/></div>
 <div class="row full-row">
-${options.dismiss ? 
-/*html*/`<button id="popup-dismiss" class="button-popup" style="background-color:#ff2c2c" onclick="${options.dismiss}">${options.dismissLabel}</button>
-<div style="width:8px"></div>
-` : ``}
+${options.dismiss ? /*html*/`<button id="popup-dismiss" class="button-popup" style="background-color: #ffffff; border: 1px solid red; color: red;" onclick="${options.dismiss}">${options.dismissLabel}</button>
+<div style="width:8px"></div>` : ``}
 ${options.callToAction ? `<button class="button-popup" onclick="${options.callToAction}">${options.callToActionLabel}</button>` : ``}
 </div>
     `)
 
-    showModal(true, 'popup')
+    $("#pop-img").on("load", e => {
+        $("#pop-img").fadeTo(1, 1000);
+        showModal(true, 'popup')
+    })
+    
 }
+
+
 
 function showPagePopup(items) {
 

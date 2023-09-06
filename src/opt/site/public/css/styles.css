@@ -399,18 +399,18 @@ select {
 }
 
 .float-window .close {
-    right: 5px;
-    width: 29px;
-    height: 29px;
-    background-color: #ff2c2c;
-    background: linear-gradient(180deg, rgb(245 245 245) 0%, rgb(240 240 240) 38%, rgb(211 211 211) 100%);
+    right: 10px;
+    width: 35px;
+    height: 35px;
+    background: red;
     text-align: center;
-    line-height: 29px;
-    color: #222;
-    top: 4px;
+    line-height: 35px;
+    color: #fff;
+    top: 10px;
     border-radius: 17px;
-    font-size: 1.2em;
+    font-size: 1.4em;
     box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.4);
+    left: initial;
 }
 
 .float-window .title {
@@ -1047,19 +1047,15 @@ a {
 }
 
 .button-popup {
-	border-radius: 4px;
-	border: none;
-	padding: 9px 8px;
-	flex: 1;
-	background-color: #1B42CB;
-	color: white;
-	font-family: 'Montserrat';
-	max-width: 150px;
-	margin-top: 10px;
-	margin-bottom: 5px;
-	box-shadow: 1px 1px 3px 0 rgba(0,0,0,0.3);
-	text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-	font-weight: 500;
+    border-radius: 4px;
+    border: none;
+    padding: 9px 8px;
+    flex: 1;
+    background-color: #1B42CB;
+    color: white;
+    font-family: 'Montserrat';
+    max-width: 150px;
+    margin: 5px;
 }
 
 .button-popup:hover {
@@ -3238,6 +3234,10 @@ h3 {
 
     body {
         margin-bottom: 50px;
+    }
+
+    .h2 {
+        font-size: 1.2em;
     }
 
     .banners {

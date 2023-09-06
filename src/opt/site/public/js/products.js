@@ -411,7 +411,7 @@ ${_(precioCondicion, /*html*/`
         <div class="image">
             <img src="https://www.droguerialaeconomia.com/economia/site/img/${item.id}.png" alt="" />
         </div>
-        ${_(item.patrocina && item.patrocina == "S", /*html*/`<div class="patrocina">Marca Patrocinadora</div>`)}
+        ${item.patrocina && item.patrocina == "S" ? `<div class="patrocina">Marca Patrocinadora</div>` : `<div class="patrocina" style="opacity:0">&nbsp;</div>`}
         <div class="info">
             <span class="titulo">${item.nombre}</span>
             ${_(beneficio || false, /*html*/`<div class="promocion"><i class="fas fa-gift"></i>&nbsp; paga <b>3</b> lleva <b>4</b>!</div>`)}

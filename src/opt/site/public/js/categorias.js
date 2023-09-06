@@ -30,14 +30,14 @@ async function search_cats(sub) {
     // productos
     if(result > 0) {
 
-        p = await showProducts($resultado_list, HomologarProductos(res.data), {collection: 'cats', filter: true, rows: "auto", cols: 100, headerExact: currentSub.title, section: 0})
+        p = showProducts($resultado_list, HomologarProductos(res.data), {collection: 'cats', filter: true, rows: "auto", cols: 100, headerExact: currentSub.title, section: 0})
 
         if(p.noProducts) NoResults(currentSub.title)
 
         else {
 
             // popups
-            if(store.popups) showPagePopup(store.popups.search.filter(item => (item.data.popup_keywords.split(" ").includes(search_str))))
+            if(store.popups && store.popups.search) showPagePopup(store.popups.search.filter(item => (item.data.popup_keywords.split(" ").includes(search_str))))
 
             renderFiltros(p)
         }

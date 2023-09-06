@@ -35,7 +35,6 @@ async function search_product(id) {
    
 }
 
-
 function productDetailClick(elem) {
     
     let id = currentProductDetail.id, $elem = $(elem);
