@@ -881,7 +881,7 @@ select {
     overflow: hidden; 
     font-size: 0; 
     margin: 10px 0 25px 0;
-    
+
 }
 
 #banner-e .slider {
@@ -3295,6 +3295,7 @@ h3 {
 
     .products-list {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 15px;
     }
 
     #links {
