@@ -414,7 +414,6 @@ ${_(precioCondicion, /*html*/`
         ${item.patrocina && item.patrocina == "S" ? `<div class="patrocina">Marca Patrocinadora</div>` : `<div class="patrocina" style="opacity:0">&nbsp;</div>`}
         <div class="info">
             <span class="titulo">${item.nombre}</span>
-            ${_(beneficio || false, /*html*/`<div class="promocion"><i class="fas fa-gift"></i>&nbsp; paga <b>3</b> lleva <b>4</b>!</div>`)}
             <div style="padding:9px 0">
             ${_(hasDiscount, /*html*/`<span class="antes">${f(item.antes)}</span>`, /*html*/`<span class="antes2">&nbsp;</span>`)}
             <span class="precio ${_(hasDiscount || beneficio, "rojo")}">${f(item.precio)}</span>
