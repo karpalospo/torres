@@ -173,10 +173,11 @@ async function login() {
 
 function HomologarProductos(products) {
 
-    let ret = []
+    let ret = [], product = {};
     forEach(products, item => {
         if(!item.codigo) return
-        ret.push({
+   
+        product = {
             id: item.codigo,
             nombre: item.descripcion,
             nombre2: item.descripcion,
@@ -196,7 +197,14 @@ function HomologarProductos(products) {
             proveedor: item.proveedor,
             cat: item.subgrupo35,
             sub: item.subgrupo36,
-        })
+        }
+
+        if(product.beneficio != undefined) {
+            product.Ahora = item.Antes
+            product.precio = item.Antes
+        }
+
+        ret.push(product)
     })
     return ret
 }
