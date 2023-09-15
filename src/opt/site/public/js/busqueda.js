@@ -22,7 +22,8 @@ function page_init() {
 async function search_products(search_str) {
 
     let p = {},
-        fullProducts = []
+        fullProducts = [],
+        res1
     ;
 
     if(search_str == "[sales]") {
@@ -30,9 +31,9 @@ async function search_products(search_str) {
         result_search_str = "Mejores Ofertas"
         fullProducts = {stock: HomologarProductos(res.data), noStock:[]}
     } else {
-        res = await pLog("search", search_str)
-        result_search_str = res.data.search_label
-        fullProducts = await getProductsFullInfo(res.data.products)
+        res1 = await pLog("search", search_str)
+        result_search_str = res1.data.search_label
+        fullProducts = await getProductsFullInfo(res1.data.products)
     }
 
     if(fullProducts.stock.length > 0) {
@@ -49,13 +50,15 @@ async function search_products(search_str) {
             $("#sort-div").html(orderStr)
 
             // banners
-            if(res.data.banners) {
-                banners = res.data.banners.filter(item => ((item.data.banner_cat && item.data.banner_cat.split(" ").includes(res.data.cat_id)) || (item.data.banner_sub && item.data.banner_sub.split(" ").includes(res.data.sub_id))))
-                if(renderBanners($("#banner"), banners) === false) $("#banner").hide(0)
+ 
+            if(res1.data.banners) {
+                banners = res1.data.banners.filter(banner => (banner.data && banner.data.banner_keywords && banner.data.banner_keywords.toLowerCase().split(" ").includes(search_str.toLowerCase())))
+                console.log(banners)
+                renderBanners($("#banner"), banners)
             }
     
             // popups
-            if(store.popups && store.popups.cats) showPagePopup(store.popups.cats.filter(item => (res.data.cat_id == item.data.popup_cat_id) || (res.data.sub_id == item.data.popup_subcat_id)))
+            if(store.popups && store.popups.search) showPagePopup(store.popups.search.filter(item => {if(item.data.popup_keywords) return item.data.popup_keywords.split(" ").includes(search_str)}))
 
         }
 

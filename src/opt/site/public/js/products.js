@@ -174,13 +174,14 @@ function renderProducts($target, products, options = {}, ret) {
         $target.append(/*html*/`<div class="section${options.section}">
             ${currentHeader ? `<div class="products-header">${currentHeader}</div>` : ""}
             <div><button class="addFiltro" onclick="mostrarFiltros(true)"><i class="fas fa-filter"></i> Agrega un filtro</button><div style="clear:both"></div></div>
-            <div id="banner" style="margin-bottom:10px"></div>
+            <div id="banner" style="margin-bottom:20px;"></div>
             <div class="products-page"></div>
         </div>`)
         
     }
 
     $(".addFiltro").hide(0)
+    $("#banner").width($target.width())
 
     if($(window).width() < 800 && options.filter) $(".addFiltro").show(0)
 
