@@ -298,9 +298,9 @@ async function redimirCupon() {
 
         cupon = res.data[0];
 
-        if(cupon.condicion.toString() == "0" && store.order.subtotal < cupon.VlrMinimo) {
+        if(cupon.condicion.toString() == "0" && store.order.subtotal < cupon.vlrMinimo) {
 
-            successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.NombreCupon} solo es válido para compras mínimas de ${f(cupon.VlrMinimo)}.`)
+            successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.nombreCupon} solo es válido para compras mínimas de ${f(cupon.vlrMinimo)}.`)
 
         } else if(cupon.condicion.toString() !== "0"){
 
@@ -322,8 +322,8 @@ async function redimirCupon() {
 
             if(res2.error) {
                 successCupon = showResultMessage($lblCupon, false, `Este cupón no es válido para ser redimido. ${cupon.descripcion}`)
-            } else if (res2.data.ValorProductos < cupon.VlrMinimo) {
-                successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.NombreCupon} solo es válido para compras mínimas de ${f(cupon.VlrMinimo)}. ${cupon.descripcion}`)
+            } else if (res2.data.ValorProductos < cupon.vlrMinimo) {
+                successCupon = showResultMessage($lblCupon, false, `El cupón ${cupon.nombreCupon} solo es válido para compras mínimas de ${f(cupon.vlrMinimo)}. ${cupon.descripcion}`)
             }
         }
 

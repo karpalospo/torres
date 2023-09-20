@@ -163,8 +163,7 @@ async function getUserAddresses($target) {
 
 function renderAddress(data, $target) {
     let s = ""
-    //$target.off("click")
-    console.log(data)
+    $target.off("click")
     forEach(data, item => {
         let pos = store.centrocostos.findIndex(elem => item.ciudad == elem.Ciudad)
         s += /*html*/`

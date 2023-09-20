@@ -50,10 +50,8 @@ async function search_products(search_str) {
             $("#sort-div").html(orderStr)
 
             // banners
- 
-            if(res1.data.banners) {
+             if(res1.data.banners) {
                 banners = res1.data.banners.filter(banner => (banner.data && banner.data.banner_keywords && banner.data.banner_keywords.toLowerCase().split(" ").includes(search_str.toLowerCase())))
-                console.log(banners)
                 renderBanners($("#banner"), banners)
             }
     

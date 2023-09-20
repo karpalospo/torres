@@ -122,10 +122,10 @@ async function buscarBono() {
 }
 
 async function validarBono(bono) {
-
+console.log(validar)
     let tempBono = bono != undefined ? bono : store.bono
     tempBono.valido = false
-
+console.log(tempBono)
     if(tempBono && tempBono.Condicion == 0 && (tempBono.EsPorcentaje == "N" || tempBono.EsPorcentaje == 0) && (tempBono.VlrMinimoCompra <= store.order.subtotal))  {
         tempBono.valido = true
         console.log("SI")
@@ -240,6 +240,7 @@ async function checkout() {
             idUnidad: product.item.IdUnidad,
             cantidad: product.item._quanty,
             descuento: product.item.descuento,
+            beneficio: product.item.beneficio,
             idOferta: product.item.idoferta != undefined ? product.item.idoferta : 0
         })
 

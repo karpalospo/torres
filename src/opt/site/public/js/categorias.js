@@ -22,11 +22,11 @@ async function search_cats(sub) {
     let result = res.error ? 0 : res.data.length,
         p = {},
         currentCat = store.categorias[sub.substring(0, sub.length - (sub.length > 5 ? 2 : 0))],
-        currentSub = currentCat.subs[sub]
-        
-        if(!currentSub) currentSub = currentCat
+        currentSub = currentCat.subs[sub],
+        res1    
     ;
-
+    
+    if(!currentSub) currentSub = currentCat
     // productos
     if(result > 0) {
 
@@ -36,8 +36,15 @@ async function search_cats(sub) {
 
         else {
 
+            // banners
+            if(res.data.banners) {
+                banners = res.data.banners.filter(banner => (banner.data && banner.data.banner_keywords && banner.data.banner_keywords.toLowerCase().split(" ").includes(search_str.toLowerCase())))
+                if(renderBanners($("#banner"), banners) === false) $("#banner").hide(0)
+            }
+    
             // popups
-            if(store.popups && store.popups.search) showPagePopup(store.popups.search.filter(item => (item.data.popup_keywords.split(" ").includes(search_str))))
+            if(store.popups && store.popups.categorias) showPagePopup(store.popups.categorias.filter(item => {if(item.data.popup_keywords) return item.data.popup_keywords.split(" ").includes(search_str)}))
+
 
             renderFiltros(p)
         }
