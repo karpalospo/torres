@@ -63,13 +63,6 @@ function checkPse($elem){
 }
 
 
-$input.on("keyup", e => {
-    if(e.keyCode == 13) redimirCupon()
-})
-$input.on("input", () => borrarCupon())
-$input.on("change", () => borrarCupon())
-
-
 function summaryCart(bono = true) {
     
     let puntos = 0
@@ -137,7 +130,6 @@ console.log(tempBono)
     store.bono = tempBono
     renderBono()
 }
-
 
 function renderBono() {
     
@@ -313,3 +305,8 @@ async function checkout() {
 }
 
 
+$input.on("keyup", e => {
+    if(e.keyCode == 13) redimirCupon()
+})
+$input.on("input", () => borrarCupon())
+$input.on("change", () => borrarCupon())

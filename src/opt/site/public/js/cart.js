@@ -241,7 +241,6 @@ function renderCartItem(item, type) {
             ${d ? 
             /*html*/`<button class="button-delete"><i class="fas fa-trash-alt" style="pointer-events: none;"></i> Remover</button>` :
             /*html*/`
-            <!-- <div>${f(item._renderPrice)}</div> -->
             <div class="cantidad" data-pid="${item._id}">
                 <i class="fas ${item._quanty == 1 ? "fa-trash-alt" : "fa-minus"}"></i>
                 <input type="text" value="${item._quanty}" />
@@ -261,7 +260,7 @@ function renderCartItem(item, type) {
             <span class="rojo"><i class="fas fa-info-circle"></i> El precio <b>${f(item.ahora)}</b> aplica si el monto de la compra es superior a ${f(item.VlrMinimo)}</span>
         </div>`)}
 
-        ${_(item._cupon === true, /*html*/`<div class="no-aplica-cupon">No aplica para cupón de descuento</div>`)}
+        ${_(item._cupon === false, /*html*/`<div class="no-aplica-cupon">No aplica para cupón de descuento</div>`)}
 
     </div>
 
