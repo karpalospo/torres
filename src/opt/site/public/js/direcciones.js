@@ -156,6 +156,7 @@ async function getUserAddresses($target) {
         }
     } else {
         renderAddress(store.user.addresses = res.data, $target)
+        initList($("#address-list"), "address")
     }
   
    

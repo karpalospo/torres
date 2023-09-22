@@ -32,9 +32,8 @@ async function page_init() {
 
     } else {
 
-         if(typeof showOrderError == "function") showOrderError("") 
+        if(typeof showOrderError == "function") showOrderError("") 
 
-        initList($("#address-list"), "address")
         initList($("#payment-list"), "payment", checkPse)
 
         stickyScroll($("#stickybox"), $(".trackrail"), 20) 
