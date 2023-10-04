@@ -304,7 +304,7 @@ function renderExtrainfo(item) {
             if(item.indexOf(":") > -1) s += `<div><div class="title">${item.replace(":", "")}</div><div>${lineas[index + 1] || ""}</div></div>`
         })
     }
-    if(item.patrocina && item.patrocina == "S") $(".detail-patro").html(`<img src="${ABS_URL}/assets/patro.png" alt="" style="width:100%" />`)
+    //if(item.patrocina && item.patrocina == "S") $(".detail-patro").html(`<img src="${ABS_URL}/assets/patro.png" alt="" style="width:100%" />`)
 
     return `
 <div class="table-ficha">${s}</div>
@@ -412,7 +412,7 @@ ${_(precioCondicion, /*html*/`
         <div class="image">
             <img src="https://www.droguerialaeconomia.com/economia/site/img/${item.id}.png" alt="" />
         </div>
-        ${item.patrocina && item.patrocina == "S" ? `<div class="patrocina">Marca Patrocinadora</div>` : `<div class="patrocina" style="opacity:0">&nbsp;</div>`}
+        ${item.patrocina && item.patrocina == "S" && false ? `<div class="patrocina">Marca Patrocinadora</div>` : `<div class="patrocina" style="opacity:0">&nbsp;</div>`}
         <div class="info">
             <span class="titulo">${item.nombre}</span>
             <div style="padding:9px 0">

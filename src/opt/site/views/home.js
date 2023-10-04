@@ -13,13 +13,13 @@ ${HTML.header}
 	</div>
 
 	<div id="home-cont" class="max-width">
-		<div style="height:10px"></div>
+		<!-- <div style="height:10px"></div>
 		<a href="busqueda/[aniversario]">
             <video width="100%" autoplay loop muted playsinline>
 				${device == "DESKTOP" ? `<source src="${ABS_URL}/assets/ani-banner.mp4" type="video/mp4">` : `<source src="${ABS_URL}/assets/ani-banner-mobile.mp4" type="video/mp4">`}
                 Your browser does not support the video tag.
             </video>
-        </a>
+        </a> -->
 
 		<div id="banner" class="banners"></div>
 
