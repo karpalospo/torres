@@ -174,7 +174,7 @@ function renderProducts($target, products, options = {}, ret) {
         $target.append(/*html*/`<div class="section${options.section}">
             ${currentHeader ? `<div class="products-header">${currentHeader}</div>` : ""}
             <div><button class="addFiltro" onclick="mostrarFiltros(true)"><i class="fas fa-filter"></i> Agrega un filtro</button><div style="clear:both"></div></div>
-            <div id="banner" style="margin-bottom:20px;"></div>
+            <div id="banner" style="margin-bottom:20px; position: relative; overflow: hidden; border-radius: 8px;"></div>
             <div class="products-page"></div>
         </div>`)
         

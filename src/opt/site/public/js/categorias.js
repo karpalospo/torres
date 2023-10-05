@@ -23,7 +23,7 @@ async function search_cats(sub) {
         p = {},
         currentCat = store.categorias[sub.substring(0, sub.length - (sub.length > 5 ? 2 : 0))],
         currentSub = currentCat.subs[sub],
-        res1    
+        banners = []
     ;
     
     if(!currentSub) currentSub = currentCat
@@ -36,9 +36,12 @@ async function search_cats(sub) {
 
         else {
 
+            let res2 = await pLog("search", {str: `${currentCat}/${currentSub}`, location: store.location, user: store.user})
+
             // banners
-            if(res.data.banners) {
-                banners = res.data.banners.filter(banner => (banner.data && banner.data.banner_keywords && banner.data.banner_keywords.toLowerCase().split(" ").includes(search_str.toLowerCase())))
+            if(res2.data.banners) {
+                banners = res.data.banners.filter(item => ((item.data.banner_cat && item.data.banner_cat.split(" ").includes(currentCat.id)) || (item.data.banner_sub && item.data.banner_sub.split(" ").includes(currentSub.id))))
+                console.log(banners, currentCat, currentSub)
                 if(renderBanners($("#banner"), banners) === false) $("#banner").hide(0)
             }
     
