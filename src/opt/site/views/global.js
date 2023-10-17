@@ -86,6 +86,7 @@ return /*html*/`
 				<ul>
 					<li><a href="/empresa">Quiénes Somos</a></li>
 					<li><a href="/historia">Misión, Visión e Historia</a></li>
+					<li><a href="/etica">Ética</a></li>
 					<li><a href="#">Nuestras Sucursales</a></li>
 				</ul>
 			</div>

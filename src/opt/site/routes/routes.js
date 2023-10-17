@@ -11,6 +11,7 @@ const privacidadView = require("../views/privacidad.js");
 const politicasView = require("../views/politicas.js");
 const historiaView = require("../views/historia.js");
 const habeasView = require("../views/habeas.js");
+const eticaView = require("../views/etica.js");
 const pedidoView = require("../views/pedido.js");
 const pedidoSuccessView = require("../views/pedido-success.js");
 const registroView = require("../views/registro.js");
@@ -98,6 +99,10 @@ router.get('/historia', function(req, res) {
 
 router.get('/habeas', function(req, res) {    
 	res.status(200).send(s(habeasView()))
+});
+
+router.get('/etica', function(req, res) {    
+	res.status(200).send(s(eticaView()))
 });
 
 module.exports = router;
