@@ -112,7 +112,7 @@ function renderSummary(d) {
     <h3 style="margin-bottom: 0"><b>MÁS INFORMACIÓN</b></h3>
     <div id="masinfo">
         <div class="label">Fijo</div><b>${d.telefono}</b>
-        <div class="label">Celular</div><b>315-7823477</b>
+        <div class="label">Celular</div><b>321-5196404</b>
     </div>
     <br>
     <p style="text-align:center"><button class="page-button" onclick="rebuy('${d.numero}')">REPETIR PEDIDO</button></p>
