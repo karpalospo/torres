@@ -360,6 +360,89 @@ function vercats(target, $elem) {
     
 }
 
+function showAlert(show) {
+
+    if(show) {
+        anime({
+            targets: ".alert",
+            opacity: 0,
+            duration: 0,
+            translateY: 100
+        });
+        $("#alert-cont").css("display", "flex")
+        anime({
+            targets: ".alert",
+            opacity: {
+                duration: 5000,
+                transition: "linear",
+                value: 1
+            },
+            translateY: {
+                duration: 500,
+                value: 0,
+                transition: "easeOutCubic"
+            }
+        });
+        
+    } else {
+        anime({
+            targets: ".alert",
+            opacity: {
+                duration: 5000,
+                transition: "linear",
+                value: 0
+            },
+            translateY: {
+                duration: 500,
+                value: 100,
+                transition: "easeOutCubic"
+            },
+            complete: () => {
+                $("#alert-cont").css("display", "none")
+            }
+        });
+        
+    }
+
+
+}
+
+
+async function enviarVida(elem) {
+    let $elem = $(elem)
+    $elem.attr("disabled", true)
+
+    let sendData = {
+
+        "tipoDocumento": $("#vs-tipodoc").val(),
+        "documento":  $("#vs-documento").val(),
+        "nombres":  $("#vs-nombres").val(),
+        "apellidos": $("#vs-apellidos").val(),
+        "email":  $("#vs-email").val(),
+        "celular": $("#vs-celular").val(),
+        "texto": $("#vs-texto").prop('checked'),
+        "correo": $("#vs-correo").prop('checked'),
+        "llamada": $("#vs-llamada").prop('checked'),
+        "whatsapp": $("#vs-whatsapp").prop('checked'),
+        "marca": "TOR"
+        
+    }
+
+
+    let res = await API.POST.ley2300(sendData);
+    
+    $elem.attr("disabled", false)
+
+    if(res.error) {
+        alert(res.message)
+    } else {
+        showAlert(true)
+        setTimeout(() => {
+            parent.location = "/home"
+        }, 2000)
+    }
+}
+
 // ========================================================================== //
 // SEARCH
 

@@ -141,6 +141,9 @@ const API = {
         return await fetchAsync(`${URL.HOST}/api/users/updateuserprofile`, {body: {marca: "TOR", nit, email, password, confirm_password, auth_token, nombres, fecha_nacimiento, telefono, celular}});
     },
 
+    async ley2300(data) {
+        return await fetchAsync(`${URL.HOST}/api/clubvidasana/ley2300/`, {body: data});
+    },
 
     //bonos
     async getBono (document) {
