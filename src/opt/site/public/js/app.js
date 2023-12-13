@@ -429,7 +429,7 @@ async function enviarVida(elem) {
     }
 
 
-    let res = await API.POST.ley2300(sendData);
+    let res = await API.ley2300(sendData);
     
     $elem.attr("disabled", false)
 
@@ -438,7 +438,7 @@ async function enviarVida(elem) {
     } else {
         showAlert(true)
         setTimeout(() => {
-            parent.location = "/home"
+            parent.location = "/"
         }, 2000)
     }
 }
