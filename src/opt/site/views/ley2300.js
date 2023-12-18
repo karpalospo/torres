@@ -35,6 +35,10 @@ ${HTML.header}
     padding-bottom: 15px;
 }
 
+#banner-img {
+    font-size: 0;
+}
+
 .vida-title {
     color: #1C58B7;
     font-weight: 900;
@@ -115,6 +119,12 @@ ${HTML.header}
     align-items: center;
 }
 
+.rowbreak {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+}
+
 .btn-primary-vida {
     background: #1C58B7;
     border:none;
@@ -150,12 +160,12 @@ ${HTML.header}
 #puntos {
     display: inline-block;
     background-color: white;
-    padding: 22px;
+    padding: 30px;
     border-radius: 10px;
     transform: translateX(80px);
     box-shadow: 1px 1px 10px 0 rgba(0,0,0,0.1);
-    width: 338px;
-    font-size: 1.1em;
+    font-size: 1.3em;
+    box-sizing: border-box;
 }
 
 .table-puntos {
@@ -182,6 +192,11 @@ ${HTML.header}
 .table-puntos tbody tr:nth-child(even) {
     background-color: #F2F4F7;
 }
+.texto-ahorra-cont {
+    color: white; 
+    font-size: 1.3em; 
+    text-align: center; 
+}
 
 .texto-ahorra {
     display: inline-block;
@@ -190,8 +205,8 @@ ${HTML.header}
     border-right: 2px solid white;
     margin-right: 40px;
     font-weight: bold;
+    padding-right: 20px;
 }
-
 
 .col2 {
     display: grid;
@@ -203,9 +218,6 @@ ${HTML.header}
     justify-content: flex-start;
     align-items: center;
 }
-
-
-
 
 #alert-cont {
     position: fixed;
@@ -236,6 +248,58 @@ ${HTML.header}
     box-shadow: 0 0 20px 0 rgba(0,0,0,0.15);
 }
 
+@media only screen and (max-width: 800px) {
+
+    .rowbreak {
+        display:block;
+    }
+
+    #puntos {
+        transform: translateX(0);
+        width:100%;
+        font-size: 1.1em;
+        margin-bottom:20px;
+    }
+
+    .texto-ahorra-cont {
+        font-size: 1.1em;
+    }
+
+    .texto-ahorra {
+        border:none;
+        display: block;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .form2 {
+        grid-template-columns: 1fr;
+    }
+
+    .form2 label {
+        font-size: 0.9em;
+        padding: 14px 2px;
+    }
+
+    .vida-title {
+        padding: 0 20px;
+        font-size: 1.2em;
+    }
+
+    .vida-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .banner-title {
+        font-size: 1.2em;
+        font-weight: 900;
+        padding-bottom: 10px;
+    }
+
+}
+
 
 </style>
 
@@ -262,7 +326,7 @@ ${HTML.header}
 				<div class="banner-text">Actualiza tu número celular y datos para recibir todos nuestros beneficios. <b>¡No te pierdas nada!</b></div>
 			</div>
 		</div>
-		<div style="font-size: 0;"><img src="assets/banner.jpg" alt="" style="width: 100%;"></div>
+		<div id="banner-img"><img src="assets/banner.jpg" alt="" style="width: 100%;"></div>
 	</div>
 
     <section style="background-color: #F2F4F7; display: flex; justify-content: center; margin-bottom: -80px;">
@@ -314,13 +378,13 @@ ${HTML.header}
                     <div class="label" style="padding-left: 0; margin-bottom: 10px;">¿Por cuál medio te gustaría que te contactáramos?</div>
                     <div class="col2">
                         <div class="row-center">
-                            <input id="vs-texto"  type="checkbox" /><label for="sms">Mensaje de texto</label>
+                            <input id="vs-texto"  type="checkbox" /><label for="sms">SMS</label>
                         </div>
                         <div class="row-center">
-                            <input id="vs-correo" type="checkbox" /><label for="email">Correo Electrónico</label>
+                            <input id="vs-correo" type="checkbox" /><label for="email">Email</label>
                         </div>
                         <div class="row-center">
-                            <input id="vs-llamada" type="checkbox" /><label for="call">Llamadas telefónicas</label>
+                            <input id="vs-llamada" type="checkbox" /><label for="call">Llamadas</label>
                         </div>
                         <div class="row-center">
                             <input id="vs-whatsapp"  type="checkbox" /><label for="what">Whatsapp</label>
@@ -344,7 +408,8 @@ ${HTML.header}
 		<div class="max-width">
 		
 			<div class="vida-title">Continúa obteniendo los siguientes beneficios:</div>
-			<div class="vida-grid" style="padding: 40px;">
+            <br>
+			<div class="vida-grid">
 				<div class="info-item">
 					<img src="assets/iconv1.svg" alt="" />
 					<div class="text">Ofertas y descuentos exclusivos</div>
@@ -378,8 +443,8 @@ ${HTML.header}
 		<p>&nbsp;</p>
 
 
-		<div class="rowfix">
-			<div style="flex:1; text-align: right;">
+		<div class="rowbreak">
+			<div style="flex:1;">
 				<div id="puntos">
 					<table class="table-puntos">
 						<thead>
@@ -414,7 +479,7 @@ ${HTML.header}
 					<div class="texto-pequeno" style="padding-top: 20px; font-size: 0.7em; font-weight: 300; color:#555; text-align: left;">*Paga hasta el 50% de tu compra con puntos.</div>
 				</div>
 			</div>
-			<div style="width: 60%;">
+			<div style="w50">
 				<div class="image-deco">
 					<img src="assets/cliente.jpg" alt="" />
 				</div>
@@ -425,10 +490,9 @@ ${HTML.header}
 	</section>
 
 
-
 	<section style="padding: 40px; background-color: #1C58B7;">
 		<div class="max-width">
-			<div class="rowfix" style="color: white; font-size: 1.3em; text-align: center; justify-content: center;">
+			<div class="texto-ahorra-cont">
 				<div class="texto-ahorra">¡Ahorra comprando y pagando en Farmacia Torres</div>
 				<img src="assets/logo-torres.svg" alt="" style="width: 300px;" />
 			</div>
@@ -436,12 +500,10 @@ ${HTML.header}
 	</section>
 
 
-
-
 </div>
 
 ${HTML.footer}
 ${HTML.scripts}
-<script src="${ABS_URL}js/puntos.js"></script>
+<script src="${ABS_URL}/js/ley2300.js"></script>
 <script src="${ABS_URL}/js/header.js"></script>
 </body></html>`}
