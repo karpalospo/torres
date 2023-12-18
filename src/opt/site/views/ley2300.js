@@ -3,7 +3,7 @@ const ABS_URL = HTML.ABS_URL;
 
 module.exports = () => {
 return /*html*/`
-${HTML.head({title: "Mis Puntos", userCSS: true})}
+${HTML.head({title: "Ley 2300"})}
 ${HTML.header}
 
 <style>
