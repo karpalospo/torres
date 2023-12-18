@@ -102,7 +102,7 @@ return /*html*/`
 				<h3 class="border title">Club Vida Sana</h3>
 				<ul>
 					<li><a href="/vidasana">Beneficios del Club</a></li>
-					<li><a href="#">Actualiza tus datos</a></li>
+					<li><a href="/ley2300">Actualiza tus datos</a></li>
 				</ul>
 			</div>
 		</div>
