@@ -298,6 +298,14 @@ ${HTML.header}
         padding-bottom: 10px;
     }
 
+    .banner-abs-text {
+        width:70%;
+    }
+
+    .banner-text {
+        font-size: 0.7em;
+    }
+
 }
 
 
@@ -443,7 +451,7 @@ ${HTML.header}
 		<p>&nbsp;</p>
 
 
-		<div class="rowbreak">
+		<div class="rowbreak tx-r">
 			<div style="flex:1;">
 				<div id="puntos">
 					<table class="table-puntos">
