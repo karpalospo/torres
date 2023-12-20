@@ -36,7 +36,7 @@ async function enviarVida(elem) {
                 parent.location = "/"
             }, 5000)
         } else {
-            alert(res.mesage)
+            alert(res.message)
         }
     }
 }
