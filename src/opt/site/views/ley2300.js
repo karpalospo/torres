@@ -386,18 +386,17 @@ ${HTML.header}
                     <div class="label" style="padding-left: 0; margin-bottom: 10px;">¿Por cuál medio te gustaría que te contactáramos?</div>
                     <div class="col2">
                         <div class="row-center">
-                            <input id="vs-texto"  type="checkbox" /><label for="sms">SMS</label>
+                            <input id="vs-texto"  type="checkbox" /><label for="vs-texto">SMS</label>
                         </div>
                         <div class="row-center">
-                            <input id="vs-correo" type="checkbox" /><label for="email">Email</label>
+                            <input id="vs-correo" type="checkbox" /><label for="vs-correo">Email</label>
                         </div>
                         <div class="row-center">
-                            <input id="vs-llamada" type="checkbox" /><label for="call">Llamadas</label>
+                            <input id="vs-llamada" type="checkbox" /><label for="vs-llamada">Llamadas</label>
                         </div>
                         <div class="row-center">
-                            <input id="vs-whatsapp"  type="checkbox" /><label for="what">Whatsapp</label>
+                            <input id="vs-whatsapp"  type="checkbox" /><label for="vs-whatsapp">Whatsapp</label>
                         </div>
-                        
                     </div>
                 </div>
 
