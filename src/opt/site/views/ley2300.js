@@ -42,7 +42,7 @@ ${HTML.header}
 .vida-title {
     color: #1C58B7;
     font-weight: 900;
-    font-size: 1.7em;
+    font-size: 1.4em;
     text-align: center;
     font-family: 'Poppins', sans-serif;
 }
@@ -53,7 +53,7 @@ ${HTML.header}
 
 .vida-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 20px;
 }
 
@@ -248,7 +248,26 @@ ${HTML.header}
     box-shadow: 0 0 20px 0 rgba(0,0,0,0.15);
 }
 
+.conoce {
+    text-align: center;
+    transform: translateX(51px);
+    width: 338px;
+    display: inline-block;
+    padding-bottom:10px;
+}
+
+#logovida {
+    display: none;
+}
+
 @media only screen and (max-width: 800px) {
+
+    .conoce {
+        display: block;
+        transform: translateX(0px);
+        font-size:0.9em;
+        width: 100%;
+    }
 
     .rowbreak {
         display:block;
@@ -282,7 +301,7 @@ ${HTML.header}
     }
 
     .vida-title {
-        padding: 0 20px;
+
         font-size: 1.2em;
     }
 
@@ -293,17 +312,22 @@ ${HTML.header}
     }
 
     .banner-title {
-        font-size: 1.2em;
+        font-size: 1.1em;
         font-weight: 900;
         padding-bottom: 10px;
     }
 
     .banner-abs-text {
         width:70%;
+        padding: 30px;
     }
 
     .banner-text {
         font-size: 0.7em;
+    }
+
+    #logovida {
+        display: block;
     }
 
 }
@@ -331,7 +355,8 @@ ${HTML.header}
 		<div class="banner-abs-text">
 			<div>
 				<div class="banner-title">¡Sigamos en contacto! </div>
-				<div class="banner-text">Actualiza tu número celular y datos para recibir todos nuestros beneficios. <b>¡No te pierdas nada!</b></div>
+				<div class="banner-text">Actualiza tus datos personales para que sigas recibiendo todos nuestros beneficios. <b>¡No te pierdas nada!</b></div>
+                <img id="logovida" src="assets/logvida.svg" alt="" style="width: 95px;margin: 20px;">
 			</div>
 		</div>
 		<div id="banner-img"><img src="assets/banner.jpg" alt="" style="width: 100%;"></div>
@@ -341,7 +366,7 @@ ${HTML.header}
         
         <div class="form2-cont" style="transform: translateY(-40px);">
 
-            <div class="vida-title" style="text-align: left;">Nos gustaría conocer tu opinión</div>
+            <div class="vida-title" style="text-align: left;">Queremos conocer tu opinión</div>
             <div class="texto-pequeno">De acuerdo con la Ley 2300 de 2023, Farmacia Torres lo invita a escoger los canales por los que prefiere ser contactado para fines comerciales y/o publicitarios. Así seguirá disfrutando de la acumulación de puntos y ofertas todos los días.</div>
 
             <div class="form2" style="margin: 20px 0;">
@@ -384,6 +409,10 @@ ${HTML.header}
     
                 <div>
                     <div class="label" style="padding-left: 0; margin-bottom: 10px;">¿Por cuál medio te gustaría que te contactáramos?</div>
+                    <div class="row-center">
+                        <input id="vs-todas"  type="checkbox" /><label for="vs-todas">Seleccionar Todas</label>
+                    </div>
+                        <br>
                     <div class="col2">
                         <div class="row-center">
                             <input id="vs-texto"  type="checkbox" /><label for="vs-texto">SMS</label>
@@ -414,7 +443,7 @@ ${HTML.header}
 		
 		<div class="max-width">
 		
-			<div class="vida-title">Continúa obteniendo los siguientes beneficios:</div>
+			<div class="vida-title">Continúa obteniendo los siguientes beneficios por ser miembro del Club Vida Sana:</div>
             <br>
 			<div class="vida-grid">
 				<div class="info-item">
@@ -430,28 +459,26 @@ ${HTML.header}
 					<div class="text">Redime tus puntos y ahorra hasta 50% en tus compras</div>
 				</div>
 				<div class="info-item">
-					<img src="assets/iconv4.svg" alt="" />
-					<div class="text">Aprovecha descuentos en nuestra red de aliados</div>
-				</div>
-				<div class="info-item">
 					<img src="assets/iconv5.svg" alt="" />
 					<div class="text">Consejos de salud para ti y tu familia</div>
 				</div>
 			</div>
 
 		</div>
+        <p>&nbsp;</p>
 
 	</section>
 
         
 	<section class="max-width" style="padding: 40px; padding-bottom: 90px">
 		<div class="vida-title">Redime tus puntos en Farmacia Torres</div>
-		<p class="tx-c" style="max-width: 800px; margin: 20px auto;">Aprovecha las mejores ofertas redimiento tus puntos en nuestras droguerías o nuestras plataformas virtuales, conoce nuestra tabla de puntos:</p>
+		<p class="tx-c" style="max-width: 800px; margin: 20px auto;">Aprovecha las mejores ofertas redimiendo tus puntos en nuestras droguerías o nuestras plataformas virtuales.</p>
 		<p>&nbsp;</p>
 
 
 		<div class="rowbreak tx-r">
 			<div style="flex:1;">
+                <h2 class="conoce">Conoce nuestra tabla de puntos</h2>
 				<div id="puntos">
 					<table class="table-puntos">
 						<thead>

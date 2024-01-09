@@ -42,7 +42,6 @@ async function enviarVida(elem) {
 }
 
 $(window).resize(e => {
-    console.log("aja", $(window).width())
     if($(window).width() < 800) {
         $img.attr("src", "assets/bannermobile.jpg")
     } else {
@@ -50,3 +49,12 @@ $(window).resize(e => {
     }
 })
 $(window).trigger("resize");
+
+
+$("#vs-todas").on("change", e => {
+    let $elem = $(e.currentTarget),
+        checked = $elem.is(":checked")
+    ;
+    $("#vs-texto, #vs-correo, #vs-llamada, #vs-whatsapp").attr("checked", checked)
+
+})
