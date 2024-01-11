@@ -255,7 +255,13 @@ async function getProductsFullInfo(products) {
                     VlrMinimo: item.VlrMinimo,
                     proveedor: item.proveedor
                 })
-                if(item.stock && item.stock > 0) stock.push(product)
+
+                let esta = false
+                forEach(stock, productStock => {
+                    if(productStock.id == product.id) esta = true
+                })
+
+                if(!esta && item.stock && item.stock > 0) stock.push(product)
                 else soldout.push(product)
             })
         })
