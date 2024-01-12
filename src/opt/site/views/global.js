@@ -103,6 +103,8 @@ return /*html*/`
 				<ul>
 					<li><a href="/vidasana">Beneficios del Club</a></li>
 					<li><a href="/ley2300">Actualiza tus datos</a></li>
+					<li><a href="/ley2300">Ley 2300</a></li>
+					
 				</ul>
 			</div>
 		</div>

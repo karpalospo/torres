@@ -367,7 +367,7 @@ ${HTML.header}
         <div class="form2-cont" style="transform: translateY(-40px);">
 
             <div class="vida-title" style="text-align: left;">Queremos conocer tu opinión</div>
-            <div class="texto-pequeno">De acuerdo con la Ley 2300 de 2023, Farmacia Torres lo invita a escoger los canales por los que prefiere ser contactado para fines comerciales y/o publicitarios. Así seguirá disfrutando de la acumulación de puntos y ofertas todos los días.</div>
+            <div class="texto-pequeno">De acuerdo con la Ley 2300 de 2023, Droguería La Economía te invita a escoger los canales por los que prefieres ser contactado para fines comerciales y/o publicitarios. Así seguirás disfrutando de la acumulación de puntos y ofertas todos los días.</div>
 
             <div class="form2" style="margin: 20px 0;">
              
