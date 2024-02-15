@@ -145,6 +145,10 @@ const API = {
         return await fetchAsync(`${URL.HOST}/api/clubvidasana/ley2300/`, {body: data});
     },
 
+    async setdata(data, type) {
+        return await fetchAsync(`${URL.server2}/economia/v3/setdata`, HTTP_REQUEST_METHOD.POST, {body: {data, type}});
+    },
+
     //bonos
     async getBono (document) {
         return await fetchAsync(`${URL.ETICOS_HOST}/ServicesEpos/wsepos/api/v2/ofertasxCedula/${document}`, {}, "GET")

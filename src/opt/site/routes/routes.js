@@ -21,6 +21,7 @@ const puntosView = require("../views/puntos.js");
 const pedidosView = require("../views/pedidos.js");
 const direccionesView = require("../views/direcciones.js");
 const ley2300View = require("../views/ley2300.js");
+const beneficiosView = require("../views/beneficios.js");
 
 function s(str) {
 	return str.replace(/(\r\n|\n|\r|\t)/gm, "")
@@ -71,6 +72,10 @@ router.get('/ley2300', function(req, res) {
 	res.status(200).send(s(ley2300View()))
 });
 
+router.get('/beneficios', function(req, res) { 
+
+	res.status(200).send(s(beneficiosView()))
+});
 
 router.get('/perfil', function(req, res) {    
 	res.status(200).send(s(perfilView()))

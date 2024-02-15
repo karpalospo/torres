@@ -292,6 +292,7 @@ function renderExtrainfo(item) {
     let lineas = [], s = `<div><div class="title">Código</div><div>${item.id}</div></div>`
 
     if(item.valor_contenido) s += `<div><div class="title">Valor por Unidad</div><div>${item.valor_contenido}</div></div>`
+    if(item.stock > 0) s += `<div><div class="title">Disponibles</div><div>${item.stock == 1 ? item.stock + " Unidad" : item.stock + " Unidades"}</div></div>`
     if(item.proveedor) s += `<div><div class="title">Proveedor</div><div>${item.proveedor}</div></div>`
 
     if(item.datasheet) {
@@ -305,10 +306,14 @@ function renderExtrainfo(item) {
         })
     }
     //if(item.patrocina && item.patrocina == "S") $(".detail-patro").html(`<img src="${ABS_URL}/assets/patro.png" alt="" style="width:100%" />`)
-
-    return `
+    
+    if(currentProductDetail.mostrarDescripcion !== false) {
+        return `
 <div class="table-ficha">${s}</div>
 <div>${item.aditional ? `<div class="titulo-mediano">Información Adicional</div><div class="descripcion max50">${item.aditional}</div>` : ""}</div>`
+    }
+
+    return `<div class="table-ficha">${s}</div>`
 
 }
 
@@ -341,7 +346,12 @@ function renderProductItem(item, type) {
 
             return /*html*/`
 <div class="titulo">${item.nombre2}</div>
-${_(item.description, `<div class="descripcion">${item.description}</div>`)}
+<div class="descripcion">${item.description && item.mostrarDescripcion && !item.requiereFormula && !item.tipo ? item.description : ""}</div>
+${item.requiereFormula && !item.tipo ? `<div class="descripcion" style="background: #fffe8b;padding: 8px;border-radius: 10px;border: 1px solid #c3c337;color: #933905;font-weight: 500;">&nbsp;  <i class="far fa-file-alt"></i> &nbsp;Este medicamento requiere fórmula médica.</div>` : ``}
+
+${item.tipo == "suplemento" ? `<div class="descripcion" style="background: #fffe8b;padding: 8px;border-radius: 10px;border: 1px solid #c3c337;color: #933905;font-weight: 500;">&nbsp;  <i class="far fa-file-alt"></i> &nbsp;ESTE PRODUCTO ES UN SUPLEMENTO DIETARIO. NO ES UN MEDICAMENTO Y NO SUPLE UNA ALIMENTACIÓN EQUILIBRADA.</div>` : ``}
+${item.tipo == "coadyudante" ? `<div class="descripcion" style="background: #fffe8b;padding: 8px;border-radius: 10px;border: 1px solid #c3c337;color: #933905;font-weight: 500;">&nbsp;  <i class="far fa-file-alt"></i> &nbsp;COADYUVANTE EN EL MANEJO DE LAS RECIDIVAS DE INFECCIONES URINARIAS.</div>` : ``}
+<br>
 
 ${_(hasDiscount, `<div class="antes">${f(item.antes)}</div>`)}
 <div class="precio ${hasDiscount ? "rojo" : "" }">${f(item.precio)}</div>

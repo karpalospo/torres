@@ -197,6 +197,16 @@ function HomologarProductos(products) {
             proveedor: item.proveedor,
             cat: item.subgrupo35,
             sub: item.subgrupo36,
+            mostrarDescripcion: item.mostrarDescripcion,
+            requiereFormula: item.requiereFormula,
+        }
+
+        if(["124278", "124279"].includes(product.id)) {
+            product.tipo = "suplemento"
+        }
+
+        if(["124303"].includes(product.id)) {
+            product.tipo = "coadyudante"
         }
 
         if(product.beneficio != undefined) {
