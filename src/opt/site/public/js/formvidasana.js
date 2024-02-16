@@ -23,7 +23,6 @@ setInputFilter(document.querySelector("#ciudad-field"), function(value) {
 
 async function init() {
 
-    let res = await API.GET.getMunicipios();
 
     let $elem = $("#ciudad-field")
 
@@ -47,46 +46,45 @@ init()
 async function signup() {
 
     let $target = $("#frm-registro")
-    let { email, nombres, apellidos, nit, dateOfBirth, cellphone, terms_vida_sana, gender, tdocumento, aceptaradio } = $target[0];
+    let { email, nombres, apellidos, nit, dateOfBirth, cellphone, terms_vida_sana, gender, tdocumento, direccion } = $target[0];
 
     let fields = {
-        email: email.value + "@" + ($("#email-server").val() == "otro" ? $("#email2").val() : $("#email-server").val()),
+        documento: nit.value,
+        tipoDocumento: tdocumento.value,
+        genero: gender.value,
+        celular: cellphone.value,
         nombres: nombres.value,
         apellidos: apellidos.value,
-        nit: nit.value,
-        fecha_nacimiento: dateOfBirth.value,
-        celular: cellphone.value,
-        gender: gender.value,
-        tdocumento: tdocumento.value,
-        vidasana: terms_vida_sana.checked ? "SI" : "NO",
-        enviocorreo: aceptaradio.value,
-        ciudad: $("#ciudad-field").val()
+        direccion: direccion.value,
+        email: email.value + "@" + ($("#email-server").val() == "otro" ? $("#email2").val() : $("#email-server").val()),
+        fechaNacimiento: dateOfBirth.value,
+        aceptacondiciones: terms_vida_sana.checked ? "S" : "N",
+        canal: "WEB",    
+        marca: "TOR"
     }  
 
-    console.log(fields)
     
     // validaciones
-    if(!FormValidations.IsValidEmail(fields.email))
-        return $("#login-error2").show(200).html("El email no es válido").delay(2500).hide(100)
-    if(FormValidations.ContainsLetters(fields.celular) || !FormValidations.IsValidPhoneNumber(fields.celular))
-        return $("#login-error2").show(200).html("El número de celular no es válido").delay(2500).hide(100)
-    if (FormValidations.ContainsLetters(fields.nit) || FormValidations.ContainsSpecialChars(fields.nit))
-        return $("#login-error2").show(200).html("El número de documento no es válido").delay(2500).hide(100)
-    if (ValidateInputFormEmpty(fields))
-        return $("#login-error2").show(200).html("Debe llenar todos los campos").delay(2500).hide(100)
+    // if(!FormValidations.IsValidEmail(fields.email))
+    //     return $("#login-error2").show(200).html("El email no es válido").delay(2500).hide(100)
+    // if(FormValidations.ContainsLetters(fields.celular) || !FormValidations.IsValidPhoneNumber(fields.celular))
+    //     return $("#login-error2").show(200).html("El número de celular no es válido").delay(2500).hide(100)
+    // if (FormValidations.ContainsLetters(fields.nit) || FormValidations.ContainsSpecialChars(fields.nit))
+    //     return $("#login-error2").show(200).html("El número de documento no es válido").delay(2500).hide(100)
+    // if (ValidateInputFormEmpty(fields))
+    //     return $("#login-error2").show(200).html("Debe llenar todos los campos").delay(2500).hide(100)
     
 
     
 
-    let res = await API.POST.setdata(JSON.stringify(fields));
+    let res = await API.setdata(fields);
 
     if (res.error === false) {
       
-      showPopup(ABS_URL_SERVER + "/assets/popup-vidasana.jpg", {
-        imageClick: `parent.location='${ABS_URL}/home'`,
-        callToActionLabel: `IR AL INICIO`,
-        callToAction: `parent.location='${ABS_URL}/home'`,
-      })
+        showAlert(true)
+        setTimeout(() => {
+            parent.location = "/"
+        }, 5000)
 
     } else {
         alert("Hubo un error al guardar")

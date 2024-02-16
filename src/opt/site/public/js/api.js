@@ -141,12 +141,13 @@ const API = {
         return await fetchAsync(`${URL.HOST}/api/users/updateuserprofile`, {body: {marca: "TOR", nit, email, password, confirm_password, auth_token, nombres, fecha_nacimiento, telefono, celular}});
     },
 
-    async ley2300(data) {
-        return await fetchAsync(`${URL.HOST}/api/clubvidasana/ley2300/`, {body: data});
+    async ley2300(body) {
+        return await fetchAsync(`${URL.HOST}/api/clubvidasana/ley2300/`, {body});
     },
 
-    async setdata(data, type) {
-        return await fetchAsync(`${URL.server2}/economia/v3/setdata`, HTTP_REQUEST_METHOD.POST, {body: {data, type}});
+    async setdata(data) {
+
+        return await fetchAsync(`${URL.HOST}/api/clubvidasana/update`, {body: {marca: "TOR", ...data}});
     },
 
     //bonos

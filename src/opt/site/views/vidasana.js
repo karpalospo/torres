@@ -1,7 +1,7 @@
 const HTML = require("./global.js")
 const ABS_URL = HTML.ABS_URL;
 
-module.exports = () => {
+module.exports = (device) => {
 return /*html*/`
 ${HTML.head({title: "Vida Sana"})}
 ${HTML.header}
@@ -55,14 +55,12 @@ ${HTML.header}
 
             <div class="row">
                 <div>
-                    <span class="frm-label">Ciudad / Municipio</span>
-                    <div class="autocomplete" style="width: 180px; min-width: 180px;">
-                        <input id="ciudad-field" type="text" class="input" name="ciudad" style="width: 180px">
-                    </div>
+                    <span class="frm-label">Direccion</span>
+                    <input id="direccion-field" type="text" class="input" name="direccion" style="width: 180px">
                 </div>
                 <div>
                     <span class="frm-label">Número de celular</span>
-                    <input id="cell-field" type="text" class="input" name="cellphone" style="width: 180px" maxlength="10">
+                    <input id="cell-field" type="text" class="input" name="cellphone" style="width: 180px" maxlength="15">
                 </div>
             </div>
             <div class="separador"></div>
@@ -100,6 +98,7 @@ ${HTML.header}
 </div>
 
 ${HTML.footer}
+${HTML.scripts}
 <script src="${ABS_URL}/js/header.js"></script>
 <script src="${ABS_URL}/js/formvidasana.js"></script>
 </body></html>`}
