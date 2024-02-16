@@ -152,6 +152,14 @@ return /*html*/`
 			<i class="fas fa-user"></i>
 			<span id="lbl-nombre">Acceso</span> <i class="fas fa-chevron-down"></i>
 		</div>
+
+		<div id="menu-cupones" data-id="cupones" class="main-menu-item" style="cursor: pointer;" onclick="showModal(true, 'cupones')">
+			<div class="loadingio-spinner-dual-ring-fqefp1i98hq">
+				<div class="ldio-vs7o6162g0h"><div></div><div><div></div></div></div><div class="coupon-icon"><i class="fas fa-receipt"></i></div>
+			</div>
+		</div>
+
+
 		<div class="main-menu-item relative" onclick="showCart(true)" data-id="cart">
 			<i class="fas fa-shopping-cart" style="font-size: 1.3em"></i>
 			<div id="cart-badge">0</div>

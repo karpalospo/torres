@@ -8,17 +8,17 @@ ${HTML.header}
 
 <style>
 	.btn-aplicar {
-		padding: 0 8px;
+		padding: 0 20px;
 		background: #fa7800;
 		color: white;
 		font-weight: 600;
 		text-align: center;
 		border: none;
 		height: 30px;
-		border-radius: 0 4px 4px 0;
+		border-radius: 6px;
 		font-size: 0.8em;
-		font-family: 'Be Vietnam Pro';
 		letter-spacing: 1px;
+		margin-left: 15px;
 	}
 
 	.nota-entrega {
@@ -51,19 +51,21 @@ ${HTML.header}
 	.btn-cupones {
 		padding: 8px 8px;
 		height: 30px;
-		border: 1px solid #aaa;
-		border-radius: 4px;
+		border: none;
+		background: transparent;
+		font-weight: 600;
+		color: #fa7800;
 	}
 
 	#order2 {
 		display: flex;
 		justify-content: flex-start;
-		max-width: 800px; 
+		max-width: 900px; 
 		margin: 0 auto;
 	}
 
 	#back-stickybox {
-		width: 250px;
+		width: 350px;
 	}
 
 	#resumen {
@@ -92,32 +94,15 @@ ${HTML.header}
 		
 		<div class="trackrail" style="flex: 1; margin: 20px;">
 
-			<div class="card" style="padding: 10px;">
 
-				<div class="header-title">1. INGRESA TU CUPÓN DE DESCUENTO</div>
-
-				<div style="padding: 0 10px;">
-
-					<div class="row">
-						<input id="txt-cupon" type="text" style="text-transform: uppercase; border-radius: 0;"
-							class="input" autocomplete="false" />
-						<button class="btn-aplicar" onclick="redimirCupon()">Aplicar</button>
-						<div class="f1"></div>
-						<button class="btn-cupones" onclick="showModal(true, 'cupones')">Cupones de Descuento &nbsp;<i
-								class="fas fa-chevron-down"></i></button>
-					</div>
-					<div id="lbl-coupon"></div>
-				</div>
-			</div>
-
-			<div id="bono-card" class="card" style="margin-top: 10px; padding: 10px; display: none">
+			<div id="bono-card" class="card" style="padding: 10px; display: none">
 				<div class="header-title">BONO DE DESCUENTO</div>
 				<div id="bono" class="bono">
 				</div>
 			</div>
 
-			<div class="card" style="margin-top: 10px; padding: 10px;">
-				<div class="header-title">2. FORMA DE PAGO</div>
+			<div class="card" style="padding: 10px;">
+				<div class="header-title">FORMA DE PAGO</div>
 
 				<div id="forma-pago">
 
@@ -150,7 +135,7 @@ ${HTML.header}
 			</div>
 
 			<div class="card" style="margin-top: 10px; padding: 10px;">
-				<div class="header-title">3. DIRECCIÓN DE ENTREGA</div>
+				<div class="header-title">DIRECCIÓN DE ENTREGA</div>
 
 				<div>
 					<div id="address-list" class="vselect-list"></div>
@@ -161,7 +146,7 @@ ${HTML.header}
 			</div>
 
 			<div class="card" style="margin-top: 10px; padding: 10px;">
-				<div class="header-title">4. NOTA ADICIONAL DE ENTREGA</div>
+				<div class="header-title">NOTA ADICIONAL DE ENTREGA</div>
 				<Textarea id="nota-pedido" class="nota-entrega" placeholder="Ejemplo: Dejar con el portero"></Textarea>
 			</div>
 
@@ -178,7 +163,21 @@ ${HTML.header}
 		</div>
 
 		<div id="back-stickybox">
-			<div id="stickybox" class="card" style="padding: 10px; margin-top: 20px; width: 230px;">
+			<div id="stickybox" class="card" style="padding: 10px; margin-top: 20px; width: 330px;">
+
+				<div class="row" style="padding: 0 10px; margin-bottom: 10px">	
+					<div class="header-title tx-c">CUPÓN</div>
+					<button class="btn-cupones" onclick="showModal(true, 'cupones')">Cupones Disponibles <i class="fas fa-chevron-down"></i></button>
+				</div>
+
+				<div class="row r-c">
+					<input id="txt-cupon" type="text" style="text-transform: uppercase;" class="input" autocomplete="false" />
+					<button class="btn-aplicar" onclick="redimirCupon()">Aplicar</button>
+				</div>
+				
+				<div id="lbl-coupon"></div>
+
+				<br>
 
 				<div class="header-title tx-c">RESUMEN DE ORDEN</div>
 				<br>

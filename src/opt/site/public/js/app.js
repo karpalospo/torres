@@ -346,8 +346,8 @@ async function redimirCupon() {
     }
 
     if(successCupon){
-        //confetti.toggle()
-        //setTimeout(() => confetti.toggle(), 3000)
+        confetti.toggle()
+        setTimeout(() => confetti.toggle(), 3000)
         showResultMessage($lblCupon, true, `Cupón aplicado con éxito`)
         store.cuponDiscount = cupon.valorCupon || 0.001
         store.order.cupon = cupon;

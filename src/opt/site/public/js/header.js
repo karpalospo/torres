@@ -47,17 +47,40 @@ async function renderCategorias(ciudad) {
     let s = "", $target = $("#categories");
 
     if(!(res = await API.getAllCategorias(ciudad)).error) {
+
         if(!Array.isArray(res.data) || res.data.length == 0) return
-        res.data.splice(3, 0, {IdGrupo: '99', Grupo: 'Cuidado del Bebé', Categorias: []})
+
+        res.data.splice(3, 0, {IdGrupo: '99', Grupo: 'Cuidado del Bebé', Categorias: [], visible: true})
+
         res.data.forEach(item => {
-            store.grupos[item.IdGrupo] = item
-            item.Categorias.forEach(cat => {
-                store.categorias[cat.IdCategoria] = {id: cat.IdCategoria, title: cat.Categoria, subs: {}}
-                if(cat.Subcategorias) cat.Subcategorias.forEach(sub => store.categorias[cat.IdCategoria].subs[sub.IdSubcategoria] = {id: sub.IdSubcategoria, title: sub.Subcategoria})
-            })
             
-            s += `<div data-id="${item.IdGrupo}">${item.Grupo} <i class="fas fa-chevron-down"></i></div>`
+            let isvisible = false, grupovisible = false;
+
+            item.Categorias.forEach(cat => {
+
+                isvisible = false
+                store.categorias[cat.IdCategoria] = {id: cat.IdCategoria, title: cat.Categoria, subs: {}}
+
+                if(cat.Subcategorias) {
+                    cat.Subcategorias.forEach(sub => {
+                        if(sub.visible) isvisible = true
+                        store.categorias[cat.IdCategoria].subs[sub.IdSubcategoria] = {id: sub.IdSubcategoria, title: sub.Subcategoria}
+                    })
+                }
+
+                if(isvisible) grupovisible = true
+                store.categorias[cat.IdCategoria].visible = isvisible
+            })
+
+            if(!item.visible) item.visible = grupovisible
+
+            store.grupos[item.IdGrupo] = item
+
+            if(item.visible === true) {
+                s += `<div data-id="${item.IdGrupo}">${item.Grupo} <i class="fas fa-chevron-down"></i></div>`
+            }
         })
+
         store.grupos["99"].Categorias = store.grupos["02"].Categorias[0].Subcategorias.map(item => ({IdCategoria: item.IdSubcategoria, Categoria: item.Subcategoria}))
     }
 
