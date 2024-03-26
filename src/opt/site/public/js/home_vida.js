@@ -120,7 +120,7 @@ $(".myswiper-wrapper").on("scroll", e => {
 
 function scroll_to(target) {
 
-    $("#content").scrollTo($("#" + target), {duration: 800})
+    $(window).scrollTo($("#" + target), {duration: 800})
 
  
 }
