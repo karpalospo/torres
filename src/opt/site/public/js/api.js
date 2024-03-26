@@ -159,6 +159,10 @@ const API = {
         return await fetchAsync(`${URL.ETICOS_HOST}/ServicesEpos/wsepos/api/v2/ValidaCondicionBono/`, {body: {Bono, Productos}});
     },
 
+    
+    async ley2300(body) {
+        return await fetchAsync(`${URL.HOST}/api/clubvidasana/ley2300/`, {body});
+    },
 
     //rutas economicas
     async allProducts() {

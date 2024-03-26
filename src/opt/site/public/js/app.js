@@ -73,7 +73,6 @@ function renderBanners($target, items, options = {}) {
     ${options.navigation ? `<div class="swiper-button-next"></div><div class="swiper-button-prev"></div>`:""}
 </div>`)
 
-    console.log(options)
     new Swiper($target.find(".swiper")[0],  
         {
             centeredSlides: options.centeredSlides,
@@ -730,6 +729,108 @@ function resize() {
 
 $(window).on("resize", e => resize)
 
+
+function autocomplete(inp, arr, clear, upper = false, cb) {
+
+    var currentFocus, count = 0;
+
+    inp.addEventListener("input", function(e) {
+        let a, b, i, val = this.value, valUpper = this.value.toUpperCase();
+        closeAllLists();
+
+        if (!val) { return false;}
+        currentFocus = -1;
+
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+
+        this.parentNode.appendChild(a);
+ 
+        if(val.length < 2) return;
+
+        for (i = 0; i < arr.length; i++) {
+            let index = arr[i].toUpperCase().indexOf(valUpper)
+            if (index > -1) {
+
+                if(count > 7) return
+                b = document.createElement("DIV");
+
+                b.innerHTML = arr[i].substr(0, index) + `<b>${upper ? val.toUpperCase() : val}</b>` + arr[i].substr(index + val.length, arr[i].length - index);
+                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+
+                b.addEventListener("click", function(e) {
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                    closeAllLists();
+                    if(typeof cb == "function") cb(this.getElementsByTagName("input")[0].value)
+                });
+                a.appendChild(b);
+                count++
+            }
+        }
+    });
+
+    inp.addEventListener("blur", function(e) {
+      let val = e.currentTarget.value, found = false
+      for (i = 0; i < arr.length; i++) {
+        if(arr[i] == val.toUpperCase()) {
+          e.currentTarget.value = arr[i]
+          found = true
+        }
+      }
+      if(!found && clear) {
+        e.currentTarget.value = ""
+      }
+    });
+
+    inp.addEventListener("keydown", function(e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+          currentFocus++;
+          addActive(x);
+        } else if (e.keyCode == 38) {
+          currentFocus--;
+          addActive(x);
+        } else if (e.keyCode == 13) {
+          e.preventDefault();
+          if (currentFocus > -1) {
+              if (x) x[currentFocus].click();
+          }
+        }
+    });
+
+    function addActive(x) {
+
+      if (!x) return false;
+      removeActive(x);
+      if (currentFocus >= x.length) currentFocus = 0;
+      if (currentFocus < 0) currentFocus = (x.length - 1);
+      x[currentFocus].classList.add("autocomplete-active");
+    }
+
+    function removeActive(x) {
+      for (var i = 0; i < x.length; i++) {
+        x[i].classList.remove("autocomplete-active");
+      }
+    }
+
+    function closeAllLists(elmnt) {
+      var x = document.getElementsByClassName("autocomplete-items");
+      for (var i = 0; i < x.length; i++) {
+        if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+      count = 0;
+    }
+
+  }
+
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+  });
+
+}
 
 
 // ========================================================================== //
