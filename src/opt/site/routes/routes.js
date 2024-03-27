@@ -74,7 +74,7 @@ router.get('/ley2300', function(req, res) {
 
 router.get('/beneficios', function(req, res) { 
 
-	res.status(200).send(s(beneficiosView()))
+	res.status(200).send(s(beneficiosView(req.device.type.toUpperCase())))
 });
 
 router.get('/perfil', function(req, res) {    
@@ -94,7 +94,7 @@ router.get('/empresa', function(req, res) {
 });
 
 router.get('/vidasana', function(req, res) {    
-  res.status(200).send(s(vidasanaView()))
+  res.status(200).send(s(vidasanaView(req.device.type.toUpperCase())))
 });
 
 router.get('/privacidad', function(req, res) {    

@@ -7,6 +7,7 @@ store.user = {
 store.noPromoCats = []
 store.noPromoSubs = []
 
+
 let $tabmenu = $("#tab-menu"),currentIndex;
 
 async function page_init() {
@@ -35,24 +36,24 @@ async function page_init() {
         rowCount: 6
     }
 
-    if(store.isMobile)  productBounces.rowCount = 2
+    if(device == "PHONE")  productBounces.rowCount = 2
 
-    renderBanners($("#banner1"), banners)
+    renderBanners($("#banner1"), banners, {device})
 
     let ss = "[code]";
     try {
         
-        const res = await axios.post(`https://www.droguerialaeconomia.com/api/referencias/productosbeneficios`, {"ciudad":"08001","marca":"ECO"})
-        forEach(res.data.data, item => {
-            if(item.codigo) ss += item.codigo + " "
-        })
+        const res = await axios.post(`https://www.droguerialaeconomia.com/api/referencias/productosbeneficios`, {"ciudad":"08001","marca":"TOR"})
+        // forEach(res.data.data, item => {
+        //     if(item.codigo) ss += item.codigo + " "
+        // })
+        showProductsHorizontal($("#recomendados"), HomologarProductos(res.data.data), {hcarrusel: true, shuffle:true})
         
     } catch(error) {
-
+        console.log(error)
     }
 
-
-    await search_products2("carrusel", ss, $("#recomendados").find(".swiper-wrapper"), {hcarrusel: true, shuffle:true, sort: {field:"descuento", mode:"desc"}})
+    //await search_products2("carrusel", ss, $("#recomendados").find(".swiper-wrapper"), {hcarrusel: true, shuffle:true, sort: {field:"descuento", mode:"desc"}})
 
     new Swiper($("#marcas")[0], 
         {

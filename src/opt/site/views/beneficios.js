@@ -1,7 +1,7 @@
 const HTML = require("./global.js")
 const ABS_URL = HTML.ABS_URL;
 
-module.exports = () => {
+module.exports = (device) => {
 return /*html*/`
 ${HTML.head({title: "Vida Sana"})}
 ${HTML.header}
@@ -471,6 +471,8 @@ ${HTML.header}
     </section>
 
 ${HTML.footer}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>let device = '${device}';</script>
 ${HTML.scripts}
 <script src="${ABS_URL}/js/home_vida.js"></script>
 <script src="${ABS_URL}/js/header.js"></script>

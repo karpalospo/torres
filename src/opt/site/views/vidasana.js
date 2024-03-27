@@ -99,6 +99,7 @@ ${HTML.header}
 
 ${HTML.footer}
 ${HTML.scripts}
+<script>let device = '${device}';</script>
 <script src="${ABS_URL}/js/header.js"></script>
 <script src="${ABS_URL}/js/formvidasana.js"></script>
 </body></html>`}
