@@ -263,7 +263,7 @@ ${HTML.header}
     </section>
 
     <section class="max-width tx-c p40">
-        <div class="vida-title tx-c">Redime tus puntos en Droguería La Economía</div>
+        <div class="vida-title tx-c">Redime tus puntos en Farmacia Torres</div>
         <p>Aprovecha las mejores ofertas redimiendo tus puntos en nuestras droguerías o nuestras plataformas virtuales.</p>
         <div class="row2" style="justify-content: center;margin-left: -60px;">
             <div style="text-align: right;">
@@ -320,9 +320,10 @@ ${HTML.header}
             <div class="h30"></div>
             <div id="marcas" class="swiper swiper-marcas">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><div><img src="${ABS_URL}/assets/logo1.png" alt=""></div></div>
-                    <div class="swiper-slide"><div><img src="${ABS_URL}/assets/logo22.png" alt=""></div></div>
-                    <div class="swiper-slide"><div><img src="${ABS_URL}/assets/logo11.jpg" alt=""></div></div>
+                    <div class="swiper-slide"><div onclick="modal(1)"><img src="${ABS_URL}/assets/logo1.png" alt=""></div></div>
+                    <div class="swiper-slide"><div onclick="modal(2)"><img src="${ABS_URL}/assets/logo22.png" alt=""></div></div>
+                    <div class="swiper-slide"><div onclick="modal(3)"><img src="${ABS_URL}/assets/logo11.jpg" alt=""></div></div>
+                </div>
             </div>
             <div class="h30"></div>
             <p>*Los beneficios, descuentos u ofertas en las alianzas  descritas son exclusivos para miembros activos. **Un miembro activo es una persona que ha realizado compras en Droguería La Economía, Farmacia Torres o Farmacia Isimo en los últimos 90 días.</p>

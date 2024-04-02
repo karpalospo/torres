@@ -85,6 +85,21 @@ select {
     background: #fa7800;
 }
 
+.circulo-blanco {
+    background-color: white;
+    border-radius: 51px;
+    padding: 15px;
+    height: 100px;
+    width: 100px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow: 0 0 10px 0 #0505054d;
+}
+
 #categories {
     display: flex;
     align-items: center;
@@ -3150,6 +3165,7 @@ h3 {
     border-radius: 8px;
     box-shadow: 1px 1px 10px 0 rgba(0,0,0,0.3);
 }
+
 
 #timer {
     font-size: 2em;

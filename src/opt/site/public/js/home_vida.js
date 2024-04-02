@@ -147,6 +147,39 @@ $("#vs-terminacionemail").on("change", e => {
     }
 })
 
+
+function modal(id) {
+    if(id == 1) {
+        $("#marca-imagen").html(`<img src="assets/logo1.png" alt="" style="width: 100%;">`)
+        $("#marca-nombre").html(`<div><h2 style="color: #1C58B7">Droguería La Economía</h2></div>Droguería`)
+        $("#marca-texto").html(`Cadena de farmacias con presencia en Barranquilla y otras ciudades de Colombia. Ofrecen una amplia gama de productos, incluyendo medicamentos, productos de belleza, aseo personal, artículos para el hogar y mucho más.`)
+        $("#marca-beneficio").html(`
+        <li>Con cada compra acumula Puntos Vida Sana.</li>
+        <li>Redime Puntos Vida Sana en tus compras.</li>
+        <li>Promociones y descuentos exclusivos.</li>`)
+    }
+    if(id == 2) {
+        $("#marca-imagen").html(`<img src="assets/logo22.png" alt="" style="width: 100%;">`)
+        $("#marca-nombre").html(`<div><h2 style="color: #1C58B7">Farmacia Torres</h2></div>Droguería`)
+        $("#marca-texto").html(`Cadena de farmacias con presencia en Barranquilla y otras ciudades de Colombia. Ofrecen una amplia gama de productos, incluyendo medicamentos, productos de belleza, aseo personal, artículos para el hogar y mucho más.`)
+        $("marca-beneficio").html(`
+        <li>Con cada compra acumula Puntos Vida Sana.</li>
+        <li>Redime Puntos Vida Sana en tus compras.</li>
+        <li>Promociones y descuentos exclusivos.</li>`)
+    }
+    if(id == 3) {
+        $("#marca-imagen").html(`<img src="assets/logo11.jpg" alt="" style="width: 100%;">`)
+        $("#marca-nombre").html(`<div><h2 style="color: #1C58B7">Isimo</h2></div>Droguería`)
+        $("#marca-texto").html(`Cadena de farmacias con presencia en Barranquilla y otras ciudades de Colombia. Ofrecen una amplia gama de productos, incluyendo medicamentos, productos de belleza, aseo personal, artículos para el hogar y mucho más.`)
+        $("#marca-beneficio").html(`
+        <li>Con cada compra acumula Puntos Vida Sana.</li>
+        <li>Redime Puntos Vida Sana en tus compras.</li>
+        <li>Promociones y descuentos exclusivos.</li>`)
+    }
+    showModal(true, "marca")
+}
+
+
 async function enviarVida2(elem) {
     let $elem = $(elem)
     $elem.attr("disabled", true)

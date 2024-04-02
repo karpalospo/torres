@@ -22,6 +22,7 @@ const pedidosView = require("../views/pedidos.js");
 const direccionesView = require("../views/direcciones.js");
 const ley2300View = require("../views/ley2300.js");
 const beneficiosView = require("../views/beneficios.js");
+const concursosView = require("../views/concursos.js");
 
 function s(str) {
 	return str.replace(/(\r\n|\n|\r|\t)/gm, "")
@@ -75,6 +76,12 @@ router.get('/ley2300', function(req, res) {
 router.get('/beneficios', function(req, res) { 
 
 	res.status(200).send(s(beneficiosView(req.device.type.toUpperCase())))
+});
+
+
+router.get('/concursos', function(req, res) { 
+
+	res.status(200).send(s(concursosView(req.device.type.toUpperCase())))
 });
 
 router.get('/perfil', function(req, res) {    
