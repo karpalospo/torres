@@ -24,7 +24,7 @@ async function page_init() {
             {
                 "id": 581,
                 "web": "https://imperacore.net/assets/banner2.jpg",
-                "mobile": "https://imperacore.net/assets/bannerm2.jpg",
+                "mobile": "https://imperacore.net/assets/bannerm2torres.jpg",
                 "popup": "",
                 "data": {},
                 "titlePublic": ""
