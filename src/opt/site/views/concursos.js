@@ -47,7 +47,8 @@ ${HTML.header}
     <div class="marron">
         <div class="texto-marron">
             <p>
-                <b>Términos y condiciones:</b> Actividad válida del 10 al 30 de abril de 2024. Las tarjetas del parque de diversiones AFRICA están cargadas con 1 hora de juego libre. Las tarjetas tienen vigencia hasta el 30 de junio de 2024. El tiempo de duración de la tarjeta comienza a correr desde el uso del primer juego. Las tarjetas serán entregadas luego de inscribirse en el formulario. Ganarán los primeros 100 clientes en inscribirse. El parque de diversiones AFRICA esta ubicado en la ciudad de Barranquilla en el Centro Comercial Mall Plaza. 
+                <b>Términos y condiciones:</b> Actividad válida del 10 al 30 de abril de 2024 o hasta agotar existencias. Las tarjetas del parque de diversiones AFRICA están
+cargadas con 1 hora de juego libre. Las tarjetas tienen vigencia hasta el 30 de junio de 2024. El tiempo de duración de la tarjeta comienza a correr desde el uso del primer juego. Las tarjetas serán entregadas luego de inscribirse en el formulario de la actividad. Ganarán los primeros 100 clientes en inscribirse. El parque de diversiones AFRICA esta ubicado en la ciudad de Barranquilla en el centro comercial Mall Plaza.
             </p>
         </div>      
     </div>
