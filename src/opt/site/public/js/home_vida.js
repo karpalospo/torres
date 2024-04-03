@@ -47,7 +47,7 @@ async function page_init() {
         // forEach(res.data.data, item => {
         //     if(item.codigo) ss += item.codigo + " "
         // })
-        showProductsHorizontal($("#recomendados"), HomologarProductos(res.data.data), {hcarrusel: true, shuffle:true})
+        showProductsHorizontal($("#recomendados"), HomologarProductos(res.data.data), {collection: "beneficiados", hcarrusel: true, shuffle:true})
         
     } catch(error) {
         console.log(error)

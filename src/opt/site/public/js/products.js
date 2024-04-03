@@ -500,9 +500,10 @@ function renderLoading($target) {
 
 function productClick($parent, $elem) {
 
-    console.log($parent, $elem)
+    
     let id = $parent.data("id");
 
+    console.log(id, getProduct(id))
     if($elem.hasClass("add")) return pLog("cart", {id, product: getProduct(id), value: 1});
     if($elem.hasClass("fa-plus")) return pLog("cart", {id, sum: 1});
     if($elem.hasClass("fa-minus") || $elem.hasClass("fa-trash-alt")) return pLog("cart", {id, sum: -1});
