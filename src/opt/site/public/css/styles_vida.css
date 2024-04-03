@@ -145,16 +145,18 @@ div, select, input, textarea {
 }
 
 .btn-primary-vida {
-    background: #1C58B7;
-    border:none;
+    background: #fa7800;
+    border: none;
     color: white;
     padding: 10px 20px;
-    border-radius: 6px;
+    border-radius: 4px;
+    width: 100%;
 }
 .btn-primary-vida:hover {
-    background: #0f3b82;
+    background: #b15907;
     cursor: pointer;
 }
+
 .tx-l {text-align: left;}
 .tx-c {text-align: center;}
 .tx-r {text-align: right;}
@@ -287,181 +289,6 @@ div, select, input, textarea {
     border-radius: 16px;
 }
 
-
-.products-list {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-    gap: 15px;
-}
-
-.product-item {
-    background-color: white;
-    padding: 10px;
-    position: relative;
-    text-align: center;
-    border-radius: 16px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.85em;
-}
-
-.product-item:hover {
-    box-shadow: 2px 2px 7px 0 rgb(0 0 0 / 20%);
-    cursor: pointer;
-    z-index: 99; 
-}
-
-.product-item .titulo {
-    text-transform: capitalize;
-    color: #333;
-    display: block;
-    height: 58px;
-    overflow: auto;
-    font-weight: 600;
-    margin-top: 5px;
-}
-
-.product-item .precio {
-    font-size: 1.5em;
-    font-weight: 700;
-    color: #333;
-}
-
-.product-item .antes {
-    text-decoration: line-through;
-    color: #6E7191;
-    padding-right: 5px;
-}
-
-
-.product-item .descuento {
-    border-radius: 8px;
-    color: white;
-    background: #E40615;
-    display: inline-block;
-    padding: 3px 10px;
-    font-family: 'Poppins', sans-serif;
-}
-
-.product-item .image {
-    display: inline-block;
-    overflow: hidden;
-    width: 85%;
-    font-size: 0;
-    pointer-events: none;
-    aspect-ratio: 1 / 1;
-}
-.product-item .info {
-    padding: 10px 0;
-    text-align: center;
-}
-
-
-.product-item .pcondicion {
-    color: #ff2c6f;
-    margin-left: 7px;
-    font-weight: bold;
-    font-size: 1.1em;
-}
-
-.product-item .pcondicion i {
-    font-size: 0.9em;
-}
-
-.product-item .contenido {
-    color: #666;
-    font-size: 0.8em;
-    padding: 5px 0;
-    font-weight: 300;
-}
-
-.product-item .cantidad {
-    width: 150px;
-    margin: 0 auto;
-    margin-top: 9px;
-}
-
-.product-item .cantidad i {
-    display: inline-block;
-    border-radius: 8px;
-    color: #005BD4;
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
-    border: 2px solid #005BD4;
-    font-size: 1.3em;
-}
-
-.product-item .cantidad i:hover {
-    cursor: default;
-}
-
-.product-item .cantidad input {
-    border: none;
-    background-color: #EFF0F6;
-    font-size: 1.5em;
-    width: 30px;
-    text-align: center;
-    border-radius: 8px;
-    padding: 10px;
-    font-weight: 600;
-}
-
-.product-item button {
-    display: block;
-    background: #005BD4;
-    color: white;
-    padding: 10px 24px;
-    border: none;
-    border-radius: 12px;
-    position: relative;
-    font-weight: 600;
-    letter-spacing: 1px;
-    width: 80%;
-    margin: auto;
-    margin-top: 10px;
-    font-family: 'Poppins', sans-serif;
-}
-
-.product-item button i {
-    position: absolute;
-    right: 3px;
-    padding: 4px;
-    border-left: 1px solid rgba(255,255,255,0.3);
-    top: 3px;
-}
-
-
-.product-item button:hover {
-    cursor: pointer;
-    opacity:0.8
-}
-
-.product-item img {
-    width: 100%;
-}
-
-
-.product-item .wish {
-    top: 5px;
-    right: -1px;
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    z-index: 100;
-    font-size: 2.5em;
-}
-.product-item .wish:hover {
-    top: 4px;
-}
-
-.product-item .wish.not {
-    display:none
-}
-
-.product-item:hover .wish.not {
-    display:block
-}
 
 
 

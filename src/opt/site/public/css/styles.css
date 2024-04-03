@@ -622,6 +622,15 @@ select {
 	color: #222;
 }
 
+
+.product-item .beneficio {
+    background: #ee1515;
+    color: white;
+    padding: 3px 6px;
+    border-radius: 4px;
+    margin-top: 3px;
+}
+
 .product-item .descuento {
     top: 10px;
     left: 10px;

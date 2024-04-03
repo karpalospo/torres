@@ -321,8 +321,18 @@ function renderProductItem(item, type) {
 
     let hasDiscount = false, 
         precioCondicion = false,
+        hasBeneficio = false,
+        extraProducto = 0,
+        pagaProducto = 0,
         cart = store.cart[item.id]
     ;
+
+    if(item.beneficio && item.beneficio.idUnidadB && item.beneficio.idUnidadB != 0) {
+        hasBeneficio = true
+        extraProducto = Math.floor(item.beneficio.cntBeneficio / item.beneficio.idUnidadB)
+        pagaProducto = Math.floor(item.beneficio.minCompra / item.beneficio.idUnidadB)
+    }
+    hasDiscount = item.descuento > 0 && !item.beneficio
     
     switch(type) {
 
@@ -408,7 +418,7 @@ ${_(precioCondicion, /*html*/`
     default:
 
         hasDiscount = item.descuento > 0 && (!store.noPromoCats.includes(item.cat) && !store.noPromoSubs.includes(item.sub) || (store.proveedores && store.proveedores.includes(item.nitproveedor)) )
-        beneficio = item.beneficio != undefined
+
 
         if(item.VlrMinimo > 0) {
             hasDiscount = false
@@ -427,7 +437,8 @@ ${_(precioCondicion, /*html*/`
             <span class="titulo">${item.nombre}</span>
             <div style="padding:9px 0">
             ${_(hasDiscount, /*html*/`<span class="antes">${f(item.antes)}</span>`, /*html*/`<span class="antes2">&nbsp;</span>`)}
-            <span class="precio ${_(hasDiscount || beneficio, "rojo")}">${f(item.precio)}</span>
+            <span class="precio ${_(hasDiscount || hasBeneficio, "rojo")}">${f(item.precio)}</span>
+            ${hasBeneficio ? `<div class="beneficio">Pague <b>${pagaProducto} lleve </b>${pagaProducto + extraProducto}</div><div style="height:20px"></div>` : `<div style="height:40px"></div>`}
             ${_(precioCondicion, /*html*/`<span class="pcondicion">${f(item.ahora)} <i class="fas fa-info-circle"></i></span>`)}
         </div>
         <span class="contenido">${item.valor_contenido ? item.valor_contenido : "&nbsp;"}</span>
