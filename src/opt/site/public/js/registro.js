@@ -60,7 +60,11 @@ async function signup(elem) {
             modificado: "123456789",
             aceptacondiciones: "S",
             canalconfirmacion: "WEB",
-            ciudad: store.location
+            ciudad: store.location,
+            texto: $("#vs-texto").prop('checked'),
+            correo: $("#vs-correo").prop('checked'),
+            llamada: $("#vs-llamada").prop('checked'),
+            whatsapp: $("#vs-whatsapp").prop('checked'),
         }
     }
 
@@ -100,3 +104,22 @@ async function signup(elem) {
     }
 
 }
+
+$("#terms_vida_sana").on("change", e => {
+    let $elem = $(e.currentTarget),
+        vida_checked = $elem.is(":checked")
+    ;
+  
+    if(vida_checked) $("#extra-checkup").show(200)
+    else $("#extra-checkup").hide(200)
+ 
+
+})
+
+$("#vs-todas").on("change", e => {
+    let $elem = $(e.currentTarget),
+        checked = $elem.is(":checked")
+    ;
+    $("#vs-texto, #vs-correo, #vs-llamada, #vs-whatsapp").attr("checked", checked)
+
+})

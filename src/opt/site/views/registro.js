@@ -78,6 +78,29 @@ ${HTML.header}
 				</div>
 			</div>
 
+			<div id="extra-checkup" style="display:none">
+				<br><br>
+                <div class="label" style="padding-left: 0; margin-bottom: 10px; font-weight: 600">¿Por cuál medio te gustaría que te contactáramos?</div>
+                
+                <div class="col2" style="gap:10px">
+                    <div class="row-center">
+                        <input id="vs-todas" type="checkbox"><label for="vs-todas">Seleccionar Todas</label>
+                    </div>
+                    <div class="row-center">
+                        <input id="vs-texto" type="checkbox"><label for="vs-texto">Mensaje de texto</label>
+                    </div>
+                    <div class="row-center">
+                        <input id="vs-correo" type="checkbox"><label for="vs-correo">Correo Electrónico</label>
+                    </div>
+                    <div class="row-center">
+                        <input id="vs-llamada" type="checkbox"><label for="vs-llamada">Llamadas telefónicas</label>
+                    </div>
+                    <div class="row-center">
+                        <input id="vs-whatsapp" type="checkbox"><label for="vs-whatsapp">Whatsapp</label>
+                    </div>
+                </div>
+            </div>
+
 			<p class="tx-c">
 				<a href="politicas" class="link" target="_blank"><i class="fas fa-external-link-alt"></i>
 					Ver página de políticas y términos de uso</a>

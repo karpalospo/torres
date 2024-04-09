@@ -84,7 +84,6 @@ ${HTML.header}
                 <label for="terms_vida_sana"> Acepto <a href="/politicas" class="link" target="_blank">Términos y condiciones</a>, Acepto ser miembro del <a href="/beneficios" class="link" target="_blank">Club Vida Sana</a> y autorizo el <a href="/habeas" class="link" target="_blank">Tratamiento de mis datos personales con las siguientes condiciones</a></label><br>
             </p>
 
-
         </form>
 
         <br><br>
