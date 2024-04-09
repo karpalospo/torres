@@ -187,8 +187,7 @@ ${HTML.header}
 
                 <div class="tabs">
                     <div class="vida-title">¿Qué es el Club Vida Sana Silver?</div>
-                    <p>El Club Vida Sana Silver es un programa de beneficios para clientes frecuentes de terapia crónica como pacientes de: Anticonceptivos, Diabetes, Hipertensión, Asma, Artritis, Cáncer y muchas otras. Los miembros Silver encontrarán un descuento permanente del 5% en productos seleccionados, ofertas y descuentos exclusivos en los productos de compra frecuente.</p>
-                    <p>También podrá acumular puntos cada vez que realice compras y podrá redimirlos al pagar en cualquiera de nuestras sucursales de Droguería La Economía, Farmacia Torres e Ísimo o por las plataformas virtuales.</p>
+                    <p>El Club Vida Sana Silver es un programa de beneficios para clientes frecuentes de terapia crónica como pacientes de Hipertension, Diabetes, Asma, Artristis, Glaucoma, Tiroides, Epilepsia, Reemplazo Hormonal, entre otras. Los miembros Silver tendrán un descuento permanente del 5% en productos seleccionados, ofertas y descuentos exclusivos en los productos de compra frecuente.</p><p>También podrá acumular puntos cada vez que realicen compras y podrán redimirlos al pagar en cualquiera de nuestras sucursales de Droguería La Economía, Farmacia Torres e Ísimo, por medio del call center o por las plataformas virtuales.</p>
                     <br><br>
                     <div class="vida-title">Beneficios para los clientes Club Vida Sana Silver</div>
                     <br>
@@ -252,7 +251,7 @@ ${HTML.header}
 
     <section id="sec-beneficios" class="bg-azul">
         <div class="max-width tx-c">
-            <div class="vida-title tx-c">Beneficios que el Club Vida Sana tiene para ti</div>
+            <div class="vida-title tx-c">Conoce los beneficios que tenemos para ti</div>
             <div class="h30"></div>
             <div id="recomendados" class="swiper">
                 <div class="swiper-wrapper"></div>
@@ -334,26 +333,29 @@ ${HTML.header}
         <div class="porta-preguntas max-width p40" style="text-align: justify;">
 
             <h2 style="margin-top: 0;">Preguntas Frecuentes</h2>
+
+
+         
             <button class="accordion22">¿Cómo puedo actualizar mis datos personales?</button>
             <div class="panel">
                 <p>
-                    Puedes acercarte a tu droguería más cercana, nos puedes llamar a la línea nacional (605) 3699090 o iingresando al siguiente link https://www.droguerialaeconomia.com/encuestas/vidasana registra tus datos y listo.  
+				Puedes acercarte a tu droguería más cercana, llamanos al  (605) 3699090, (605) 3851717 o ingresando al siguiente link <a href="https://www.droguerialaeconomia.com/empresa/beneficios" target="_blank" />www.droguerialaeconomia.com/empresa/beneficios</a> - <a href="https://farmaciatorres.com/beneficios" target="_blank" />www.farmaciatorres.com/beneficios</a> registra tus datos y listo.
             	</p>
             </div>
 
             <button class="accordion22">¿Cómo me inscribo al Club Vida Sana o Club Vida Sana Silver?</button>
             <div class="panel">
                 <p>
-                    Registrarse es gratis y muy sencillo, debes ser mayor de edad y tener cédula de ciudadanía.  El registro lo puedes hacer en cualquiera de nuestras sucursales físicas de Droguerías La Economía a nivel nacional o en la página web www.droguerialaeconomia.com donde podrás escoger la opción registrarte. También nos puedes escribir por WhatsApp (315)782 3477 o llamar a nuestro centro de atención telefónica: 605369090. <br><br>  
-                    Todas estas opciones son totalmente gratis. Luego de registrarte lee la política de tratamiento de datos y si la aceptas, haz clic en “autorizar”. <br> <br> 
-                    ¡Comienza a acumular puntos en tus compras de medicamentos y redímelos para ahorrar! 
+				Registrarse es gratis y muy sencillo, debes ser mayor de edad y tener cédula de ciudadanía. El registro lo puedes hacer en cualquiera de nuestras sucursales físicas de Droguería La Economía, Farmacia Torres e Isimo a nivel nacional o por las plataformas virtuales.<br><br>
+Luego de registrarte lee la política de tratamiento de datos y si aceptas, haz clic en “autorizar”.
+¡Comienza a acumular puntos en tus compras de medicamentos y redímelos para ahorrar!
             	</p>
             </div>
 
             <button class="accordion22">¿Cuáles Farmacias y/o Droguerías están vinculadas con el Club Vida Sana y Club Vida Sana Silver?</button>
             <div class="panel">
                 <p>
-                    Todas las Droguerías Economías y Farmacias Torres están habilitadas para que hagas parte del Club Vida Sana. 
+				Todas las Droguerías Economías, Farmacias Torres e Isimo están habilitadas para que hagas parte del Club.
             	</p>
             </div>
 
@@ -361,13 +363,13 @@ ${HTML.header}
             <button class="accordion22">¿Cómo acumulo puntos?</button>
             <div class="panel">
                 <p>
-                    En las compras de medicamentos que realices en Droguería La Economía y Farmacia Torres. No aplica para las categorías de alimentos y bebidas, recargas, pago servicios de servicios públicos, gira más, pague aquí y reclame allá y otros pagos a terceros. 
+				En las compras de medicamentos que realices en nuestras sucursales de Droguería La Economía, Farmacia Torres e Isimo. No aplica para las categorías de alimentos y bebidas, recargas, pago servicios de servicios públicos, gira más, pague aquí y reclame allá y otros pagos a terceros.
                 </p>
             </div>
 
             <button class="accordion22">¿Cómo ver promociones del Club Vida Sana? </button>
             <div class="panel">
-                <p>Está atento a tu correo electronico y celular y te enterarás de las ofertas disponible o ingresa a nuestra pagina www.droguerialaeconomia.com</p>
+                <p>Está atento a tu correo electrónico, celular y redes sociales para que conozcas todas las ofertas y descuentos que tenemos disponibles para ti.</p>
             </div>
 
             <button class="accordion22">¿Mis puntos se vencen?</button>
@@ -382,36 +384,39 @@ ${HTML.header}
 
             <button class="accordion22">¿Cómo puedo ganar puntos extras? </button>
             <div class="panel">
-                <p>Encuéntranos en redes sociales como @droguerialaeconomia y entérate de cuando tenemos productos o referencias en los que acumularás doble o triple puntaje. </p>
+                <p>Siguenos en redes sociales y entérate cuando tengamos productos o referencias en los que acumularás doble o triple puntaje.</p>
             </div>
 
             <button class="accordion22">¿Cómo saber mi saldo de puntos Club Vida Sana? </button>
             <div class="panel">
-                <p>Ingresa a la página web https://www.droguerialaeconomia.com/puntos y luego de iniciar sesión, escoge la opción de “Mis puntos” ahí encontrarás toda la información de tus puntos, compras y redenciones. También puedes acercarte a cualquier de nuestras droguerías suministrar tu cédula y listo. </p>
+                <p>Puedes acercarte a cualquiera de nuestras sucursales suministrando tu número de cedula o puedes ingresar a la pagina web de Droguería La Economía o Farmacia Torres y luego de iniciar sesión escoge la opción “Mis puntos” y listo, ahí encontrarás toda la información de tus puntos, compras y redenciones.</p>
             </div>
 
             <button class="accordion22">¿Cómo puedo redimir puntos en tiendas físicas y usarlos como medio de pago? </button>
             <div class="panel">
-                <p>En las droguerías físicas de Droguería La Economía y Farmacia Torres, para redimir tus puntos te enviaremos un mensaje con un código de confirmación por mensaje de texto o correo electrónico, el cual debes suministrarle a la persona en la caja para habilitar tu bono y descontarlo en la compra. <br><br>
-                    “Puedes pagar hasta 50% de la compra con puntos” </p>
+                <p>En las droguerías físicas de Droguería La Economía, Farmacia Torres e Isimo, para redimir tus puntos te enviaremos un mensaje con un código de confirmación por mensaje de texto o correo electrónico, el cual debes suministrarle a la persona en la caja para habilitar tu bono y descontarlo en la compra.
+“Puedes pagar hasta 50% de la compra con puntos”</p>
             </div>
 
             <button class="accordion22">¿En qué lugares puedo redimir mis puntos? </button>
             <div class="panel">
-                <p>Puedes redimir puntos en las sucursales físicas de Droguería La Economía y en sucursal virtual ingresando a www.droguerialaeconomia.com. </p>
+                <p>Puedes redimir puntos en las sucursales físicas de Droguería La Economía, Farmacia Torres e Isimo o por las plataformas virtuales.</p>
             </div>
 
             <button class="accordion22">¿Cómo redimir mis puntos Club Vida Sana en la droguería online? </button>
             <div class="panel">
-                <p><ul>
-                    <li>Ingresa a www.droguerialaeconomia.com</li>
-                    <li>Escribe en el buscador el producto que quieres comprar o haciendo clic en la imagen del producto seleccionado y añádelo al carrito.</li>
-                    <li>Verifica tu compra en el carrito de compras. </li>
-                    <li>Haz clic en comprar ahora. </li>
-                    <li>Verifica cuantos puntos Visa Sana tienes acumulados y ten en cuenta que necesitas tener mínimo cinco mil puntos acumulados para redimirlos. </li>
-                    <li>Haz clic en:  Deseo redimir puntos en esta compra.</li> 
-                    <li>Selecciona el medio de pago, la dirección de entrega y confirma el pedido. </li>
-                    <li>Sigue los pasos para solicitar los productos y pagar contra entrega o paga con PSE.</ul> </p>
+                <p>
+   
+				Ingresa a <a href="https://www.droguerialaeconomia.com" target="_blank" />www.droguerialaeconomia.com</a> ó <a href="https://farmaciatorres.com" target="_blank" />www.farmaciatorres.com</a>
+<ul style="list-style= disc">
+<li>Escribe en el buscador el producto que quieres comprar o haciendo clic en la imagen del producto seleccionado y añádelo al carrito.</li>
+<li>Verifica tu compra en el carrito de compras.</li>
+<li>Haz clic en comprar ahora.</li>
+<li>Verifica cuantos puntos Visa Sana tienes acumulados y ten en cuenta que necesitas tener mínimo cinco mil puntos acumulados para redimirlos.</li>
+<li>Haz clic en: Deseo redimir puntos en esta compra.</li>
+<li>Selecciona el medio de pago, la dirección de entrega y confirma el pedido</li>
+</ul>
+</p>
             </div>
 
             <button class="accordion22">¿Cuáles son los puntos mínimos que necesito para redimir?  </button>
@@ -428,7 +433,7 @@ ${HTML.header}
 
             <button class="accordion22">¿Qué debo hacer si presento algún inconveniente con la redención de mis puntos? </button>
             <div class="panel">
-                <p>Si compras online puedes comunicarte a nuestra línea de WhatsApp (315)782 3477 y si compras en tiendas físicas, contaras con el apoyo del vendedor presente.</p>
+                <p>Puedes comunicarte a nuestra línea nacional 605 3699090 o 605 3851717 o puedes acercarte a nuestras tiendas fisicas, ahí contarás con el apoyo del vendedor presente.</p>
             </div>
 
             <button class="accordion22">¿Qué productos puedo comprar con mis puntos Vida Sana?  </button>
@@ -445,6 +450,8 @@ ${HTML.header}
             <div class="panel">
                 <p>Escríbenos al correo habeasdata@ETICOSERRANO.onmicrosoft.com déjanos tu número de cedula para identificarte y luego procedemos a darte de baja en la base de datos.  </p>
             </div>
+
+
 
         </div>
         <div class="h30"></div><div class="h20"></div>
