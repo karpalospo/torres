@@ -447,7 +447,7 @@ async function pLog(event, payload = {}) {
 
         case "coupon":
             borrarCupon()
-            showModal()
+            showModal(false)
             store.coupon = getFromArrayByProp(store.cupones, payload.id, "IdCupon")
             $("#txt-cupon").val(store.coupon.NombreCupon)
             if(store.coupon.condicion != 0) {
@@ -607,6 +607,55 @@ function getPopupAction(item) {
     else if(item.data.keywords) item.callToAction = `parent.location = '${ABS_URL}/busqueda/${item.data.keywords}'`
     else item.callToAction = ``
     return item
+}
+
+
+function showSuperModal(show, window, cb = () => {}) {
+
+    let $bksupermodal = $("#back-supermodal"),
+        $window = $("#" + window)
+    ;
+
+    if(show) {
+        anime.set($window[0], {scale: 0.3, opacity: 0})
+        anime.set($bksupermodal[0], {opacity: 0})
+        $bksupermodal.show(0)
+        $window.show(0)
+
+        anime({
+            targets: $bksupermodal[0],
+            duration: 500,
+            opacity: {value: 1, easing: "linear"},
+            complete: () => {
+                anime({
+                    targets: $window[0],
+                    duration: 350,
+                    opacity: {value: 1, easing: "linear"},
+                    scale: {value: 1, easing: "easeOutBack"},
+                    complete: cb
+                })
+            }
+        })
+    } else {
+        anime({
+            targets: $window[0],
+            duration: 500,
+            opacity: {value: 0, easing: "linear"},
+            scale: {value: 0.7, easing: "easeInBack"},
+            complete: () => {
+                anime({
+                    targets: $bksupermodal[0],
+                    duration: 350,
+                    opacity: {value: 0, easing: "linear"},
+                    complete: () => {
+                        $bksupermodal.hide(0)
+                        $window.hide(0)
+                        cb()
+                    }
+                })
+            }
+        })
+    }
 }
 
 function showModal(show, window, cb = () => {}) {

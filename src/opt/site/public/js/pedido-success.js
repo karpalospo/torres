@@ -194,7 +194,7 @@ function showSurvey() {
         else $parent.parent().parent().find("textarea").hide(100)
     })
 
-    showModal(true, $("#calificacion"))
+    showModal(true, '#calificacion')
 }
 
 function fillStars($target, value) {
@@ -243,14 +243,13 @@ function sendSurvey() {
     })
 
     const fecha = new Date()
-    
 
     if(!cancel) {
         if(store.user.logged) {
             API.setEncuesta(store.user.nit, $("#calificacion-preguntas").data("pedido") || 1, fecha.toISOString().split('T')[0], JSON.stringify(data))
         }
         
-        showModal(true, $("#calificacion-gracias"))
+        showModal(true, 'calificacion-gracias')
     } else {
         $("#calificacion-preguntas").parent().find("p.rojo").show(200).delay(1000).hide(200)
     }

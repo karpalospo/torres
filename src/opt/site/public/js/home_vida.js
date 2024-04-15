@@ -185,23 +185,34 @@ async function enviarVida2(elem) {
     $elem.attr("disabled", true)
 
     let sendData = {
-
         "tipoDocumento": $("#vs-tipodoc").val(),
-        "documento":  $("#vs-documento").val(),
-        "nombres":  $("#vs-nombres").val(),
+        "documento": $("#vs-documento").val(),
+        "idPaciente": $("#vs-documento").val(),
+        "nombres": $("#vs-nombres").val(),
         "apellidos": $("#vs-apellidos").val(),
-        "email":  $("#vs-email").val() + "@" + $("#vs-terminacionemail").val(),
+        "fechaNacimiento": $("#vs-nacimiento").val(),
+        "direccion": "",
+        "telefono": "",
         "celular": $("#vs-celular").val(),
+        "email": $("#vs-email").val() + "@" + $("#vs-terminacionemail").val(),
+        "estado": "A",
+        "centroCostos": store.location,
+        "genero": $("#vs-genero").val(),
+        "creadoPor": "123456789",
+        "fechaCreacion": "",
+        "modificado": "123456789",
+        "aceptacondiciones": "S",
+        "canalconfirmacion": "WEB",
+        "ciudad": store.location,
         "texto": $("#vs-texto").prop('checked'),
         "correo": $("#vs-correo").prop('checked'),
         "llamada": $("#vs-llamada").prop('checked'),
         "whatsapp": $("#vs-whatsapp").prop('checked'),
         "marca": "TOR"
-        
     }
 
 
-    let res = await API.ley2300(sendData);
+    let res = await API.setdata(sendData);
     
     $elem.attr("disabled", false)
 

@@ -147,7 +147,7 @@ const API = {
 
     async setdata(data) {
 
-        return await fetchAsync(`${URL.HOST}/api/clubvidasana/update`, {body: {marca: "TOR", ...data}});
+        return await fetchAsync(`${URL.HOST}/api/clubvidasana/registro`, {body: {marca: "TOR", ...data}});
     },
 
     //bonos
@@ -159,10 +159,6 @@ const API = {
         return await fetchAsync(`${URL.ETICOS_HOST}/ServicesEpos/wsepos/api/v2/ValidaCondicionBono/`, {body: {Bono, Productos}});
     },
 
-    
-    async ley2300(body) {
-        return await fetchAsync(`${URL.HOST}/api/clubvidasana/ley2300/`, {body});
-    },
 
     //rutas economicas
     async allProducts() {

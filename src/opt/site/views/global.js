@@ -118,6 +118,22 @@ return /*html*/`
 
 	header: /*html*/`
 <div id="modals-cont"></div>
+
+<div id="back-supermodal" style="display: none">
+	<div id="supermodal">
+
+		<video id="videoplay" width="100%" muted style="max-width:95%; max-height: 90%; display:none">
+			<source src="assets/carga.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+		</video>
+
+		<video id="videoplay2" width="100%" muted style="max-width:98%; max-height: 95%; display:none">
+			<source src="assets/cargaapp.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+		</video>
+	
+	</div>
+</div>
 <div id="buttomBar">
 	<div><i class="fas fa-th-large"></i>categorias</div>
 	<div id="user-btn2"><i class="fas fa-user"></i><span id="lbl-nombre">Acceso</span></div>

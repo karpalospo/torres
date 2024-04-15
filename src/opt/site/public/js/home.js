@@ -3,26 +3,13 @@ $currentPage = "home"
 
 async function page_init() {
 
-
-    // let countDownDate = new Date("Sep 4, 2023 14:00:00").getTime();
-    // function countdown() {
-    //     let now = new Date().getTime(),
-    //         distance = now < countDownDate ? countDownDate - now : 0,
-    //         d = Math.floor(distance / 86400000),
-    //         h = Math.floor(distance % 86400000 / 3600000),
-    //         m = Math.floor(distance % 3600000 / 60000),
-    //         s = Math.floor(distance % 60000 / 1000)
-    //     ;
-    //     document.getElementById("timer").innerHTML =
-    //     "<div>" + (h < 10 ? "" : "") + h + "<span>horas</span></div>" +
-    //     "<div>" + (m < 10 ? "" : "") + m + "<span>minutos</span></div>" +
-    //     "<div>" + (s < 10 ? "" : "") + s + "<span>segundos</span></div>";
-    // }
-    // const x = setInterval(countdown, 1000);
-    // countdown();
-
-    //showModal(true, "popup-aniv")
-
+    let video = document.querySelector("#videoplay");
+    console.log(device)
+    if(device == "PHONE") video = document.querySelector("#videoplay2"); 
+    if(video) {
+        showSuperModal(true, device == "PHONE" ? "videoplay2" : "videoplay", () => {video.play()})        
+        video.addEventListener("ended", (event) => {showSuperModal(false, device == "PHONE" ? "videoplay2" : "videoplay")});
+    }
     
     let productList = [];
     
@@ -30,7 +17,7 @@ async function page_init() {
     renderBanners($("#banner"), store.banners.superior, {device})
 
     // popups
-    if(store.popups) showPagePopup(store.popups.home)
+    //if(store.popups) showPagePopup(store.popups.home)
 
     renderLoading($("#resultado-list"))
 

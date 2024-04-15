@@ -158,7 +158,7 @@ function renderCart() {
     <div class="titulo" style="color:#ff2c6e">${c.NombreCupon}</div>
     <div>${store.coupon.condicionTexto}</div>
     <div class="row" style="padding:10px 0;">
-        <div><div class="link2" onclick="showModal(true, $('#cupones'))" >Ver Condiciones</div></div>
+        <div><div class="link2" onclick="showModal(true, 'cupones')" >Ver Condiciones</div></div>
         <div style="text-align: center">
             <div class="cantidad">
                 <i onclick="borrarCupon()" class="fas fa-trash-alt"></i>

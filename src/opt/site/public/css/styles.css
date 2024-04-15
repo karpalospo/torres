@@ -3270,6 +3270,30 @@ h3 {
 }
 
 
+#back-supermodal {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(4px);
+}
+
+#supermodal {
+    position: absolute;
+    background: rgb(31 62 118 / 80%);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 @media only screen and (max-width: 1000px) {
     
