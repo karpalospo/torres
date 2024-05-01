@@ -183,7 +183,6 @@ function aplicarBono() {
     if(typeof summaryCart == "function") summaryCart(false)
 }
 
-
 // ========================================================================== //
 // CHECKOUT
 
@@ -302,7 +301,6 @@ async function checkout() {
     command($button_order, false)
 
 }
-
 
 $input.on("keyup", e => {
     if(e.keyCode == 13) redimirCupon()

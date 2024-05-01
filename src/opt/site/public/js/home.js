@@ -3,13 +3,13 @@ $currentPage = "home"
 
 async function page_init() {
 
-    let video = document.querySelector("#videoplay");
-    console.log(device)
-    if(device == "PHONE") video = document.querySelector("#videoplay2"); 
-    if(video) {
-        showSuperModal(true, device == "PHONE" ? "videoplay2" : "videoplay", () => {video.play()})        
-        video.addEventListener("ended", (event) => {showSuperModal(false, device == "PHONE" ? "videoplay2" : "videoplay")});
-    }
+    // let video = document.querySelector("#videoplay");
+    // console.log(device)
+    // if(device == "PHONE") video = document.querySelector("#videoplay2"); 
+    // if(video) {
+    //     showSuperModal(true, device == "PHONE" ? "videoplay2" : "videoplay", () => {video.play()})        
+    //     video.addEventListener("ended", (event) => {showSuperModal(false, device == "PHONE" ? "videoplay2" : "videoplay")});
+    // }
     
     let productList = [];
     
@@ -17,7 +17,7 @@ async function page_init() {
     renderBanners($("#banner"), store.banners.superior, {device})
 
     // popups
-    //if(store.popups) showPagePopup(store.popups.home)
+    if(store.popups) showPagePopup(store.popups.home)
 
     renderLoading($("#resultado-list"))
 
