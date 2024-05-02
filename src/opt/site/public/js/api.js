@@ -48,6 +48,10 @@ const API = {
         return await fetchAsync(`${URL.HOST}/api/categorias/${ciudad}`, {body: {"marca": "TOR"}})
     },
 
+    async getPuntos(nit, nombres, email, auth_token) {
+        return await fetchAsync(`${URL.HOST}/economia/site/users/getpuntosvs`, {body: {nit, email, nombres, auth_token}});
+    },
+    
     
     // products
     async getOfertas(ciudad, {items = 1000, convenio = ""} = {}) {

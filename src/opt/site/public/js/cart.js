@@ -308,7 +308,7 @@ async function initCart(products) {
 function cartCallback(autoclose) {
     write_cache("cart", store.cart)
     renderCart()
-    if(typeof summaryCart == "function") summaryCart()
+    if(typeof summaryCart == "function") summaryCart(true)
     if(autoclose) {  
         showCart(true)
         carttime = setTimeout(() => showCart(false), 2000)

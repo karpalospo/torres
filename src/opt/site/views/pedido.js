@@ -176,8 +176,22 @@ ${HTML.header}
 				</div>
 				
 				<div id="lbl-coupon"></div>
-
 				<br>
+
+				<div id="puntos2" class="border-bottom" style="display: none; padding: 0 20px 30px 20px">
+					<div class="header-title tx-c">PAGA PUNTOS VIDA SANA</div>
+					<div class="label-puntos"></div>
+					<div id="redimir">
+						<div class="row row-center" style="justify-content:center">
+							<div style="width: 180px;">
+								<div id="range" style="width:100%" class="slider-styled"></div>
+							</div>
+							<div id="lbl-puntos" style="padding-left:30px; width:70px"><b>$0</b></div>
+						</div>
+						<br>
+						<div class="redimir-info">Mínimo $5.000. Máximo hasta la mitad de tu compra sin superar $25.000</div>
+					</div>
+				</div>
 
 				<div class="header-title tx-c">RESUMEN DE ORDEN</div>
 				<br>

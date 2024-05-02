@@ -65,8 +65,9 @@ function checkPse($elem){
 function summaryCart(bono = true) {
     
     let puntos = 0
-
+console.log(bono)
     if(bono) buscarBono()
+    if(bono) initPuntos()
     
     if(range) puntos = format.from(range.get())
 
@@ -88,12 +89,63 @@ ${redimir && puntos > 0 ? `<tr><td>Puntos</td><td class="rojo" style="font-weigh
 </tr>`)
     
     $("#confirmar, #confirmar2").show(0)
+
 }
 
 function showOrderError(message, permanent = false) {
     showError($order.find(".frm-error"), message, permanent)
     command($button_order, false)
 }
+
+async function initPuntos() {
+
+    res = await API.getPuntos(store.user.nit, store.user.nombres, store.user.email, store.user.auth_token)
+
+    if(res.data.success != false) {
+        p = res.data[0]
+        store.user.puntos = p
+        max = Math.floor(store.order.subtotal * (p.porcentajeEquivalenteVenta / 100))
+        maxValue = Math.min(
+            max - max % 1000,
+            p.maximoRedencionTransaccion, 
+            p.puntos - p.puntos % 1000
+        )
+        minValue = parseInt(p.minimoRedencion)
+    }
+
+    if(Object.keys(p).length > 0 && p.puntos) {
+
+
+        if(p.puntos < p.minimoRedencion) {
+            $(".label-puntos").html(`<p>Tienes <b>${f(store.user.puntos.puntos, "")}</b> puntos equivalentes a ${f(store.user.puntos.puntos)} pesos para redimir en esta compra, pero el monto mínimo de redención es <b>$5.000</b>. <br><br>¡Sigue acumulando puntos en cada compra que realices!</p>`)
+            $("#redimir").hide();
+            $("#puntos2").show()
+            return
+        }
+
+        $("#puntos2").show()
+        $(".label-puntos").html(`<p style="margin-top: 0px;font-size: 0.85em;color: #555;">Actualmente tienes <b>${f(store.user.puntos.puntos, "")}</b> puntos equivalentes a ${f(store.user.puntos.puntos)} pesos para redimir en esta compra.</p>`)
+
+        range = noUiSlider.create($("#range")[0], {
+            start: 0,
+            connect: 'lower',
+            range: {'min': 0, 'max': maxValue},
+            step: 1000,
+            format,
+        });
+
+        range.on('update', function (values) {
+            $("#lbl-puntos").html(`<b>${values[0]}</b>`)
+            if(format.from(values[0]) >= 5000) redimir = true
+            else redimir = false
+            summaryCart(false)
+        });
+
+
+        summaryCart(false)
+    }
+}
+
 
 
 // ========================================================================== //
