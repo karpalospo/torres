@@ -333,6 +333,8 @@ async function checkout() {
         productos
     }
 
+
+
     res = await API.checkout(senddata)
 
     let pedido, resPSE;
@@ -343,6 +345,16 @@ async function checkout() {
 
     
     if(pedido && pedido.numeroPedido) {
+
+        dataLayer.push({
+            event: 'purchase',
+            currency: 'COP',
+            items: productosTag,
+            transaction_id: pedido.numeroPedido,
+            shipping: store.order.shipping,
+            value: store.order.subtotal - store.order.discount + store.order.shipping,
+        });
+
         
         resetCart()
         if(store.payment == "PSE") return parent.location = resPSE.urlPayment

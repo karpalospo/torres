@@ -5,7 +5,7 @@ function setCart(id, payload) {
     let item, show = false;
 
     payload.value = parseInt(payload.value)
-
+console.log(payload)
     if((item = store.cart[id])) {
 
         if(payload.value == 0) delete store.cart[id]
