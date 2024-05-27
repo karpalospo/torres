@@ -333,7 +333,6 @@ async function checkout() {
         productos
     }
 
-    return console.log(senddata)
     res = await API.checkout(senddata)
 
     let pedido, resPSE;
