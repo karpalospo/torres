@@ -83,7 +83,7 @@ function calculateCart() {
         
 
         if(item.VlrMinimo > 0) {
-            if(itemsTotalDesc > item.VlrMinimo) {
+            if(itemsTotalDesc > item.VlrMinimo && item.beneficio == undefined) {
                 item._renderPrice = item.ahora
                 item._hasDiscountVlrMinimo = true
                 item._conditionalPrice = false

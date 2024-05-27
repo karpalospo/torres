@@ -770,6 +770,7 @@ select {
     padding: 5px 25px;
     height: 30px;
     font-size: 0.9em;
+    font-family: "Poppins", sans-serif;
 }
 
 .product-item button:hover {

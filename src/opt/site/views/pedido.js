@@ -27,7 +27,7 @@ ${HTML.header}
 		width: 92%;
 		display: block;
 		padding: 10px;
-		font-family: "Roboto";
+		font-family: "poppins", sans-serif;
 	}
 
 	#sumario {
