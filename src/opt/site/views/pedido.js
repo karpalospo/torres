@@ -7,6 +7,16 @@ ${HTML.head({title: "Pedido"})}
 ${HTML.header}
 
 <style>
+
+
+	.hidden2 {
+		border: none;
+		width: 100%;
+		height: 25px;
+		background: white;
+		cursor: pointer;
+	}
+
 	.btn-aplicar {
 		padding: 0 20px;
 		background: #fa7800;
@@ -158,6 +168,8 @@ ${HTML.header}
 				<div id="confirmar2" class="tx-c p15" style="display:none">
 					<button id="button-order2" onclick="checkout()" class="page-button">CONFIRMAR PEDIDO</button>
 				</div>
+
+				
 			</div>
 
 		</div>
@@ -201,6 +213,8 @@ ${HTML.header}
 				<div id="confirmar" class="tx-c p15" style="display:none">
 					<button id="button-order" onclick="checkout()" class="page-button">CONFIRMAR PEDIDO</button>
 				</div>
+
+				<button class="hidden2" onclick="tagmanager()">&nbsp;</button>
 
 			</div>
 		</div>

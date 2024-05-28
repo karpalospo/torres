@@ -238,6 +238,39 @@ function aplicarBono() {
 // ========================================================================== //
 // CHECKOUT
 
+function tagmanager() {
+    console.log("invoco datalayer purchase")
+
+    let productos_prueba = [
+        {
+            item_id: "00001",
+            item_name: "PRODUCTO PRUEBA 1",
+            discount: 0,
+            price: 12345,
+            currency: 'COP',
+            quantity: 3
+        },
+        {
+            item_id: "00002",
+            item_name: "PRODUCTO PRUEBA 222",
+            discount: 1000,
+            price: 99999,
+            currency: 'COP',
+            quantity: 1
+        },
+    ];
+
+    dataLayer.push({
+        event: 'purchase',
+        currency: 'COP',
+        items: productos_prueba,
+        transaction_id: "123456",
+        shipping: 2000,
+        value: 99800,
+    });
+}
+
+
 async function checkout() {
 
     if(command($button_order, true)) return
