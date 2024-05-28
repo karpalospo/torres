@@ -353,7 +353,8 @@ function renderProductItem(item, type) {
             hasDiscount = item.descuento > 0;
             isMedicamento = store.noPromoCats.includes(item.cat) || store.noPromoSubs.includes(item.sub);
             if(item.VlrMinimo > 0) {hasDiscount = false; precioCondicion = true}
-
+            if(item.beneficio != undefined) {item.VlrMinimo = 0; precioCondicion = false}
+            
             return /*html*/`
 <div class="titulo">${item.nombre2}</div>
 <div class="descripcion">${item.description && item.mostrarDescripcion && !item.requiereFormula && !item.tipo ? item.description : ""}</div>
@@ -424,6 +425,8 @@ ${_(precioCondicion, /*html*/`
             hasDiscount = false
             precioCondicion = true
         }
+
+        if(item.beneficio != undefined) {item.VlrMinimo = 0; precioCondicion = false}
 
         return /*html*/`
 <div class="product-item" data-id="${item.id}">
