@@ -214,8 +214,6 @@ ${HTML.header}
 					<button id="button-order" onclick="checkout()" class="page-button">CONFIRMAR PEDIDO</button>
 				</div>
 
-				<button class="hidden2" onclick="tagmanager()">&nbsp;</button>
-
 			</div>
 		</div>
 	</div>
