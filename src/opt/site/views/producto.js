@@ -174,6 +174,15 @@ ${HTML.header}
 		height: 33px;
 	}
 
+	#product-detail .beneficio {
+		border-radius: 8px;
+		color: white;
+		background: #E40615;
+		display: inline-block;
+		padding: 3px 10px;
+		font-family: 'Poppins', sans-serif;
+	}
+
 	#product-detail .cantidad i:first-child {
 		border-radius: 4px 0 0 4px;
 	}

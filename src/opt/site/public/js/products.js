@@ -324,6 +324,7 @@ function renderProductItem(item, type) {
         hasBeneficio = false,
         extraProducto = 0,
         pagaProducto = 0,
+        prodBeneficio = false,
         cart = store.cart[item.id]
     ;
 
@@ -331,6 +332,7 @@ function renderProductItem(item, type) {
         hasBeneficio = true
         extraProducto = Math.floor(item.beneficio.cntBeneficio / item.beneficio.idUnidadB)
         pagaProducto = Math.floor(item.beneficio.minCompra / item.beneficio.idUnidadB)
+        prodBeneficio = item.beneficio.beneficio != item.beneficio.codigo ? item.beneficio.beneficio : false
     }
     hasDiscount = item.descuento > 0 && !item.beneficio
     
@@ -368,6 +370,18 @@ ${_(hasDiscount, `<div class="antes">${f(item.antes)}</div>`)}
 <div class="precio ${hasDiscount ? "rojo" : "" }">${f(item.precio)}</div>
 ${_(precioCondicion, /*html*/`&nbsp; / <div class="pcondicion">${f(item.ahora)} <i class="fas fa-info-circle"></i></div>`)}
 ${hasDiscount ? `<div class="descuento">Ahorra ${item.descuento}%</div>` : ""}
+${hasBeneficio && !prodBeneficio ? `<div class="beneficio">Pague <b>${pagaProducto} lleve </b>${pagaProducto + extraProducto}</div><div style="height:20px"></div>` : ""}
+${hasBeneficio && prodBeneficio ? /*html*/`<div class="beneficio">Pague <b>${pagaProducto} y LLEVA GRATIS</div>
+<div class="row r-m" style="max-width: 50%;border-radius: 10px;border: 1px solid #ddd; margin-top: 10px;font-weight: 300; padding: 0 10px">
+    <div style="width: 60%; padding:8px 15px 8px 0; overflow:hidden;">
+        <img src="https://www.droguerialaeconomia.com/economia/site/img/${item.beneficio.beneficio}.png" style="width: 100%" alt="" />
+    </div>
+    <div class="flex1">
+        <h4 style="margin: 0; padding: 0; font-size: 0.8em">${item.beneficio.descripcion}</h4>
+        <p>PLU: ${item.beneficio.beneficio}
+    </div>
+</div>
+<div style="height:20px"></div>` : ""}
 <div></div>
 ${cart ? /*html*/`
 <div class="row r-l">
@@ -441,7 +455,9 @@ ${_(precioCondicion, /*html*/`
             <div style="padding:9px 0">
             ${_(hasDiscount, /*html*/`<span class="antes">${f(item.antes)}</span>`, /*html*/`<span class="antes2">&nbsp;</span>`)}
             <span class="precio ${_(hasDiscount || hasBeneficio, "rojo")}">${f(item.precio)}</span>
-            ${hasBeneficio ? `<div class="beneficio">Pague <b>${pagaProducto} lleve </b>${pagaProducto + extraProducto}</div><div style="height:20px"></div>` : `<div style="height:40px"></div>`}
+            ${hasBeneficio && !prodBeneficio ? `<div class="beneficio">Pague <b>${pagaProducto} lleve </b>${pagaProducto + extraProducto}</div><div style="height:20px"></div>` : `<div style="height:40px"></div>`}
+            ${hasBeneficio && prodBeneficio ? `<div class="beneficio">Pague <b>${pagaProducto}</b> y LLEVE GRATIS<br><small style="width: 150px;overflow: hidden;display: block;text-overflow: ellipsis;white-space: nowrap;">${item.beneficio.descripcion}</small></div>` : ""}
+
             ${_(precioCondicion, /*html*/`<span class="pcondicion">${f(item.ahora)} <i class="fas fa-info-circle"></i></span>`)}
         </div>
         <span class="contenido">${item.valor_contenido ? item.valor_contenido : "&nbsp;"}</span>
