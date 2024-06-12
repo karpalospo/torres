@@ -767,7 +767,7 @@ select {
     background: #fa7800;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 30px;
     text-align: center;
     padding: 5px 25px;
     height: 30px;
@@ -1580,7 +1580,7 @@ h3 {
     font-weight: 600;
     padding: 10px 20px;
     border: none;
-    border-radius: 6px;
+    border-radius: 30px;
     font-family: 'Poppins', sans-serif;
     letter-spacing: 1px;
 }

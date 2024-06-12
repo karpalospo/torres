@@ -25,7 +25,7 @@ ${HTML.header}
 		text-align: center;
 		border: none;
 		height: 30px;
-		border-radius: 6px;
+		border-radius: 30px;
 		font-size: 0.8em;
 		letter-spacing: 1px;
 		margin-left: 15px;

@@ -197,7 +197,7 @@ ${HTML.header}
 		color: white;
 		padding: 12px 10px;
 		border: none;
-		border-radius: 4px;
+		border-radius: 30px;
 		text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
 		position: relative;
 		margin: 15px 0;
