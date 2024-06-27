@@ -301,6 +301,8 @@ ${HTML.header}
             <div id="add-info"></div>
 		</div>
 
+		<div id="contenidoIndexado"></div>
+
 		<div style="height:80px"></div>
 
 		<div class="row">
