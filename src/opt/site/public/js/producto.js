@@ -44,7 +44,6 @@ function productDetailClick(elem) {
     if($elem.hasClass("fa-plus")) return pLog("cart", {id, sum: 1});
     if($elem.hasClass("fa-minus") || $elem.hasClass("fa-trash-alt")) return pLog("cart", {id, sum: -1});
 
-
 }
 
 async function cargarFoto(product) {
