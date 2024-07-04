@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const axios = require('axios');
+
+
 
 const homeView = require("../views/home.js");
 const searchView = require("../views/busqueda.js");
@@ -44,8 +47,18 @@ router.get('/categorias/:cat/:sub', function(req, res) {
 	res.status(200).send(s(categoriasView(req.params.cat, req.params.sub)))
 });
 
-router.get('/producto/:id', function(req, res) {    
-	res.status(200).send(s(productoView(req.params.id, req.device.type.toUpperCase())))
+router.get('/producto/:id', async function(req, res) {
+
+	const {data} = await axios.post('https://www.droguerialaeconomia.com/api/referencias/codigos/', {
+		"marca": "TOR",
+		"ciudad": "08001",
+		"codigos": [req.params.id], 
+		"convenio": "", 
+		"pagina": 1,
+		"items": 10
+	})
+
+	res.status(200).send(s(productoView(req.params.id, req.device.type.toUpperCase(), data.data[0])))
 });
 
 router.get('/pedido', function(req, res) {    

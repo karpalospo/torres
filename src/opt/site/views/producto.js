@@ -1,7 +1,7 @@
 const HTML = require("./global.js")
 const ABS_URL = HTML.ABS_URL;
 
-module.exports = (id, device) => {
+module.exports = (id, device, product) => {
 	
 return /*html*/`
 ${HTML.head({title: id})}
@@ -269,7 +269,7 @@ ${HTML.header}
 
 
 <div id="content">
-
+	<div id="codigobarra" style="font-size:0">${product.ean}</div>
 	<div class="porta-medida max-width" style="position:absolute; z-index:-1; pointer-events: none;">
 		<div id="medida" class="products-list"></div>
 	</div>
