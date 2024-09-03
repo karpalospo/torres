@@ -61,7 +61,7 @@ const API = {
 
     async getFromCodes(codigos, ciudad, {page = 1, items = 1000, convenio = "" } = {})
     {
-        return await fetchAsync(`${URL.HOST}/api/referencias/codigos/`, {body: {marca: "TOR", codigos, ciudad, convenio, pagina: page, items}})
+        return await fetchAsync(`${URL.HOST}/api/referencias/items/`, {body: {marca: "TOR", codigos, ciudad, convenio, pagina: page, items}})
     },
 
     async getSubcategorias(location, subcategory, {page = 1, itemsPerPage = 1000, convenio=""} = {}) {

@@ -49,7 +49,7 @@ router.get('/categorias/:cat/:sub', function(req, res) {
 
 router.get('/producto/:id', async function(req, res) {
 
-	const {data} = await axios.post('https://www.droguerialaeconomia.com/api/referencias/codigos/', {
+	const {data} = await axios.post('https://www.droguerialaeconomia.com/api/referencias/items/', {
 		"marca": "TOR",
 		"ciudad": "08001",
 		"codigos": [req.params.id], 
