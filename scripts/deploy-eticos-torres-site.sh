@@ -35,4 +35,5 @@ for host in $REMOTE_DOCKER_HOSTS; do
 
     i=$((i+1))
 	echo "--------------------------------------------------------------------"
-	sleep 5  
+	sleep 5 
+    
