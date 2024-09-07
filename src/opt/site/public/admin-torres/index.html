@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Panel de Control La Economía</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <link href="css/suneditor.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" href="https://staticimperacore.net/economia/assets/icon_logo.png" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+</head>
+
+<body onresize="resize()">  
+    
+<div id="main" class="row">
+
+    <div id="menu-cont">
+
+        <img src="assets/logo.png" alt="logo ser joven" style="width: 100%;" />
+        <br>
+        <br><br>
+        <div id="menu" class="column">
+        </div>
+    </div>
+
+    <div id="imagenes" class="modal2">
+        <div class="header-img">
+            <div style="height: 40px;">
+                <div class="button cross" onclick="colapsar(false)"></div>
+            </div>
+            <form class="subircomponent" enctype="multipart/form-data" method="post" data-cb="subirimagen">
+                <div class="file-upload-wrapper" data-text="Seleccione archivo...">
+                    <input type="hidden" name="MAX_FILE_SIZE" value="4000000" />
+                    <input name="attachment" type="file" class="file-upload-field" value="">
+                </div>
+                <input type="submit" value="Subir" />
+            </form>
+            <div id="mensaje"></div>
+        </div>
+        <div id="images-cont">
+            <div class="rowi"></div>
+        </div>
+    </div>
+
+    <div id="editor" class="modal4" style="display: none;">
+        <textarea id="editor-area" style="width:100%; height:400px;"></textarea>
+    </div>
+
+    <div id="content" class="flex1">
+    </div>
+
+</div>
+
+<div id="templates">
+    <template id="select-template">
+        <option data-id="{{ID}}" value="{{ID}}">{{text}}</option>
+    </template>
+</div>
+
+<script src="js/libraries.js"></script>
+<script src="js/suneditor.min.js"></script>
+<script src="js/core.js" type="application/javascript"></script>
+<script src="js/api.js" type="application/javascript"></script>
+<script>
+
+$("form").on("change", ".file-upload-field", function(){ 
+    $(this).parent(".file-upload-wrapper").attr("data-text", $(this).val().replace(/.*(\/|\\)/, '') );
+});
+
+
+login = async () => {
+
+    
+    let menus = [], s = ""
+
+    $("#user, #pass, #btnlogin").attr("disabled", true)
+    let user = await getLogin($("#user").val(), $("#pass").val())
+    $("#user, #pass, #btnlogin").attr("disabled", false)
+    if(user === false) {
+        alert("Usuario y/o contraseña inválidos")
+    } else {
+
+        switch(user.role) {
+            case 1: menus = ["Configuración", "Banners"]; break;
+            case 2: menus = ["", "", "Temas", "", "Recursos", ""]; break;
+            case 3: menus = ["", "", "", "", "", "Mensajes"]; break;
+        }
+        menus.forEach((item, index) => {
+            if(item != "")
+                s += `<div data-id="${index}">` + item + "</div>"
+        })
+        $("#menu").html(s)
+        $("#login").hide(0)
+        //getImages()
+        $("#menu > div").eq(0).trigger("click")
+
+        
+    }
+
+}
+
+
+resize = () => {
+    let height = $("#content").height();
+    $(".layer").each((index, item) => {
+        let $layer = $(item), 
+            resta = $layer.parents(".bn-tabs").find(".tab-menu").height(),
+            resta2 = $layer.siblings().height()
+        ;
+        $layer.height(height - (resta ? resta : 0) - (resta2 ? resta2 : 0))
+    })
+    
+}
+resize();
+moment.locale("es-us"); 
+
+
+function colapsar(abrir) {
+    anime({
+        targets: '#imagenes',
+        translateX: abrir ? 0 : 400,
+        easing: 'easeOutExpo'
+    })
+
+    anime({
+        targets: '#content',
+        paddingRight: abrir ? 400 : 0,
+        easing: 'easeOutExpo'
+    })
+}
+
+
+$("#menu").on("click", "> div", e => {
+    let $elem = $(e.currentTarget)
+    if($elem.hasClass("active")) return
+    $elem.addClass("active")
+    $elem.siblings().removeClass("active")
+    $("#content").load($elem.data("id") + ".html", e => {
+        resize()
+    })
+});
+
+function setLabels($target) {
+    let $elem
+    $target.find(".form-row").each(function() {
+        $elem = $(this)
+        $elem.prepend(`<div class="label">${this.dataset.label}</div>`)
+        $elem.find(".switch").html(`<input type="checkbox"><span class="slider round"></span>`)
+    })
+}
+    
+function init() {
+    let menus = ["Banners"];
+    let s = ""
+    menus.forEach((item, index) => {
+        if(item != "")
+            s += `<div data-id="${item.replace(" ", "_").toLowerCase()}">` + item + "</div>"
+    })
+    $("#menu").html(s)
+    //getImages()
+    $("#menu > div").eq(0).trigger("click")
+    //onChangeVentana(null, $pages.eq( 0 ));
+}
+
+function submitEvents() {
+    $(".subircomponent").off("submit").on("submit", function(e){
+        e.preventDefault();
+        var f = $(this);
+        var formData = new FormData(f[0]);
+        //formData.append(f.attr("name"), $(this)[0].files[0]);
+        $.ajax({
+            url: "https://imperacore.net/upload",
+            type: "post",
+            dataType: "json",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false
+        }).done(function(res){
+            if(res.success === true) {
+                getImages([res.fileName], f)
+            } else {
+                alert(res.error || "Error subiendo archivo")
+            }
+        });
+    });
+}
+
+function getImages(images, elem) {
+    
+    let i = 0, cols = [""];
+    images.forEach((item, index) => {
+
+        if(item.split('.').pop() == "csv") return getCSV(item, elem)
+
+        //i = index % 1
+        if(cols[i] == undefined) cols[i] = ""
+        cols[i] += `<img src="${item}" alt="">`;
+    })
+
+    $("#images-cont .rowi").html("")
+    for(let i = 0; i < cols.length; i++) {
+        $("#images-cont .rowi").append('<div class="columni">'+cols[i]+'</div>')
+    }
+}
+
+function getCSV(item, elem) {
+    $.ajax({
+        url: item
+    }).done(function (fileData) {
+        $(elem).parent().find(".simple-tags").find("input").val(fileData.replace(/(?:\r\n|\r|\n)/g, ','))
+    })  
+}
+
+init()
+
+
+let db = {},
+    comps = {}
+;
+
+//const TIME_ZONE = "America/Bogota"
+const TIME_ZONE = "Europe/London"
+
+let $selectTemplate = $("#select-template");
+
+
+scrollTo = ($parent, $target) => {
+    let $e = $parent.find('.left-panel .layer');
+    $e.animate({
+        scrollTop: $target.position().top + $e.scrollTop() - 150
+    }, 600);
+}
+
+format_date = (type, date) => {
+    switch(type) {
+        case "short": return moment.tz(date, TIME_ZONE).format("MMM DD [/]YY")
+        case "compact": return moment.tz(date, TIME_ZONE).format("YYYY-MM-DD")
+        case "normal": return moment.tz(date, TIME_ZONE).format("dddd, DD [de] MMMM [de] YYYY")
+        case "normal+time": return moment.tz(date, TIME_ZONE).format("dddd, DD [de] MMMM [de] YYYY [a las] h:mm a")
+        case "fromnow": return moment(moment.tz(date, TIME_ZONE)).fromNow(true)
+    }
+}
+
+renderSelect = ($target, data) => {
+    let $selectTemplate = $("#select-template")
+    IMP.forEach(data, (item, key) => {
+        IMP.renderListRow($target, {ID: key, text: item}, $selectTemplate, key)
+    })
+}
+
+
+let banner_sup, ds_banners, productos_ds
+let data_banners, banners_obj = {}, grupo = "superior", position = {};
+
+
+</script>
+</body>
+</html>
