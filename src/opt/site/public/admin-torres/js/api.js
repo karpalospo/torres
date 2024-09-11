@@ -4,9 +4,7 @@ const URL = {
 
     ETICOS_HOST: 'https://intranet.eticosweb.net',
 
-    //server2: "http://localhost:3000"
-
-    server2: "https://imperacore.net"
+    server2: "https://droguerialaeconomia.com"
 
 }
 

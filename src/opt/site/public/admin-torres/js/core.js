@@ -1,32 +1,15 @@
-
-
-
-
 let token = {
-
     token: '123',
-
 };
 
-
-
-const API_URL = "https://imperacore.net/";
-
+const API_URL = "https://droguerialaeconomia.com/";
 //const API_URL = "http://localhost:3000/";
-
-
 
 _fetch = async (url, params) => {
 
-
-
     if(!params) params = {}
 
-
-
     Object.assign(params, token)
-
-
 
     let request = {
 
@@ -44,27 +27,15 @@ _fetch = async (url, params) => {
 
     };
 
-
-
     let data = await fetch(`${API_URL}${url}`, request)
-
     data = await data.json();
-
     return data;
 
 }
 
-
-
-encode = (obj, parent = "", keyparent = "") => 
-
-{
-
-    
+encode = (obj, parent = "", keyparent = "") => {
 
     let r = "", isObject;
-
-    
 
     IMP.forEach(obj, (item, key) => {
 

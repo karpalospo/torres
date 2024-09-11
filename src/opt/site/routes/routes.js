@@ -62,7 +62,7 @@ router.get('/producto/:id', async function(req, res) {
 });
 
 router.get('/pedido', function(req, res) {    
-  res.status(200).send(s(pedidoView()))
+  res.status(200).send(s(pedidoView(req.device.type.toUpperCase())))
 });
 
 router.get('/pedido-success/:id', function(req, res) {    

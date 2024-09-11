@@ -24,7 +24,8 @@ let res,
     scrollTop,
     currentProductDetail,
     $window = $(window),
-    $currentPage
+    $currentPage,
+    $lblCupon = $("#lbl-coupon, #lbl-coupon2")
 ;
 
 // ========================================================================== //

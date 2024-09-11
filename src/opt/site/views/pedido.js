@@ -1,7 +1,7 @@
 const HTML = require("./global.js")
 const ABS_URL = HTML.ABS_URL;
 
-module.exports = () => {
+module.exports = (device) => {
 return /*html*/`
 ${HTML.head({title: "Pedido"})}
 ${HTML.header}
@@ -161,6 +161,34 @@ ${HTML.header}
 			</div>
 
 			<div id="resumen" class="card" style="margin-top: 10px; padding: 10px;">
+				<div class="row" style="padding: 0 10px; margin-bottom: 10px">	
+					<div class="header-title tx-c">CUPÓN</div>
+					<button class="btn-cupones" onclick="showModal(true, 'cupones')">Cupones Disponibles <i class="fas fa-chevron-down"></i></button>
+				</div>
+
+				<div class="row r-c">
+					<input id="txt-cupon" type="text" style="text-transform: uppercase;" class="input" autocomplete="false" />
+					<button class="btn-aplicar" onclick="redimirCupon()">Aplicar</button>
+				</div>
+				
+				<div id="lbl-coupon2"></div>
+				<br>
+
+				<div id="puntos3" class="border-bottom" style="display: none; padding: 0 20px 30px 20px">
+					<div class="header-title tx-c">PAGA PUNTOS VIDA SANA</div>
+					<div class="label-puntos"></div>
+					<div id="redimir2">
+						<div class="row row-center" style="justify-content:center">
+							<div style="width: 180px;">
+								<div id="range2" style="width:100%" class="slider-styled"></div>
+							</div>
+							<div id="lbl-puntos2" style="padding-left:30px; width:70px"><b>$0</b></div>
+						</div>
+						<br>
+						<div class="redimir-info">Mínimo $5.000. Máximo hasta la mitad de tu compra sin superar $25.000</div>
+					</div>
+				</div>
+
 				<div class="header-title">RESUMEN DE ORDEN</div>
 				<table id="sumario2" class="tables tx-r"></table>
 
@@ -221,6 +249,7 @@ ${HTML.header}
 
 ${HTML.footer}
 ${HTML.scripts}
+<script>let device = '${device}';</script>
 <script src="${ABS_URL}/js/direcciones.js"></script>
 <script src="${ABS_URL}/js/pedido.js"></script>
 <script src="${ABS_URL}/js/header.js"></script>
