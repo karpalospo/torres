@@ -70,7 +70,7 @@ function summaryCart(bono = true) {
     
     if(range && device == "DESKTOP") puntos = format.from(range.get())
     if(range2 && device == "PHONE") puntos = format.from(range2.get())
-console.log(puntos)
+
     $("#sumario, #sumario2").html(/*html*/`
 <tr>
     <td>Subtotal</td><td style="font-weight:500">${f(store.order.subtotal)}</td>
@@ -137,7 +137,6 @@ async function initPuntos() {
             });
 
             range.on('update', function (values) {
-                console.log("pilla", values[0])
                 $("#lbl-puntos").html(`<b>${values[0]}</b>`)
                 if(format.from(values[0]) >= 5000) redimir = true
                 else redimir = false
