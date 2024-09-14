@@ -10,7 +10,7 @@ ${HTML.header}
 	<div class="bg-blanco">
 		<h2>¿QUIÉNES SOMOS?</h2>
 		<br>
-		<img src="https://imperacore.net/assets/ModeloFarmacia.jpg" alt="" style="width: 100%" />
+		<img src="assets/ModeloFarmacia.jpg" alt="" style="width: 100%" />
 		<p>Somos una cadena de droguerías líder en el suministro de medicamentos, productos de higiene personal, cuidado
 			del bebé y cosméticos entre otros, que tiene como compromiso principal la salud y el bienestar de nuestros
 			clientes.</p>

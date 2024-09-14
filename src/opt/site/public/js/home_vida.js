@@ -15,16 +15,16 @@ async function page_init() {
     let banners = [
             {
                 "id": 580,
-                "web": "https://imperacore.net/assets/banner.jpg",
-                "mobile": "https://imperacore.net/assets/bannerm.jpg",
+                "web": "assets/banner.jpg",
+                "mobile": "assets/bannerm.jpg",
                 "popup": "",
                 "data": {},
                 "titlePublic": ""
             },
             {
                 "id": 581,
-                "web": "https://imperacore.net/assets/banner2.jpg",
-                "mobile": "https://imperacore.net/assets/bannerm2torres.jpg",
+                "web": "banner2.jpg",
+                "mobile": "assets/bannerm2torres.jpg",
                 "popup": "",
                 "data": {},
                 "titlePublic": ""

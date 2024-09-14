@@ -154,7 +154,7 @@ function renderCart() {
             falta = c.VlrMinimo - store.order.couponTotal
             $cart_list.prepend(/*html*/`
 <div data-id="0">
-<img src="${ABS_URL_SERVER}/assets/cupon.png" alt="" />
+<img src="assets/cupon.png" alt="" />
 <div class="f1">
     <div class="titulo" style="color:#ff2c6e">${c.NombreCupon}</div>
     <div>${store.coupon.condicionTexto}</div>

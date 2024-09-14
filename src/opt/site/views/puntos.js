@@ -43,7 +43,7 @@ ${HTML.header}
 					<div class="border-cont">
 						<div class="titulo2">Mis Puntos</div>
 						<div class="puntos-disp">
-							<img src="https://imperacore.net/assets/corazon.png" alt=""
+							<img src="assets/corazon.png" alt=""
 								style="width: 30px; float: left;" />&nbsp;
 							<span id="puntos-lbl"></span>
 							<div id="plata-lbl" class="puntos-plata"></div>
@@ -76,7 +76,7 @@ ${HTML.header}
 
 					<div class="border-cont">
 						<div class="puntos-disp" style="background: #ecf5fb; border: 1px solid #b6bad4">
-							<img src="https://imperacore.net/assets/ahorro.png" alt=""
+							<img src="assets/ahorro.png" alt=""
 								style="width: 26px; float: left;" />&nbsp;
 							<span style="font-weight:300; font-family: 'Roboto'; font-size: 0.9em;">¡Tu ahorro
 								disfrutado!</span>
@@ -106,7 +106,7 @@ ${HTML.header}
 				<div class="tabs" style="display: none;">
 
 					<div class="border-cont" style="padding-top: 0;">
-						<p class="tx-c"><img src="https://imperacore.net/assets/logo_vida.jpg" alt=""
+						<p class="tx-c"><img src="assets/logo_vida.jpg" alt=""
 								style="width: 250px;" /></p>
 						<span class="tx-c"
 							style="display:block; color:#fa7800; font-size: 1.4em; margin-top: -8px;">Bienestar para

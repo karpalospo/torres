@@ -1,5 +1,4 @@
 const ABS_URL = ""
-const ABS_URL_SERVER = "https://imperacore.net"
 
 let res,
     index,
